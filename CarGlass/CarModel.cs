@@ -1,0 +1,119 @@
+﻿using System;
+using MySql.Data.MySqlClient;
+using QSProjectsLib;
+using Gtk;
+
+namespace CarGlass
+{
+	public partial class CarModel : Gtk.Dialog
+	{
+		public bool NewItem;
+		int Itemid;
+		int Mark_id = -1;
+
+		public CarModel()
+		{
+			this.Build();
+		}
+
+		public void Fill(int id)
+		{
+			Itemid = id;
+			NewItem = false;
+
+			MainClass.StatusMessage(String.Format("Запрос модели №{0}...", id));
+			string sql = "SELECT models.*, marks.name as mark FROM models " +
+				"LEFT JOIN marks ON marks.id = models.mark_id WHERE models.id = @id";
+			try
+			{
+				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+
+				cmd.Parameters.AddWithValue("@id", id);
+
+				using(MySqlDataReader rdr = cmd.ExecuteReader())
+				{		
+					rdr.Read();
+
+					labelId.Text = rdr["id"].ToString();
+					entryName.Text = rdr["name"].ToString();
+
+					entryMark.Text = rdr["mark"].ToString();
+					Mark_id = DBWorks.GetInt(rdr, "mark_id", -1);
+
+					MainClass.StatusMessage("Ok");
+				}
+				this.Title = entryName.Text;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.ToString());
+				MainClass.StatusMessage("Ошибка получения информации о модели!");
+				QSMain.ErrorMessage(this, ex);
+				this.Respond(Gtk.ResponseType.Reject);
+			}
+			TestCanSave();
+		}
+
+		protected	void TestCanSave ()
+		{
+			bool Nameok = entryName.Text != "";
+			bool MarkOk = Mark_id >= 0;
+			buttonOk.Sensitive = Nameok && MarkOk;
+		}
+
+		protected void OnButtonOkClicked (object sender, EventArgs e)
+		{
+			string sql;
+			if(NewItem)
+			{
+				sql = "INSERT INTO models (name, mark_id) " +
+					"VALUES (@name, @mark_id)";
+			}
+			else
+			{
+				sql = "UPDATE models SET name = @name, mark_id = @mark_id WHERE id = @id";
+			}
+			MainClass.StatusMessage("Запись модели...");
+			try 
+			{
+				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+
+				cmd.Parameters.AddWithValue("@id", Itemid);
+				cmd.Parameters.AddWithValue("@name", entryName.Text);
+				cmd.Parameters.AddWithValue("@mark_id", DBWorks.ValueOrNull(Mark_id > 0, Mark_id));
+		
+				cmd.ExecuteNonQuery();
+				MainClass.StatusMessage("Ok");
+				Respond (Gtk.ResponseType.Ok);
+			} 
+			catch (Exception ex) 
+			{
+				Console.WriteLine(ex.ToString());
+				MainClass.StatusMessage("Ошибка записи модели!");
+				QSMain.ErrorMessage(this,ex);
+			}
+		}
+
+		protected void OnButtonMarkEditClicked(object sender, EventArgs e)
+		{
+			Reference MarkSelect = new Reference();
+			MarkSelect.SetMode(true,true,true,true,false);
+			MarkSelect.FillList("marks","Марка автомобиля", "Марки автомобилей");
+			MarkSelect.Show();
+			int result = MarkSelect.Run();
+			if((ResponseType)result == ResponseType.Ok)
+			{
+				Mark_id = MarkSelect.SelectedID;
+				entryMark.Text = MarkSelect.SelectedName;
+			}
+			MarkSelect.Destroy();
+			TestCanSave();
+		}
+
+		protected void OnEntryNameChanged(object sender, EventArgs e)
+		{
+			TestCanSave();
+		}
+	}
+}
+
