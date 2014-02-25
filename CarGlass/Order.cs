@@ -344,7 +344,7 @@ namespace CarGlass
 						}
 					}
 				}
-
+				CalculateTotal();
 				MainClass.StatusMessage("Ok");
 			}
 			catch (Exception ex)
