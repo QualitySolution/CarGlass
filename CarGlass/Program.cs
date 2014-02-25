@@ -2,6 +2,7 @@
 using Gtk;
 using QSProjectsLib;
 using System.Collections.Generic;
+using NLog;
 
 namespace CarGlass
 {
@@ -9,6 +10,7 @@ namespace CarGlass
 	{
 		public static Label StatusBarLabel;
 		public static MainWindow MainWin;
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 
 		public static void Main(string[] args)
 		{
@@ -89,7 +91,7 @@ namespace CarGlass
 		public static void StatusMessage(string message)
 		{
 			StatusBarLabel.Text = message;
-			Console.WriteLine (message);
+			logger.Info(message);
 			while (GLib.MainContext.Pending())
 			{
 				Gtk.Main.Iteration();
