@@ -12,6 +12,13 @@ namespace CarGlass
 		public string Color;
 
 		public event EventHandler OpenOrder;
+		public event EventHandler<TimeChangedEventArgs> TimeChanged;
+
+		public class TimeChangedEventArgs : EventArgs
+		{
+			public DateTime Date;
+			public int Hour;
+		}
 
 		public CalendarItem(DateTime date, int hour)
 		{
@@ -27,7 +34,21 @@ namespace CarGlass
 				handler(this, EventArgs.Empty);
 			}
 		}
-				
+
+		public void ChangeTime(DateTime date, int hour)
+		{
+			EventHandler<TimeChangedEventArgs> handler = TimeChanged;
+			if (handler != null)
+			{
+				TimeChangedEventArgs arg = new TimeChangedEventArgs();
+				arg.Date = date;
+				arg.Hour = hour;
+				handler(this, arg);
+			}
+
+			Date = date;
+			Hour = hour;
+		}
 	}
 }
 

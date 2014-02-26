@@ -60,6 +60,7 @@ public partial class MainWindow: Gtk.Window
 					order.Color = DBWorks.GetString(rdr, "color", "");
 					order.Type = (int) Enum.Parse(typeof(Order.OrderType), rdr["type"].ToString());
 					order.OpenOrder += OnOpenOrder;
+					order.TimeChanged += OnChangeTimeOrderEvent;
 					int day = (order.Date - Calendar.StartDate).Days;
 					Calendar.TimeMap[day, order.Hour] = order;
 				}
@@ -96,4 +97,29 @@ public partial class MainWindow: Gtk.Window
 		OrderWin.Destroy();
 	}
 
+	protected void OnChangeTimeOrderEvent(object sender, CalendarItem.TimeChangedEventArgs arg)
+	{
+		CalendarItem order = (CalendarItem)sender;
+
+		MainClass.StatusMessage(String.Format ("Изменение времени заказа на {0:d} {1}ч...", arg.Date, arg.Hour));
+		string sql = "UPDATE orders SET date = @date, hour = @hour WHERE id = @id ";
+		try
+		{
+			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+
+			cmd.Parameters.AddWithValue("@date", arg.Date);
+			cmd.Parameters.AddWithValue("@hour", arg.Hour);
+			cmd.Parameters.AddWithValue("@id", order.id);
+
+			cmd.ExecuteNonQuery();
+			MainClass.StatusMessage("Ok");
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.ToString());
+			MainClass.StatusMessage("Ошибка записи заказа!");
+			QSMain.ErrorMessage(this,ex);
+		}
+
+	}
 }

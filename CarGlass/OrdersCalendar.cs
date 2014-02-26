@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using Gtk;
 using MySql.Data.MySqlClient;
 using QSWidgetLib;
+using NLog;
 
 namespace CarGlass
 {
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class OrdersCalendar : Gtk.Bin
 	{
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 		public CalendarItem[,] TimeMap;
 		public Dictionary<int, string> OrdersTypes;
-		private Button[,] CalendarButtons;
+		private ButtonId<CalendarItem>[,] CalendarButtons;
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
 
@@ -19,6 +21,7 @@ namespace CarGlass
 		private Label[] HoursLabels;
 
 		private int PopupPosX, PopupPosY;
+		private bool DragIn;
 
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
@@ -75,7 +78,7 @@ namespace CarGlass
 			this.Build();
 
 			TimeMap = new CalendarItem[7,24];
-			CalendarButtons = new Button[7,24];
+			CalendarButtons = new ButtonId<CalendarItem>[7,24];
 
 			HeadLabels = new Label[7];
 			HoursLabels = new Label[24];
@@ -131,7 +134,7 @@ namespace CarGlass
 					label.Ellipsize = Pango.EllipsizeMode.Middle;
 					label.CanFocus = false;
 
-					Button tempbut = new Button();
+					ButtonId<CalendarItem> tempbut = new ButtonId<CalendarItem>();
 					tempbut.Relief = ReliefStyle.None;
 					tempbut.Add(label);
 					tempbut.HeightRequest = 32;
@@ -237,12 +240,18 @@ namespace CarGlass
 			{
 				for(int y = StartTime; y <= EndTime; y++)
 				{
-					Button temp = CalendarButtons[x, y];
+					ButtonId<CalendarItem> temp = CalendarButtons[x, y];
+					temp.DragLeave -= HandleTargetDragLeave;
+					temp.DragMotion	-= HandleTargetDragMotion;
+					temp.DragDrop -= HandleTargetDragDrop;
 					if(TimeMap[x, y] != null)
 					{
+						temp.ID = TimeMap[x, y];
 						temp.Image = null;
 						temp.Label = TimeMap[x, y].Text;
 						temp.Relief = ReliefStyle.Normal;
+						Drag.DestUnset(temp);
+						Drag.SourceSet(temp, Gdk.ModifierType.Button1Mask, null, Gdk.DragAction.Move );
 						Gdk.Color col = new Gdk.Color();
 						Gdk.Color.Parse(TimeMap[x, y].Color, ref col);
 						temp.ModifyBg(StateType.Normal, col);
@@ -251,7 +260,13 @@ namespace CarGlass
 					else
 					{
 						temp.Image = null;
+						temp.Label = "";
 						temp.Label = null;
+						Drag.SourceUnset(temp);
+						Drag.DestSet(temp, DestDefaults.Highlight, null, 0);
+						temp.DragMotion	+= HandleTargetDragMotion;
+						temp.DragDrop += HandleTargetDragDrop;
+						temp.DragLeave += HandleTargetDragLeave;
 						temp.Relief = ReliefStyle.None;
 						temp.ModifyBg(StateType.Normal);
 					}
@@ -268,6 +283,57 @@ namespace CarGlass
 		{
 			this.StartDate = this.StartDate.AddDays(7);
 		}
+
+		//Таскание
+		void HandleTargetDragMotion(object sender, Gtk.DragMotionArgs args)
+		{
+			Button target = (Button)sender;
+			ButtonId<CalendarItem> source = (ButtonId<CalendarItem>)Drag.GetSourceWidget(args.Context);
+			if(!DragIn)
+			{
+				DragIn = true;
+				logger.Debug ("Set DragIn=true;");
+				target.Label = source.ID.Text;
+				target.Relief = ReliefStyle.Normal;
+			}
+			Gdk.Drag.Status (args.Context,
+				args.Context.SuggestedAction,
+				args.Time);
+			args.RetVal = true;
+		}
+
+		void HandleTargetDragDrop(object sender, Gtk.DragDropArgs args)
+		{
+			logger.Debug ("drop");
+			DragIn = false;
+			Button target = (Button)sender;
+			ButtonId<CalendarItem> source = (ButtonId<CalendarItem>)Drag.GetSourceWidget(args.Context);
+			for (int x = 0; x < 7; x++)
+			{
+				for (int y = StartTime; y <= EndTime; y++)
+				{
+					if (target == CalendarButtons[x, y])
+					{
+						source.ID.ChangeTime(_StartDate.AddDays(x), y);
+						Gtk.Drag.Finish (args.Context, true, false, args.Time);
+						RefreshOrders();
+					}
+				}
+			}
+			args.RetVal = false;
+		}
+
+		private void HandleTargetDragLeave (object sender, DragLeaveArgs args)
+		{
+			logger.Debug ("leave");
+			DragIn = false;
+
+			Button target = (Button)sender;
+			target.Label = "";
+			target.Label = null;
+			target.Relief = ReliefStyle.None;
+		}
+
 
 	}
 
