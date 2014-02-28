@@ -72,6 +72,11 @@ namespace CarGlass
 			}
 			return false;
 		}
+
+		public Gdk.Color BackgroundColor
+		{
+			set{eventbox1.ModifyBg(StateType.Normal, value);}
+		}
 			
 		public OrdersCalendar()
 		{
@@ -89,6 +94,7 @@ namespace CarGlass
 				HeadLabels[i-1] = templabel;
 			};
 
+			tableOrders.SetColSpacing(0, 3);
 		}
 
 		public DateTime StartDate {
@@ -136,6 +142,9 @@ namespace CarGlass
 
 					ButtonId<CalendarItem> tempbut = new ButtonId<CalendarItem>();
 					tempbut.Relief = ReliefStyle.None;
+					Gdk.Color col = new Gdk.Color();
+					Gdk.Color.Parse("red", ref col);
+					tempbut.ModifyFg(StateType.Normal, col);
 					tempbut.Add(label);
 					tempbut.HeightRequest = 32;
 					tempbut.EnterNotifyEvent += OnButtonEnterNotifyEvent;
@@ -334,6 +343,26 @@ namespace CarGlass
 			target.Relief = ReliefStyle.None;
 		}
 
+		protected void OnTableOrdersExposeEvent(object o, ExposeEventArgs args)
+		{
+			logger.Debug("Table Explose");
+			int x, y, w, h;
+			h = tableOrders.Allocation.Height;
+			w = tableOrders.Allocation.Width;
+			logger.Debug("size: {0}, {1}", w, h);
+			for (int day = 0; day < 7; day++)
+			{
+				CalendarButtons[day, 10].TranslateCoordinates(tableOrders, -1, 0, out x, out y);
+				logger.Debug("cor: {0}, {1}", x, y);
+				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), x, 0, x, h);
+			}
+			for (int hour = StartTime; hour <= EndTime; hour++)
+			{
+				CalendarButtons[0, hour].TranslateCoordinates(tableOrders, 0, -1, out x, out y);
+				logger.Debug("cor: {0}, {1}", x, y);
+				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), 0, y, w, y);
+			}
+		}
 
 	}
 

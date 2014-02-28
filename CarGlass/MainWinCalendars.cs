@@ -12,6 +12,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 20);
+		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);
 		orderscalendar1.OrdersTypes = new Dictionary<int, string>();
 		orderscalendar1.OrdersTypes.Add((int)Order.OrderType.install, "Установка стекл");
 		orderscalendar1.NeedRefreshOrders += OnRefreshCalendarEvent;
@@ -19,6 +20,7 @@ public partial class MainWindow: Gtk.Window
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 20);
+		orderscalendar2.BackgroundColor = new Gdk.Color(255, 230, 230);
 		orderscalendar2.OrdersTypes = new Dictionary<int, string>();
 		orderscalendar2.OrdersTypes.Add((int)Order.OrderType.tinting, "Тонировка");
 		orderscalendar2.OrdersTypes.Add((int)Order.OrderType.repair, "Ремонт сколов");

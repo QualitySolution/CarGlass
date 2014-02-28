@@ -11,6 +11,7 @@ namespace CarGlass
 		private global::Gtk.Label labelWeek;
 		private global::Gtk.Button buttonRight;
 		private global::Gtk.Button buttonRefresh;
+		private global::Gtk.EventBox eventbox1;
 		private global::Gtk.Table tableOrders;
 
 		protected virtual void Build ()
@@ -89,13 +90,17 @@ namespace CarGlass
 			w9.Expand = false;
 			w9.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
+			this.eventbox1 = new global::Gtk.EventBox ();
+			this.eventbox1.Name = "eventbox1";
+			// Container child eventbox1.Gtk.Container+ContainerChild
 			this.tableOrders = new global::Gtk.Table (((uint)(3)), ((uint)(8)), false);
 			this.tableOrders.Name = "tableOrders";
 			this.tableOrders.RowSpacing = ((uint)(1));
 			this.tableOrders.ColumnSpacing = ((uint)(1));
-			this.vbox3.Add (this.tableOrders);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.tableOrders]));
-			w10.Position = 1;
+			this.eventbox1.Add (this.tableOrders);
+			this.vbox3.Add (this.eventbox1);
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.eventbox1]));
+			w11.Position = 1;
 			this.Add (this.vbox3);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
@@ -104,6 +109,7 @@ namespace CarGlass
 			this.buttonLeft.Clicked += new global::System.EventHandler (this.OnButtonLeftClicked);
 			this.buttonRight.Clicked += new global::System.EventHandler (this.OnButtonRightClicked);
 			this.buttonRefresh.Clicked += new global::System.EventHandler (this.OnButtonRefreshClicked);
+			this.tableOrders.ExposeEvent += new global::Gtk.ExposeEventHandler (this.OnTableOrdersExposeEvent);
 		}
 	}
 }
