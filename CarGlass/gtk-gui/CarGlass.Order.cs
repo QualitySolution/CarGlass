@@ -401,6 +401,7 @@ namespace CarGlass
 			this.DefaultHeight = 544;
 			this.Show ();
 			this.buttonCarEdit.Clicked += new global::System.EventHandler (this.OnButtonCarEditClicked);
+			this.comboStatus.Changed += new global::System.EventHandler (this.OnComboStatusChanged);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}
 	}

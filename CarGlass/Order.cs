@@ -374,6 +374,11 @@ namespace CarGlass
 			return str[(int)type];
 		}
 
+		protected void OnComboStatusChanged(object sender, EventArgs e)
+		{
+			TestCanSave();
+		}
+
 	}
 }
 

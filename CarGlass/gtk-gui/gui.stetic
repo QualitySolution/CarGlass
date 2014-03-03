@@ -1046,6 +1046,7 @@
                         <property name="MemberName" />
                         <property name="IsTextCombo">False</property>
                         <property name="Items" translatable="yes" />
+                        <signal name="Changed" handler="OnComboStatusChanged" />
                       </widget>
                       <packing>
                         <property name="LeftAttach">1</property>
