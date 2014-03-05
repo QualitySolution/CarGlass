@@ -9,6 +9,7 @@ namespace CarGlass
 		public int id;
 		public int Type;
 		public string Text;
+		public string FullText;
 		public string Color;
 
 		public event EventHandler OpenOrder;

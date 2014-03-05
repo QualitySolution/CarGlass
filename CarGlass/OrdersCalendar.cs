@@ -255,6 +255,7 @@ namespace CarGlass
 						temp.ID = TimeMap[x, y];
 						temp.Image = null;
 						PangoTexts[x, y].SetText(TimeMap[x, y].Text);
+						temp.TooltipText = TimeMap[x, y].FullText;
 						temp.Relief = ReliefStyle.Normal;
 						Drag.DestUnset(temp);
 						Drag.SourceSet(temp, Gdk.ModifierType.Button1Mask, null, Gdk.DragAction.Move );
@@ -272,6 +273,7 @@ namespace CarGlass
 					else
 					{
 						temp.Image = null;
+						temp.TooltipText = null;
 						Drag.SourceUnset(temp);
 						Drag.DestSet(temp, DestDefaults.Highlight, null, 0);
 						temp.DragMotion	+= HandleTargetDragMotion;
