@@ -14,6 +14,7 @@ namespace CarGlass
 		public CalendarItem[,] TimeMap;
 		public Dictionary<int, string> OrdersTypes;
 		private ButtonId<CalendarItem>[,] CalendarButtons;
+		private Pango.Layout[,] PangoTexts;
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
 
@@ -84,6 +85,7 @@ namespace CarGlass
 
 			TimeMap = new CalendarItem[7,24];
 			CalendarButtons = new ButtonId<CalendarItem>[7,24];
+			PangoTexts = new Pango.Layout[7,24];
 
 			HeadLabels = new Label[7];
 			HoursLabels = new Label[24];
@@ -135,27 +137,22 @@ namespace CarGlass
 				//Добавляем кнопки заказов
 				for(uint x = 1; x <= 7; x++)
 				{
-					Label label = new Label();
-					label.Justify = Justification.Center;
-					label.Ellipsize = Pango.EllipsizeMode.Middle;
-					label.CanFocus = false;
-
 					ButtonId<CalendarItem> tempbut = new ButtonId<CalendarItem>();
 					tempbut.Relief = ReliefStyle.None;
-					Gdk.Color col = new Gdk.Color();
-					Gdk.Color.Parse("red", ref col);
-					tempbut.ModifyFg(StateType.Normal, col);
-					tempbut.Add(label);
 					tempbut.HeightRequest = 32;
 					tempbut.EnterNotifyEvent += OnButtonEnterNotifyEvent;
 					tempbut.LeaveNotifyEvent += OnButtonLeaveNotifyEvent;
 					tempbut.Clicked += OnButtonClick;
+					tempbut.ExposeEvent += OnButtonExposeEvent;
 					tableOrders.Attach(tempbut, x, x + 1, Position, Position + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
 					CalendarButtons[x - 1, i] = tempbut;
-					tempbut.Show();
+
+					Pango.Layout layout = new Pango.Layout(tempbut.PangoContext);
+					PangoTexts[x - 1, i] = layout;
 				}
 				Position++;
 			}
+			tableOrders.ShowAll();
 		}
 
 		public void ClearTimeMap()
@@ -257,20 +254,24 @@ namespace CarGlass
 					{
 						temp.ID = TimeMap[x, y];
 						temp.Image = null;
-						temp.Label = TimeMap[x, y].Text;
+						PangoTexts[x, y].SetText(TimeMap[x, y].Text);
 						temp.Relief = ReliefStyle.Normal;
 						Drag.DestUnset(temp);
 						Drag.SourceSet(temp, Gdk.ModifierType.Button1Mask, null, Gdk.DragAction.Move );
 						Gdk.Color col = new Gdk.Color();
 						Gdk.Color.Parse(TimeMap[x, y].Color, ref col);
+						logger.Debug("a={0} - {1} - {2}", col.Red, col.Green, col.Blue);
 						temp.ModifyBg(StateType.Normal, col);
-						Console.WriteLine(col.ToString());
+						byte r = (byte) Math.Min(((double)col.Red / ushort.MaxValue) * byte.MaxValue + 30 , byte.MaxValue);
+						byte g = (byte) Math.Min(((double)col.Green / ushort.MaxValue) * byte.MaxValue + 30 , byte.MaxValue);
+						byte b = (byte) Math.Min(((double)col.Blue / ushort.MaxValue) * byte.MaxValue + 30 , byte.MaxValue);
+						col = new Gdk.Color(r, g, b);
+						temp.ModifyBg(StateType.Prelight, col);
+						logger.Debug("b={0} - {1} - {2}", col.Red, col.Green, col.Blue);
 					}
 					else
 					{
 						temp.Image = null;
-						temp.Label = "";
-						temp.Label = null;
 						Drag.SourceUnset(temp);
 						Drag.DestSet(temp, DestDefaults.Highlight, null, 0);
 						temp.DragMotion	+= HandleTargetDragMotion;
@@ -296,13 +297,16 @@ namespace CarGlass
 		//Таскание
 		void HandleTargetDragMotion(object sender, Gtk.DragMotionArgs args)
 		{
-			Button target = (Button)sender;
+			ButtonId<CalendarItem> target = (ButtonId<CalendarItem>)sender;
 			ButtonId<CalendarItem> source = (ButtonId<CalendarItem>)Drag.GetSourceWidget(args.Context);
 			if(!DragIn)
 			{
 				DragIn = true;
 				logger.Debug ("Set DragIn=true;");
-				target.Label = source.ID.Text;
+				int day, hour;
+				GetCalendarPosition(target, out day, out hour);
+				PangoTexts[day, hour].SetText(source.ID.Text);
+				target.ModifyBg(StateType.Normal, source.Style.Background(StateType.Normal));
 				target.Relief = ReliefStyle.Normal;
 			}
 			Gdk.Drag.Status (args.Context,
@@ -338,8 +342,6 @@ namespace CarGlass
 			DragIn = false;
 
 			Button target = (Button)sender;
-			target.Label = "";
-			target.Label = null;
 			target.Relief = ReliefStyle.None;
 		}
 
@@ -353,15 +355,53 @@ namespace CarGlass
 			for (int day = 0; day < 7; day++)
 			{
 				CalendarButtons[day, 10].TranslateCoordinates(tableOrders, -1, 0, out x, out y);
-				logger.Debug("cor: {0}, {1}", x, y);
+				//logger.Debug("cor: {0}, {1}", x, y);
 				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), x, 0, x, h);
 			}
 			for (int hour = StartTime; hour <= EndTime; hour++)
 			{
 				CalendarButtons[0, hour].TranslateCoordinates(tableOrders, 0, -1, out x, out y);
-				logger.Debug("cor: {0}, {1}", x, y);
+				//logger.Debug("cor: {0}, {1}", x, y);
 				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), 0, y, w, y);
 			}
+		}
+
+		private bool GetCalendarPosition(ButtonId<CalendarItem> button, out int day, out int hour)
+		{
+			day = -1;
+			hour = -1;
+			for (int day1 = 0; day1 < 7; day1++)
+			{
+				for (int hour1 = StartTime; hour1 <= EndTime; hour1++)
+				{
+					if (button == CalendarButtons[day1, hour1])
+					{
+						day = day1;
+						hour = hour1;
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		protected void OnButtonExposeEvent(object o, ExposeEventArgs args)
+		{
+			logger.Debug("Button Explose");
+			ButtonId<CalendarItem> DrawButton = (ButtonId<CalendarItem>)o;
+			if(DrawButton.Relief == ReliefStyle.Normal)
+			{
+				int x, y, w, h, calday, calhour;
+				GetCalendarPosition(DrawButton, out calday, out calhour);
+				h = DrawButton.Allocation.Height;
+				w = DrawButton.Allocation.Width;
+				DrawButton.TranslateCoordinates(tableOrders, 0, 0, out x, out y);
+				logger.Debug("button size: {0}, {1}", w, h);
+				Gdk.Rectangle targetRectangle = new Gdk.Rectangle (x, y, w, h);
+				DrawButton.GdkWindow.DrawRectangle(DrawButton.Style.BackgroundGC (DrawButton.State), true, targetRectangle);
+				DrawButton.GdkWindow.DrawLayout(DrawButton.Style.TextGC(DrawButton.State), x, y, PangoTexts[calday, calhour]);
+			}
+			args.RetVal = true;
 		}
 
 	}
