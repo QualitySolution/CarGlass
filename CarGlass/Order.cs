@@ -339,7 +339,7 @@ namespace CarGlass
 								true,
 								"исключенная услуга",
 								rdr.GetDouble("cost"),
-								rdr.GetInt64("id")
+								(object)rdr.GetInt64("id")
 							);
 						}
 					}
