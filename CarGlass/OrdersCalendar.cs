@@ -356,12 +356,16 @@ namespace CarGlass
 			logger.Debug("size: {0}, {1}", w, h);
 			for (int day = 0; day < 7; day++)
 			{
+				if (CalendarButtons[day, 10] == null)
+					continue;
 				CalendarButtons[day, 10].TranslateCoordinates(tableOrders, -1, 0, out x, out y);
 				//logger.Debug("cor: {0}, {1}", x, y);
 				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), x, 0, x, h);
 			}
 			for (int hour = StartTime; hour <= EndTime; hour++)
 			{
+				if (CalendarButtons[0, hour] == null)
+					continue;
 				CalendarButtons[0, hour].TranslateCoordinates(tableOrders, 0, -1, out x, out y);
 				//logger.Debug("cor: {0}, {1}", x, y);
 				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), 0, y, w, y);
