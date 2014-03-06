@@ -331,7 +331,7 @@ namespace CarGlass
 						{
 							ServiceListStore.SetValue(iter, 1, true);
 							ServiceListStore.SetValue(iter, 3, rdr.GetDouble("cost"));
-							ServiceListStore.SetValue(iter, 4, rdr.GetInt64("id"));
+							ServiceListStore.SetValue(iter, 4, (object)rdr.GetInt64("id"));
 						}
 						else
 						{
