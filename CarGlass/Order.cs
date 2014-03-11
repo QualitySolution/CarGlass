@@ -345,6 +345,7 @@ namespace CarGlass
 					}
 				}
 				CalculateTotal();
+				buttonPrint.Sensitive = true;
 				MainClass.StatusMessage("Ok");
 			}
 			catch (Exception ex)
@@ -377,6 +378,11 @@ namespace CarGlass
 		protected void OnComboStatusChanged(object sender, EventArgs e)
 		{
 			TestCanSave();
+		}
+
+		protected void OnButtonPrintClicked(object sender, EventArgs e)
+		{
+			QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Item_id));
 		}
 
 	}
