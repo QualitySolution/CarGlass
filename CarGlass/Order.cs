@@ -167,7 +167,7 @@ namespace CarGlass
 				entryCar.TooltipText = String.Format("{1} {2}", winref.SelectedRow);
 			}
 			winref.Destroy();
-
+			TestCanSave();
 		}
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
@@ -234,7 +234,7 @@ namespace CarGlass
 					if((bool)row[1])
 					{
 						if((long) row[4] > 0)
-							sql = "UPDATE order_pays SET order_id = @order_id, service_idid = @service_id, cost = @cost WHERE id = @id";
+							sql = "UPDATE order_pays SET order_id = @order_id, service_id = @service_id, cost = @cost WHERE id = @id";
 						else
 							sql = "INSERT INTO order_pays (order_id, service_id, cost) VALUES (@order_id, @service_id, @cost)";
 

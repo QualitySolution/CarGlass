@@ -26,6 +26,8 @@ public partial class MainWindow: Gtk.Window
 		orderscalendar2.OrdersTypes.Add((int)Order.OrderType.repair, "Ремонт сколов");
 		orderscalendar2.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar2.NewOrder += OnNewOrder;
+
+		orderscalendar1.RefreshOrders();
 	}
 
 	protected void OnRefreshCalendarEvent(object sender, OrdersCalendar.RefreshOrdersEventArgs arg)
@@ -91,6 +93,7 @@ public partial class MainWindow: Gtk.Window
 					}
 					order.Color = DBWorks.GetString(rdr, "color", "");
 					order.Type = (int) type;
+					order.Calendar = Calendar;
 					order.OpenOrder += OnOpenOrder;
 					order.TimeChanged += OnChangeTimeOrderEvent;
 					int day = (order.Date - Calendar.StartDate).Days;
@@ -114,7 +117,8 @@ public partial class MainWindow: Gtk.Window
 		Order OrderWin = new Order((Order.OrderType)item.Type);
 		OrderWin.Fill(item.id);
 		OrderWin.Show();
-		OrderWin.Run();
+		if ((ResponseType)OrderWin.Run() == ResponseType.Ok)
+			item.Calendar.RefreshOrders();
 		OrderWin.Destroy();
 	}
 
