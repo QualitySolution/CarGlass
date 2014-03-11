@@ -5,11 +5,12 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../../../QSProjects/QSProjectsLib/bin/Debug/QSProjectsLib.dll" />
     <widget-library name="../../../QSProjects/QSSupportLib/bin/Debug/QSSupportLib.dll" />
     <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
+    <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
     <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
-    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="670 300">
     <action-group name="Default">
@@ -1946,7 +1947,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.GlassOrders" design-size="406 136">
+  <widget class="Gtk.Dialog" id="CarGlass.GlassOrders" design-size="486 248">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">2</property>
@@ -1959,6 +1960,7 @@
           <widget class="Gtk.HBox" id="hbox1">
             <property name="MemberName" />
             <property name="Spacing">6</property>
+            <property name="BorderWidth">6</property>
             <child>
               <widget class="Gtk.Table" id="table1">
                 <property name="MemberName" />
@@ -1967,19 +1969,13 @@
                 <property name="RowSpacing">6</property>
                 <property name="ColumnSpacing">6</property>
                 <child>
-                  <placeholder />
-                </child>
-                <child>
-                  <placeholder />
-                </child>
-                <child>
-                  <widget class="Gtk.ComboBox" id="comboStatus">
+                  <widget class="QSWidgetLib.CheckList" id="checklistStock">
                     <property name="MemberName" />
-                    <property name="IsTextCombo">True</property>
-                    <property name="Items" translatable="yes" />
+                    <signal name="CheckListClicked" handler="OnChecklistStockCheckListClicked" />
                   </widget>
                   <packing>
-                    <property name="LeftAttach">1</property>
+                    <property name="TopAttach">2</property>
+                    <property name="BottomAttach">3</property>
                     <property name="RightAttach">2</property>
                     <property name="AutoSize">True</property>
                     <property name="XOptions">Fill</property>
@@ -1993,14 +1989,13 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.ComboBox" id="comboStock">
+                  <widget class="Gtk.ComboBox" id="comboStatus">
                     <property name="MemberName" />
                     <property name="IsTextCombo">True</property>
                     <property name="Items" translatable="yes" />
+                    <signal name="Changed" handler="OnComboStatusChanged" />
                   </widget>
                   <packing>
-                    <property name="TopAttach">1</property>
-                    <property name="BottomAttach">2</property>
                     <property name="LeftAttach">1</property>
                     <property name="RightAttach">2</property>
                     <property name="AutoSize">True</property>
@@ -2035,12 +2030,13 @@
                 <child>
                   <widget class="Gtk.Label" id="label4">
                     <property name="MemberName" />
-                    <property name="Xalign">1</property>
-                    <property name="LabelProp" translatable="yes">Склад:</property>
+                    <property name="Xalign">0</property>
+                    <property name="LabelProp" translatable="yes">Склады:</property>
                   </widget>
                   <packing>
                     <property name="TopAttach">1</property>
                     <property name="BottomAttach">2</property>
+                    <property name="RightAttach">2</property>
                     <property name="AutoSize">True</property>
                     <property name="XOptions">Fill</property>
                     <property name="YOptions">Fill</property>
@@ -2067,17 +2063,18 @@
                 <property name="DateBegin">0</property>
                 <property name="DateEnd">0</property>
                 <property name="AutoDateSeparation">True</property>
-                <property name="ShowToday">False</property>
+                <property name="ShowToday">True</property>
                 <property name="ShowWeek">False</property>
                 <property name="ShowMonth">False</property>
                 <property name="Show3Month">False</property>
                 <property name="Show6Month">False</property>
                 <property name="ShowYear">False</property>
-                <property name="ShowAllTime">True</property>
+                <property name="ShowAllTime">False</property>
                 <property name="ShowCurWeek">True</property>
                 <property name="ShowCurMonth">True</property>
                 <property name="ShowCurQuarter">False</property>
                 <property name="ShowCurYear">True</property>
+                <signal name="DatesChanged" handler="OnSelectperiod1DatesChanged" />
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -2090,6 +2087,8 @@
           <packing>
             <property name="Position">0</property>
             <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
           </packing>
         </child>
       </widget>
@@ -2120,6 +2119,7 @@
         <child>
           <widget class="Gtk.Button" id="buttonOk">
             <property name="MemberName" />
+            <property name="Sensitive">False</property>
             <property name="CanDefault">True</property>
             <property name="CanFocus">True</property>
             <property name="UseStock">True</property>

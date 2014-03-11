@@ -272,4 +272,12 @@ public partial class MainWindow: Gtk.Window
 				break;
 		}
 	}
+
+	protected void OnAction15Activated(object sender, EventArgs e)
+	{
+		GlassOrders report = new GlassOrders();
+		report.Show();
+		report.Run();
+		report.Destroy();
+	}
 }
