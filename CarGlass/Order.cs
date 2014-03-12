@@ -175,13 +175,13 @@ namespace CarGlass
 			string sql;
 			if(NewItem)
 			{
-				sql = "INSERT INTO orders (date, hour, type, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode) " +
-					"VALUES (@date, @hour, @type, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode)";
+				sql = "INSERT INTO orders (date, hour, type, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode, comment) " +
+					"VALUES (@date, @hour, @type, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode, @comment)";
 			}
 			else
 			{
 				sql = "UPDATE orders SET car_model_id = @car_model_id, car_year = @car_year, phone = @phone, status_id = @status_id, " +
-					"manufacturer_id = @manufacturer_id, stock_id = @stock_id, eurocode = @eurocode WHERE id = @id";
+					"manufacturer_id = @manufacturer_id, stock_id = @stock_id, eurocode = @eurocode, comment = @comment WHERE id = @id";
 			}
 			MainClass.StatusMessage("Запись заказа...");
 			MySqlTransaction trans = QSMain.connectionDB.BeginTransaction();
@@ -200,6 +200,7 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@manufacturer_id", ComboWorks.GetActiveIdOrNull(comboManufacturer));
 				cmd.Parameters.AddWithValue("@stock_id", ComboWorks.GetActiveIdOrNull(comboStock));
 				cmd.Parameters.AddWithValue("@eurocode", DBWorks.ValueOrNull(entryEurocode.Text != "", entryEurocode.Text));
+				cmd.Parameters.AddWithValue("@comment", DBWorks.ValueOrNull(textviewComment.Buffer.Text != "", textviewComment.Buffer.Text));
 				cmd.ExecuteNonQuery();
 
 				if(NewItem)
