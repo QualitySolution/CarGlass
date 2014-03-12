@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description>
+  </Description>
+  <Author>
+  </Author>
+  <PageHeight>11in</PageHeight>
+  <PageWidth>8.5in</PageWidth>
+  <DataSources>
+    <DataSource Name="DS1">
+      <ConnectionProperties>
+        <DataProvider>MySQL.NET</DataProvider>
+        <ConnectString>server=192.168.1.35;user=admin;database=CarGlass;port=3306;password=123;</ConnectString>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <Width>7.5in</Width>
+  <TopMargin>.25in</TopMargin>
+  <LeftMargin>.25in</LeftMargin>
+  <RightMargin>.25in</RightMargin>
+  <BottomMargin>.25in</BottomMargin>
+  <DataSets>
+    <DataSet Name="Data">
+      <Query>
+        <DataSourceName>DS1</DataSourceName>
+        <CommandText>SELECT a.calhour, cal.* FROM 
+(SELECT 9 as calhour UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL SELECT 15 UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19 UNION ALL SELECT 20) as a
+LEFT JOIN 
+(SELECT orders.id, orders.date, orders.hour, status.name as status, marks.name as mark, models.name as model, orders.car_year, orders.phone, stocks.name as stocks, orders.eurocode, orders.comment, GROUP_CONCAT(glass.name SEPARATOR ', ') as glass FROM orders
+LEFT JOIN models ON models.id = orders.car_model_id
+LEFT JOIN marks ON marks.id = models.mark_id
+LEFT JOIN stocks ON stocks.id = orders.stock_id
+LEFT JOIN status ON status.id = orders.status_id
+LEFT JOIN order_glasses ON order_glasses.order_id = orders.id
+LEFT JOIN glass ON order_glasses.glass_id = glass.id
+WHERE orders.date = @date AND orders.type IN (@type)
+GROUP BY orders.id
+) as cal ON a.calhour = cal.hour</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="type">
+            <Value>=Parameters!type</Value>
+          </QueryParameter>
+          <QueryParameter Name="date">
+            <Value>=Parameters!date</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+      <Fields>
+        <Field Name="calhour">
+          <DataField>calhour</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="id">
+          <DataField>id</DataField>
+          <rd:TypeName>System.UInt32</rd:TypeName>
+        </Field>
+        <Field Name="date">
+          <DataField>date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="hour">
+          <DataField>hour</DataField>
+          <rd:TypeName>System.UInt32</rd:TypeName>
+        </Field>
+        <Field Name="status">
+          <DataField>status</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="mark">
+          <DataField>mark</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="model">
+          <DataField>model</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="car_year">
+          <DataField>car_year</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="phone">
+          <DataField>phone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="stocks">
+          <DataField>stocks</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="eurocode">
+          <DataField>eurocode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="glass">
+          <DataField>glass</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="comment">
+          <DataField>comment</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <PageHeader>
+    <Height>19.5pt</Height>
+    <ReportItems>
+      <Textbox Name="Textbox1">
+        <Top>0.1pt</Top>
+        <Left>170.7pt</Left>
+        <Width>91.21pt</Width>
+        <Height>18.82pt</Height>
+        <Value>Заказы на</Value>
+        <Style>
+          <FontSize>15pt</FontSize>
+          <FontWeight>Bold</FontWeight>
+          <BorderStyle />
+          <BorderColor />
+          <BorderWidth />
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox15">
+        <Height>17.25pt</Height>
+        <Width>104.54pt</Width>
+        <Value>=Parameters!date.Value</Value>
+        <ZIndex>1</ZIndex>
+        <Left>252.8pt</Left>
+        <Top>1.1pt</Top>
+        <Style>
+          <BorderStyle />
+          <BorderColor />
+          <BorderWidth />
+          <FontSize>15pt</FontSize>
+          <Format>dddd, dd MMMM yyyy</Format>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageHeader>
+  <Body>
+    <Height>64.2pt</Height>
+    <ReportItems>
+      <List Name="List1">
+        <DataSetName>Data</DataSetName>
+        <Height>61.62pt</Height>
+        <NoRows>Query returned no rows!</NoRows>
+        <ReportItems>
+          <Textbox Name="calhour">
+            <Top>16.80pt</Top>
+            <Left>4.60pt</Left>
+            <Width>73.02pt</Width>
+            <Height>21.82pt</Height>
+            <Value>=Fields!calhour.Value</Value>
+            <CanGrow>false</CanGrow>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <Format>00":00"</Format>
+              <FontSize>16pt</FontSize>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="id">
+            <Top>2.40pt</Top>
+            <Left>3.20pt</Left>
+            <Width>75.27pt</Width>
+            <Height>17.32pt</Height>
+            <Value>=Fields!id.Value</Value>
+            <CanGrow>false</CanGrow>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <Format>"Заказ №"0</Format>
+              <FontSize>11pt</FontSize>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="status">
+            <Top>36.0pt</Top>
+            <Left>0.8pt</Left>
+            <Width>79.02pt</Width>
+            <Height>15.82pt</Height>
+            <Value>=Fields!status.Value</Value>
+            <CanGrow>true</CanGrow>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="mark">
+            <Top>4.00pt</Top>
+            <Left>166.50pt</Left>
+            <Width>207.05pt</Width>
+            <Height>21.79pt</Height>
+            <Value>=Fields!mark.Value + " " + Fields!model.Value+"(" + Fields!car_year.Value +")"</Value>
+            <CanGrow>true</CanGrow>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="phone">
+            <Top>3.6pt</Top>
+            <Left>464.9pt</Left>
+            <Width>113.63pt</Width>
+            <Height>16.57pt</Height>
+            <Value>=Fields!phone.Value</Value>
+            <CanGrow>true</CanGrow>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="eurocode">
+            <Top>18.50pt</Top>
+            <Left>498.00pt</Left>
+            <Width>80.52pt</Width>
+            <Height>17.32pt</Height>
+            <Value>=Fields!eurocode.Value</Value>
+            <CanGrow>true</CanGrow>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="glass">
+            <Top>19.5pt</Top>
+            <Left>131.6pt</Left>
+            <Width>246.18pt</Width>
+            <Height>19.57pt</Height>
+            <Value>=Fields!glass.Value</Value>
+            <CanGrow>true</CanGrow>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Line Name="Line1">
+            <Height>54.82pt</Height>
+            <Width>-0.02pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Solid</Default>
+              </BorderStyle>
+            </Style>
+            <Left>80.0pt</Left>
+            <Top>4.1pt</Top>
+          </Line>
+          <Textbox Name="Textbox2">
+            <Height>14.25pt</Height>
+            <Width>90.28pt</Width>
+            <Value>Автомобиль:</Value>
+            <ZIndex>1</ZIndex>
+            <Left>83.30pt</Left>
+            <Top>3.00pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+              <FontSize>12pt</FontSize>
+            </Style>
+            <Visibility>
+              <Hidden>=Iif(Fields!id.Value = null, true, false)</Hidden>
+            </Visibility>
+          </Textbox>
+          <Textbox Name="Textbox3">
+            <Height>15.75pt</Height>
+            <Width>71.52pt</Width>
+            <Value>Телефон:</Value>
+            <ZIndex>1</ZIndex>
+            <Left>404.8pt</Left>
+            <Top>3.1pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>12pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox4">
+            <Height>15.75pt</Height>
+            <Width>85.80pt</Width>
+            <Value>Стекла:</Value>
+            <ZIndex>1</ZIndex>
+            <Left>83.2pt</Left>
+            <Top>19.2pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox5">
+            <Height>17.25pt</Height>
+            <Width>97.80pt</Width>
+            <Value>Комментарий:</Value>
+            <ZIndex>1</ZIndex>
+            <Left>83.40pt</Left>
+            <Top>34.80pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox6">
+            <Height>13.50pt</Height>
+            <Width>73.02pt</Width>
+            <Value>Еврокод:</Value>
+            <ZIndex>1</ZIndex>
+            <Left>440.50pt</Left>
+            <Top>19.40pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox7">
+            <Height>23.28pt</Height>
+            <Width>408.82pt</Width>
+            <Value>=Fields!comment.Value</Value>
+            <ZIndex>1</ZIndex>
+            <Left>172.70pt</Left>
+            <Top>36.30pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>11pt</FontSize>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Width>584.23pt</Width>
+        <Left>2.4pt</Left>
+        <Top>0.0pt</Top>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+            <Left>Solid</Left>
+            <Right>Solid</Right>
+            <Top>Solid</Top>
+            <Bottom>Solid</Bottom>
+          </BorderStyle>
+          <BorderColor />
+          <BorderWidth />
+          <PaddingTop>0pt</PaddingTop>
+        </Style>
+      </List>
+    </ReportItems>
+  </Body>
+  <PageFooter>
+    <Height>0.0pt</Height>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageFooter>
+  <ReportParameters>
+    <ReportParameter Name="type">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>install</Value>
+        </Values>
+      </DefaultValue>
+      <Nullable>false</Nullable>
+      <AllowBlank>false</AllowBlank>
+      <MultiValue>false</MultiValue>
+      <Prompt>
+      </Prompt>
+    </ReportParameter>
+    <ReportParameter Name="date">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>2014-03-10</Value>
+        </Values>
+      </DefaultValue>
+      <Nullable>false</Nullable>
+      <AllowBlank>false</AllowBlank>
+      <MultiValue>false</MultiValue>
+      <Prompt>
+      </Prompt>
+    </ReportParameter>
+  </ReportParameters>
+</Report>

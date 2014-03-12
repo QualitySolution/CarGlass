@@ -21,6 +21,7 @@ public partial class MainWindow
 	private global::Gtk.Action Action12;
 	private global::Gtk.Action Action15;
 	private global::Gtk.Action Action14;
+	private global::Gtk.Action Action16;
 	private global::Gtk.VBox vbox1;
 	private global::Gtk.MenuBar menuMain;
 	private global::Gtk.Notebook notebookMain;
@@ -99,6 +100,9 @@ public partial class MainWindow
 		this.Action14 = new global::Gtk.Action ("Action14", global::Mono.Unix.Catalog.GetString ("Отчет за месяц"), null, null);
 		this.Action14.ShortLabel = global::Mono.Unix.Catalog.GetString ("Отчет за месяц");
 		w1.Add (this.Action14, null);
+		this.Action16 = new global::Gtk.Action ("Action16", global::Mono.Unix.Catalog.GetString ("Календарь на день"), null, null);
+		this.Action16.ShortLabel = global::Mono.Unix.Catalog.GetString ("Календарь на день");
+		w1.Add (this.Action16, null);
 		this.UIManager.InsertActionGroup (w1, 0);
 		this.AddAccelGroup (this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
@@ -109,7 +113,7 @@ public partial class MainWindow
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString ("<ui><menubar name='menuMain'><menu name='Action' action='Action'><menuitem name='dialogAuthenticationAction' action='dialogAuthenticationAction'/><menuitem name='UsersAction' action='UsersAction'/><separator/><menuitem name='quitAction' action='quitAction'/></menu><menu name='Action8' action='Action8'><menuitem name='Action3' action='Action3'/><menuitem name='Action4' action='Action4'/><separator/><menuitem name='Action5' action='Action5'/><menuitem name='Action6' action='Action6'/><separator/><menuitem name='Action11' action='Action11'/><menuitem name='Action10' action='Action10'/><menuitem name='Action7' action='Action7'/></menu><menu name='Action12' action='Action12'><menuitem name='Action15' action='Action15'/><menuitem name='Action14' action='Action14'/></menu><menu name='Action2' action='Action2'><menuitem name='aboutAction' action='aboutAction'/></menu></menubar></ui>");
+		this.UIManager.AddUiFromString ("<ui><menubar name='menuMain'><menu name='Action' action='Action'><menuitem name='dialogAuthenticationAction' action='dialogAuthenticationAction'/><menuitem name='UsersAction' action='UsersAction'/><separator/><menuitem name='quitAction' action='quitAction'/></menu><menu name='Action8' action='Action8'><menuitem name='Action3' action='Action3'/><menuitem name='Action4' action='Action4'/><separator/><menuitem name='Action5' action='Action5'/><menuitem name='Action6' action='Action6'/><separator/><menuitem name='Action11' action='Action11'/><menuitem name='Action10' action='Action10'/><menuitem name='Action7' action='Action7'/></menu><menu name='Action12' action='Action12'><menuitem name='Action15' action='Action15'/><menuitem name='Action14' action='Action14'/><menuitem name='Action16' action='Action16'/></menu><menu name='Action2' action='Action2'><menuitem name='aboutAction' action='aboutAction'/></menu></menubar></ui>");
 		this.menuMain = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menuMain")));
 		this.menuMain.Name = "menuMain";
 		this.vbox1.Add (this.menuMain);
@@ -158,6 +162,7 @@ public partial class MainWindow
 		this.hbox5.Spacing = 6;
 		// Container child hbox5.Gtk.Box+BoxChild
 		this.table1 = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
+		this.table1.Name = "table1";
 		this.table1.RowSpacing = ((uint)(6));
 		this.table1.ColumnSpacing = ((uint)(6));
 		// Container child table1.Gtk.Table+TableChild
@@ -279,6 +284,7 @@ public partial class MainWindow
 		this.Action11.Activated += new global::System.EventHandler (this.OnAction9Activated);
 		this.Action10.Activated += new global::System.EventHandler (this.OnAction10Activated);
 		this.Action15.Activated += new global::System.EventHandler (this.OnAction15Activated);
+		this.Action16.Activated += new global::System.EventHandler (this.OnAction16Activated);
 		this.notebookMain.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebookMainSwitchPage);
 	}
 }

@@ -280,4 +280,14 @@ public partial class MainWindow: Gtk.Window
 		report.Run();
 		report.Destroy();
 	}
+
+	protected void OnAction16Activated(object sender, EventArgs e)
+	{
+		PrintDay report = new PrintDay();
+		report.Show();
+		report.Run();
+		report.Destroy();
+
+	}
+		
 }
