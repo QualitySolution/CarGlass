@@ -11,6 +11,7 @@
     <AssemblyName>CarGlass</AssemblyName>
     <ReleaseVersion>1.0</ReleaseVersion>
     <UseMSBuildEngine>False</UseMSBuildEngine>
+    <ApplicationIcon>icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,6 +79,8 @@
     <Compile Include="CalendarItem.cs" />
     <Compile Include="ReportDialog\GlassOrders.cs" />
     <Compile Include="gtk-gui\CarGlass.GlassOrders.cs" />
+    <Compile Include="ReportDialog\PrintDay.cs" />
+    <Compile Include="gtk-gui\CarGlass.PrintDay.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -106,6 +109,12 @@
     <None Include="Reports\order.rdl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Reports\glassorders.rdl" />
+    <None Include="Reports\glassorders.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="icons\logo.ico" />
+    <None Include="Reports\PrintDay.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
