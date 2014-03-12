@@ -35,10 +35,12 @@ public partial class MainWindow: Gtk.Window
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
 		MainClass.StatusMessage(String.Format ("Запрос заказов на {0:d}...", arg.StartDate));
-		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
+		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, " +
+			"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
 			"LEFT JOIN models ON models.id = orders.car_model_id " +
 			"LEFT JOIN marks ON marks.id = models.mark_id " +
 			"LEFT JOIN status ON status.id = orders.status_id " +
+			"LEFT JOIN stocks ON stocks.id = orders.stock_id " +
 			"LEFT JOIN manufacturers ON manufacturers.id = orders.manufacturer_id " +
 			"LEFT JOIN (" +
 			"SELECT order_id, SUM(cost) as sum FROM order_pays GROUP BY order_id) as tablesum " +
@@ -68,12 +70,13 @@ public partial class MainWindow: Gtk.Window
 					order.Text = String.Format("{0} {1}\n{2}",rdr["mark"].ToString(), rdr["model"].ToString(), rdr["phone"].ToString() );
 					if(type == Order.OrderType.install)
 					{
-						order.FullText = String.Format("Состояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nТелефон: {5}\nСтоимость: {6:C}\n{7}",
+						order.FullText = String.Format("Состояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
 							rdr["status"].ToString(),
 							rdr["mark"].ToString(),
 							rdr["model"].ToString(),
 							rdr["eurocode"].ToString(),
 							rdr["manufacturer"].ToString(),
+							rdr["stock"].ToString(),
 							rdr["phone"].ToString(),
 							DBWorks.GetDecimal(rdr, "sum", 0),
 							rdr["comment"].ToString()
