@@ -15,8 +15,16 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>SELECT orders.id, orders.date, orders.hour, marks.name as mark, models.name as model, stocks.name as stocks, orders.eurocode, cost1.cost as cost1, cost2.cost as cost2 FROM orders LEFT JOIN models ON models.id = orders.car_model_id LEFT JOIN marks ON marks.id = models.mark_id LEFT JOIN stocks ON stocks.id = orders.stock_id LEFT JOIN order_pays as cost1 ON cost1.order_id = orders.id AND cost1.service_id = @cost1 LEFT JOIN order_pays as cost2 ON cost2.order_id = orders.id AND cost2.service_id = @cost2 
-WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @status AND orders.stock_id IN (@stock)</CommandText>
+        <CommandText>SELECT orders.id, orders.date, orders.hour, marks.name as mark, models.name as model, stocks.name as stocks, orders.eurocode, cost1.cost as cost1, manufacturers.name as manufacturer FROM orders LEFT JOIN models ON models.id = orders.car_model_id LEFT JOIN marks ON marks.id = models.mark_id LEFT JOIN stocks ON stocks.id = orders.stock_id 
+
+
+ LEFT JOIN manufacturers ON manufacturers.id = orders.manufacturer_id 
+
+
+ LEFT JOIN order_pays as cost1 ON cost1.order_id = orders.id AND cost1.service_id = @cost1
+
+
+ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @status AND orders.stock_id IN (@stock)</CommandText>
         <QueryParameters>
           <QueryParameter Name="cost1">
             <Value>=Parameters!cost1</Value>
@@ -49,7 +57,7 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
         </Field>
         <Field Name="hour">
           <DataField>hour</DataField>
-          <rd:TypeName>System.UInt32</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="mark">
           <DataField>mark</DataField>
@@ -67,13 +75,13 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
           <DataField>cost1</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="cost2">
-          <DataField>cost2</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="manufacturer">
+          <DataField>manufacturer</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="eurocode">
           <DataField>eurocode</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -113,10 +121,10 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
             <Width>43.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>55.0pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>42.6pt</Width>
+            <Width>33.1pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>132.2pt</Width>
@@ -125,7 +133,7 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
             <Width>84.9pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>84.9pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>1in</Width>
@@ -221,6 +229,22 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
                 </TableCell>
                 <TableCell>
                   <ReportItems>
+                    <Textbox Name="Textbox14" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                      <Value>Производитель</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
                     <Textbox Name="Textbox6">
                       <Value>Еврокод</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
@@ -238,7 +262,7 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox8">
-                      <Value>cost1</Value>
+                      <Value>Стоимость</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -247,20 +271,6 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox9">
-                      <Value>cost2</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -309,13 +319,15 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="hour">
-                      <Value>=Fields!hour.Value</Value>
+                      <Value>=Fields!hour.Value + ":00"</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor />
+                        <BorderWidth />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -346,6 +358,23 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
                           <Default>Solid</Default>
                         </BorderStyle>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox16" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                      <Value>=Fields!manufacturer.Value</Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingRight>2pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
                       </Style>
@@ -385,30 +414,12 @@ WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @stat
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="cost2">
-                      <Value>=Fields!cost2.Value</Value>
-                      <CanGrow>false</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <PaddingRight>2pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <Format>C</Format>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
               </TableCells>
             </TableRow>
           </TableRows>
         </Details>
         <Left>0.0pt</Left>
-        <Top>0.8pt</Top>
+        <Top>0.0pt</Top>
       </Table>
     </ReportItems>
     <Height>36pt</Height>
