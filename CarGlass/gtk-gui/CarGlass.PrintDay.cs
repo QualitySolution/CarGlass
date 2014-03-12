@@ -19,6 +19,7 @@ namespace CarGlass
 			global::Stetic.Gui.Initialize (this);
 			// Widget CarGlass.PrintDay
 			this.Name = "CarGlass.PrintDay";
+			this.Title = global::Mono.Unix.Catalog.GetString ("Печать календаря на день");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Internal child CarGlass.PrintDay.VBox
 			global::Gtk.VBox w1 = this.VBox;
