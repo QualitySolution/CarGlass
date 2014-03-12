@@ -287,7 +287,13 @@ public partial class MainWindow: Gtk.Window
 		report.Show();
 		report.Run();
 		report.Destroy();
-
 	}
 		
+	protected void OnAction14Activated(object sender, EventArgs e)
+	{
+		MonthReport report = new MonthReport();
+		report.Show();
+		report.Run();
+		report.Destroy();
+	}
 }

@@ -113,6 +113,7 @@
         <property name="Type">Action</property>
         <property name="Label" translatable="yes">Отчет за месяц</property>
         <property name="ShortLabel" translatable="yes">Отчет за месяц</property>
+        <signal name="Activated" handler="OnAction14Activated" />
       </action>
       <action id="Action16">
         <property name="Type">Action</property>
@@ -2328,6 +2329,88 @@
         <child>
           <widget class="Gtk.Button" id="buttonOk">
             <property name="MemberName" />
+            <property name="CanDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-ok</property>
+            <property name="ResponseId">-5</property>
+            <signal name="Clicked" handler="OnButtonOkClicked" />
+            <property name="label">gtk-ok</property>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Dialog" id="CarGlass.MonthReport" design-size="343 193">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">Печать отчета за месяц</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <property name="Buttons">2</property>
+    <property name="HelpButton">False</property>
+    <child internal-child="VBox">
+      <widget class="Gtk.VBox" id="dialog1_VBox">
+        <property name="MemberName" />
+        <property name="BorderWidth">2</property>
+        <child>
+          <widget class="QSWidgetLib.SelectPeriod" id="selectperiod1">
+            <property name="MemberName" />
+            <property name="Events">ButtonPressMask</property>
+            <property name="DateBegin">0</property>
+            <property name="DateEnd">0</property>
+            <property name="AutoDateSeparation">True</property>
+            <property name="ShowToday">True</property>
+            <property name="ShowWeek">True</property>
+            <property name="ShowMonth">True</property>
+            <property name="Show3Month">True</property>
+            <property name="Show6Month">True</property>
+            <property name="ShowYear">True</property>
+            <property name="ShowAllTime">False</property>
+            <property name="ShowCurWeek">True</property>
+            <property name="ShowCurMonth">True</property>
+            <property name="ShowCurQuarter">True</property>
+            <property name="ShowCurYear">True</property>
+            <signal name="DatesChanged" handler="OnSelectperiod1DatesChanged" />
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+    <child internal-child="ActionArea">
+      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
+        <property name="MemberName" />
+        <property name="Spacing">10</property>
+        <property name="BorderWidth">5</property>
+        <property name="Size">2</property>
+        <property name="LayoutStyle">End</property>
+        <child>
+          <widget class="Gtk.Button" id="buttonCancel">
+            <property name="MemberName" />
+            <property name="CanDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-cancel</property>
+            <property name="ResponseId">-6</property>
+            <property name="label">gtk-cancel</property>
+          </widget>
+          <packing>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="buttonOk">
+            <property name="MemberName" />
+            <property name="Sensitive">False</property>
             <property name="CanDefault">True</property>
             <property name="CanFocus">True</property>
             <property name="UseStock">True</property>

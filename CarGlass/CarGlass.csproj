@@ -81,6 +81,8 @@
     <Compile Include="gtk-gui\CarGlass.GlassOrders.cs" />
     <Compile Include="ReportDialog\PrintDay.cs" />
     <Compile Include="gtk-gui\CarGlass.PrintDay.cs" />
+    <Compile Include="ReportDialog\MonthReport.cs" />
+    <Compile Include="gtk-gui\CarGlass.MonthReport.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -114,6 +116,9 @@
     </None>
     <None Include="icons\logo.ico" />
     <None Include="Reports\PrintDay.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Reports\MonthReport.rdl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
