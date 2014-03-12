@@ -163,7 +163,7 @@ public partial class MainWindow: Gtk.Window
 
 		dialog.Logo = Gdk.Pixbuf.LoadFromResource ("CarGlass.icons.logo.png");
 
-		dialog.Comments = "Регистация заказов в мастерской автостекл." +
+		dialog.Comments = "Регистрация заказов в мастерской автостекл." +
 			"\nРазработана на MonoDevelop с использованием открытых технологий Mono, GTK#, MySQL." +
 			"\nТелефон тех. поддержки +7(812)575-79-44";
 
