@@ -195,7 +195,7 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@type", CurrentType.ToString());
 				cmd.Parameters.AddWithValue("@car_model_id", CarModel_id);
 				cmd.Parameters.AddWithValue("@car_year", DBWorks.ValueOrNull(comboYear.ActiveText != "", comboYear.ActiveText));
-				cmd.Parameters.AddWithValue("@phone", DBWorks.ValueOrNull(entryPhone.Text != "", entryPhone.Text));
+				cmd.Parameters.AddWithValue("@phone", DBWorks.ValueOrNull(entryPhone.Text != "" && entryPhone.Text != "+7" , entryPhone.Text));
 				cmd.Parameters.AddWithValue("@status_id",  ComboWorks.GetActiveId(comboStatus));
 				cmd.Parameters.AddWithValue("@manufacturer_id", ComboWorks.GetActiveIdOrNull(comboManufacturer));
 				cmd.Parameters.AddWithValue("@stock_id", ComboWorks.GetActiveIdOrNull(comboStock));
@@ -297,7 +297,7 @@ namespace CarGlass
 					entryCar.TooltipText = String.Format("{0} {1}", rdr["mark"].ToString(), rdr["model"].ToString());
 
 					comboYear.Entry.Text = rdr["car_year"].ToString();
-					entryPhone.Text = rdr["phone"].ToString();
+					entryPhone.Text = DBWorks.GetString(rdr, "phone", "+7");
 
 					if(CurrentType == OrderType.install)
 					{

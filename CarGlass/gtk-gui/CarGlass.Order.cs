@@ -122,6 +122,7 @@ namespace CarGlass
 			this.entryPhone = new global::Gtk.Entry ();
 			this.entryPhone.CanFocus = true;
 			this.entryPhone.Name = "entryPhone";
+			this.entryPhone.Text = global::Mono.Unix.Catalog.GetString ("+7");
 			this.entryPhone.IsEditable = true;
 			this.entryPhone.InvisibleChar = '●';
 			this.table1.Add (this.entryPhone);

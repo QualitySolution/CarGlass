@@ -1306,6 +1306,7 @@
                       <widget class="Gtk.Entry" id="entryPhone">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
+                        <property name="Text" translatable="yes">+7</property>
                         <property name="IsEditable">True</property>
                         <property name="InvisibleChar">●</property>
                       </widget>
