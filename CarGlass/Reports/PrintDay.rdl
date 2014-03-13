@@ -16,26 +16,14 @@
   </DataSources>
   <Width>7.5in</Width>
   <TopMargin>.25in</TopMargin>
-  <LeftMargin>.25in</LeftMargin>
+  <LeftMargin>.10in</LeftMargin>
   <RightMargin>.25in</RightMargin>
-  <BottomMargin>.25in</BottomMargin>
+  <BottomMargin>.05in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>SELECT a.calhour, cal.* FROM 
-(SELECT 9 as calhour UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL SELECT 15 UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19 UNION ALL SELECT 20) as a
-LEFT JOIN 
-(SELECT orders.id, orders.date, orders.hour, status.name as status, marks.name as mark, models.name as model, orders.car_year, orders.phone, stocks.name as stocks, orders.eurocode, orders.comment, GROUP_CONCAT(glass.name SEPARATOR ', ') as glass FROM orders
-LEFT JOIN models ON models.id = orders.car_model_id
-LEFT JOIN marks ON marks.id = models.mark_id
-LEFT JOIN stocks ON stocks.id = orders.stock_id
-LEFT JOIN status ON status.id = orders.status_id
-LEFT JOIN order_glasses ON order_glasses.order_id = orders.id
-LEFT JOIN glass ON order_glasses.glass_id = glass.id
-WHERE orders.date = @date AND orders.type IN (@type)
-GROUP BY orders.id
-) as cal ON a.calhour = cal.hour</CommandText>
+        <CommandText>SELECT a.calhour, cal.* FROM  (SELECT 9 as calhour UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL SELECT 15 UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19 UNION ALL SELECT 20) as a LEFT JOIN  (SELECT orders.id, orders.date, orders.hour, status.name as status, marks.name as mark, models.name as model, orders.car_year, orders.phone, stocks.name as stocks, orders.eurocode, orders.comment, manufacturers.name as manufacturer, GROUP_CONCAT(glass.name SEPARATOR ', ') as glass FROM orders LEFT JOIN models ON models.id = orders.car_model_id LEFT JOIN marks ON marks.id = models.mark_id LEFT JOIN stocks ON stocks.id = orders.stock_id LEFT JOIN status ON status.id = orders.status_id LEFT JOIN manufacturers ON manufacturers.id = orders.manufacturer_id LEFT JOIN order_glasses ON order_glasses.order_id = orders.id LEFT JOIN glass ON order_glasses.glass_id = glass.id WHERE orders.date = @date AND orders.type IN (@type) GROUP BY orders.id ) as cal ON a.calhour = cal.hour</CommandText>
         <QueryParameters>
           <QueryParameter Name="type">
             <Value>=Parameters!type</Value>
@@ -98,6 +86,10 @@ GROUP BY orders.id
           <DataField>comment</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="manufacturer">
+          <DataField>manufacturer</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
   </DataSets>
@@ -105,8 +97,8 @@ GROUP BY orders.id
     <Height>19.5pt</Height>
     <ReportItems>
       <Textbox Name="Textbox1">
-        <Top>0.1pt</Top>
-        <Left>170.7pt</Left>
+        <Top>0.0pt</Top>
+        <Left>139.0pt</Left>
         <Width>91.21pt</Width>
         <Height>18.82pt</Height>
         <Value>Заказы на</Value>
@@ -119,18 +111,21 @@ GROUP BY orders.id
         </Style>
       </Textbox>
       <Textbox Name="Textbox15">
-        <Height>17.25pt</Height>
-        <Width>104.54pt</Width>
-        <Value>=Parameters!date.Value</Value>
+        <Height>18.00pt</Height>
+        <Width>276.98pt</Width>
+        <Value>=Convert.ToDateTime(Parameters!date.Value)</Value>
         <ZIndex>1</ZIndex>
-        <Left>252.8pt</Left>
-        <Top>1.1pt</Top>
+        <Left>217.6pt</Left>
+        <Top>0.0pt</Top>
         <Style>
           <BorderStyle />
           <BorderColor />
           <BorderWidth />
           <FontSize>15pt</FontSize>
           <Format>dddd, dd MMMM yyyy</Format>
+          <FontWeight>Bold</FontWeight>
+          <FontStyle>Normal</FontStyle>
+          <TextDecoration>Underline</TextDecoration>
         </Style>
       </Textbox>
     </ReportItems>
@@ -138,11 +133,11 @@ GROUP BY orders.id
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <Body>
-    <Height>64.2pt</Height>
+    <Height>59.4pt</Height>
     <ReportItems>
       <List Name="List1">
         <DataSetName>Data</DataSetName>
-        <Height>61.62pt</Height>
+        <Height>54.87pt</Height>
         <NoRows>Query returned no rows!</NoRows>
         <ReportItems>
           <Textbox Name="calhour">
@@ -181,8 +176,8 @@ GROUP BY orders.id
             </Style>
           </Textbox>
           <Textbox Name="status">
-            <Top>36.0pt</Top>
-            <Left>0.8pt</Left>
+            <Top>36.00pt</Top>
+            <Left>0.80pt</Left>
             <Width>79.02pt</Width>
             <Height>15.82pt</Height>
             <Value>=Fields!status.Value</Value>
@@ -209,6 +204,9 @@ GROUP BY orders.id
               <BorderWidth />
               <FontSize>12pt</FontSize>
             </Style>
+            <Visibility>
+              <Hidden>=Fields!mark.IsMissing</Hidden>
+            </Visibility>
           </Textbox>
           <Textbox Name="phone">
             <Top>3.6pt</Top>
@@ -226,9 +224,9 @@ GROUP BY orders.id
             </Style>
           </Textbox>
           <Textbox Name="eurocode">
-            <Top>18.50pt</Top>
-            <Left>498.00pt</Left>
-            <Width>80.52pt</Width>
+            <Top>33.70pt</Top>
+            <Left>465.20pt</Left>
+            <Width>115.77pt</Width>
             <Height>17.32pt</Height>
             <Value>=Fields!eurocode.Value</Value>
             <CanGrow>true</CanGrow>
@@ -241,10 +239,10 @@ GROUP BY orders.id
             </Style>
           </Textbox>
           <Textbox Name="glass">
-            <Top>19.5pt</Top>
-            <Left>131.6pt</Left>
-            <Width>246.18pt</Width>
-            <Height>19.57pt</Height>
+            <Top>19.50pt</Top>
+            <Left>131.60pt</Left>
+            <Width>273.18pt</Width>
+            <Height>15.07pt</Height>
             <Value>=Fields!glass.Value</Value>
             <CanGrow>true</CanGrow>
             <Style>
@@ -256,23 +254,23 @@ GROUP BY orders.id
             </Style>
           </Textbox>
           <Line Name="Line1">
-            <Height>54.82pt</Height>
+            <Height>48.07pt</Height>
             <Width>-0.02pt</Width>
             <Style>
               <BorderStyle>
                 <Default>Solid</Default>
               </BorderStyle>
             </Style>
-            <Left>80.0pt</Left>
-            <Top>4.1pt</Top>
+            <Left>80.00pt</Left>
+            <Top>3.30pt</Top>
           </Line>
           <Textbox Name="Textbox2">
             <Height>14.25pt</Height>
             <Width>90.28pt</Width>
             <Value>Автомобиль:</Value>
             <ZIndex>1</ZIndex>
-            <Left>83.30pt</Left>
-            <Top>3.00pt</Top>
+            <Left>82.5pt</Left>
+            <Top>3.0pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -281,7 +279,7 @@ GROUP BY orders.id
               <FontSize>12pt</FontSize>
             </Style>
             <Visibility>
-              <Hidden>=Iif(Fields!id.Value = null, true, false)</Hidden>
+              <Hidden>=Fields!mark.IsMissing</Hidden>
             </Visibility>
           </Textbox>
           <Textbox Name="Textbox3">
@@ -289,7 +287,7 @@ GROUP BY orders.id
             <Width>71.52pt</Width>
             <Value>Телефон:</Value>
             <ZIndex>1</ZIndex>
-            <Left>404.8pt</Left>
+            <Left>396.8pt</Left>
             <Top>3.1pt</Top>
             <Style>
               <BorderStyle />
@@ -297,7 +295,11 @@ GROUP BY orders.id
               <BorderWidth />
               <FontSize>12pt</FontSize>
               <FontWeight>Bold</FontWeight>
+              <TextAlign>Right</TextAlign>
             </Style>
+            <Visibility>
+              <Hidden>=Fields!mark.IsMissing</Hidden>
+            </Visibility>
           </Textbox>
           <Textbox Name="Textbox4">
             <Height>15.75pt</Height>
@@ -313,6 +315,11 @@ GROUP BY orders.id
               <FontWeight>Bold</FontWeight>
               <FontSize>12pt</FontSize>
             </Style>
+            <Visibility>
+              <ToggleItem>
+              </ToggleItem>
+              <Hidden>=Fields!mark.IsMissing</Hidden>
+            </Visibility>
           </Textbox>
           <Textbox Name="Textbox5">
             <Height>17.25pt</Height>
@@ -328,40 +335,81 @@ GROUP BY orders.id
               <FontWeight>Bold</FontWeight>
               <FontSize>12pt</FontSize>
             </Style>
+            <Visibility>
+              <Hidden>=Fields!mark.IsMissing</Hidden>
+            </Visibility>
           </Textbox>
           <Textbox Name="Textbox6">
             <Height>13.50pt</Height>
-            <Width>73.02pt</Width>
+            <Width>65.52pt</Width>
             <Value>Еврокод:</Value>
             <ZIndex>1</ZIndex>
-            <Left>440.50pt</Left>
-            <Top>19.40pt</Top>
+            <Left>402.6pt</Left>
+            <Top>33.6pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
               <FontWeight>Bold</FontWeight>
               <FontSize>12pt</FontSize>
+              <TextAlign>Right</TextAlign>
             </Style>
+            <Visibility>
+              <Hidden>=Fields!mark.IsMissing</Hidden>
+            </Visibility>
           </Textbox>
           <Textbox Name="Textbox7">
-            <Height>23.28pt</Height>
-            <Width>408.82pt</Width>
+            <Height>16.53pt</Height>
+            <Width>240.07pt</Width>
             <Value>=Fields!comment.Value</Value>
             <ZIndex>1</ZIndex>
-            <Left>172.70pt</Left>
-            <Top>36.30pt</Top>
+            <Left>171.10pt</Left>
+            <Top>35.50pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
               <FontSize>11pt</FontSize>
             </Style>
+            <CanGrow>true</CanGrow>
+          </Textbox>
+          <Textbox Name="Textbox9">
+            <Height>14.25pt</Height>
+            <Width>113.52pt</Width>
+            <Value>=Fields!manufacturer.Value</Value>
+            <ZIndex>1</ZIndex>
+            <Left>467.1pt</Left>
+            <Top>18.6pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>12pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox8" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>13.50pt</Height>
+            <Width>106.02pt</Width>
+            <Value>Производитель:</Value>
+            <ZIndex>1</ZIndex>
+            <Left>362.3pt</Left>
+            <Top>18.4pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontSize>12pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <TextAlign>Right</TextAlign>
+            </Style>
+            <Visibility>
+              <Hidden>=Fields!mark.IsMissing</Hidden>
+            </Visibility>
           </Textbox>
         </ReportItems>
         <Width>584.23pt</Width>
-        <Left>2.4pt</Left>
-        <Top>0.0pt</Top>
+        <Left>2.40pt</Left>
+        <Top>0.00pt</Top>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
@@ -373,6 +421,11 @@ GROUP BY orders.id
           <BorderColor />
           <BorderWidth />
           <PaddingTop>0pt</PaddingTop>
+          <BackgroundColor>
+          </BackgroundColor>
+          <BackgroundGradientEndColor>
+          </BackgroundGradientEndColor>
+          <PaddingRight>10pt</PaddingRight>
         </Style>
       </List>
     </ReportItems>
@@ -382,17 +435,18 @@ GROUP BY orders.id
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageFooter>
-  <ReportParameters>
+  <ReportParameters >
     <ReportParameter Name="type">
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>install</Value>
+          <Value>tinting</Value>
+          <Value>repair</Value>
         </Values>
       </DefaultValue>
       <Nullable>false</Nullable>
       <AllowBlank>false</AllowBlank>
-      <MultiValue>false</MultiValue>
+      <MultiValue>true</MultiValue>
       <Prompt>
       </Prompt>
     </ReportParameter>
@@ -400,7 +454,7 @@ GROUP BY orders.id
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>2014-03-10</Value>
+          <Value>2014-03-13</Value>
         </Values>
       </DefaultValue>
       <Nullable>false</Nullable>
