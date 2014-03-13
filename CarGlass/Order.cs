@@ -145,7 +145,7 @@ namespace CarGlass
 				if((bool)row[1])
 					Total += (double) row[3];
 			}
-			labelSum.Text = String.Format ("Итого: {0:C}", Total);
+			labelSum.LabelProp = String.Format ("<span foreground=\"red\"><b>Итого: {0:C}</b></span>", Total);
 			labelSum.QueueResize();
 		} 
 

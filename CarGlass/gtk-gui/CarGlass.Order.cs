@@ -285,7 +285,8 @@ namespace CarGlass
 			this.labelSum = new global::Gtk.Label ();
 			this.labelSum.Name = "labelSum";
 			this.labelSum.Xalign = 0F;
-			this.labelSum.LabelProp = global::Mono.Unix.Catalog.GetString ("Итого: 0");
+			this.labelSum.LabelProp = global::Mono.Unix.Catalog.GetString ("<span foreground=\"red\"><b>Итого: 0</b></span>");
+			this.labelSum.UseMarkup = true;
 			this.table1.Add (this.labelSum);
 			global::Gtk.Table.TableChild w23 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelSum]));
 			w23.TopAttach = ((uint)(10));

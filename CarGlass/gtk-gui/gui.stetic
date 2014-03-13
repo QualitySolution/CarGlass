@@ -1586,7 +1586,8 @@
                       <widget class="Gtk.Label" id="labelSum">
                         <property name="MemberName" />
                         <property name="Xalign">0</property>
-                        <property name="LabelProp" translatable="yes">Итого: 0</property>
+                        <property name="LabelProp" translatable="yes">&lt;span foreground="red"&gt;&lt;b&gt;Итого: 0&lt;/b&gt;&lt;/span&gt;</property>
+                        <property name="UseMarkup">True</property>
                       </widget>
                       <packing>
                         <property name="TopAttach">10</property>
