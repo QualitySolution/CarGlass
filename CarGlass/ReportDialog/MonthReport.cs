@@ -23,7 +23,7 @@ namespace CarGlass
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
-			string param = String.Format("start={1}&end={2}",
+			string param = String.Format("start={0}&end={1}",
 				String.Format ("{0:u}", selectperiod1.DateBegin).Substring (0, 10),
 				String.Format ("{0:u}", selectperiod1.DateEnd).Substring (0, 10)
 			);
