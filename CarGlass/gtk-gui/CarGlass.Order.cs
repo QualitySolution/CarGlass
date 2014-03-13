@@ -414,8 +414,8 @@ namespace CarGlass
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 569;
-			this.DefaultHeight = 544;
+			this.DefaultWidth = 598;
+			this.DefaultHeight = 699;
 			this.Show ();
 			this.buttonCarEdit.Clicked += new global::System.EventHandler (this.OnButtonCarEditClicked);
 			this.comboStatus.Changed += new global::System.EventHandler (this.OnComboStatusChanged);
