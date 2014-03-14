@@ -2,11 +2,14 @@
 using MySql.Data.MySqlClient;
 using QSProjectsLib;
 using System.Collections.Generic;
+using NLog;
 
 namespace CarGlass
 {
 	public partial class Status : Gtk.Dialog
 	{
+		private static Logger logger = LogManager.GetCurrentClassLogger();
+
 		public bool NewItem;
 		int Status_id;
 
@@ -100,8 +103,8 @@ namespace CarGlass
 				if(checkColor.Active)
 				{
 					Gdk.Color c = colorbuttonMarker.Color;
-					string ColorStr = String.Format("#{0:X}{1:X}{2:X}", c.Red, c.Green, c.Blue);
-					Console.WriteLine(ColorStr);
+					string ColorStr = String.Format("#{0:x4}{1:x4}{2:x4}", c.Red, c.Green, c.Blue);
+					logger.Debug(ColorStr);
 					cmd.Parameters.AddWithValue("@color", ColorStr);
 				}
 				else
