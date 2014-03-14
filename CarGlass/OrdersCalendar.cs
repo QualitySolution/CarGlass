@@ -234,6 +234,12 @@ namespace CarGlass
 			CreateNewOrder(_StartDate.AddDays(PopupPosX), PopupPosY, item.ID);
 		}
 
+		protected void OnButtonPopupDelete(object sender, EventArgs Arg)
+		{
+			MenuItemId<CalendarItem> item = (MenuItemId<CalendarItem>)sender;
+			item.ID.Delete();
+		}
+
 		public void RefreshOrders()
 		{
 			if(_StartDate != default(DateTime) && EndTime > 0)
@@ -250,6 +256,7 @@ namespace CarGlass
 					temp.DragLeave -= HandleTargetDragLeave;
 					temp.DragMotion	-= HandleTargetDragMotion;
 					temp.DragDrop -= HandleTargetDragDrop;
+					temp.ButtonReleaseEvent -= OnButtonReleased;
 					if(TimeMap[x, y] != null)
 					{
 						temp.ID = TimeMap[x, y];
@@ -257,6 +264,7 @@ namespace CarGlass
 						PangoTexts[x, y].SetText(TimeMap[x, y].Text);
 						temp.TooltipText = TimeMap[x, y].FullText;
 						temp.Relief = ReliefStyle.Normal;
+						temp.ButtonReleaseEvent += OnButtonReleased;
 						Drag.DestUnset(temp);
 						Drag.SourceSet(temp, Gdk.ModifierType.Button1Mask, null, Gdk.DragAction.Move );
 						Gdk.Color col = new Gdk.Color();
@@ -408,6 +416,23 @@ namespace CarGlass
 				DrawButton.GdkWindow.DrawLayout(DrawButton.Style.TextGC(DrawButton.State), x, y, PangoTexts[calday, calhour]);
 			}
 			args.RetVal = true;
+		}
+
+		//FIXME Не удалось реализовать вывод меню по правой кнопке для удаления, код оставлен.
+		protected void OnButtonReleased(object sender, ButtonReleaseEventArgs args)
+		{
+			if(args.Event.Button == 3)
+			{
+				Gtk.Menu jBox = new Gtk.Menu();
+				MenuItemId<CalendarItem> MenuItem1;
+
+				MenuItem1 = new MenuItemId<CalendarItem>("Удалить");
+				MenuItem1.ID = ((ButtonId<CalendarItem>) sender).ID;
+				MenuItem1.Activated += OnButtonPopupDelete;
+				jBox.Add(MenuItem1);       
+				jBox.ShowAll();
+				jBox.Popup();
+			}
 		}
 
 	}

@@ -14,6 +14,7 @@ namespace CarGlass
 		public OrdersCalendar Calendar;
 
 		public event EventHandler OpenOrder;
+		public event EventHandler DeleteOrder;
 		public event EventHandler<TimeChangedEventArgs> TimeChanged;
 
 		public class TimeChangedEventArgs : EventArgs
@@ -31,6 +32,15 @@ namespace CarGlass
 		public void Open()
 		{
 			EventHandler handler = OpenOrder;
+			if (handler != null)
+			{
+				handler(this, EventArgs.Empty);
+			}
+		}
+
+		public void Delete()
+		{
+			EventHandler handler = DeleteOrder;
 			if (handler != null)
 			{
 				handler(this, EventArgs.Empty);

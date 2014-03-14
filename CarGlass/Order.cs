@@ -346,7 +346,7 @@ namespace CarGlass
 					}
 				}
 				CalculateTotal();
-				buttonPrint.Sensitive = true;
+				buttonPrint.Sensitive = buttonDelete.Sensitive = true;
 				MainClass.StatusMessage("Ok");
 			}
 			catch (Exception ex)
@@ -384,6 +384,13 @@ namespace CarGlass
 		protected void OnButtonPrintClicked(object sender, EventArgs e)
 		{
 			QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Item_id));
+		}
+
+		protected void OnButtonDeleteClicked(object sender, EventArgs e)
+		{
+			Delete winDelete = new Delete();
+			if (winDelete.RunDeletion("orders", Item_id))
+				Respond(ResponseType.Ok);
 		}
 
 	}

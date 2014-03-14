@@ -1168,7 +1168,7 @@
   <widget class="Gtk.Dialog" id="CarGlass.Order" design-size="598 699">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
-    <property name="Buttons">3</property>
+    <property name="Buttons">4</property>
     <property name="HelpButton">False</property>
     <child internal-child="VBox">
       <widget class="Gtk.VBox" id="dialog1_VBox">
@@ -1713,8 +1713,25 @@
         <property name="MemberName" />
         <property name="Spacing">10</property>
         <property name="BorderWidth">5</property>
-        <property name="Size">3</property>
+        <property name="Size">4</property>
         <property name="LayoutStyle">End</property>
+        <child>
+          <widget class="Gtk.Button" id="buttonDelete">
+            <property name="MemberName" />
+            <property name="Sensitive">False</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-delete</property>
+            <property name="ResponseId">-1</property>
+            <signal name="Clicked" handler="OnButtonDeleteClicked" />
+            <property name="label">gtk-delete</property>
+          </widget>
+          <packing>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
         <child>
           <widget class="Gtk.Button" id="buttonPrint">
             <property name="MemberName" />
@@ -1728,6 +1745,7 @@
             <property name="label">gtk-print</property>
           </widget>
           <packing>
+            <property name="Position">1</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
@@ -1744,7 +1762,7 @@
             <property name="label">gtk-cancel</property>
           </widget>
           <packing>
-            <property name="Position">1</property>
+            <property name="Position">2</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
@@ -1763,7 +1781,7 @@
             <property name="label">gtk-ok</property>
           </widget>
           <packing>
-            <property name="Position">2</property>
+            <property name="Position">3</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>

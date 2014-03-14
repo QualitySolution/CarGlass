@@ -35,6 +35,7 @@ namespace CarGlass
 		private global::Gtk.Label label7;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TextView textviewComment;
+		private global::Gtk.Button buttonDelete;
 		private global::Gtk.Button buttonPrint;
 		private global::Gtk.Button buttonCancel;
 		private global::Gtk.Button buttonOk;
@@ -373,6 +374,18 @@ namespace CarGlass
 			w34.BorderWidth = ((uint)(5));
 			w34.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
+			this.buttonDelete = new global::Gtk.Button ();
+			this.buttonDelete.Sensitive = false;
+			this.buttonDelete.CanFocus = true;
+			this.buttonDelete.Name = "buttonDelete";
+			this.buttonDelete.UseStock = true;
+			this.buttonDelete.UseUnderline = true;
+			this.buttonDelete.Label = "gtk-delete";
+			w34.Add (this.buttonDelete);
+			global::Gtk.ButtonBox.ButtonBoxChild w35 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonDelete]));
+			w35.Expand = false;
+			w35.Fill = false;
+			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonPrint = new global::Gtk.Button ();
 			this.buttonPrint.Sensitive = false;
 			this.buttonPrint.CanFocus = true;
@@ -381,9 +394,10 @@ namespace CarGlass
 			this.buttonPrint.UseUnderline = true;
 			this.buttonPrint.Label = "gtk-print";
 			this.AddActionWidget (this.buttonPrint, 0);
-			global::Gtk.ButtonBox.ButtonBoxChild w35 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonPrint]));
-			w35.Expand = false;
-			w35.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w36 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonPrint]));
+			w36.Position = 1;
+			w36.Expand = false;
+			w36.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -393,10 +407,10 @@ namespace CarGlass
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w36 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonCancel]));
-			w36.Position = 1;
-			w36.Expand = false;
-			w36.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w37 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonCancel]));
+			w37.Position = 2;
+			w37.Expand = false;
+			w37.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.Sensitive = false;
@@ -407,10 +421,10 @@ namespace CarGlass
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
 			w34.Add (this.buttonOk);
-			global::Gtk.ButtonBox.ButtonBoxChild w37 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonOk]));
-			w37.Position = 2;
-			w37.Expand = false;
-			w37.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w38 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonOk]));
+			w38.Position = 3;
+			w38.Expand = false;
+			w38.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
@@ -419,6 +433,7 @@ namespace CarGlass
 			this.Show ();
 			this.buttonCarEdit.Clicked += new global::System.EventHandler (this.OnButtonCarEditClicked);
 			this.comboStatus.Changed += new global::System.EventHandler (this.OnComboStatusChanged);
+			this.buttonDelete.Clicked += new global::System.EventHandler (this.OnButtonDeleteClicked);
 			this.buttonPrint.Clicked += new global::System.EventHandler (this.OnButtonPrintClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}

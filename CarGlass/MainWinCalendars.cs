@@ -125,6 +125,14 @@ public partial class MainWindow: Gtk.Window
 		OrderWin.Destroy();
 	}
 
+	protected void OnDeleteOrder(object sender, EventArgs arg)
+	{
+		CalendarItem item = (CalendarItem)sender;
+		Delete winDelete = new Delete();
+		if (winDelete.RunDeletion("orders", item.id))
+			item.Calendar.RefreshOrders();
+	}
+
 	protected void OnNewOrder(object sender, OrdersCalendar.NewOrderEventArgs arg)
 	{
 		Order OrderWin = new Order((Order.OrderType)arg.OrderType, arg.Date, arg.Hour);
