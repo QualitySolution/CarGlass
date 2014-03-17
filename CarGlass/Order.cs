@@ -290,6 +290,7 @@ namespace CarGlass
 					rdr.Read();
 
 					this.Title = String.Format(GetTitleFormat(CurrentType), rdr["id"].ToString(), rdr.GetDateTime("date"), rdr.GetInt32("hour"));
+					Date = rdr.GetDateTime("date");
 
 					ComboWorks.SetActiveItem(comboStatus, rdr.GetInt32("status_id"));
 					CarModel_id = rdr.GetInt32("car_model_id");
@@ -383,7 +384,27 @@ namespace CarGlass
 
 		protected void OnButtonPrintClicked(object sender, EventArgs e)
 		{
+			Gtk.Menu jBox = new Gtk.Menu();
+			MenuItem MenuItem1;
+
+			MenuItem1 = new MenuItem("Заказ наряд");
+			MenuItem1.Activated += OnPopupPrintOrder;
+			jBox.Add(MenuItem1);       
+			MenuItem1 = new MenuItem("Товарный чек");
+			MenuItem1.Activated += OnPopupPrintReceipt;
+			jBox.Add(MenuItem1);       
+			jBox.ShowAll();
+			jBox.Popup();
+		}
+
+		protected void OnPopupPrintOrder(object sender, EventArgs Arg)
+		{
 			QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Item_id));
+		}
+
+		protected void OnPopupPrintReceipt(object sender, EventArgs Arg)
+		{
+			QSProjectsLib.ViewReportExt.Run("receipt", String.Format("id={0}&date={1:d}", Item_id, Date), true);
 		}
 
 		protected void OnButtonDeleteClicked(object sender, EventArgs e)

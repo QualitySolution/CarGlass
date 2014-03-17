@@ -393,7 +393,7 @@ namespace CarGlass
 			this.buttonPrint.UseStock = true;
 			this.buttonPrint.UseUnderline = true;
 			this.buttonPrint.Label = "gtk-print";
-			this.AddActionWidget (this.buttonPrint, 0);
+			w34.Add (this.buttonPrint);
 			global::Gtk.ButtonBox.ButtonBoxChild w36 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w34 [this.buttonPrint]));
 			w36.Position = 1;
 			w36.Expand = false;
