@@ -347,7 +347,8 @@ namespace CarGlass
 					}
 				}
 				CalculateTotal();
-				buttonPrint.Sensitive = buttonDelete.Sensitive = true;
+				buttonPrint.Sensitive = CurrentType != OrderType.repair;
+				buttonDelete.Sensitive = true;
 				MainClass.StatusMessage("Ok");
 			}
 			catch (Exception ex)
@@ -399,7 +400,10 @@ namespace CarGlass
 
 		protected void OnPopupPrintOrder(object sender, EventArgs Arg)
 		{
-			QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Item_id));
+			if(CurrentType == OrderType.tinting)
+				QSProjectsLib.ViewReportExt.Run("order2", String.Format("id={0}", Item_id));
+			else
+				QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Item_id));
 		}
 
 		protected void OnPopupPrintReceipt(object sender, EventArgs Arg)
