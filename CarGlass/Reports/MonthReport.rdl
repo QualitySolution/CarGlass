@@ -21,7 +21,7 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query >
+      <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText>SELECT orders.type, SUM(summa.cost) as sum, AVG(summa.cost) as avg, COUNT(orders.id)  as count FROM orders
 LEFT JOIN (
@@ -38,7 +38,7 @@ GROUP BY orders.type </CommandText>
           </QueryParameter>
         </QueryParameters>
       </Query>
-      <Fields >
+      <Fields>
         <Field Name="type">
           <DataField>type</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -58,13 +58,14 @@ GROUP BY orders.type </CommandText>
       </Fields>
     </DataSet>
     <DataSet Name="Pays">
-      <Query>
+      <Query >
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>SELECT services.name as service, SUM(order_pays.cost) as sum, AVG(order_pays.cost) as avg, COUNT(order_pays.id) as count FROM order_pays
-LEFT JOIN services ON services.id = order_pays.service_id 
-LEFT JOIN orders ON order_pays.order_id = orders.id
-WHERE orders.date BETWEEN @start AND @end 
-GROUP BY order_pays.service_id </CommandText>
+        <CommandText>SELECT services.name as service, SUM(order_pays.cost) as sum, AVG(order_pays.cost) as avg, COUNT(order_pays.id) as count FROM order_pays
+LEFT JOIN services ON services.id = order_pays.service_id 
+LEFT JOIN orders ON order_pays.order_id = orders.id
+WHERE orders.date BETWEEN @start AND @end 
+GROUP BY order_pays.service_id 
+ORDER BY services.ordinal</CommandText>
         <QueryParameters>
           <QueryParameter Name="@start">
             <Value>=Parameters!start</Value>
@@ -74,7 +75,7 @@ GROUP BY order_pays.service_id </CommandText>
           </QueryParameter>
         </QueryParameters>
       </Query>
-      <Fields>
+      <Fields >
         <Field Name="service">
           <DataField>service</DataField>
           <TypeName>System.String</TypeName>
@@ -121,8 +122,8 @@ GROUP BY order_pays.service_id </CommandText>
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
-          <BorderColor  />
-          <BorderWidth  />
+          <BorderColor />
+          <BorderWidth />
         </Style>
         <TableColumns>
           <TableColumn>
@@ -227,8 +228,8 @@ GROUP BY order_pays.service_id </CommandText>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <PaddingLeft>2pt</PaddingLeft>
-                        <BorderColor  />
-                        <BorderWidth  />
+                        <BorderColor />
+                        <BorderWidth />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -290,7 +291,7 @@ GROUP BY order_pays.service_id </CommandText>
         </Details>
         <Left>22.3pt</Left>
         <Top>18.7pt</Top>
-        <Footer >
+        <Footer>
           <TableRows>
             <TableRow>
               <Height>.2in</Height>

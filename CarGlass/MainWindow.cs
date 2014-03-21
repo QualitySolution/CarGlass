@@ -245,6 +245,8 @@ public partial class MainWindow: Gtk.Window
 	{
 		Reference winref = new Reference();
 		winref.SetMode(false, false, true, true, true);
+		winref.OrdinalField = "ordinal";
+		winref.SqlSelect += " ORDER BY ordinal";
 		winref.FillList("services", "Вид работы", "Виды работ");
 		winref.Show();
 		winref.Run();

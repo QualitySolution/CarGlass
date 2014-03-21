@@ -89,7 +89,7 @@ namespace CarGlass
 			treeviewCost.Model = ServiceListStore;
 			treeviewCost.ShowAll();
 
-			sql = "SELECT id, name, price FROM services WHERE order_type = @order_type";
+			sql = "SELECT id, name, price FROM services WHERE order_type = @order_type ORDER BY ordinal";
 			cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			cmd.Parameters.AddWithValue("@order_type", CurrentType.ToString());
 			using (MySqlDataReader rdr = cmd.ExecuteReader())
