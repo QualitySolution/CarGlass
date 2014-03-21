@@ -92,6 +92,7 @@ namespace CarGlass
 			for(uint i = 1; i <= 7; i++)
 			{
 				Label templabel = new Label();
+				templabel.UseMarkup = true;
 				tableOrders.Attach(templabel , i, i + 1, 0, 1, AttachOptions.Expand, AttachOptions.Shrink, 0, 0);
 				HeadLabels[i-1] = templabel;
 			};
@@ -129,8 +130,8 @@ namespace CarGlass
 			uint Position = 1;
 			for(int i = StartHour; i <= EndHour; i++)
 			{
-				Label templabel = new Label(String.Format("{0:D2}:00", i));
-
+				Label templabel = new Label(String.Format(" {0:D2}:00 ", i));
+				templabel.UseMarkup = true;
 				tableOrders.Attach(templabel, 0, 1, Position, Position + 1, AttachOptions.Shrink, AttachOptions.Expand, 0, 0);
 				HoursLabels[i] = templabel;
 				templabel.Show();
@@ -164,6 +165,10 @@ namespace CarGlass
 		{
 			if (((Button)o).Relief == ReliefStyle.None && ((Button)o).Image == null)
 				((Button)o).Image = new Image("gtk-add", IconSize.Button);
+			int day, hour;
+			GetCalendarPosition((ButtonId<CalendarItem>) o, out day, out hour);
+			HoursLabels[hour].LabelProp = String.Format("<span foreground=\"red\"><b>{0:D2}:00</b></span>", hour);
+			HeadLabels[day].LabelProp = String.Format("<span foreground=\"red\">{0}</span>", _StartDate.AddDays(day).ToString("d, dddd"));
 		}
 
 		protected void OnButtonLeaveNotifyEvent(object o, LeaveNotifyEventArgs args)
@@ -173,6 +178,10 @@ namespace CarGlass
 				((Button)o).Image.Destroy();
 				((Button)o).Image = null;
 			}
+			int day, hour;
+			GetCalendarPosition((ButtonId<CalendarItem>) o, out day, out hour);
+			HoursLabels[hour].LabelProp = String.Format(" {0:D2}:00 ", hour);
+			HeadLabels[day].LabelProp = _StartDate.AddDays(day).ToString("d, dddd");
 		}
 
 		protected void OnButtonRefreshClicked(object sender, EventArgs e)
