@@ -15,7 +15,6 @@ namespace CarGlass
 
 		private OrderType CurrentType;
 		ListStore ServiceListStore;
-		int CarModel_id = -1;
 		int Item_id = -1;
 
 		private Dictionary<string, bool> GlassInDB;
@@ -35,6 +34,7 @@ namespace CarGlass
 
 			string sql = "SELECT name, id FROM status WHERE usedtypes LIKE '%" + CurrentType.ToString() + "%'";
 			ComboWorks.ComboFillUniversal(comboStatus, sql, "{0}", null, 1, ComboWorks.ListMode.OnlyItems);
+			ComboWorks.ComboFillReference(comboMark, "marks", ComboWorks.ListMode.OnlyItems);
 			//ComboWorks.ComboFillUniqueValue(comboYear, "orders", "car_year");
 
 			if(CurrentType == OrderType.install)
@@ -149,27 +149,6 @@ namespace CarGlass
 			labelSum.QueueResize();
 		} 
 
-		protected void OnButtonCarEditClicked(object sender, EventArgs e)
-		{
-			Reference winref = new Reference();
-			winref.SetMode(false, true, true, true, false);
-			winref.SqlSelect = "SELECT models.id, models.name, marks.name as mark FROM @tablename " +
-				"LEFT JOIN marks ON marks.id = models.mark_id ORDER BY mark, name";
-			winref.Columns.Insert(1, new Reference.ColumnInfo("Марка", "{2}", true));
-			winref.Columns[2].Name = "Модель";
-			winref.FillList("models","Модель автомобиля", "Модели автомобилей");
-			winref.Show();
-			int result = winref.Run();
-			if((ResponseType)result == ResponseType.Ok)
-			{
-				CarModel_id = winref.SelectedID;
-				entryCar.Text = String.Format("{1} {2}", winref.SelectedRow);
-				entryCar.TooltipText = String.Format("{1} {2}", winref.SelectedRow);
-			}
-			winref.Destroy();
-			TestCanSave();
-		}
-
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
 			string sql;
@@ -193,7 +172,7 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@date", Date);
 				cmd.Parameters.AddWithValue("@hour", Hour);
 				cmd.Parameters.AddWithValue("@type", CurrentType.ToString());
-				cmd.Parameters.AddWithValue("@car_model_id", CarModel_id);
+				cmd.Parameters.AddWithValue("@car_model_id", ComboWorks.GetActiveId(comboModel));
 				cmd.Parameters.AddWithValue("@car_year", DBWorks.ValueOrNull(comboYear.ActiveText != "", comboYear.ActiveText));
 				cmd.Parameters.AddWithValue("@phone", DBWorks.ValueOrNull(entryPhone.Text != "" && entryPhone.Text != "+7" , entryPhone.Text));
 				cmd.Parameters.AddWithValue("@status_id",  ComboWorks.GetActiveId(comboStatus));
@@ -276,14 +255,16 @@ namespace CarGlass
 			NewItem = false;
 
 			MainClass.StatusMessage(String.Format ("Запрос заказа №{0}...", id));
-			string sql = "SELECT orders.*, models.name as model, marks.name as mark FROM orders " +
+			string sql = "SELECT orders.*, models.name as model, models.mark_id FROM orders " +
 				"LEFT JOIN models ON models.id = orders.car_model_id " +
-				"LEFT JOIN marks ON marks.id = models.mark_id WHERE orders.id = @id";
+				"WHERE orders.id = @id";
 			try
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
 
 				cmd.Parameters.AddWithValue("@id", id);
+
+				int mark_id, model_id;
 
 				using(MySqlDataReader rdr = cmd.ExecuteReader())
 				{
@@ -293,9 +274,8 @@ namespace CarGlass
 					Date = rdr.GetDateTime("date");
 
 					ComboWorks.SetActiveItem(comboStatus, rdr.GetInt32("status_id"));
-					CarModel_id = rdr.GetInt32("car_model_id");
-					entryCar.Text = String.Format("{0} {1}", rdr["mark"].ToString(), rdr["model"].ToString());
-					entryCar.TooltipText = String.Format("{0} {1}", rdr["mark"].ToString(), rdr["model"].ToString());
+					model_id = rdr.GetInt32("car_model_id");
+					mark_id = rdr.GetInt32("mark_id");
 
 					comboYear.Entry.Text = rdr["car_year"].ToString();
 					entryPhone.Text = DBWorks.GetString(rdr, "phone", "+7");
@@ -308,6 +288,8 @@ namespace CarGlass
 					}
 					textviewComment.Buffer.Text = DBWorks.GetString(rdr, "comment", "");
 				}
+				ComboWorks.SetActiveItem(comboMark, mark_id);
+				ComboWorks.SetActiveItem(comboModel, model_id);
 
 				sql = "SELECT * FROM order_glasses WHERE order_id = @id";
 				cmd = new MySqlCommand(sql, QSMain.connectionDB);
@@ -363,7 +345,7 @@ namespace CarGlass
 		protected	void TestCanSave ()
 		{
 			bool Statusok = comboStatus.Active >= 0;
-			bool Carok = CarModel_id > 0;
+			bool Carok = ComboWorks.GetActiveId(comboModel) > 0;
 			buttonOk.Sensitive = Statusok && Carok;
 		}
 
@@ -416,6 +398,18 @@ namespace CarGlass
 			Delete winDelete = new Delete();
 			if (winDelete.RunDeletion("orders", Item_id))
 				Respond(ResponseType.Ok);
+		}
+
+		protected void OnComboMarkChanged(object sender, EventArgs e)
+		{
+			string sql = "SELECT name, id FROM models WHERE mark_id = @id ";
+			MySqlParameter[] Param = { new MySqlParameter("@id", ComboWorks.GetActiveId(comboMark)) };
+			ComboWorks.ComboFillUniversal(comboModel, sql, "{0}", Param, 1, ComboWorks.ListMode.OnlyItems);
+		}
+
+		protected void OnComboModelChanged(object sender, EventArgs e)
+		{
+			TestCanSave();
 		}
 
 	}
