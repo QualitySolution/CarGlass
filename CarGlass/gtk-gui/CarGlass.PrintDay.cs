@@ -43,6 +43,7 @@ namespace CarGlass
 			this.radioinstall = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Установка"));
 			this.radioinstall.CanFocus = true;
 			this.radioinstall.Name = "radioinstall";
+			this.radioinstall.Active = true;
 			this.radioinstall.DrawIndicator = false;
 			this.radioinstall.UseUnderline = true;
 			this.radioinstall.Group = new global::GLib.SList (global::System.IntPtr.Zero);

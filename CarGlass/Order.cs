@@ -32,6 +32,7 @@ namespace CarGlass
 			this.Build();
 			CurrentType = Type;
 
+			QSMain.CheckConnectionAlive();
 			string sql = "SELECT name, id FROM status WHERE usedtypes LIKE '%" + CurrentType.ToString() + "%'";
 			ComboWorks.ComboFillUniversal(comboStatus, sql, "{0}", null, 1, ComboWorks.ListMode.OnlyItems);
 			ComboWorks.ComboFillReference(comboMark, "marks", ComboWorks.ListMode.OnlyItems);
@@ -163,6 +164,7 @@ namespace CarGlass
 					"manufacturer_id = @manufacturer_id, stock_id = @stock_id, eurocode = @eurocode, comment = @comment WHERE id = @id";
 			}
 			MainClass.StatusMessage("Запись заказа...");
+			QSMain.CheckConnectionAlive();
 			MySqlTransaction trans = QSMain.connectionDB.BeginTransaction();
 			try 
 			{
@@ -258,6 +260,7 @@ namespace CarGlass
 			string sql = "SELECT orders.*, models.name as model, models.mark_id FROM orders " +
 				"LEFT JOIN models ON models.id = orders.car_model_id " +
 				"WHERE orders.id = @id";
+			QSMain.CheckConnectionAlive();
 			try
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);

@@ -22,6 +22,7 @@ namespace CarGlass
 
 			MainClass.StatusMessage(String.Format ("Запрос услуги №{0}...", id));
 			string sql = "SELECT services.* FROM services WHERE services.id = @id";
+			QSMain.CheckConnectionAlive();
 			try
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
@@ -70,6 +71,7 @@ namespace CarGlass
 				sql = "UPDATE services SET name = @name, order_type = @order_type, price = @price WHERE id = @id";
 			}
 			MainClass.StatusMessage("Запись услуги...");
+			QSMain.CheckConnectionAlive();
 			try 
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);

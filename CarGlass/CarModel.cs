@@ -24,6 +24,7 @@ namespace CarGlass
 			MainClass.StatusMessage(String.Format("Запрос модели №{0}...", id));
 			string sql = "SELECT models.*, marks.name as mark FROM models " +
 				"LEFT JOIN marks ON marks.id = models.mark_id WHERE models.id = @id";
+			QSMain.CheckConnectionAlive();
 			try
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
@@ -74,6 +75,7 @@ namespace CarGlass
 				sql = "UPDATE models SET name = @name, mark_id = @mark_id WHERE id = @id";
 			}
 			MainClass.StatusMessage("Запись модели...");
+			QSMain.CheckConnectionAlive();
 			try 
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);

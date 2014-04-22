@@ -15,6 +15,7 @@ namespace CarGlass
 		{
 			this.Build();
 
+			QSMain.CheckConnectionAlive();
 			ComboWorks.ComboFillReference(comboStatus, "status", ComboWorks.ListMode.WithNo);
 
 			string sql = "SELECT id, name FROM stocks";

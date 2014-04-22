@@ -29,6 +29,7 @@ namespace CarGlass
 
 			MainClass.StatusMessage(String.Format ("Запрос статуса №{0}...", id));
 			string sql = "SELECT status.* FROM status WHERE status.id = @id";
+			QSMain.CheckConnectionAlive();
 			try
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
@@ -94,6 +95,7 @@ namespace CarGlass
 				sql = "UPDATE status SET name = @name, color = @color, usedtypes = @usedtypes WHERE id = @id";
 			}
 			MainClass.StatusMessage("Запись статуса...");
+			QSMain.CheckConnectionAlive();
 			try 
 			{
 				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);

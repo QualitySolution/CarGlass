@@ -50,6 +50,7 @@ public partial class MainWindow: Gtk.Window
 			sql += "AND orders.type = 'install' ";
 		else 
 			sql += "AND orders.type <> 'install' ";
+		QSMain.CheckConnectionAlive();
 		try
 		{
 			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
@@ -150,6 +151,7 @@ public partial class MainWindow: Gtk.Window
 
 		MainClass.StatusMessage(String.Format ("Изменение времени заказа на {0:d} {1}ч...", arg.Date, arg.Hour));
 		string sql = "UPDATE orders SET date = @date, hour = @hour WHERE id = @id ";
+		QSMain.CheckConnectionAlive();
 		try
 		{
 			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
