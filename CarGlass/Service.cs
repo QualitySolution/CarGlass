@@ -2,11 +2,13 @@
 using Gtk;
 using MySql.Data.MySqlClient;
 using QSProjectsLib;
+using NLog;
 
 namespace CarGlass
 {
 	public partial class Service : Gtk.Dialog
 	{
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 		public bool NewItem;
 		int Serviceid;
 
@@ -44,8 +46,8 @@ namespace CarGlass
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.ToString());
 				MainClass.StatusMessage("Ошибка получения информации о услуге!");
+				logger.Error(ex.ToString());
 				QSMain.ErrorMessage(this,ex);
 			}
 			TestCanSave();
@@ -72,9 +74,10 @@ namespace CarGlass
 			}
 			MainClass.StatusMessage("Запись услуги...");
 			QSMain.CheckConnectionAlive();
+			MySqlTransaction trans = QSMain.connectionDB.BeginTransaction();
 			try 
 			{
-				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB, trans);
 
 				cmd.Parameters.AddWithValue("@id", Serviceid);
 				cmd.Parameters.AddWithValue("@name", entryName.Text);
@@ -82,13 +85,25 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@price", DBWorks.ValueOrNull(spinPrice.Value > 0, spinPrice.Value));
 
 				cmd.ExecuteNonQuery();
+				Serviceid = Convert.ToInt32(cmd.LastInsertedId);
+
+				if(NewItem)
+				{
+					sql = "UPDATE services SET ordinal = @id WHERE id = @id";
+					cmd = new MySqlCommand(sql, QSMain.connectionDB, trans);
+					cmd.Parameters.AddWithValue("@id", Serviceid);
+					cmd.ExecuteNonQuery();
+				}
+
+				trans.Commit();
 				MainClass.StatusMessage("Ok");
 				Respond (ResponseType.Ok);
 			} 
 			catch (Exception ex) 
 			{
-				Console.WriteLine(ex.ToString());
+				trans.Rollback();
 				MainClass.StatusMessage("Ошибка записи услуги!");
+				logger.Error(ex.ToString());
 				QSMain.ErrorMessage(this,ex);
 			}
 		}
