@@ -211,7 +211,6 @@ namespace CarGlass
 			w11.TopAttach = ((uint)(10));
 			w11.BottomAttach = ((uint)(11));
 			w11.RightAttach = ((uint)(2));
-			w11.XOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label2 = new global::Gtk.Label ();
 			this.label2.Name = "label2";
@@ -344,8 +343,6 @@ namespace CarGlass
 			this.hbox1.Add (this.vbox2);
 			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox2]));
 			w24.Position = 0;
-			w24.Expand = false;
-			w24.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vboxGlass = new global::Gtk.VBox ();
 			this.vboxGlass.Name = "vboxGlass";
@@ -469,7 +466,7 @@ namespace CarGlass
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 598;
+			this.DefaultWidth = 692;
 			this.DefaultHeight = 699;
 			this.Show ();
 			this.comboStatus.Changed += new global::System.EventHandler (this.OnComboStatusChanged);
