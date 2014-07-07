@@ -83,6 +83,8 @@
     <Compile Include="gtk-gui\CarGlass.PrintDay.cs" />
     <Compile Include="ReportDialog\MonthReport.cs" />
     <Compile Include="gtk-gui\CarGlass.MonthReport.cs" />
+    <Compile Include="Widgets\ItemButton.cs" />
+    <Compile Include="Widgets\CalendarHBox.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -103,6 +105,7 @@
     <Folder Include="icons\" />
     <Folder Include="ReportDialog\" />
     <Folder Include="Reports\" />
+    <Folder Include="Widgets\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">

@@ -109,6 +109,8 @@ namespace CarGlass
 			this.buttonLeft.Clicked += new global::System.EventHandler (this.OnButtonLeftClicked);
 			this.buttonRight.Clicked += new global::System.EventHandler (this.OnButtonRightClicked);
 			this.buttonRefresh.Clicked += new global::System.EventHandler (this.OnButtonRefreshClicked);
+			this.eventbox1.MotionNotifyEvent += new global::Gtk.MotionNotifyEventHandler (this.OnEventbox1MotionNotifyEvent);
+			this.eventbox1.LeaveNotifyEvent += new global::Gtk.LeaveNotifyEventHandler (this.OnEventbox1LeaveNotifyEvent);
 			this.tableOrders.ExposeEvent += new global::Gtk.ExposeEventHandler (this.OnTableOrdersExposeEvent);
 		}
 	}

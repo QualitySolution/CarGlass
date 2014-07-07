@@ -101,7 +101,7 @@ public partial class MainWindow: Gtk.Window
 					order.OpenOrder += OnOpenOrder;
 					order.TimeChanged += OnChangeTimeOrderEvent;
 					int day = (order.Date - Calendar.StartDate).Days;
-					Calendar.TimeMap[day, order.Hour] = order;
+					Calendar.AddItem(day, order.Hour, order);
 				}
 			}
 			MainClass.StatusMessage("Ok");

@@ -1939,6 +1939,8 @@
         <child>
           <widget class="Gtk.EventBox" id="eventbox1">
             <property name="MemberName" />
+            <signal name="MotionNotifyEvent" handler="OnEventbox1MotionNotifyEvent" />
+            <signal name="LeaveNotifyEvent" handler="OnEventbox1LeaveNotifyEvent" />
             <child>
               <widget class="Gtk.Table" id="tableOrders">
                 <property name="MemberName" />

@@ -36,7 +36,6 @@ namespace CarGlass
 			string sql = "SELECT name, id FROM status WHERE usedtypes LIKE '%" + CurrentType.ToString() + "%'";
 			ComboWorks.ComboFillUniversal(comboStatus, sql, "{0}", null, 1, ComboWorks.ListMode.OnlyItems);
 			ComboWorks.ComboFillReference(comboMark, "marks", ComboWorks.ListMode.OnlyItems);
-			//ComboWorks.ComboFillUniqueValue(comboYear, "orders", "car_year");
 
 			if(CurrentType == OrderType.install)
 			{
