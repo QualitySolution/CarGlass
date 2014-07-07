@@ -113,10 +113,31 @@ namespace CarGlass
 
 		}
 
-		protected override void OnSizeAllocated(Gdk.Rectangle allocation)
+		protected override bool OnButtonReleaseEvent(Gdk.EventButton evnt)
 		{
+			if(evnt.Button == 3)
+			{
+				Gtk.Menu jBox = new Gtk.Menu();
+				MenuItem MenuItem1;
 
-			base.OnSizeAllocated(allocation);
+				MenuItem1 = new MenuItem("Добавить заказ");
+				//MenuItem1.Activated += OnButtonPopupDelete;
+				jBox.Add(MenuItem1);       
+
+				MenuItem1 = new MenuItem("Удалить");
+				MenuItem1.Sensitive = item != null;
+				MenuItem1.Activated += OnButtonPopupDelete;
+				jBox.Add(MenuItem1);       
+				jBox.ShowAll();
+				jBox.Popup();
+			}
+
+			return base.OnButtonReleaseEvent(evnt);
+		}
+
+		protected void OnButtonPopupDelete(object sender, EventArgs Arg)
+		{
+			item.Delete();
 		}
 	}
 }

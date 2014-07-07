@@ -209,12 +209,6 @@ namespace CarGlass
 			CreateNewOrder(_StartDate.AddDays(PopupPosX), PopupPosY, item.ID);
 		}
 
-		protected void OnButtonPopupDelete(object sender, EventArgs Arg)
-		{
-			MenuItemId<CalendarItem> item = (MenuItemId<CalendarItem>)sender;
-			item.ID.Delete();
-		}
-
 		public void RefreshOrders()
 		{
 			if(_StartDate != default(DateTime) && EndTime > 0)
@@ -325,23 +319,6 @@ namespace CarGlass
 				}
 			}
 			return false;
-		}
-
-		//FIXME Не удалось реализовать вывод меню по правой кнопке для удаления, код оставлен.
-		protected void OnButtonReleased(object sender, ButtonReleaseEventArgs args)
-		{
-			if(args.Event.Button == 3)
-			{
-				Gtk.Menu jBox = new Gtk.Menu();
-				MenuItemId<CalendarItem> MenuItem1;
-
-				MenuItem1 = new MenuItemId<CalendarItem>("Удалить");
-				MenuItem1.ID = ((ButtonId<CalendarItem>) sender).ID;
-				MenuItem1.Activated += OnButtonPopupDelete;
-				jBox.Add(MenuItem1);       
-				jBox.ShowAll();
-				jBox.Popup();
-			}
 		}
 
 		protected void OnEventbox1MotionNotifyEvent(object o, MotionNotifyEventArgs args)

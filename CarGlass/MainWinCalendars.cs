@@ -98,6 +98,7 @@ public partial class MainWindow: Gtk.Window
 					order.Color = DBWorks.GetString(rdr, "color", "");
 					order.Type = (int) type;
 					order.Calendar = Calendar;
+					order.DeleteOrder += OnDeleteOrder;
 					order.OpenOrder += OnOpenOrder;
 					order.TimeChanged += OnChangeTimeOrderEvent;
 					int day = (order.Date - Calendar.StartDate).Days;
