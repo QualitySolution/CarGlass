@@ -21,7 +21,6 @@ namespace CarGlass
 		private Label[] HeadLabels;
 		private Label[] HoursLabels;
 
-		private int PopupPosX, PopupPosY;
 		private bool DragIn;
 
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;

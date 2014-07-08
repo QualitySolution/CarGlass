@@ -163,6 +163,7 @@ namespace CarGlass
 			this.Show ();
 			this.checkColor.Clicked += new global::System.EventHandler (this.OnCheckColorClicked);
 			this.entryName.Changed += new global::System.EventHandler (this.OnEntryNameChanged);
+			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}
 	}
 }
