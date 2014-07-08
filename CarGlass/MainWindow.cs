@@ -146,6 +146,17 @@ public partial class MainWindow: Gtk.Window
 				Result = (ResponseType)ServiceEdit.Run();
 				ServiceEdit.Destroy();
 				break;
+			case "stocks":
+				OrderStock StocksEdit = new OrderStock();
+				if(e.NewItem)
+					StocksEdit.NewItem = true;
+				else 
+					StocksEdit.Fill(e.ItemId);
+				StocksEdit.Show();
+				Result = (ResponseType)StocksEdit.Run();
+				StocksEdit.Destroy();
+				break;
+
 			default:
 				Result = ResponseType.None;
 				break;
@@ -214,7 +225,7 @@ public partial class MainWindow: Gtk.Window
 	protected void OnAction6Activated(object sender, EventArgs e)
 	{
 		Reference winref = new Reference();
-		winref.SetMode(true, false, true, true, true);
+		winref.SetMode(false, false, true, true, true);
 		winref.FillList("stocks", "Склад", "Склады");
 		winref.Show();
 		winref.Run();

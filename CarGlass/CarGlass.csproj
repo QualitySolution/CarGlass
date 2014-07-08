@@ -85,6 +85,8 @@
     <Compile Include="gtk-gui\CarGlass.MonthReport.cs" />
     <Compile Include="Widgets\ItemButton.cs" />
     <Compile Include="Widgets\CalendarHBox.cs" />
+    <Compile Include="OrderStock.cs" />
+    <Compile Include="gtk-gui\CarGlass.OrderStock.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
