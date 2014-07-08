@@ -11,6 +11,7 @@ namespace CarGlass
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private CalendarItem item;
 		private Pango.Layout PangoText;
+		private Pango.Layout PangoTag;
 		public OrdersCalendar ParentCalendar;
 		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
 
@@ -31,6 +32,7 @@ namespace CarGlass
 		{
 			HeightRequest = 32;
 			PangoText = new Pango.Layout(this.PangoContext);
+			PangoTag = new Pango.Layout(this.PangoContext);
 			Relief = ReliefStyle.None;
 		}
 
@@ -91,6 +93,27 @@ namespace CarGlass
 				Gdk.Rectangle targetRectangle = this.Allocation;
 				evnt.Window.DrawRectangle(Style.BackgroundGC (State), true, targetRectangle);
 				Style.PaintLayout(Style, evnt.Window, State, true, targetRectangle, this, null, targetRectangle.X, targetRectangle.Y, PangoText);
+				if(item.TagColor != "")
+				{
+					Gdk.Color col = new Gdk.Color();
+					Gdk.Color.Parse(item.TagColor, ref col);
+					Gdk.GC TagGC = new Gdk.GC(evnt.Window);
+					TagGC.RgbFgColor = col;
+
+					Gdk.Point[] triangle = new Gdk.Point[]
+					{
+						new Gdk.Point(targetRectangle.Right - 22, targetRectangle.Top),
+						new Gdk.Point(targetRectangle.Right, targetRectangle.Top + 22),
+						new Gdk.Point(targetRectangle.Right, targetRectangle.Top)
+					}; 
+					evnt.Window.DrawPolygon(TagGC, true, triangle);
+				}
+				if(Item.Tag != "")
+				{
+					int tagW, tagH;
+					PangoTag.GetPixelSize(out tagW, out tagH);
+					evnt.Window.DrawLayout(Style.WhiteGC, targetRectangle.Right - tagW, targetRectangle.Top - 5, PangoTag);
+				}
 				return true;
 			}
 
@@ -117,6 +140,8 @@ namespace CarGlass
 				col = new Gdk.Color(r, g, b);
 				this.ModifyBg(StateType.Prelight, col);
 				logger.Debug("b={0} - {1} - {2}", col.Red, col.Green, col.Blue);
+				//Tag
+				PangoTag.SetText(item.Tag);
 			}
 			else
 			{

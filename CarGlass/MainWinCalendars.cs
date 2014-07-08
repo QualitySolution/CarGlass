@@ -35,7 +35,7 @@ public partial class MainWindow: Gtk.Window
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
 		MainClass.StatusMessage(String.Format ("Запрос заказов на {0:d}...", arg.StartDate));
-		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, " +
+		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
 			"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
 			"LEFT JOIN models ON models.id = orders.car_model_id " +
 			"LEFT JOIN marks ON marks.id = models.mark_id " +
@@ -96,6 +96,9 @@ public partial class MainWindow: Gtk.Window
 						);
 					}
 					order.Color = DBWorks.GetString(rdr, "color", "");
+					order.TagColor = DBWorks.GetString(rdr, "stockcolor", "");
+					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
+						order.Tag = rdr["stock"].ToString().Substring(0, 1);
 					order.Type = (int) type;
 					order.Calendar = Calendar;
 					order.DeleteOrder += OnDeleteOrder;

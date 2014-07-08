@@ -11,6 +11,8 @@ namespace CarGlass
 		public string Text;
 		public string FullText;
 		public string Color;
+		public string Tag;
+		public string TagColor;
 		public OrdersCalendar Calendar;
 
 		public event EventHandler OpenOrder;
