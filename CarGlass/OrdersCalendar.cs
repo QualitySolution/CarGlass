@@ -27,21 +27,6 @@ namespace CarGlass
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
 
-		public class NewOrderEventArgs : EventArgs
-		{
-			public DateTime Date;
-			public int Hour;
-			public int OrderType;
-			public bool result { get; set; }
-		}
-
-		public class RefreshOrdersEventArgs : EventArgs
-		{
-			public DateTime StartDate { get; set; }
-			public int StartTime { get; set; }
-			public int EndTime { get; set; }
-		}
-
 		internal void OnNeedRefreshOrders()
 		{
 			EventHandler<RefreshOrdersEventArgs> handler = NeedRefreshOrders;
@@ -139,7 +124,7 @@ namespace CarGlass
 				//Добавляем воксы календаря
 				for(uint x = 1; x <= 7; x++)
 				{
-					CalendarHBox tempBox = new CalendarHBox();
+					CalendarHBox tempBox = new CalendarHBox(this);
 					tempBox.NewOrderClicked += OnButtonNewOrderClick;
 					tempBox.DragMotion += HandleTargetDragMotion;
 					tempBox.DragLeave += HandleTargetDragLeave;
@@ -169,44 +154,21 @@ namespace CarGlass
 			OnNeedRefreshOrders();
 		}
 
-		protected void OnButtonNewOrderClick(object sender, EventArgs e)
+		protected void OnButtonNewOrderClick(object sender, NewOrderEventArgs e)
 		{
 			CalendarHBox box = (CalendarHBox)sender;
-			for (int x = 0; x < 7; x++)
+			EventHandler<NewOrderEventArgs> handler = NewOrder;
+			if (handler != null)
 			{
-				for (int y = StartTime; y <= EndTime; y++)
-				{
-					if (CalendarBoxes[x, y] == box)
-					{
-						if(OrdersTypes == null || OrdersTypes.Count == 0)
-							CreateNewOrder(_StartDate.AddDays(x), y, -1);
-						else if(OrdersTypes.Count == 1)
-							CreateNewOrder(_StartDate.AddDays(x), y, OrdersTypes.GetEnumerator().Current.Key);
-						else
-						{
-							Gtk.Menu jBox = new Gtk.Menu();
-							MenuItemId<int> MenuItem1;
-							foreach(KeyValuePair<int, string> pair in OrdersTypes)
-							{
-								MenuItem1 = new MenuItemId<int>(pair.Value);
-								MenuItem1.ID = pair.Key;
-								MenuItem1.Activated += OnButtonPopupType;
-								jBox.Add(MenuItem1);       
-							}
-							PopupPosX = x;
-							PopupPosY = y;
-							jBox.ShowAll();
-							jBox.Popup();
-						}
-					}
-				}
+				int x, y;
+				GetCalendarPosition(box, out x, out y);
+				e.Date = _StartDate.AddDays(x);
+				e.Hour = y;
+				e.result = false;
+				handler(this, e);
+				if (e.result)
+					RefreshOrders();
 			}
-		}
-
-		protected void OnButtonPopupType(object sender, EventArgs Arg)
-		{
-			MenuItemId<int> item = (MenuItemId<int>)sender;
-			CreateNewOrder(_StartDate.AddDays(PopupPosX), PopupPosY, item.ID);
 		}
 
 		public void RefreshOrders()
@@ -379,6 +341,21 @@ namespace CarGlass
 			hourHilight = -1;
 		}
 
+	}
+
+	public class NewOrderEventArgs : EventArgs
+	{
+		public DateTime Date;
+		public int Hour;
+		public int OrderType;
+		public bool result { get; set; }
+	}
+
+	public class RefreshOrdersEventArgs : EventArgs
+	{
+		public DateTime StartDate { get; set; }
+		public int StartTime { get; set; }
+		public int EndTime { get; set; }
 	}
 
 }

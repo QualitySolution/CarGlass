@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gtk;
 using NLog;
+using QSWidgetLib;
 
 namespace CarGlass
 {
@@ -9,7 +11,8 @@ namespace CarGlass
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private CalendarItem item;
 		private Pango.Layout PangoText;
-		public event EventHandler NewOrderClicked;
+		public OrdersCalendar ParentCalendar;
+		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
 
 		public CalendarItem Item
 		{
@@ -53,16 +56,29 @@ namespace CarGlass
 			if (item != null)
 				item.Open();
 			else
-				OnNewOrderClicked();
+			{
+				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
+					OnNewOrderClicked(-1);
+				else if(ParentCalendar.OrdersTypes.Count == 1)
+					OnNewOrderClicked(ParentCalendar.OrdersTypes.GetEnumerator().Current.Key);
+				else
+				{
+					Gtk.Menu jBox = GetNewOrderTypesMenu();
+					jBox.ShowAll();
+					jBox.Popup();
+				}
+			}
+
 			base.OnClicked();
 		}
 
-		protected void OnNewOrderClicked()
+		protected void OnNewOrderClicked(int ordertypeid)
 		{
-			EventHandler handler = NewOrderClicked;
+			EventHandler<NewOrderEventArgs> handler = NewOrderClicked;
 			if (handler != null)
 			{
-				EventArgs e = new EventArgs();
+				NewOrderEventArgs e = new NewOrderEventArgs();
+				e.OrderType = ordertypeid;
 				handler(this, e);
 			}
 		}
@@ -119,10 +135,27 @@ namespace CarGlass
 			{
 				Gtk.Menu jBox = new Gtk.Menu();
 				MenuItem MenuItem1;
+				MenuItemId<int> MenuItem2;
 
-				MenuItem1 = new MenuItem("Добавить заказ");
-				//MenuItem1.Activated += OnButtonPopupDelete;
-				jBox.Add(MenuItem1);       
+				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
+				{
+					MenuItem1 = new MenuItem("Новый заказ");
+					MenuItem1.Activated += OnButtonPopupAdd;
+					jBox.Add(MenuItem1);       
+				}
+				else if(ParentCalendar.OrdersTypes.Count == 1)
+				{
+					MenuItem2 = new MenuItemId<int>("Новый заказ");
+					MenuItem2.ID = ParentCalendar.OrdersTypes.GetEnumerator().Current.Key;
+					MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
+					jBox.Add(MenuItem2);       
+				}
+				else
+				{
+					MenuItem1 = new MenuItem("Новый заказ");
+					MenuItem1.Submenu = GetNewOrderTypesMenu();
+					jBox.Add(MenuItem1);       
+				}
 
 				MenuItem1 = new MenuItem("Удалить");
 				MenuItem1.Sensitive = item != null;
@@ -135,9 +168,35 @@ namespace CarGlass
 			return base.OnButtonReleaseEvent(evnt);
 		}
 
+		private Gtk.Menu GetNewOrderTypesMenu()
+		{
+			Gtk.Menu jBox2 = new Gtk.Menu();
+			MenuItemId<int> MenuItem2;
+			foreach(KeyValuePair<int, string> pair in ParentCalendar.OrdersTypes)
+			{
+				MenuItem2 = new MenuItemId<int>(pair.Value);
+				MenuItem2.ID = pair.Key;
+				MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
+				jBox2.Add(MenuItem2);       
+			}
+			return jBox2;
+		}
+
 		protected void OnButtonPopupDelete(object sender, EventArgs Arg)
 		{
 			item.Delete();
 		}
+
+		protected void OnButtonPopupAdd(object sender, EventArgs Arg)
+		{
+			OnNewOrderClicked(-1);
+		}
+
+		protected void OnButtonPopupAddWithType(object sender, ButtonPressEventArgs Arg)
+		{
+			MenuItemId<int> item = (MenuItemId<int>)sender;
+			OnNewOrderClicked(item.ID);
+		}
+
 	}
 }

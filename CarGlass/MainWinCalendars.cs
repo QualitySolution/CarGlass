@@ -30,7 +30,7 @@ public partial class MainWindow: Gtk.Window
 		orderscalendar1.RefreshOrders();
 	}
 
-	protected void OnRefreshCalendarEvent(object sender, OrdersCalendar.RefreshOrdersEventArgs arg)
+	protected void OnRefreshCalendarEvent(object sender, RefreshOrdersEventArgs arg)
 	{
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
@@ -135,7 +135,7 @@ public partial class MainWindow: Gtk.Window
 			item.Calendar.RefreshOrders();
 	}
 
-	protected void OnNewOrder(object sender, OrdersCalendar.NewOrderEventArgs arg)
+	protected void OnNewOrder(object sender, NewOrderEventArgs arg)
 	{
 		Order OrderWin = new Order((Order.OrderType)arg.OrderType, arg.Date, arg.Hour);
 		OrderWin.NewItem = true;

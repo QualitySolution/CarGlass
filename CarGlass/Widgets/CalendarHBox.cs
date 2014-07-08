@@ -7,7 +7,8 @@ namespace CarGlass
 	public class CalendarHBox : HBox
 	{
 		private ItemButton emptyButton;
-		public event EventHandler NewOrderClicked;
+		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
+		private OrdersCalendar ParentCalendar;
 
 		List<CalendarItem> listItems;
 
@@ -24,18 +25,22 @@ namespace CarGlass
 			}
 		}
 
-		public CalendarHBox() : base ()
+		public CalendarHBox(OrdersCalendar calendar) : base ()
 		{
+			ParentCalendar = calendar;
 			emptyButton = new ItemButton();
+			emptyButton.ParentCalendar = ParentCalendar;
 			emptyButton.NewOrderClicked += HandleNewOrderClicked;
 			this.Add(emptyButton);
 			Drag.DestSet(this, DestDefaults.Highlight, null, 0);
 		}
 
-		void HandleNewOrderClicked (object sender, EventArgs e)
+		void HandleNewOrderClicked (object sender, NewOrderEventArgs e)
 		{
 			if (NewOrderClicked != null)
+			{
 				NewOrderClicked(this, e);
+			}
 		}
 
 		void UpdateItemsList()
@@ -56,6 +61,8 @@ namespace CarGlass
 					foreach(CalendarItem item in listItems)
 					{
 						ItemButton newButton = new ItemButton();
+						newButton.ParentCalendar = ParentCalendar;
+						newButton.NewOrderClicked += HandleNewOrderClicked;
 						newButton.Item = item;
 						this.Add(newButton);
 					}
