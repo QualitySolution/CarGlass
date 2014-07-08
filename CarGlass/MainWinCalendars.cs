@@ -68,7 +68,7 @@ public partial class MainWindow: Gtk.Window
 					);
 					Order.OrderType type = (Order.OrderType)Enum.Parse(typeof(Order.OrderType), rdr["type"].ToString());
 					order.id = rdr.GetInt32("id");
-					order.Text = String.Format("{0} {1}\n{2}",rdr["mark"].ToString(), rdr["model"].ToString(), rdr["phone"].ToString() );
+					order.Text = String.Format("{0} {1}\n{2}\n{3}",rdr["mark"].ToString(), rdr["model"].ToString(), rdr["phone"].ToString(), rdr["comment"].ToString() );
 					if(type == Order.OrderType.install)
 					{
 						order.FullText = String.Format("Состояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
