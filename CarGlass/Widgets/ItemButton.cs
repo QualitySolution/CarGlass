@@ -90,10 +90,11 @@ namespace CarGlass
 			logger.Debug("Button Explose");
 			if(item != null)
 			{
+				int triangleSize = 25;
 				Gdk.Rectangle targetRectangle = this.Allocation;
-				evnt.Window.DrawRectangle(Style.BackgroundGC (State), true, targetRectangle);
+				evnt.Window.DrawRectangle(Style.BackgroundGC(State), true, targetRectangle);
 				Style.PaintLayout(Style, evnt.Window, State, true, targetRectangle, this, null, targetRectangle.X, targetRectangle.Y, PangoText);
-				if(item.TagColor != "")
+				if (item.TagColor != "")
 				{
 					Gdk.Color col = new Gdk.Color();
 					Gdk.Color.Parse(item.TagColor, ref col);
@@ -102,17 +103,17 @@ namespace CarGlass
 
 					Gdk.Point[] triangle = new Gdk.Point[]
 					{
-						new Gdk.Point(targetRectangle.Right - 22, targetRectangle.Top),
-						new Gdk.Point(targetRectangle.Right, targetRectangle.Top + 22),
-						new Gdk.Point(targetRectangle.Right, targetRectangle.Top)
-					}; 
+						new Gdk.Point(targetRectangle.X + targetRectangle.Width, targetRectangle.Top),
+						new Gdk.Point(targetRectangle.X + targetRectangle.Width - triangleSize, targetRectangle.Top),
+						new Gdk.Point(targetRectangle.X + targetRectangle.Width, targetRectangle.Top + triangleSize)
+					};
 					evnt.Window.DrawPolygon(TagGC, true, triangle);
 				}
-				if(Item.Tag != "")
+				if (Item.Tag != "")
 				{
-					int tagW, tagH;
-					PangoTag.GetPixelSize(out tagW, out tagH);
-					evnt.Window.DrawLayout(Style.WhiteGC, targetRectangle.Right - tagW, targetRectangle.Top - 5, PangoTag);
+					Pango.Rectangle logicExt, inkExt;
+					PangoTag.GetPixelExtents(out inkExt, out logicExt);
+					evnt.Window.DrawLayout(Style.WhiteGC, targetRectangle.Right - triangleSize * 5/16 - logicExt.Width/2, targetRectangle.Top + triangleSize * 5/ 16 - logicExt.Height/2, PangoTag);
 				}
 				return true;
 			}
