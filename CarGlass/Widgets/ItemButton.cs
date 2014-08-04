@@ -108,12 +108,13 @@ namespace CarGlass
 						new Gdk.Point(targetRectangle.X + targetRectangle.Width, targetRectangle.Top + triangleSize)
 					};
 					evnt.Window.DrawPolygon(TagGC, true, triangle);
-				}
-				if (Item.Tag != "")
-				{
-					Pango.Rectangle logicExt, inkExt;
-					PangoTag.GetPixelExtents(out inkExt, out logicExt);
-					evnt.Window.DrawLayout(Style.WhiteGC, targetRectangle.Right - triangleSize * 5/16 - logicExt.Width/2, targetRectangle.Top + triangleSize * 5/ 16 - logicExt.Height/2, PangoTag);
+
+					if (Item.Tag != "")
+					{
+						Pango.Rectangle logicExt, inkExt;
+						PangoTag.GetPixelExtents(out inkExt, out logicExt);
+						evnt.Window.DrawLayout(Style.WhiteGC, targetRectangle.Right - triangleSize * 5/16 - logicExt.Width/2, targetRectangle.Top + triangleSize * 5/ 16 - logicExt.Height/2, PangoTag);
+					}
 				}
 				return true;
 			}
