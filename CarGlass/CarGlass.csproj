@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2DF2B02C-F5D9-42EE-92C7-4B28EC28FEEE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -101,6 +101,10 @@
     <ProjectReference Include="..\..\QSProjects\QSWidgetLib\QSWidgetLib.csproj">
       <Project>{5A2BB01E-E124-432E-8099-D1343D3897B9}</Project>
       <Name>QSWidgetLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\QSProjects\Modules\QSChat\QSChat.csproj">
+      <Project>{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}</Project>
+      <Name>QSChat</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

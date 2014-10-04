@@ -77,11 +77,14 @@ public partial class MainWindow: Gtk.Window
 			QSMain.User.UpdateUserInfoByLogin ();
 		UsersAction.Sensitive = QSMain.User.admin;
 		labelUser.LabelProp = QSMain.User.Name;
+		chatvsliderMain.Chat.ChatUser = QSMain.User;
 
 		//Настраиваем календарь
 		PrerareCalendars();
 
 		notebookMain.CurrentPage = 0;
+		chatvsliderMain.IsHided = true;
+		chatvsliderMain.Chat.Active = true;
 	}
 
 	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
