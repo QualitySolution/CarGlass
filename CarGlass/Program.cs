@@ -20,11 +20,7 @@ namespace CarGlass
 				QSMain.ErrorMessage(MainWin, (Exception) e.ExceptionObject);
 			};
 			CreateProjectParam();
-			//Настраиваем общую билиотеку
-			QSMain.NewStatusText += delegate(object sender, QSProjectsLib.QSMain.NewStatusTextEventArgs e) 
-			{
-				StatusMessage (e.NewText);
-			};
+
 			// Создаем окно входа
 			Login LoginDialog = new QSProjectsLib.Login ();
 			LoginDialog.Logo = Gdk.Pixbuf.LoadFromResource ("CarGlass.icons.logo.png");
@@ -177,8 +173,7 @@ namespace CarGlass
 
 		public static void StatusMessage(string message)
 		{
-			StatusBarLabel.Text = message;
-			logger.Info(message);
+			StatusBarLabel.LabelProp = message;
 			while (GLib.MainContext.Pending())
 			{
 				Gtk.Main.Iteration();

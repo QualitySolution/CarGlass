@@ -14,6 +14,7 @@ public partial class MainWindow: Gtk.Window
 
 		//Передаем лебл
 		MainClass.StatusBarLabel = labelStatus;
+		QSMain.MakeNewStatusTargetForNlog("StatusMessage", "CarGlass.MainClass, CarGlass");
 		Reference.RunReferenceItemDlg += OnRunReferenceItemDialog;
 		QSMain.ReferenceUpdated += OnReferenceUpdate;
 
