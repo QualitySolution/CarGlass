@@ -78,7 +78,7 @@
           <Textbox Name="id">
             <Top>10.10pt</Top>
             <Left>160.60pt</Left>
-            <Width>50.48pt</Width>
+            <Width>90.48pt</Width>
             <Height>20.31pt</Height>
             <Value>=Fields!id.Value</Value>
             <CanGrow>false</CanGrow>
@@ -483,7 +483,7 @@
           <Textbox Name="Textbox14" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
             <Top>428.4pt</Top>
             <Left>250.2pt</Left>
-            <Width>50.48pt</Width>
+            <Width>90.48pt</Width>
             <Height>20.31pt</Height>
             <Value>=Fields!id.Value</Value>
             <CanGrow>false</CanGrow>
