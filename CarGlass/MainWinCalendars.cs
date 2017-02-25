@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using CarGlass;
 using Gtk;
 using MySql.Data.MySqlClient;
-using CarGlass;
 using QSProjectsLib;
 
 public partial class MainWindow: Gtk.Window
@@ -74,31 +74,31 @@ public partial class MainWindow: Gtk.Window
 					);
 					Order.OrderType type = (Order.OrderType)Enum.Parse(typeof(Order.OrderType), rdr["type"].ToString());
 					order.id = rdr.GetInt32("id");
-					order.Text = String.Format("{0} {1}\n{2}\n{3}",rdr["mark"].ToString(), rdr["model"].ToString(), rdr["phone"].ToString(), rdr["comment"].ToString() );
+					order.Text = String.Format("{0} {1}\n{2}\n{3}",rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"] );
 					if(type == Order.OrderType.install)
 					{
 						order.FullText = String.Format("Состояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
-							rdr["status"].ToString(),
-							rdr["mark"].ToString(),
-							rdr["model"].ToString(),
-							rdr["eurocode"].ToString(),
-							rdr["manufacturer"].ToString(),
-							rdr["stock"].ToString(),
-							rdr["phone"].ToString(),
+							rdr["status"],
+							rdr["mark"],
+							rdr["model"],
+							rdr["eurocode"],
+							rdr["manufacturer"],
+							rdr["stock"],
+							rdr["phone"],
 							DBWorks.GetDecimal(rdr, "sum", 0),
-							rdr["comment"].ToString()
+							rdr["comment"]
 						);
 					}
 					else
 					{
 						order.FullText = String.Format("Заказ на {0}\nСостояние: {1}\nАвтомобиль: {2} {3}\nТелефон: {4}\nСтоимость: {5:C}\n{6}",
 							type == Order.OrderType.tinting ? "тонировку" : "ремонт",
-							rdr["status"].ToString(),
-							rdr["mark"].ToString(),
-							rdr["model"].ToString(),
-							rdr["phone"].ToString(),
+							rdr["status"],
+							rdr["mark"],
+							rdr["model"],
+							rdr["phone"],
 							DBWorks.GetDecimal(rdr, "sum", 0),
-							rdr["comment"].ToString()
+							rdr["comment"]
 						);
 					}
 					order.Color = DBWorks.GetString(rdr, "color", "");
