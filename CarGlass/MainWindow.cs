@@ -215,15 +215,6 @@ public partial class MainWindow: Gtk.Window
 		winref.Destroy();
 	}
 
-	protected void OnButton38Clicked(object sender, EventArgs e)
-	{
-		Order NewOrder = new Order(Order.OrderType.repair, DateTime.Now.Date, 9);
-		NewOrder.NewItem = true;
-		NewOrder.Show();
-		NewOrder.Run();
-		NewOrder.Destroy();
-	}
-
 	protected void OnNotebookMainSwitchPage(object o, SwitchPageArgs args)
 	{
 		switch (notebookMain.CurrentPage)
