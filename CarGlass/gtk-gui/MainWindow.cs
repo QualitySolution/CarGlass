@@ -356,6 +356,7 @@ public partial class MainWindow
 		this.Action14.Activated += new global::System.EventHandler (this.OnAction14Activated);
 		this.Action16.Activated += new global::System.EventHandler (this.OnAction16Activated);
 		this.ActionHistoryLog.Activated += new global::System.EventHandler (this.OnActionHistoryLogActivated);
+		this.ActionCheckUpdates.Activated += new global::System.EventHandler (this.OnActionCheckUpdatesActivated);
 		this.notebookMain.SwitchPage += new global::Gtk.SwitchPageHandler (this.OnNotebookMainSwitchPage);
 	}
 }

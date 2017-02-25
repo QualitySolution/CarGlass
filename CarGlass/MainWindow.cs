@@ -134,26 +134,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnAboutActionActivated(object sender, EventArgs e)
 	{
-		AboutDialog dialog = new AboutDialog ();
-		dialog.ProgramName = "QS: Мастерская автостекла";
-
-		Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-		dialog.Version = String.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
-
-		dialog.Logo = Gdk.Pixbuf.LoadFromResource ("CarGlass.icons.logo.png");
-
-		dialog.Comments = "Регистрация заказов в мастерской автостекл." +
-			"\nРазработана на MonoDevelop с использованием открытых технологий Mono, GTK#, MySQL." +
-			"\nТелефон тех. поддержки +7(812)575-79-44";
-
-		dialog.Copyright = "Quality Solution 2014";
-
-		dialog.Authors = new string [] {"Ганьков Андрей <gav@qsolution.ru>"};
-
-		dialog.Website = "http://www.qsolution.ru/";
-
-		dialog.Run ();
-		dialog.Destroy();
+		QSMain.RunAboutDialog ();
 	}
 
 	protected void OnAction3Activated(object sender, EventArgs e)
@@ -281,5 +262,10 @@ public partial class MainWindow: Gtk.Window
 	protected void OnActionHistoryLogActivated(object sender, EventArgs e)
 	{
 		QSMain.RunChangeLogDlg (this);
+	}
+
+	protected void OnActionCheckUpdatesActivated(object sender, EventArgs e)
+	{
+		CheckUpdate.StartCheckUpdateThread (UpdaterFlags.ShowAnyway);
 	}
 }

@@ -133,6 +133,7 @@
         <property name="Label" translatable="yes">Проверить обновления</property>
         <property name="ShortLabel" translatable="yes">Проверить обновления</property>
         <property name="StockId">gtk-go-down</property>
+        <signal name="Activated" handler="OnActionCheckUpdatesActivated" />
       </action>
     </action-group>
     <property name="MemberName" />
