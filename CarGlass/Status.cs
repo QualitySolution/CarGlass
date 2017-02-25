@@ -27,7 +27,7 @@ namespace CarGlass
 			Status_id = id;
 			NewItem = false;
 
-			MainClass.StatusMessage(String.Format ("Запрос статуса №{0}...", id));
+			logger.Info("Запрос статуса №{0}...", id);
 			string sql = "SELECT status.* FROM status WHERE status.id = @id";
 			QSMain.CheckConnectionAlive();
 			try
@@ -59,14 +59,12 @@ namespace CarGlass
 							checklistTypes.CheckButtons[ordertype].Active = true;
 					}
 				}
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				this.Title = entryName.Text;
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.ToString());
-				MainClass.StatusMessage("Ошибка получения информации о статусе!");
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка получения информации о статусе!", logger, ex);
 			}
 			TestCanSave();
 		}
@@ -94,7 +92,7 @@ namespace CarGlass
 			{
 				sql = "UPDATE status SET name = @name, color = @color, usedtypes = @usedtypes WHERE id = @id";
 			}
-			MainClass.StatusMessage("Запись статуса...");
+			logger.Info("Запись статуса...");
 			QSMain.CheckConnectionAlive();
 			try 
 			{
@@ -120,14 +118,12 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@usedtypes", types.TrimEnd(','));
 
 				cmd.ExecuteNonQuery();
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				Respond (Gtk.ResponseType.Ok);
 			} 
 			catch (Exception ex) 
 			{
-				Console.WriteLine(ex.ToString());
-				MainClass.StatusMessage("Ошибка записи статуса!");
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка записи статуса!", logger, ex);
 			}
 		}
 

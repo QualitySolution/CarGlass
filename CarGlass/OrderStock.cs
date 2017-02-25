@@ -22,7 +22,7 @@ namespace CarGlass
 			ItemId = id;
 			NewItem = false;
 
-			MainClass.StatusMessage(String.Format ("Запрос склада №{0}...", id));
+			logger.Info("Запрос склада №{0}...", id);
 			string sql = "SELECT stocks.* FROM stocks WHERE stocks.id = @id";
 			QSMain.CheckConnectionAlive();
 			try
@@ -46,7 +46,7 @@ namespace CarGlass
 						colorbuttonMarker.Color = TempColor;
 					}
 				}
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				this.Title = entryName.Text;
 			}
 			catch (Exception ex)
@@ -79,7 +79,7 @@ namespace CarGlass
 			{
 				sql = "UPDATE stocks SET name = @name, color = @color WHERE id = @id";
 			}
-			MainClass.StatusMessage("Запись склада...");
+			logger.Info("Запись склада...");
 			QSMain.CheckConnectionAlive();
 			try 
 			{
@@ -98,7 +98,7 @@ namespace CarGlass
 					cmd.Parameters.AddWithValue("@color", DBNull.Value);
 
 				cmd.ExecuteNonQuery();
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				Respond (Gtk.ResponseType.Ok);
 			} 
 			catch (Exception ex) 

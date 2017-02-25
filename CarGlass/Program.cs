@@ -8,7 +8,6 @@ namespace CarGlass
 {
 	class MainClass
 	{
-		public static Label StatusBarLabel;
 		public static MainWindow MainWin;
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -158,16 +157,6 @@ namespace CarGlass
 				new TableInfo.DeleteDependenceItem ("WHERE mark_id = @id ", "", "@id"));
 			Tables.Add("marks", PrepareTable);
 
-		}
-
-		[Obsolete("Устаревший подход. Нужно писать в лог.")]
-		public static void StatusMessage(string message)
-		{
-			StatusBarLabel.LabelProp = message;
-			while (GLib.MainContext.Pending())
-			{
-				Gtk.Main.Iteration();
-			}
 		}
 	}
 }

@@ -7,6 +7,8 @@ namespace CarGlass
 {
 	public partial class CarModel : Gtk.Dialog
 	{
+		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
 		public bool NewItem;
 		int Itemid;
 		int Mark_id = -1;
@@ -21,7 +23,7 @@ namespace CarGlass
 			Itemid = id;
 			NewItem = false;
 
-			MainClass.StatusMessage(String.Format("Запрос модели №{0}...", id));
+			logger.Info("Запрос модели №{0}...", id);
 			string sql = "SELECT models.*, marks.name as mark FROM models " +
 				"LEFT JOIN marks ON marks.id = models.mark_id WHERE models.id = @id";
 			QSMain.CheckConnectionAlive();
@@ -41,15 +43,13 @@ namespace CarGlass
 					entryMark.Text = rdr["mark"].ToString();
 					Mark_id = DBWorks.GetInt(rdr, "mark_id", -1);
 
-					MainClass.StatusMessage("Ok");
+					logger.Info("Ok");
 				}
 				this.Title = entryName.Text;
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.ToString());
-				MainClass.StatusMessage("Ошибка получения информации о модели!");
-				QSMain.ErrorMessage(this, ex);
+				QSMain.ErrorMessageWithLog("Ошибка получения информации о модели!", logger, ex);
 				this.Respond(Gtk.ResponseType.Reject);
 			}
 			TestCanSave();
@@ -74,7 +74,7 @@ namespace CarGlass
 			{
 				sql = "UPDATE models SET name = @name, mark_id = @mark_id WHERE id = @id";
 			}
-			MainClass.StatusMessage("Запись модели...");
+			logger.Info("Запись модели...");
 			QSMain.CheckConnectionAlive();
 			try 
 			{
@@ -85,14 +85,12 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@mark_id", DBWorks.ValueOrNull(Mark_id > 0, Mark_id));
 		
 				cmd.ExecuteNonQuery();
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				Respond (Gtk.ResponseType.Ok);
 			} 
 			catch (Exception ex) 
 			{
-				Console.WriteLine(ex.ToString());
-				MainClass.StatusMessage("Ошибка записи модели!");
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка записи модели!", logger, ex);
 			}
 		}
 

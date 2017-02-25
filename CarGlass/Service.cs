@@ -22,7 +22,7 @@ namespace CarGlass
 			Serviceid = id;
 			NewItem = false;
 
-			MainClass.StatusMessage(String.Format ("Запрос услуги №{0}...", id));
+			logger.Info("Запрос услуги №{0}...", id);
 			string sql = "SELECT services.* FROM services WHERE services.id = @id";
 			QSMain.CheckConnectionAlive();
 			try
@@ -41,14 +41,12 @@ namespace CarGlass
 				spinPrice.Value = DBWorks.GetDouble(rdr, "price", 0);
 
 				rdr.Close();
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				this.Title = entryName.Text;
 			}
 			catch (Exception ex)
 			{
-				MainClass.StatusMessage("Ошибка получения информации о услуге!");
-				logger.Error(ex.ToString());
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка получения информации о услуге!", logger, ex);
 			}
 			TestCanSave();
 		}
@@ -72,7 +70,7 @@ namespace CarGlass
 			{
 				sql = "UPDATE services SET name = @name, order_type = @order_type, price = @price WHERE id = @id";
 			}
-			MainClass.StatusMessage("Запись услуги...");
+			logger.Info("Запись услуги...");
 			QSMain.CheckConnectionAlive();
 			MySqlTransaction trans = QSMain.connectionDB.BeginTransaction();
 			try 
@@ -96,15 +94,13 @@ namespace CarGlass
 				}
 
 				trans.Commit();
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				Respond (ResponseType.Ok);
 			} 
 			catch (Exception ex) 
 			{
 				trans.Rollback();
-				MainClass.StatusMessage("Ошибка записи услуги!");
-				logger.Error(ex.ToString());
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка записи услуги!", logger, ex);
 			}
 		}
 

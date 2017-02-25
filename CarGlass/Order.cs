@@ -8,6 +8,8 @@ namespace CarGlass
 {
 	public partial class Order : Gtk.Dialog
 	{
+		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
 		public enum OrderType {install, tinting, repair};
 		public bool NewItem;
 		private DateTime Date;
@@ -162,7 +164,7 @@ namespace CarGlass
 				sql = "UPDATE orders SET car_model_id = @car_model_id, car_year = @car_year, phone = @phone, status_id = @status_id, " +
 					"manufacturer_id = @manufacturer_id, stock_id = @stock_id, eurocode = @eurocode, comment = @comment WHERE id = @id";
 			}
-			MainClass.StatusMessage("Запись заказа...");
+			logger.Info("Запись заказа...");
 			QSMain.CheckConnectionAlive();
 			MySqlTransaction trans = QSMain.connectionDB.BeginTransaction();
 			try 
@@ -236,16 +238,14 @@ namespace CarGlass
 					}
 				}
 
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 				trans.Commit();
 				Respond (ResponseType.Ok);
 			} 
 			catch (Exception ex) 
 			{
 				trans.Rollback();
-				Console.WriteLine(ex.ToString());
-				MainClass.StatusMessage("Ошибка записи заказа!");
-				QSMain.ErrorMessage(this, ex);
+				QSMain.ErrorMessageWithLog("Ошибка записи заказа!", logger, ex);
 			}
 
 		}
@@ -255,7 +255,7 @@ namespace CarGlass
 			Item_id = id;
 			NewItem = false;
 
-			MainClass.StatusMessage(String.Format ("Запрос заказа №{0}...", id));
+			logger.Info("Запрос заказа №{0}...", id);
 			string sql = "SELECT orders.*, models.name as model, models.mark_id FROM orders " +
 				"LEFT JOIN models ON models.id = orders.car_model_id " +
 				"WHERE orders.id = @id";
@@ -333,13 +333,11 @@ namespace CarGlass
 				CalculateTotal();
 				buttonPrint.Sensitive = CurrentType != OrderType.repair;
 				buttonDelete.Sensitive = true;
-				MainClass.StatusMessage("Ok");
+				logger.Info("Ok");
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.ToString());
-				MainClass.StatusMessage("Ошибка получения информации о заказе!");
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка получения информации о заказе!", logger, ex);
 			}
 			TestCanSave();
 		}

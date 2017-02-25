@@ -7,13 +7,15 @@ using QSUpdater;
 
 public partial class MainWindow: Gtk.Window
 {
+	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
 		Build();
 		Maximize();
 
 		//Передаем лебл
-		MainClass.StatusBarLabel = labelStatus;
+		QSMain.StatusBarLabel = labelStatus;
 		this.Title = MainSupport.GetTitle ();
 		QSMain.MakeNewStatusTargetForNlog ();
 		Reference.RunReferenceItemDlg += OnRunReferenceItemDialog;

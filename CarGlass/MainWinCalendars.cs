@@ -34,7 +34,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
-		MainClass.StatusMessage(String.Format ("Запрос заказов на {0:d}...", arg.StartDate));
+		logger.Info("Запрос заказов на {0:d}...", arg.StartDate);
 		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
 			"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
 			"LEFT JOIN models ON models.id = orders.car_model_id " +
@@ -108,13 +108,11 @@ public partial class MainWindow: Gtk.Window
 					Calendar.AddItem(day, order.Hour, order);
 				}
 			}
-			MainClass.StatusMessage("Ok");
+			logger.Info("Ok");
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine(ex.ToString());
-			MainClass.StatusMessage("Ошибка получения списка заказов!");
-			QSMain.ErrorMessage(this,ex);
+			QSMain.ErrorMessageWithLog("Ошибка получения списка заказов!", logger, ex);
 		}
 
 	}
@@ -153,7 +151,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		CalendarItem order = (CalendarItem)sender;
 
-		MainClass.StatusMessage(String.Format ("Изменение времени заказа на {0:d} {1}ч...", arg.Date, arg.Hour));
+		logger.Info("Изменение времени заказа на {0:d} {1}ч...", arg.Date, arg.Hour);
 		string sql = "UPDATE orders SET date = @date, hour = @hour WHERE id = @id ";
 		QSMain.CheckConnectionAlive();
 		try
@@ -165,13 +163,11 @@ public partial class MainWindow: Gtk.Window
 			cmd.Parameters.AddWithValue("@id", order.id);
 
 			cmd.ExecuteNonQuery();
-			MainClass.StatusMessage("Ok");
+			logger.Info("Ok");
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine(ex.ToString());
-			MainClass.StatusMessage("Ошибка записи заказа!");
-			QSMain.ErrorMessage(this,ex);
+			QSMain.ErrorMessageWithLog("Ошибка записи заказа!", logger, ex);
 		}
 
 	}
