@@ -232,6 +232,12 @@ public partial class MainWindow: Gtk.Window
 			case 1:
 				orderscalendar2.RefreshOrders();
 				break;
+			case 2:
+				orderscalendar3.RefreshOrders();
+				break;
+			case 3:
+				orderscalendar4.RefreshOrders();
+				break;
 		}
 	}
 

@@ -61,6 +61,14 @@ public partial class MainWindow
 	
 	private global::Gtk.Label label2;
 	
+	private global::CarGlass.OrdersCalendar orderscalendar3;
+	
+	private global::Gtk.Label label3;
+	
+	private global::CarGlass.OrdersCalendar orderscalendar4;
+	
+	private global::Gtk.Label label4;
+	
 	private global::QSChat.ChatVSlider chatvsliderMain;
 	
 	private global::Gtk.Statusbar statusbar1;
@@ -161,7 +169,7 @@ public partial class MainWindow
 		this.notebookMain = new global::Gtk.Notebook ();
 		this.notebookMain.CanFocus = true;
 		this.notebookMain.Name = "notebookMain";
-		this.notebookMain.CurrentPage = 1;
+		this.notebookMain.CurrentPage = 0;
 		// Container child notebookMain.Gtk.Notebook+NotebookChild
 		this.orderscalendar1 = new global::CarGlass.OrdersCalendar ();
 		this.orderscalendar1.Events = ((global::Gdk.EventMask)(256));
@@ -171,7 +179,7 @@ public partial class MainWindow
 		// Notebook tab
 		this.label1 = new global::Gtk.Label ();
 		this.label1.Name = "label1";
-		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Календарь Установка");
+		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Установка Пригородный");
 		this.notebookMain.SetTabLabel (this.orderscalendar1, this.label1);
 		this.label1.ShowAll ();
 		// Container child notebookMain.Gtk.Notebook+NotebookChild
@@ -185,25 +193,53 @@ public partial class MainWindow
 		// Notebook tab
 		this.label2 = new global::Gtk.Label ();
 		this.label2.Name = "label2";
-		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Календарь Тонировка");
+		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Тонировка Пригородный");
 		this.notebookMain.SetTabLabel (this.orderscalendar2, this.label2);
 		this.label2.ShowAll ();
+		// Container child notebookMain.Gtk.Notebook+NotebookChild
+		this.orderscalendar3 = new global::CarGlass.OrdersCalendar ();
+		this.orderscalendar3.Events = ((global::Gdk.EventMask)(256));
+		this.orderscalendar3.Name = "orderscalendar3";
+		this.orderscalendar3.StartDate = new global::System.DateTime (0);
+		this.notebookMain.Add (this.orderscalendar3);
+		global::Gtk.Notebook.NotebookChild w5 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain [this.orderscalendar3]));
+		w5.Position = 2;
+		// Notebook tab
+		this.label3 = new global::Gtk.Label ();
+		this.label3.Name = "label3";
+		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Установка Въезд");
+		this.notebookMain.SetTabLabel (this.orderscalendar3, this.label3);
+		this.label3.ShowAll ();
+		// Container child notebookMain.Gtk.Notebook+NotebookChild
+		this.orderscalendar4 = new global::CarGlass.OrdersCalendar ();
+		this.orderscalendar4.Events = ((global::Gdk.EventMask)(256));
+		this.orderscalendar4.Name = "orderscalendar4";
+		this.orderscalendar4.StartDate = new global::System.DateTime (0);
+		this.notebookMain.Add (this.orderscalendar4);
+		global::Gtk.Notebook.NotebookChild w6 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain [this.orderscalendar4]));
+		w6.Position = 3;
+		// Notebook tab
+		this.label4 = new global::Gtk.Label ();
+		this.label4.Name = "label4";
+		this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Тонировка Въезд");
+		this.notebookMain.SetTabLabel (this.orderscalendar4, this.label4);
+		this.label4.ShowAll ();
 		this.hbox6.Add (this.notebookMain);
-		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.notebookMain]));
-		w5.Position = 0;
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.notebookMain]));
+		w7.Position = 0;
 		// Container child hbox6.Gtk.Box+BoxChild
 		this.chatvsliderMain = new global::QSChat.ChatVSlider ();
 		this.chatvsliderMain.Events = ((global::Gdk.EventMask)(256));
 		this.chatvsliderMain.Name = "chatvsliderMain";
 		this.chatvsliderMain.IsHided = false;
 		this.hbox6.Add (this.chatvsliderMain);
-		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.chatvsliderMain]));
-		w6.Position = 1;
-		w6.Expand = false;
-		w6.Fill = false;
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.chatvsliderMain]));
+		w8.Position = 1;
+		w8.Expand = false;
+		w8.Fill = false;
 		this.vbox1.Add (this.hbox6);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox6]));
-		w7.Position = 1;
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox6]));
+		w9.Position = 1;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.statusbar1 = new global::Gtk.Statusbar ();
 		this.statusbar1.Name = "statusbar1";
@@ -213,29 +249,29 @@ public partial class MainWindow
 		this.labelUser.Name = "labelUser";
 		this.labelUser.LabelProp = global::Mono.Unix.Catalog.GetString ("label5");
 		this.statusbar1.Add (this.labelUser);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.labelUser]));
-		w8.Position = 0;
-		w8.Expand = false;
-		w8.Fill = false;
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.labelUser]));
+		w10.Position = 0;
+		w10.Expand = false;
+		w10.Fill = false;
 		// Container child statusbar1.Gtk.Box+BoxChild
 		this.labelStatus = new global::Gtk.Label ();
 		this.labelStatus.Name = "labelStatus";
 		this.labelStatus.LabelProp = global::Mono.Unix.Catalog.GetString ("label4");
 		this.statusbar1.Add (this.labelStatus);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.labelStatus]));
-		w9.Position = 2;
-		w9.Expand = false;
-		w9.Fill = false;
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.statusbar1 [this.labelStatus]));
+		w11.Position = 2;
+		w11.Expand = false;
+		w11.Fill = false;
 		this.vbox1.Add (this.statusbar1);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
-		w10.Position = 2;
-		w10.Expand = false;
-		w10.Fill = false;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
+		w12.Position = 2;
+		w12.Expand = false;
+		w12.Fill = false;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 863;
+		this.DefaultWidth = 1006;
 		this.DefaultHeight = 409;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);

@@ -13,7 +13,7 @@
     <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
     <widget-library name="../../../QSProjects/QSUpdater/bin/Debug/QSUpdater.dll" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="863 409">
+  <widget class="Gtk.Window" id="MainWindow" design-size="1006 409">
     <action-group name="Default">
       <action id="Action">
         <property name="Type">Action</property>
@@ -205,7 +205,7 @@
                 <child>
                   <widget class="Gtk.Label" id="label1">
                     <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">Календарь Установка</property>
+                    <property name="LabelProp" translatable="yes">Установка Пригородный</property>
                   </widget>
                   <packing>
                     <property name="type">tab</property>
@@ -224,7 +224,45 @@
                 <child>
                   <widget class="Gtk.Label" id="label2">
                     <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">Календарь Тонировка</property>
+                    <property name="LabelProp" translatable="yes">Тонировка Пригородный</property>
+                  </widget>
+                  <packing>
+                    <property name="type">tab</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="CarGlass.OrdersCalendar" id="orderscalendar3">
+                    <property name="MemberName" />
+                    <property name="Events">ButtonPressMask</property>
+                    <property name="StartDate">0</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="label3">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">Установка Въезд</property>
+                  </widget>
+                  <packing>
+                    <property name="type">tab</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="CarGlass.OrdersCalendar" id="orderscalendar4">
+                    <property name="MemberName" />
+                    <property name="Events">ButtonPressMask</property>
+                    <property name="StartDate">0</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="label4">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">Тонировка Въезд</property>
                   </widget>
                   <packing>
                     <property name="type">tab</property>
