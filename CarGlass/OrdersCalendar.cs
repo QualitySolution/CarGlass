@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gtk;
-using MySql.Data.MySqlClient;
-using QSWidgetLib;
 using NLog;
 
 namespace CarGlass
@@ -12,14 +10,14 @@ namespace CarGlass
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		public List<CalendarItem>[,] TimeMap;
-		public Dictionary<int, string> OrdersTypes;
+		public Dictionary<Order.OrderType, string> OrdersTypes;
 		private CalendarHBox[,] CalendarBoxes;
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
 		private int dayHilight = -1, hourHilight = -1;
 
-		private Label[] HeadLabels;
-		private Label[] HoursLabels;
+		public Label[] HeadLabels;
+		public Label[] HoursLabels;
 
 		private bool DragIn;
 
@@ -40,7 +38,7 @@ namespace CarGlass
 			RefreshButtons();
 		}
 
-		public bool CreateNewOrder(DateTime date, int hour, int ordertype)
+		public bool CreateNewOrder(DateTime date, int hour, Order.OrderType ordertype)
 		{
 			EventHandler<NewOrderEventArgs> handler = NewOrder;
 			if (handler != null)
@@ -346,7 +344,7 @@ namespace CarGlass
 	{
 		public DateTime Date;
 		public int Hour;
-		public int OrderType;
+		public Order.OrderType OrderType;
 		public bool result { get; set; }
 	}
 

@@ -10,20 +10,26 @@ public partial class MainWindow: Gtk.Window
 
 	void PrerareCalendars()
 	{
+		var installServices = new Dictionary<Order.OrderType, string>{
+			{Order.OrderType.install, "Установка стекл"}
+		};
+
+		var tintingServices = new Dictionary<Order.OrderType, string>{
+			{ Order.OrderType.tinting, "Тонировка" },
+			{ Order.OrderType.repair, "Ремонт сколов" }
+		};
+
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 22);
 		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);
-		orderscalendar1.OrdersTypes = new Dictionary<int, string>();
-		orderscalendar1.OrdersTypes.Add((int)Order.OrderType.install, "Установка стекл");
+		orderscalendar1.OrdersTypes = installServices;
 		orderscalendar1.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar1.NewOrder += OnNewOrder;
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 22);
 		orderscalendar2.BackgroundColor = new Gdk.Color(255, 230, 230);
-		orderscalendar2.OrdersTypes = new Dictionary<int, string>();
-		orderscalendar2.OrdersTypes.Add((int)Order.OrderType.tinting, "Тонировка");
-		orderscalendar2.OrdersTypes.Add((int)Order.OrderType.repair, "Ремонт сколов");
+		orderscalendar2.OrdersTypes = tintingServices;
 		orderscalendar2.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar2.NewOrder += OnNewOrder;
 
@@ -138,7 +144,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnNewOrder(object sender, NewOrderEventArgs arg)
 	{
-		Order OrderWin = new Order((Order.OrderType)arg.OrderType, arg.Date, arg.Hour);
+		Order OrderWin = new Order(arg.OrderType, arg.Date, arg.Hour);
 		OrderWin.NewItem = true;
 		OrderWin.Show();
 		int result = OrderWin.Run();
