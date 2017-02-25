@@ -1,9 +1,9 @@
 
 ;--------------------------------
-!define PRODUCT_VERSION "1.0.2"
+!define PRODUCT_VERSION "1.2"
 !define NETVersion "4.0"
 !define NETInstaller "dotNetFx40_Full_setup.exe"
-!define PRODUCT_NAME "QS: Мастерская автостекол"
+!define PRODUCT_NAME "Автостекла Stekloff"
 !define MENU_DIR_NAME "Stekloff"
 !define EXE_NAME "CarGlass"
 
@@ -11,7 +11,7 @@
 Name "${PRODUCT_NAME}"
 
 ; The file to write
-OutFile "CarGlass-${PRODUCT_VERSION}.exe"
+OutFile "CarGlass-1.2.x.exe"
 
 !include "MUI.nsh"
 
@@ -197,13 +197,43 @@ Section "MS .NET Framework v${NETVersion}" SecFramework
  
 SectionEnd
 
-Section "GTK# 2.12.22" SecGTK
-	SectionIn RO
-; Install 2.12.22
-  File "gtk-sharp-2.12.22.msi"
-  ExecWait '"msiexec" /i "$pluginsdir\Requires\gtk-sharp-2.12.22.msi"  /passive'
+Section "GTK# 2.12.21" SecGTK
+  SectionIn RO
+  
+  ; Test 2.12.38
+  System::Call "msi::MsiQueryProductStateW(t '{C7A0CF1E-A936-426A-9694-035636DCD356}') i.r0"
+  StrCmp $0 "5" GTKDone
+  DetailPrint "GTK# 2.12.38 не установлен"
+
+  ; Test 2.12.30
+  System::Call "msi::MsiQueryProductStateW(t '{CA8017BD-8271-4C93-A409-186375C5A5CA}') i.r0"
+  StrCmp $0 "5" GTKDone
+  DetailPrint "GTK# 2.12.30 не установлен"
+
+  ; Test 2.12.26
+  System::Call "msi::MsiQueryProductStateW(t '{BC25B808-A11C-4C9F-9C0A-6682E47AAB83}') i.r0"
+  StrCmp $0 "5" GTKDone
+  DetailPrint "GTK# 2.12.26 не установлен"
+
+  ; Test 2.12.25
+  System::Call "msi::MsiQueryProductStateA(t '{889E7D77-2A98-4020-83B1-0296FA1BDE8A}') i.r0"
+  StrCmp $0 "5" GTKDone
+  DetailPrint "GTK# 2.12.25 не установлен"
+
+  ; Test 2.12.21
+  System::Call "msi::MsiQueryProductStateA(t '{71109D19-D8C1-437D-A6DA-03B94F5187FB}') i.r0"
+  StrCmp $0 "5" GTKDone
+  DetailPrint "GTK# 2.12.21 не установлен"
+
+; Install 2.12.21
+  DetailPrint "Запуск установщика GTK# 2.12.21"
+  File "gtk-sharp-2.12.21.msi"
+  ExecWait '"msiexec" /i "$pluginsdir\Requires\gtk-sharp-2.12.21.msi"  /passive'
+
 ; Setup Gtk style
   ${ConfigWrite} "$PROGRAMFILES\GtkSharp\2.12\share\themes\MS-Windows\gtk-2.0\gtkrc" "gtk-button-images =" "1" $R0
+
+  GTKDone:
 SectionEnd
 
 Section "Ярлык на рабочий стол" SecDesktop
@@ -252,6 +282,6 @@ Section "Uninstall"
 
   ; Remove GTK#
   MessageBox MB_YESNO "Удалить библиотеки GTK#? Они были установлены для ${PRODUCT_NAME}, но могут использоваться другими приложениями." /SD IDYES IDNO endGTK
-    ExecWait '"msiexec" /X{06AF6533-F201-47C0-8675-AAAE5CB81B41} /passive'
+    ExecWait '"msiexec" /X{71109D19-D8C1-437D-A6DA-03B94F5187FB} /passive'
   endGTK:
 SectionEnd
