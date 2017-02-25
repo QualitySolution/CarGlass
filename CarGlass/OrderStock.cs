@@ -51,8 +51,7 @@ namespace CarGlass
 			}
 			catch (Exception ex)
 			{
-				logger.ErrorException("Ошибка получения информации о статусе!", ex);
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка получения информации о склада!", logger, ex);
 			}
 			TestCanSave();
 		}
@@ -104,8 +103,7 @@ namespace CarGlass
 			} 
 			catch (Exception ex) 
 			{
-				logger.ErrorException("Ошибка записи статуса!", ex);
-				QSMain.ErrorMessage(this,ex);
+				QSMain.ErrorMessageWithLog("Ошибка записи склада!", logger, ex);
 			}
 		}
 

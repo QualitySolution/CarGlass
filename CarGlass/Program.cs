@@ -15,26 +15,17 @@ namespace CarGlass
 		public static void Main(string[] args)
 		{
 			Application.Init();
-			AppDomain.CurrentDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs e) 
-			{
-				QSMain.ErrorMessage(MainWin, (Exception) e.ExceptionObject);
-			};
+			QSMain.SubscribeToUnhadledExceptions ();
+			QSMain.GuiThread = System.Threading.Thread.CurrentThread;
+			QSSupportLib.MainSupport.Init();
 			CreateProjectParam();
 
 			// Создаем окно входа
 			Login LoginDialog = new QSProjectsLib.Login ();
 			LoginDialog.Logo = Gdk.Pixbuf.LoadFromResource ("CarGlass.icons.logo.png");
 			LoginDialog.SetDefaultNames ("CarGlass");
-			LoginDialog.DefaultLogin = "demo";
-			LoginDialog.DefaultServer = "demo.qsolution.ru";
-			LoginDialog.DemoServer = "demo.qsolution.ru";
-			LoginDialog.DemoMessage = "Для подключения к демострационному серверу используйте следующие настройки:\n" +
-				"\n" +
-				"<b>Сервер:</b> demo.qsolution.ru\n" +
-				"<b>Пользователь:</b> demo\n" +
-				"<b>Пароль:</b> demo\n" +
-				"\n" +
-				"Для установки собственного сервера обратитесь к документации.";
+			LoginDialog.DefaultLogin = "";
+			LoginDialog.DefaultServer = "193.27.73.239";
 			LoginDialog.UpdateFromGConf ();
 
 			ResponseType LoginResult;
@@ -46,6 +37,7 @@ namespace CarGlass
 
 			//Запускаем программу
 			MainWin = new MainWindow ();
+			QSMain.ErrorDlgParrent = MainWin;
 			if(QSMain.User.Login == "root")
 				return;
 			MainWin.Show ();
@@ -54,12 +46,9 @@ namespace CarGlass
 
 		static void CreateProjectParam()
 		{
-			QSMain.AdminFieldName = "admin";
 			QSMain.ProjectPermission = new Dictionary<string, UserPermission>();
 			//QSMain.ProjectPermission.Add("edit_slips", new UserPermission("edit_slips", "Изменение кассы задним числом",
 			//"Пользователь может изменять или добавлять кассовые документы задним числом."));
-
-			QSMain.User = new UserInfo();
 
 			//Параметры удаления
 			Dictionary<string, TableInfo> Tables = new Dictionary<string, TableInfo>();
@@ -171,6 +160,7 @@ namespace CarGlass
 
 		}
 
+		[Obsolete("Устаревший подход. Нужно писать в лог.")]
 		public static void StatusMessage(string message)
 		{
 			StatusBarLabel.LabelProp = message;

@@ -11,6 +11,7 @@
     <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
     <widget-library name="../../../QSProjects/Modules/QSChat/bin/Debug/QSChat.dll" />
     <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
+    <widget-library name="../../../QSProjects/QSUpdater/bin/Debug/QSUpdater.dll" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="863 409">
     <action-group name="Default">

@@ -1,9 +1,9 @@
 ﻿using System;
 using Gtk;
-using MySql.Data.MySqlClient;
 using QSProjectsLib;
 using QSSupportLib;
 using CarGlass;
+using QSUpdater;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -14,31 +14,14 @@ public partial class MainWindow: Gtk.Window
 
 		//Передаем лебл
 		MainClass.StatusBarLabel = labelStatus;
-		QSMain.MakeNewStatusTargetForNlog("StatusMessage", "CarGlass.MainClass, CarGlass");
+		this.Title = MainSupport.GetTitle ();
+		QSMain.MakeNewStatusTargetForNlog ();
 		Reference.RunReferenceItemDlg += OnRunReferenceItemDialog;
 		QSMain.ReferenceUpdated += OnReferenceUpdate;
 
-		//Test version of base
-		try
-		{
-			MainSupport.BaseParameters = new BaseParam(QSMain.connectionDB);
-		}
-		catch(MySqlException e)
-		{
-			Console.WriteLine(e.Message);
-			MessageDialog BaseError = new MessageDialog ( this, DialogFlags.DestroyWithParent,
-				MessageType.Warning, 
-				ButtonsType.Close, 
-				"Не удалось получить информацию о версии базы данных.");
-			BaseError.Run();
-			BaseError.Destroy();
-			Environment.Exit(0);
-		}
+		MainSupport.LoadBaseParameters ();
 
-		MainSupport.ProjectVerion = new AppVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString(),
-			"gpl",
-			System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
-		MainSupport.TestVersion(this); //Проверяем версию базы
+		MainUpdater.RunCheckVersion (true, true, true);
 		QSMain.CheckServer (this); // Проверяем настройки сервера
 
 		if(QSMain.User.Login == "root")
@@ -57,26 +40,7 @@ public partial class MainWindow: Gtk.Window
 			return;
 		}
 
-		if(QSMain.connectionDB.DataSource == "demo.qsolution.ru")
-		{
-			string Message = "Вы подключились к демонстрационному серверу. Сервер предназначен для оценки " +
-				"возможностей программы, не используйте его для работы, так как ваши данные будут доступны " +
-				"любому пользователю через интернет.\n\nДля полноценного использования программы вам необходимо " +
-				"установить собственный сервер. Для его установки обратитесь к документации.\n\nЕсли у вас возникнут " +
-				"вопросы вы можете обратится в нашу тех. поддержку.";
-			MessageDialog md = new MessageDialog ( this, DialogFlags.DestroyWithParent,
-				MessageType.Info, 
-				ButtonsType.Ok,
-				Message);
-			md.Run ();
-			md.Destroy();
-			dialogAuthenticationAction.Sensitive = false;
-		}
-
-		//Загружаем информацию о пользователе
-		if(QSMain.User.TestUserExistByLogin (true))
-			QSMain.User.UpdateUserInfoByLogin ();
-		UsersAction.Sensitive = QSMain.User.admin;
+		UsersAction.Sensitive = QSMain.User.Admin;
 		labelUser.LabelProp = QSMain.User.Name;
 		chatvsliderMain.Chat.ChatUser = QSMain.User;
 
