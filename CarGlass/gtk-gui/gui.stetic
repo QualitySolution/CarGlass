@@ -9,8 +9,8 @@
     <widget-library name="../../../QSProjects/QSProjectsLib/bin/Debug/QSProjectsLib.dll" />
     <widget-library name="../../../QSProjects/QSSupportLib/bin/Debug/QSSupportLib.dll" />
     <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
-    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
     <widget-library name="../../../QSProjects/Modules/QSChat/bin/Debug/QSChat.dll" />
+    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="863 409">
     <action-group name="Default">
@@ -121,6 +121,18 @@
         <property name="ShortLabel" translatable="yes">Календарь на день</property>
         <signal name="Activated" handler="OnAction16Activated" />
       </action>
+      <action id="ActionHistoryLog">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">История версий</property>
+        <property name="ShortLabel" translatable="yes">История версий</property>
+        <signal name="Activated" handler="OnActionHistoryLogActivated" />
+      </action>
+      <action id="ActionCheckUpdates">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Проверить обновления</property>
+        <property name="ShortLabel" translatable="yes">Проверить обновления</property>
+        <property name="StockId">gtk-go-down</property>
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">QS: Мастерская автостекла</property>
@@ -157,6 +169,9 @@
                 <node type="Menuitem" action="Action16" />
               </node>
               <node type="Menu" action="Action2">
+                <node type="Menuitem" action="ActionHistoryLog" />
+                <node type="Menuitem" action="ActionCheckUpdates" />
+                <node type="Separator" />
                 <node type="Menuitem" action="aboutAction" />
               </node>
             </node>
@@ -1545,6 +1560,7 @@
                     <child>
                       <widget class="Gtk.Label" id="label6">
                         <property name="MemberName" />
+                        <property name="Xalign">1</property>
                         <property name="LabelProp" translatable="yes">Состояние заказа&lt;span foreground="red"&gt;*&lt;/span&gt;:</property>
                         <property name="UseMarkup">True</property>
                       </widget>
@@ -2354,6 +2370,7 @@
               <widget class="QSWidgetLib.DatePicker" id="dateCalendar">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
+                <property name="WithTime">False</property>
                 <property name="Date">0</property>
                 <property name="IsEditable">True</property>
                 <property name="AutoSeparation">True</property>

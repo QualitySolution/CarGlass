@@ -313,4 +313,9 @@ public partial class MainWindow: Gtk.Window
 		report.Run();
 		report.Destroy();
 	}
+
+	protected void OnActionHistoryLogActivated(object sender, EventArgs e)
+	{
+		QSMain.RunChangeLogDlg (this);
+	}
 }
