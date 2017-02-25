@@ -193,12 +193,13 @@
               <widget class="Gtk.Notebook" id="notebookMain">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">1</property>
+                <property name="CurrentPage">0</property>
                 <signal name="SwitchPage" handler="OnNotebookMainSwitchPage" />
                 <child>
                   <widget class="CarGlass.OrdersCalendar" id="orderscalendar1">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
+                    <property name="PointNumber">0</property>
                     <property name="StartDate">0</property>
                   </widget>
                 </child>
@@ -215,6 +216,7 @@
                   <widget class="CarGlass.OrdersCalendar" id="orderscalendar2">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
+                    <property name="PointNumber">0</property>
                     <property name="StartDate">0</property>
                   </widget>
                   <packing>
@@ -234,6 +236,7 @@
                   <widget class="CarGlass.OrdersCalendar" id="orderscalendar3">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
+                    <property name="PointNumber">0</property>
                     <property name="StartDate">0</property>
                   </widget>
                   <packing>
@@ -253,6 +256,7 @@
                   <widget class="CarGlass.OrdersCalendar" id="orderscalendar4">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
+                    <property name="PointNumber">0</property>
                     <property name="StartDate">0</property>
                   </widget>
                   <packing>

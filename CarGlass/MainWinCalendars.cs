@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CarGlass;
 using Gtk;
 using MySql.Data.MySqlClient;
@@ -22,6 +23,7 @@ public partial class MainWindow: Gtk.Window
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 22);
 		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);
+		orderscalendar1.PointNumber = 1;
 		orderscalendar1.OrdersTypes = installServices;
 		orderscalendar1.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar1.NewOrder += OnNewOrder;
@@ -29,9 +31,26 @@ public partial class MainWindow: Gtk.Window
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 22);
 		orderscalendar2.BackgroundColor = new Gdk.Color(255, 230, 230);
+		orderscalendar2.PointNumber = 1;
 		orderscalendar2.OrdersTypes = tintingServices;
 		orderscalendar2.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar2.NewOrder += OnNewOrder;
+
+		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
+		orderscalendar3.SetTimeRange(9, 22);
+		orderscalendar3.BackgroundColor = new Gdk.Color(234, 230, 255);
+		orderscalendar3.PointNumber = 2;
+		orderscalendar3.OrdersTypes = installServices;
+		orderscalendar3.NeedRefreshOrders += OnRefreshCalendarEvent;
+		orderscalendar3.NewOrder += OnNewOrder;
+
+		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
+		orderscalendar4.SetTimeRange(9, 22);
+		orderscalendar4.BackgroundColor = new Gdk.Color(255, 230, 230);
+		orderscalendar4.PointNumber = 2;
+		orderscalendar4.OrdersTypes = tintingServices;
+		orderscalendar4.NeedRefreshOrders += OnRefreshCalendarEvent;
+		orderscalendar4.NewOrder += OnNewOrder;
 
 		orderscalendar1.RefreshOrders();
 	}
@@ -41,6 +60,9 @@ public partial class MainWindow: Gtk.Window
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
 		logger.Info("Запрос заказов на {0:d}...", arg.StartDate);
+		var usedTypes = String.Join(",",
+			Calendar.OrdersTypes.Select(x => String.Format("'{0}'", x.Key)).ToArray()
+		);
 		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
 			"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
 			"LEFT JOIN models ON models.id = orders.car_model_id " +
@@ -51,11 +73,10 @@ public partial class MainWindow: Gtk.Window
 			"LEFT JOIN (" +
 			"SELECT order_id, SUM(cost) as sum FROM order_pays GROUP BY order_id) as tablesum " +
 			"ON tablesum.order_id = orders.id " +
-			"WHERE date BETWEEN @start AND @end ";
-		if (Calendar == orderscalendar1)
-			sql += "AND orders.type = 'install' ";
-		else 
-			sql += "AND orders.type <> 'install' ";
+			"WHERE date BETWEEN @start AND @end " +
+			"AND point_number = @point " +
+			"AND orders.type IN (" +  usedTypes + ")";
+		
 		QSMain.CheckConnectionAlive();
 		try
 		{
@@ -63,6 +84,7 @@ public partial class MainWindow: Gtk.Window
 
 			cmd.Parameters.AddWithValue("@start", arg.StartDate);
 			cmd.Parameters.AddWithValue("@end", arg.StartDate.AddDays(6));
+			cmd.Parameters.AddWithValue("@point", Calendar.PointNumber);
 
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
@@ -144,7 +166,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnNewOrder(object sender, NewOrderEventArgs arg)
 	{
-		Order OrderWin = new Order(arg.OrderType, arg.Date, arg.Hour);
+		Order OrderWin = new Order(arg.PointNumber, arg.OrderType, arg.Date, arg.Hour);
 		OrderWin.NewItem = true;
 		OrderWin.Show();
 		int result = OrderWin.Run();

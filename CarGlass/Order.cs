@@ -16,15 +16,17 @@ namespace CarGlass
 		private int Hour;
 
 		private OrderType CurrentType;
+		private int pointNumber;
 		ListStore ServiceListStore;
 		int Item_id = -1;
 
 		private Dictionary<string, bool> GlassInDB;
 
-		public Order(OrderType Type, DateTime date, int hour) : this (Type)
+		public Order(int pointNumber, OrderType Type, DateTime date, int hour) : this (Type)
 		{
 			Date = date;
 			Hour = hour;
+			this.pointNumber = pointNumber;
 		
 			this.Title = String.Format(GetTitleFormat(CurrentType), "???", Date, Hour);
 		}
@@ -156,8 +158,8 @@ namespace CarGlass
 			string sql;
 			if(NewItem)
 			{
-				sql = "INSERT INTO orders (date, hour, type, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode, comment) " +
-					"VALUES (@date, @hour, @type, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode, @comment)";
+				sql = "INSERT INTO orders (date, hour, point_number, type, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode, comment) " +
+					"VALUES (@date, @hour, @point_number, @type, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode, @comment)";
 			}
 			else
 			{
@@ -174,6 +176,7 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@id", Item_id);
 				cmd.Parameters.AddWithValue("@date", Date);
 				cmd.Parameters.AddWithValue("@hour", Hour);
+				cmd.Parameters.AddWithValue("@point_number", pointNumber);
 				cmd.Parameters.AddWithValue("@type", CurrentType.ToString());
 				cmd.Parameters.AddWithValue("@car_model_id", ComboWorks.GetActiveId(comboModel));
 				cmd.Parameters.AddWithValue("@car_year", DBWorks.ValueOrNull(comboYear.ActiveText != "", comboYear.ActiveText));

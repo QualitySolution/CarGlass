@@ -21,6 +21,8 @@ namespace CarGlass
 
 		private bool DragIn;
 
+		public int PointNumber { get; set;}
+
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
 
@@ -36,24 +38,6 @@ namespace CarGlass
 				handler(this, e);
 			}
 			RefreshButtons();
-		}
-
-		public bool CreateNewOrder(DateTime date, int hour, Order.OrderType ordertype)
-		{
-			EventHandler<NewOrderEventArgs> handler = NewOrder;
-			if (handler != null)
-			{
-				NewOrderEventArgs arg = new NewOrderEventArgs();
-				arg.Date = date;
-				arg.Hour = hour;
-				arg.OrderType = ordertype;
-				arg.result = false;
-				handler(this, arg);
-				if (arg.result)
-					RefreshOrders();
-				return arg.result;
-			}
-			return false;
 		}
 
 		public Gdk.Color BackgroundColor
@@ -161,6 +145,7 @@ namespace CarGlass
 				GetCalendarPosition(box, out x, out y);
 				e.Date = _StartDate.AddDays(x);
 				e.Hour = y;
+				e.PointNumber = PointNumber;
 				e.result = false;
 				handler(this, e);
 				if (e.result)
@@ -345,6 +330,7 @@ namespace CarGlass
 		public DateTime Date;
 		public int Hour;
 		public Order.OrderType OrderType;
+		public int PointNumber;
 		public bool result { get; set; }
 	}
 
