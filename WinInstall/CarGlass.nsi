@@ -1,6 +1,6 @@
 
 ;--------------------------------
-!define PRODUCT_VERSION "1.2"
+!define PRODUCT_VERSION "1.3"
 !define NETVersion "4.0"
 !define NETInstaller "dotNetFx40_Full_setup.exe"
 !define PRODUCT_NAME "Автостекла Stekloff"
@@ -11,7 +11,7 @@
 Name "${PRODUCT_NAME}"
 
 ; The file to write
-OutFile "CarGlass-1.2.x.exe"
+OutFile "CarGlass-1.3.x.exe"
 
 !include "MUI.nsh"
 
