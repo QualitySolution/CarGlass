@@ -22,7 +22,7 @@ namespace CarGlass
 			});
 
             OrmMain.AddObjectDescription<CarBrand>().DefaultTableView().SearchColumn("Наименование", i => i.Name).OrderAsc(i => i.Name).End();
-            OrmMain.AddObjectDescription<CarBrand>().Dialog<CarModelDlg>();
+			OrmMain.AddObjectDescription<CarModel>().Dialog<CarModelDlg>();
 		}
 	}
 }

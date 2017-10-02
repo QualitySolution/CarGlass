@@ -5,7 +5,7 @@ using Gtk;
 
 namespace CarGlass
 {
-	public partial class CarModel : Gtk.Dialog
+	public partial class CarModelDlg : Gtk.Dialog
 	{
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -13,7 +13,7 @@ namespace CarGlass
 		int Itemid;
 		int Mark_id = -1;
 
-		public CarModel()
+		public CarModelDlg()
 		{
 			this.Build();
 		}

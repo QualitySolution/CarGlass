@@ -10,9 +10,9 @@ namespace CarGlass.Dialogs
 
 		private global::Gtk.Table table1;
 
-		private global::QSOrmProject.EntryReference entryreference2;
+		private global::QSOrmProject.EntryReference entryCarBrand;
 
-		private global::QSOrmProject.EntryReferenceVM entryreferencevm1;
+		private global::QSOrmProject.EntryReferenceVM entryCarModel;
 
 		private global::Gtk.Label label1;
 
@@ -44,11 +44,11 @@ namespace CarGlass.Dialogs
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.entryreference2 = new global::QSOrmProject.EntryReference();
-			this.entryreference2.Events = ((global::Gdk.EventMask)(256));
-			this.entryreference2.Name = "entryreference2";
-			this.table1.Add(this.entryreference2);
-			global::Gtk.Table.TableChild w1 = ((global::Gtk.Table.TableChild)(this.table1[this.entryreference2]));
+			this.entryCarBrand = new global::QSOrmProject.EntryReference();
+			this.entryCarBrand.Events = ((global::Gdk.EventMask)(256));
+			this.entryCarBrand.Name = "entryCarBrand";
+			this.table1.Add(this.entryCarBrand);
+			global::Gtk.Table.TableChild w1 = ((global::Gtk.Table.TableChild)(this.table1[this.entryCarBrand]));
 			w1.TopAttach = ((uint)(1));
 			w1.BottomAttach = ((uint)(2));
 			w1.LeftAttach = ((uint)(1));
@@ -56,11 +56,11 @@ namespace CarGlass.Dialogs
 			w1.XOptions = ((global::Gtk.AttachOptions)(4));
 			w1.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.entryreferencevm1 = new global::QSOrmProject.EntryReferenceVM();
-			this.entryreferencevm1.Events = ((global::Gdk.EventMask)(256));
-			this.entryreferencevm1.Name = "entryreferencevm1";
-			this.table1.Add(this.entryreferencevm1);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.entryreferencevm1]));
+			this.entryCarModel = new global::QSOrmProject.EntryReferenceVM();
+			this.entryCarModel.Events = ((global::Gdk.EventMask)(256));
+			this.entryCarModel.Name = "entryCarModel";
+			this.table1.Add(this.entryCarModel);
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.entryCarModel]));
 			w2.TopAttach = ((uint)(2));
 			w2.BottomAttach = ((uint)(3));
 			w2.LeftAttach = ((uint)(1));
@@ -120,11 +120,11 @@ namespace CarGlass.Dialogs
 			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));
 			w9.Position = 1;
 			this.Add(this.vbox2);
-			if ((this.Child != null))
-			{
+			if ((this.Child != null)) {
 				this.Child.ShowAll();
 			}
 			this.Hide();
+			this.entryCarBrand.Changed += new global::System.EventHandler(this.OnEntryCarBrandChanged);
 		}
 	}
 }

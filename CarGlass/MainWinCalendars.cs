@@ -4,9 +4,10 @@ using System.Linq;
 using CarGlass;
 using Gtk;
 using MySql.Data.MySqlClient;
+using QSOrmProject;
 using QSProjectsLib;
 
-public partial class MainWindow: Gtk.Window
+public partial class MainWindow: FakeTDITabGtkWindowBase
 {
 
 	void PrerareCalendars()

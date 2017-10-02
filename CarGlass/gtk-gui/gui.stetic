@@ -2710,6 +2710,7 @@
                   <widget class="QSOrmProject.EntryReference" id="entryCarBrand">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
+                    <signal name="Changed" handler="OnEntryCarBrandChanged" />
                   </widget>
                   <packing>
                     <property name="TopAttach">1</property>
