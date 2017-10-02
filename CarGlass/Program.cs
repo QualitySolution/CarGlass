@@ -6,7 +6,7 @@ using NLog;
 
 namespace CarGlass
 {
-	class MainClass
+    partial class MainClass
 	{
 		public static MainWindow MainWin;
 		private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -33,6 +33,9 @@ namespace CarGlass
 				return;
 
 			LoginDialog.Destroy ();
+
+			//Настройка базы
+			CreateBaseConfig();
 
 			//Запускаем программу
 			MainWin = new MainWindow ();

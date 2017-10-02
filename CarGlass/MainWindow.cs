@@ -1,11 +1,12 @@
 ﻿using System;
+using CarGlass;
 using Gtk;
+using QSOrmProject;
 using QSProjectsLib;
 using QSSupportLib;
-using CarGlass;
 using QSUpdater;
 
-public partial class MainWindow: Gtk.Window
+public partial class MainWindow: FakeTDITabGtkWindowBase
 {
 	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 

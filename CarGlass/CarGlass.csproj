@@ -99,6 +99,8 @@
     <Compile Include="HibernateMapping\CarBrandMap.cs" />
     <Compile Include="HibernateMapping\CarModelMap.cs" />
     <Compile Include="gtk-gui\CarGlass.CarModelDlg.cs" />
+    <Compile Include="ConfigureProject.cs" />
+    <Compile Include="Representation\CarModelsVM.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -147,6 +149,7 @@
     <Folder Include="Dialogs\" />
     <Folder Include="Domain\" />
     <Folder Include="HibernateMapping\" />
+    <Folder Include="Representation\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
