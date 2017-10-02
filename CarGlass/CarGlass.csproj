@@ -52,6 +52,12 @@
     <Reference Include="NLog">
       <HintPath>..\..\QSProjects\packages\NLog.4.4.11\lib\net40\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\QSProjects\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\QSProjects\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -65,8 +71,7 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CarModel.cs" />
-    <Compile Include="gtk-gui\CarGlass.CarModel.cs" />
+    <Compile Include="CarModelDlg.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="gtk-gui\CarGlass.Status.cs" />
     <Compile Include="Service.cs" />
@@ -91,6 +96,9 @@
     <Compile Include="gtk-gui\CarGlass.Dialogs.StockBalance.cs" />
     <Compile Include="Domain\CarBrand.cs" />
     <Compile Include="Domain\CarModel.cs" />
+    <Compile Include="HibernateMapping\CarBrandMap.cs" />
+    <Compile Include="HibernateMapping\CarModelMap.cs" />
+    <Compile Include="gtk-gui\CarGlass.CarModelDlg.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -138,6 +146,7 @@
     <Folder Include="Widgets\" />
     <Folder Include="Dialogs\" />
     <Folder Include="Domain\" />
+    <Folder Include="HibernateMapping\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">

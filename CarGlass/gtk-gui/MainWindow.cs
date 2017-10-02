@@ -207,7 +207,6 @@ public partial class MainWindow
 		this.orderscalendar3.Events = ((global::Gdk.EventMask)(256));
 		this.orderscalendar3.Name = "orderscalendar3";
 		this.orderscalendar3.PointNumber = 0;
-		this.orderscalendar3.StartDate = new global::System.DateTime(0);
 		this.notebookMain.Add(this.orderscalendar3);
 		global::Gtk.Notebook.NotebookChild w5 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.orderscalendar3]));
 		w5.Position = 2;

@@ -12,10 +12,10 @@
     <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
     <widget-library name="../../../QSProjects/Modules/QSChat/bin/Debug/QSChat.dll" />
     <widget-library name="../../../QSProjects/QSUpdater/bin/Debug/QSUpdater.dll" />
-    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
     <widget-library name="../../../GammaBinding/GammaBinding/bin/Debug/GammaBinding.dll" />
     <widget-library name="../../../QSProjects/QSOrmProject/bin/Debug/QSOrmProject.dll" />
     <widget-library name="../../../QSProjects/QSTDI/bin/Debug/QSTDI.dll" />
+    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="1053 409">
     <action-group name="Default">
@@ -358,7 +358,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.CarModel" design-size="358 165">
+  <widget class="Gtk.Dialog" id="CarGlass.CarModelDlg" design-size="358 166">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Модель автомобиля</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -412,7 +412,7 @@
                   </widget>
                   <packing>
                     <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
+                    <property name="AutoSize">False</property>
                   </packing>
                 </child>
                 <child>

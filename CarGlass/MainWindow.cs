@@ -87,7 +87,7 @@ public partial class MainWindow: Gtk.Window
 		switch (e.TableName)
 		{
 			case "models":
-				CarModel ItemModel = new CarModel();
+				CarModelDlg ItemModel = new CarModelDlg();
 				if(e.NewItem)
 					ItemModel.NewItem = true;
 				else 
