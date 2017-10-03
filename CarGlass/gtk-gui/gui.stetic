@@ -2691,7 +2691,13 @@
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
-              <placeholder />
+              <widget class="CarGlass.Widgets.GlassSelector" id="glassselector">
+                <property name="MemberName" />
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+              </packing>
             </child>
             <child>
               <widget class="Gtk.Table" id="table1">
@@ -2820,6 +2826,8 @@
           <packing>
             <property name="Position">0</property>
             <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
           </packing>
         </child>
         <child>
