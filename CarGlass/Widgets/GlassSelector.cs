@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -72,12 +72,14 @@ namespace CarGlass.Widgets
 				var oldGlass = selectedGlass;
 
 				selectedGlass = value;
+				GlassChanged?.Invoke(this, EventArgs.Empty);
 				UpdateGlassDrawing(oldGlass);
 				UpdateGlassDrawing(SelectedGlass);
 				QueueDraw();
 			}
 		}
 
+		public event EventHandler GlassChanged;
 
 		public GlassSelector()
 		{

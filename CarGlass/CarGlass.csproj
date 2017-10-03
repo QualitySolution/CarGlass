@@ -109,6 +109,8 @@
     <Compile Include="ConfigureProject.cs" />
     <Compile Include="Representation\CarModelsVM.cs" />
     <Compile Include="Widgets\GlassSelector.cs" />
+    <Compile Include="Domain\CarWindow.cs" />
+    <Compile Include="HibernateMapping\CarWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -186,5 +188,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="app.config" />
   </ItemGroup>
 </Project>
