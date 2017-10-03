@@ -2679,7 +2679,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="CarGlass.Dialogs.StockBalance" design-size="409 300">
+  <widget class="Gtk.Bin" id="CarGlass.Dialogs.StockBalance" design-size="409 313">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -2693,6 +2693,7 @@
             <child>
               <widget class="CarGlass.Widgets.GlassSelector" id="glassselector">
                 <property name="MemberName" />
+                <property name="HeightRequest">250</property>
               </widget>
               <packing>
                 <property name="Position">0</property>
