@@ -70,6 +70,7 @@
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="icons\logo.png" />
+    <EmbeddedResource Include="icons\glass_scheme_linux.svg" />
     <EmbeddedResource Include="icons\glass_scheme.svg" />
   </ItemGroup>
   <ItemGroup>

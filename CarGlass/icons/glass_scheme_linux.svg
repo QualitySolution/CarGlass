@@ -19,18 +19,6 @@
    sodipodi:docname="glass_scheme.svg">
   <defs
      id="defs2">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient853">
-      <stop
-         style="stop-color:#53fff8;stop-opacity:0.51"
-         offset="0"
-         id="stop849" />
-      <stop
-         style="stop-color:#725f24;stop-opacity:0;"
-         offset="1"
-         id="stop851" />
-    </linearGradient>
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath5559">
@@ -42,96 +30,6 @@
          width="100%"
          height="100%" />
     </clipPath>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient855"
-       x1="17.966419"
-       y1="344.08524"
-       x2="155.38286"
-       y2="345.41138"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient863"
-       x1="238.44585"
-       y1="9.2471027"
-       x2="246.97433"
-       y2="89.717041"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient860"
-       x1="368.05997"
-       y1="4.2580199"
-       x2="368.45859"
-       y2="89.101326"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient868"
-       x1="455.60736"
-       y1="4.9517989"
-       x2="443.36194"
-       y2="89.795105"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient876"
-       x1="520.22534"
-       y1="3.47244"
-       x2="495.18832"
-       y2="90.939766"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient884"
-       x1="661.22845"
-       y1="340.87225"
-       x2="529.39014"
-       y2="340.87225"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient892"
-       x1="198.21088"
-       y1="5.7484117"
-       x2="210.23807"
-       y2="89.717041"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient900"
-       x1="364.56128"
-       y1="2.5086734"
-       x2="364.56128"
-       y2="89.975998"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient908"
-       x1="454.73267"
-       y1="3.2024536"
-       x2="443.22403"
-       y2="88.920433"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient853"
-       id="linearGradient916"
-       x1="521.09998"
-       y1="2.5977669"
-       x2="497.81235"
-       y2="87.441071"
-       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -141,17 +39,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.1432841"
-     inkscape:cx="256.45663"
-     inkscape:cy="188.07447"
+     inkscape:cx="371.97213"
+     inkscape:cy="198.57054"
      inkscape:document-units="cm"
      inkscape:current-layer="use5621"
      showgrid="false"
      units="px"
      width="5000px"
-     inkscape:window-width="1920"
-     inkscape:window-height="1029"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-width="1024"
+     inkscape:window-height="742"
+     inkscape:window-x="1366"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:measure-start="0,0"
      inkscape:measure-end="0,0"
@@ -200,7 +98,7 @@
      id="layer1"
      transform="translate(0,-264.70832)">
     <path
-       style="fill:url(#linearGradient855);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 158.04605,257.37728 c -25.64242,46.66234 -26.17938,123.06218 0.0867,173.68782 L 49.561276,453.20796 C 7.914583,395.70541 6.1007,288.22902 50.102246,232.37113 Z"
        id="Windshield"
        inkscape:connector-curvature="0"
@@ -216,26 +114,26 @@
        inkscape:connector-curvature="0"
        id="FrontDoorRight"
        d="M 299.75602,90.505076 299.86258,5.2092089 C 236.97735,5.3774865 191.40496,4.4772037 133.85267,5.339545 117.55374,4.950349 123.91516,29.006904 129.52325,36.573159 l 60.23022,53.809984 z"
-       style="fill:url(#linearGradient892);fill-rule:evenodd;stroke:#000000;stroke-width:0.93251973px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.93251973px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        inkscape:label="#path4787" />
     <path
        sodipodi:nodetypes="ccccc"
        inkscape:connector-curvature="0"
        id="QuarterRight"
        d="M 515.5393,90.15311 572.10784,2.2698386 480.68904,3.7850674 454.42507,90.405648 Z"
-       style="fill:url(#linearGradient916);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        inkscape:label="#path4793" />
     <path
        inkscape:connector-curvature="0"
        id="RearDoorRight"
        d="M 315.71293,4.4380771 315.20785,89.795967 424.30433,90.301043 424.8094,3.9330008 Z"
-       style="fill:url(#linearGradient900);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        inkscape:label="#path4795" />
     <path
        inkscape:connector-curvature="0"
        id="RearVentRight"
        d="M 435.98979,90.910724 437.50502,3.532529 471.34513,3.2799909 Z"
-       style="fill:url(#linearGradient908);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        inkscape:label="#path4797" />
   </g>
   <g
@@ -318,7 +216,7 @@
        inkscape:connector-curvature="0"
        id="RearWindow"
        d="m 528.16619,256.66299 c 20.5135,59.69625 13.1914,117.03117 -1.01014,173.78253 l 103.03555,34.53373 c 43.54917,-54.17452 38.04908,-215.37152 1.01016,-239.50799 z"
-       style="fill:url(#linearGradient884);fill-rule:evenodd;stroke:#000000;stroke-width:1.05014014px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.05014014px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="translate(0,-164.70832)"
        inkscape:label="#path3895" />
     <path
@@ -358,27 +256,27 @@
        transform="matrix(1,0,0,-1,0,256.85222)"
        id="use5621">
       <path
-         style="fill:url(#linearGradient863);fill-rule:evenodd;stroke:#000000;stroke-width:0.93251973px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.93251973px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="M 299.75602,90.505076 299.86258,5.2092089 C 236.97735,5.3774865 191.40496,4.4772037 133.85267,5.339545 117.55374,4.950349 123.91516,29.006904 129.52325,36.573159 l 60.23022,53.809984 z"
          id="FrontDoorLeft"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cccccc"
          inkscape:label="#path145" />
       <path
-         style="fill:url(#linearGradient876);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="M 515.5393,90.15311 572.10784,2.2698386 480.68904,3.7850674 454.42507,90.405648 Z"
          id="QuarterLeft"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccc"
          inkscape:label="#path147" />
       <path
-         style="fill:url(#linearGradient860);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="M 315.71293,4.4380771 315.20785,89.795967 424.30433,90.301043 424.8094,3.9330008 Z"
          id="RearDoorLeft"
          inkscape:connector-curvature="0"
          inkscape:label="#path149" />
       <path
-         style="fill:url(#linearGradient868);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="M 435.98979,90.910724 437.50502,3.532529 471.34513,3.2799909 Z"
          id="RearVentLeft"
          inkscape:connector-curvature="0"

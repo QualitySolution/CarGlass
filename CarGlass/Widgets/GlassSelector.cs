@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -83,7 +83,9 @@ namespace CarGlass.Widgets
 
 		public GlassSelector()
 		{
-			Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("CarGlass.icons.glass_scheme.svg");
+			string linux = Environment.OSVersion.Platform == PlatformID.Unix ? "_linux" : "";
+
+			Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream($"CarGlass.icons.glass_scheme{linux}.svg");
 			SvgOrigin = SvgDocument.Open<SvgDocument>(stream);
 			AddEvents((int)Gdk.EventMask.PointerMotionMask);
 		}
