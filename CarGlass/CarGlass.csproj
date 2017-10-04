@@ -111,6 +111,10 @@
     <Compile Include="Widgets\GlassSelector.cs" />
     <Compile Include="Domain\CarWindow.cs" />
     <Compile Include="HibernateMapping\CarWindow.cs" />
+    <Compile Include="Domain\StoreItem.cs" />
+    <Compile Include="Domain\GlassManufacturer.cs" />
+    <Compile Include="HibernateMapping\GlassManufacturerMap.cs" />
+    <Compile Include="HibernateMapping\StoreItemMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
