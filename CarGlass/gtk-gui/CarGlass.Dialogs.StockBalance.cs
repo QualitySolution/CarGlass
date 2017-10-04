@@ -18,6 +18,12 @@ namespace CarGlass.Dialogs
 
 		private global::QSOrmProject.EntryReferenceVM entryCarModel;
 
+		private global::Gtk.HBox hbox3;
+
+		private global::Gtk.Button buttonSave;
+
+		private global::Gtk.Button buttonCancel;
+
 		private global::Gtk.Label label1;
 
 		private global::Gtk.Label label2;
@@ -25,6 +31,8 @@ namespace CarGlass.Dialogs
 		private global::Gtk.Label label3;
 
 		private global::Gtk.Label label4;
+
+		private global::Gtk.Label label5;
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
@@ -58,7 +66,7 @@ namespace CarGlass.Dialogs
 			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.glassselector]));
 			w1.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.table1 = new global::Gtk.Table(((uint)(4)), ((uint)(2)), false);
+			this.table1 = new global::Gtk.Table(((uint)(6)), ((uint)(2)), false);
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
@@ -100,58 +108,104 @@ namespace CarGlass.Dialogs
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
+			this.hbox3 = new global::Gtk.HBox();
+			this.hbox3.Name = "hbox3";
+			this.hbox3.Spacing = 6;
+			// Container child hbox3.Gtk.Box+BoxChild
+			this.buttonSave = new global::Gtk.Button();
+			this.buttonSave.TooltipMarkup = "Сохранить изменения";
+			this.buttonSave.Sensitive = false;
+			this.buttonSave.CanFocus = true;
+			this.buttonSave.Name = "buttonSave";
+			this.buttonSave.UseUnderline = true;
+			this.buttonSave.Label = global::Mono.Unix.Catalog.GetString("Сохранить");
+			global::Gtk.Image w5 = new global::Gtk.Image();
+			w5.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-floppy", global::Gtk.IconSize.Menu);
+			this.buttonSave.Image = w5;
+			this.hbox3.Add(this.buttonSave);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.buttonSave]));
+			w6.Position = 0;
+			// Container child hbox3.Gtk.Box+BoxChild
+			this.buttonCancel = new global::Gtk.Button();
+			this.buttonCancel.TooltipMarkup = "Отменить внесенные изменения. Заново загрузятся данные из базы";
+			this.buttonCancel.CanFocus = true;
+			this.buttonCancel.Name = "buttonCancel";
+			this.buttonCancel.UseUnderline = true;
+			this.buttonCancel.Label = global::Mono.Unix.Catalog.GetString("Отменить");
+			global::Gtk.Image w7 = new global::Gtk.Image();
+			w7.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-refresh", global::Gtk.IconSize.Menu);
+			this.buttonCancel.Image = w7;
+			this.hbox3.Add(this.buttonCancel);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.buttonCancel]));
+			w8.Position = 1;
+			this.table1.Add(this.hbox3);
+			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1[this.hbox3]));
+			w9.TopAttach = ((uint)(5));
+			w9.BottomAttach = ((uint)(6));
+			w9.RightAttach = ((uint)(2));
+			w9.XOptions = ((global::Gtk.AttachOptions)(4));
+			w9.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
 			this.label1 = new global::Gtk.Label();
 			this.label1.Name = "label1";
 			this.label1.Xalign = 1F;
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("Марка:");
 			this.table1.Add(this.label1);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
-			w5.TopAttach = ((uint)(1));
-			w5.BottomAttach = ((uint)(2));
-			w5.XOptions = ((global::Gtk.AttachOptions)(4));
-			w5.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
+			w10.TopAttach = ((uint)(1));
+			w10.BottomAttach = ((uint)(2));
+			w10.XOptions = ((global::Gtk.AttachOptions)(4));
+			w10.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label2 = new global::Gtk.Label();
 			this.label2.Name = "label2";
 			this.label2.Xalign = 1F;
 			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Модель:");
 			this.table1.Add(this.label2);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.label2]));
-			w6.TopAttach = ((uint)(2));
-			w6.BottomAttach = ((uint)(3));
-			w6.XOptions = ((global::Gtk.AttachOptions)(4));
-			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table1[this.label2]));
+			w11.TopAttach = ((uint)(2));
+			w11.BottomAttach = ((uint)(3));
+			w11.XOptions = ((global::Gtk.AttachOptions)(4));
+			w11.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label3 = new global::Gtk.Label();
 			this.label3.Name = "label3";
 			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Автомобиль</b>");
 			this.label3.UseMarkup = true;
 			this.table1.Add(this.label3);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.label3]));
-			w7.RightAttach = ((uint)(2));
-			w7.XOptions = ((global::Gtk.AttachOptions)(4));
-			w7.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1[this.label3]));
+			w12.RightAttach = ((uint)(2));
+			w12.XOptions = ((global::Gtk.AttachOptions)(4));
+			w12.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label4 = new global::Gtk.Label();
 			this.label4.Name = "label4";
 			this.label4.Xalign = 1F;
 			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString("Стекло:");
 			this.table1.Add(this.label4);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.label4]));
-			w8.TopAttach = ((uint)(3));
-			w8.BottomAttach = ((uint)(4));
-			w8.XOptions = ((global::Gtk.AttachOptions)(4));
-			w8.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1[this.label4]));
+			w13.TopAttach = ((uint)(3));
+			w13.BottomAttach = ((uint)(4));
+			w13.XOptions = ((global::Gtk.AttachOptions)(4));
+			w13.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.label5 = new global::Gtk.Label();
+			this.label5.Name = "label5";
+			this.table1.Add(this.label5);
+			global::Gtk.Table.TableChild w14 = ((global::Gtk.Table.TableChild)(this.table1[this.label5]));
+			w14.TopAttach = ((uint)(4));
+			w14.BottomAttach = ((uint)(5));
+			w14.XOptions = ((global::Gtk.AttachOptions)(4));
 			this.hbox1.Add(this.table1);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.table1]));
-			w9.Position = 1;
-			w9.Expand = false;
-			w9.Fill = false;
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.table1]));
+			w15.Position = 1;
+			w15.Expand = false;
+			w15.Fill = false;
 			this.vbox2.Add(this.hbox1);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
-			w10.Position = 0;
-			w10.Expand = false;
-			w10.Fill = false;
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
+			w16.Position = 0;
+			w16.Expand = false;
+			w16.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -162,51 +216,55 @@ namespace CarGlass.Dialogs
 			this.ytreeviewStore.Name = "ytreeviewStore";
 			this.GtkScrolledWindow.Add(this.ytreeviewStore);
 			this.vbox2.Add(this.GtkScrolledWindow);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));
-			w12.Position = 1;
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));
+			w18.Position = 1;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.hbox2 = new global::Gtk.HBox();
 			this.hbox2.Name = "hbox2";
 			this.hbox2.Spacing = 6;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.buttonAddRow = new global::Gtk.Button();
+			this.buttonAddRow.Sensitive = false;
 			this.buttonAddRow.CanFocus = true;
 			this.buttonAddRow.Name = "buttonAddRow";
 			this.buttonAddRow.UseUnderline = true;
 			this.buttonAddRow.Label = global::Mono.Unix.Catalog.GetString("Добавить");
-			global::Gtk.Image w13 = new global::Gtk.Image();
-			w13.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-add", global::Gtk.IconSize.Menu);
-			this.buttonAddRow.Image = w13;
+			global::Gtk.Image w19 = new global::Gtk.Image();
+			w19.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-add", global::Gtk.IconSize.Menu);
+			this.buttonAddRow.Image = w19;
 			this.hbox2.Add(this.buttonAddRow);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonAddRow]));
-			w14.Position = 0;
-			w14.Expand = false;
-			w14.Fill = false;
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonAddRow]));
+			w20.Position = 0;
+			w20.Expand = false;
+			w20.Fill = false;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.buttonDeleteRow = new global::Gtk.Button();
+			this.buttonDeleteRow.Sensitive = false;
 			this.buttonDeleteRow.CanFocus = true;
 			this.buttonDeleteRow.Name = "buttonDeleteRow";
 			this.buttonDeleteRow.UseUnderline = true;
 			this.buttonDeleteRow.Label = global::Mono.Unix.Catalog.GetString("Удалить");
-			global::Gtk.Image w15 = new global::Gtk.Image();
-			w15.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-remove", global::Gtk.IconSize.Menu);
-			this.buttonDeleteRow.Image = w15;
+			global::Gtk.Image w21 = new global::Gtk.Image();
+			w21.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-remove", global::Gtk.IconSize.Menu);
+			this.buttonDeleteRow.Image = w21;
 			this.hbox2.Add(this.buttonDeleteRow);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonDeleteRow]));
-			w16.Position = 1;
-			w16.Expand = false;
-			w16.Fill = false;
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonDeleteRow]));
+			w22.Position = 1;
+			w22.Expand = false;
+			w22.Fill = false;
 			this.vbox2.Add(this.hbox2);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox2]));
-			w17.Position = 2;
-			w17.Expand = false;
-			w17.Fill = false;
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox2]));
+			w23.Position = 2;
+			w23.Expand = false;
+			w23.Fill = false;
 			this.Add(this.vbox2);
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
 			this.Hide();
+			this.buttonSave.Clicked += new global::System.EventHandler(this.OnButtonSaveClicked);
+			this.buttonCancel.Clicked += new global::System.EventHandler(this.OnButtonCancelClicked);
 			this.entryCarModel.ChangedByUser += new global::System.EventHandler(this.OnEntryCarModelChangedByUser);
 			this.entryCarBrand.Changed += new global::System.EventHandler(this.OnEntryCarBrandChanged);
 			this.comboGlass.Changed += new global::System.EventHandler(this.OnComboGlassChanged);

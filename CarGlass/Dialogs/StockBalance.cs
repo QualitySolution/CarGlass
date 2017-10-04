@@ -21,6 +21,19 @@ namespace CarGlass.Dialogs
 			Glass
 		}
 
+		bool rowsChanged;
+
+		public bool RowsChanged{
+			get{
+				return rowsChanged;
+			}
+			set{
+				rowsChanged = value;
+				entryCarBrand.Sensitive = entryCarModel.Sensitive = comboGlass.Sensitive = glassselector.Sensitive = !value;
+				buttonSave.Sensitive = value;
+			}
+		}
+
 		public StockBalance()
         {
             this.Build();
@@ -41,7 +54,7 @@ namespace CarGlass.Dialogs
 						  .AddColumn("Производитель").AddComboRenderer(x => x.Manufacturer).Editing()
 						  .SetDisplayFunc(x => x.Name)
 						  .FillItems(manufactures)
-			              .AddColumn("Цена").AddNumericRenderer(x => x.Cost).Editing(new Gtk.Adjustment(0, 0, 1000000, 100, 1000, 0)).WidthChars(7)
+			              .AddColumn("Цена").AddNumericRenderer(x => x.Cost).Editing(new Gtk.Adjustment(0, 0, 1000000, 100, 1000, 0)).WidthChars(9)
 			              .AddColumn("Наличие").AddNumericRenderer(x => x.Amount).Editing(new Gtk.Adjustment(0, 0, 1000, 1, 10, 0))
 						  .AddColumn("Место").AddTextRenderer(x => x.Placement).Editable()
 						  .AddColumn("Комментарий").AddTextRenderer(x => x.Comment).Editable()
@@ -88,7 +101,8 @@ namespace CarGlass.Dialogs
 		{
 			var selected = ytreeviewStore.GetSelectedObject<StoreItem>();
 			ObservableStoreItems.Remove(selected);
-			UoW.Delete(selected);
+			if (selected.Id > 0)
+				UoW.Delete(selected);
 		}
 
 		void RefreshEditingItems()
@@ -99,7 +113,7 @@ namespace CarGlass.Dialogs
 
 			if (comboGlass.Active == -1 && entryCarBrand.Subject == null && entryCarModel.Subject == null)
 			{
-				StoreItems.Clear();
+				StoreItems?.Clear();
 				return;
 			}
 
@@ -113,7 +127,9 @@ namespace CarGlass.Dialogs
 
 			StoreItems = query.List();
 			ObservableStoreItems = new GenericObservableList<StoreItem>(StoreItems);
+			ObservableStoreItems.ListContentChanged += ObservableStoreItems_ListContentChanged;
 			ytreeviewStore.SetItemsSource(ObservableStoreItems);
+			RowsChanged = false;
 			UpdateCanAddState();
 		}
 
@@ -130,6 +146,38 @@ namespace CarGlass.Dialogs
 		void UpdateCanAddState()
 		{
 			buttonAddRow.Sensitive = (glassselector.SelectedGlass.HasValue && entryCarModel.Subject != null);
+		}
+
+		protected void OnButtonSaveClicked(object sender, EventArgs e)
+		{
+			foreach (var row in StoreItems.ToList())
+			{
+				if (row.Amount == default(int)
+					&& row.Cost == default(decimal)
+					&& row.Manufacturer == null
+					&& String.IsNullOrWhiteSpace(row.Placement)
+					&& String.IsNullOrWhiteSpace(row.Comment)
+				   )
+				{
+					ObservableStoreItems.Remove(row);
+					if (row.Id > 0)
+						UoW.Delete(row);
+				}
+				else
+					UoW.Save(row);
+			}
+			UoW.Commit();
+			RowsChanged = false;
+		}
+
+		protected void OnButtonCancelClicked(object sender, EventArgs e)
+		{
+			RefreshEditingItems();
+		}
+
+		void ObservableStoreItems_ListContentChanged(object sender, EventArgs e)
+		{
+			RowsChanged = true;
 		}
 	}
 }
