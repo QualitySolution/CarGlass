@@ -90,8 +90,8 @@ namespace CarGlass.Widgets
 
 		protected override void OnSizeAllocated(Gdk.Rectangle allocation)
 		{
-			ResizeSvg(allocation);
 			base.OnSizeAllocated(allocation);
+			ResizeSvg(allocation);
 		}
 
 		protected override bool OnButtonPressEvent(Gdk.EventButton evnt)
@@ -121,18 +121,9 @@ namespace CarGlass.Widgets
 
 		void ResizeSvg(Gdk.Rectangle allocation)
 		{
-			double vratio = (double)allocation.Height / SvgOrigin.Height;
-			double hratio = (double)allocation.Width / SvgOrigin.Width;
-			if (vratio < hratio)
-			{
-				SvgOrigin.Height = svgHeight = allocation.Height;
-				SvgOrigin.Width = svgWidth = (int)(allocation.Width * vratio);
-			}
-			else
-			{
-				SvgOrigin.Width = svgWidth = allocation.Width;
-				SvgOrigin.Height = svgHeight = (int)(allocation.Height * hratio);
-			}
+			SvgOrigin.Height = svgHeight = allocation.Height;
+			SvgOrigin.Width = svgWidth = allocation.Width;
+
 			UpdateGlassMasks();
 		}
 
