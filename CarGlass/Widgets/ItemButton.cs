@@ -88,7 +88,6 @@ namespace CarGlass
 
 		protected override bool OnExposeEvent(Gdk.EventExpose evnt)
 		{
-			logger.Debug("Button Explose");
 			if(item != null)
 			{
 				int triangleSize = 25;

@@ -39,6 +39,14 @@ namespace CarGlass.Domain
 			set { SetField(ref euroCode, value, () => EuroCode); }
 		}
 
+		private GlassManufacturer manufacturer;
+
+		public virtual GlassManufacturer Manufacturer
+		{
+			get { return manufacturer; }
+			set { SetField(ref manufacturer, value, () => Manufacturer); }
+		}
+
 		private decimal cost;
 
 		public virtual decimal Cost

@@ -28,7 +28,13 @@ namespace CarGlass.Dialogs
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
-		private global::Gamma.GtkWidgets.yTreeView ytreeview1;
+		private global::Gamma.GtkWidgets.yTreeView ytreeviewStore;
+
+		private global::Gtk.HBox hbox2;
+
+		private global::Gtk.Button buttonAddRow;
+
+		private global::Gtk.Button buttonDeleteRow;
 
 		protected virtual void Build()
 		{
@@ -151,21 +157,61 @@ namespace CarGlass.Dialogs
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-			this.ytreeview1 = new global::Gamma.GtkWidgets.yTreeView();
-			this.ytreeview1.CanFocus = true;
-			this.ytreeview1.Name = "ytreeview1";
-			this.GtkScrolledWindow.Add(this.ytreeview1);
+			this.ytreeviewStore = new global::Gamma.GtkWidgets.yTreeView();
+			this.ytreeviewStore.CanFocus = true;
+			this.ytreeviewStore.Name = "ytreeviewStore";
+			this.GtkScrolledWindow.Add(this.ytreeviewStore);
 			this.vbox2.Add(this.GtkScrolledWindow);
 			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));
 			w12.Position = 1;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.hbox2 = new global::Gtk.HBox();
+			this.hbox2.Name = "hbox2";
+			this.hbox2.Spacing = 6;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.buttonAddRow = new global::Gtk.Button();
+			this.buttonAddRow.CanFocus = true;
+			this.buttonAddRow.Name = "buttonAddRow";
+			this.buttonAddRow.UseUnderline = true;
+			this.buttonAddRow.Label = global::Mono.Unix.Catalog.GetString("Добавить");
+			global::Gtk.Image w13 = new global::Gtk.Image();
+			w13.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-add", global::Gtk.IconSize.Menu);
+			this.buttonAddRow.Image = w13;
+			this.hbox2.Add(this.buttonAddRow);
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonAddRow]));
+			w14.Position = 0;
+			w14.Expand = false;
+			w14.Fill = false;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.buttonDeleteRow = new global::Gtk.Button();
+			this.buttonDeleteRow.CanFocus = true;
+			this.buttonDeleteRow.Name = "buttonDeleteRow";
+			this.buttonDeleteRow.UseUnderline = true;
+			this.buttonDeleteRow.Label = global::Mono.Unix.Catalog.GetString("Удалить");
+			global::Gtk.Image w15 = new global::Gtk.Image();
+			w15.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-remove", global::Gtk.IconSize.Menu);
+			this.buttonDeleteRow.Image = w15;
+			this.hbox2.Add(this.buttonDeleteRow);
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonDeleteRow]));
+			w16.Position = 1;
+			w16.Expand = false;
+			w16.Fill = false;
+			this.vbox2.Add(this.hbox2);
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox2]));
+			w17.Position = 2;
+			w17.Expand = false;
+			w17.Fill = false;
 			this.Add(this.vbox2);
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
 			this.Hide();
+			this.entryCarModel.ChangedByUser += new global::System.EventHandler(this.OnEntryCarModelChangedByUser);
 			this.entryCarBrand.Changed += new global::System.EventHandler(this.OnEntryCarBrandChanged);
 			this.comboGlass.Changed += new global::System.EventHandler(this.OnComboGlassChanged);
+			this.buttonAddRow.Clicked += new global::System.EventHandler(this.OnButtonAddRowClicked);
+			this.buttonDeleteRow.Clicked += new global::System.EventHandler(this.OnButtonDeleteRowClicked);
 		}
 	}
 }
