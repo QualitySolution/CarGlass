@@ -1,11 +1,13 @@
 ﻿using System;
-using MySql.Data.MySqlClient;
-using QSProjectsLib;
+using CarGlass.Domain;
 using Gtk;
+using MySql.Data.MySqlClient;
+using QSOrmProject;
+using QSProjectsLib;
 
 namespace CarGlass
 {
-	public partial class CarModelDlg : Gtk.Dialog
+	public partial class CarModelDlg : FakeTDIEntityGtkDialogBase<CarModel>
 	{
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -16,6 +18,13 @@ namespace CarGlass
 		public CarModelDlg()
 		{
 			this.Build();
+		}
+
+		public CarModelDlg(CarModel obj) : this(obj.Id) { }
+
+		public CarModelDlg(int id) : this()
+		{
+			Fill(id);
 		}
 
 		public void Fill(int id)
@@ -64,6 +73,12 @@ namespace CarGlass
 
 		protected void OnButtonOkClicked (object sender, EventArgs e)
 		{
+           if (Save())
+				Respond(Gtk.ResponseType.Ok);
+		}
+
+		public override bool Save()
+		{
 			string sql;
 			if(NewItem)
 			{
@@ -86,12 +101,13 @@ namespace CarGlass
 		
 				cmd.ExecuteNonQuery();
 				logger.Info("Ok");
-				Respond (Gtk.ResponseType.Ok);
+				return true;
 			} 
 			catch (Exception ex) 
 			{
 				QSMain.ErrorMessageWithLog("Ошибка записи модели!", logger, ex);
 			}
+			return false;
 		}
 
 		protected void OnButtonMarkEditClicked(object sender, EventArgs e)
