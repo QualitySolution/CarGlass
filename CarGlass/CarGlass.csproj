@@ -46,9 +46,6 @@
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="QSWidgetLib">
-      <HintPath>..\..\QSProjects\QSWidgetLib\bin\Debug\QSWidgetLib.dll</HintPath>
-    </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\QSProjects\packages\NLog.4.4.11\lib\net40\NLog.dll</HintPath>
     </Reference>
@@ -198,5 +195,8 @@
     </None>
     <None Include="packages.config" />
     <None Include="app.config" />
+    <None Include="Reports\Store.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

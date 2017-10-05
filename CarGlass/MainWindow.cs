@@ -268,4 +268,9 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 	{
 		CheckUpdate.StartCheckUpdateThread (UpdaterFlags.ShowAnyway);
 	}
+
+	protected void OnActionStoreReportActivated(object sender, EventArgs e)
+	{
+		ViewReportExt.Run("Store", String.Empty);
+	}
 }

@@ -6,18 +6,17 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
-    <widget-library name="../../../QSProjects/QSProjectsLib/bin/Debug/QSProjectsLib.dll" />
-    <widget-library name="../../../QSProjects/QSSupportLib/bin/Debug/QSSupportLib.dll" />
-    <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
-    <widget-library name="../../../QSProjects/Modules/QSChat/bin/Debug/QSChat.dll" />
-    <widget-library name="../../../QSProjects/QSUpdater/bin/Debug/QSUpdater.dll" />
-    <widget-library name="../../../GammaBinding/GammaBinding/bin/Debug/GammaBinding.dll" />
-    <widget-library name="../../../QSProjects/QSOrmProject/bin/Debug/QSOrmProject.dll" />
-    <widget-library name="../../../QSProjects/QSTDI/bin/Debug/QSTDI.dll" />
-    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
+    <widget-library name="../../../QSProjects/QSProjectsLib/bin/Release/QSProjectsLib.dll" />
+    <widget-library name="../../../QSProjects/QSSupportLib/bin/Release/QSSupportLib.dll" />
+    <widget-library name="../../../QSProjects/QSWidgetLib/bin/Release/QSWidgetLib.dll" />
+    <widget-library name="../../../QSProjects/Modules/QSChat/bin/Release/QSChat.dll" />
+    <widget-library name="../../../QSProjects/QSUpdater/bin/Release/QSUpdater.dll" />
+    <widget-library name="../../../GammaBinding/GammaBinding/bin/Release/GammaBinding.dll" />
+    <widget-library name="../../../QSProjects/QSOrmProject/bin/Release/QSOrmProject.dll" />
+    <widget-library name="../../../QSProjects/QSTDI/bin/Release/QSTDI.dll" />
+    <widget-library name="../bin/Release/CarGlass.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="1053 409">
+  <widget class="Gtk.Window" id="MainWindow" design-size="1053 431">
     <action-group name="Default">
       <action id="Action">
         <property name="Type">Action</property>
@@ -139,6 +138,12 @@
         <property name="StockId">gtk-go-down</property>
         <signal name="Activated" handler="OnActionCheckUpdatesActivated" />
       </action>
+      <action id="ActionStoreReport">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Отчет по складу</property>
+        <property name="ShortLabel" translatable="yes">Отчет по складу</property>
+        <signal name="Activated" handler="OnActionStoreReportActivated" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">QS: Мастерская автостекла</property>
@@ -173,6 +178,8 @@
                 <node type="Menuitem" action="Action15" />
                 <node type="Menuitem" action="Action14" />
                 <node type="Menuitem" action="Action16" />
+                <node type="Separator" />
+                <node type="Menuitem" action="ActionStoreReport" />
               </node>
               <node type="Menu" action="Action2">
                 <node type="Menuitem" action="ActionHistoryLog" />
