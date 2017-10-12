@@ -113,6 +113,7 @@
     <Compile Include="HibernateMapping\GlassManufacturerMap.cs" />
     <Compile Include="HibernateMapping\StoreItemMap.cs" />
     <Compile Include="Dialogs\CarModelDlg.cs" />
+    <Compile Include="Representation\StoreItemsVM.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

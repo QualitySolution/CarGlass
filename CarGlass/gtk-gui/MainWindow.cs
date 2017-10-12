@@ -241,7 +241,6 @@ public partial class MainWindow
 		this.stockbalance1 = new global::CarGlass.Dialogs.StockBalance();
 		this.stockbalance1.Events = ((global::Gdk.EventMask)(256));
 		this.stockbalance1.Name = "stockbalance1";
-		this.stockbalance1.RowsChanged = false;
 		this.notebookMain.Add(this.stockbalance1);
 		global::Gtk.Notebook.NotebookChild w7 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.stockbalance1]));
 		w7.Position = 4;

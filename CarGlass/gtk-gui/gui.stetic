@@ -6,15 +6,15 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../../../QSProjects/QSProjectsLib/bin/Release/QSProjectsLib.dll" />
-    <widget-library name="../../../QSProjects/QSSupportLib/bin/Release/QSSupportLib.dll" />
-    <widget-library name="../../../QSProjects/QSWidgetLib/bin/Release/QSWidgetLib.dll" />
-    <widget-library name="../../../QSProjects/Modules/QSChat/bin/Release/QSChat.dll" />
-    <widget-library name="../../../QSProjects/QSUpdater/bin/Release/QSUpdater.dll" />
-    <widget-library name="../../../GammaBinding/GammaBinding/bin/Release/GammaBinding.dll" />
-    <widget-library name="../../../QSProjects/QSOrmProject/bin/Release/QSOrmProject.dll" />
-    <widget-library name="../../../QSProjects/QSTDI/bin/Release/QSTDI.dll" />
-    <widget-library name="../bin/Release/CarGlass.exe" internal="true" />
+    <widget-library name="../../../QSProjects/QSProjectsLib/bin/Debug/QSProjectsLib.dll" />
+    <widget-library name="../../../QSProjects/QSSupportLib/bin/Debug/QSSupportLib.dll" />
+    <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
+    <widget-library name="../../../QSProjects/Modules/QSChat/bin/Debug/QSChat.dll" />
+    <widget-library name="../../../QSProjects/QSUpdater/bin/Debug/QSUpdater.dll" />
+    <widget-library name="../../../GammaBinding/GammaBinding/bin/Debug/GammaBinding.dll" />
+    <widget-library name="../../../QSProjects/QSOrmProject/bin/Debug/QSOrmProject.dll" />
+    <widget-library name="../../../QSProjects/QSTDI/bin/Debug/QSTDI.dll" />
+    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="1053 431">
     <action-group name="Default">
@@ -287,7 +287,6 @@
                   <widget class="CarGlass.Dialogs.StockBalance" id="stockbalance1">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
-                    <property name="RowsChanged">False</property>
                   </widget>
                   <packing>
                     <property name="Position">4</property>
@@ -2702,6 +2701,7 @@
               <widget class="CarGlass.Widgets.GlassSelector" id="glassselector">
                 <property name="MemberName" />
                 <property name="HeightRequest">250</property>
+                <signal name="GlassChanged" handler="OnGlassselectorGlassChanged" />
               </widget>
               <packing>
                 <property name="Position">0</property>
@@ -2709,82 +2709,20 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Table" id="table1">
+              <widget class="Gtk.VBox" id="vbox1">
                 <property name="MemberName" />
-                <property name="NRows">6</property>
-                <property name="NColumns">2</property>
-                <property name="RowSpacing">6</property>
-                <property name="ColumnSpacing">6</property>
+                <property name="Spacing">6</property>
                 <child>
-                  <placeholder />
-                </child>
-                <child>
-                  <widget class="Gamma.Widgets.yListComboBox" id="comboGlass">
+                  <widget class="Gamma.GtkWidgets.yLabel" id="ylabel1">
                     <property name="MemberName" />
-                    <property name="IsTextCombo">False</property>
-                    <property name="Items" translatable="yes" />
-                    <property name="AddIfNotExist">False</property>
-                    <property name="DefaultFirst">False</property>
-                    <signal name="Changed" handler="OnComboGlassChanged" />
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Поиск:&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
                   </widget>
                   <packing>
-                    <property name="TopAttach">3</property>
-                    <property name="BottomAttach">4</property>
-                    <property name="LeftAttach">1</property>
-                    <property name="RightAttach">2</property>
+                    <property name="Position">0</property>
                     <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="QSOrmProject.EntryReference" id="entryCarBrand">
-                    <property name="MemberName" />
-                    <property name="Events">ButtonPressMask</property>
-                    <signal name="Changed" handler="OnEntryCarBrandChanged" />
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">1</property>
-                    <property name="BottomAttach">2</property>
-                    <property name="LeftAttach">1</property>
-                    <property name="RightAttach">2</property>
-                    <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="QSOrmProject.EntryReferenceVM" id="entryCarModel">
-                    <property name="MemberName" />
-                    <property name="Events">ButtonPressMask</property>
-                    <signal name="ChangedByUser" handler="OnEntryCarModelChangedByUser" />
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">2</property>
-                    <property name="BottomAttach">3</property>
-                    <property name="LeftAttach">1</property>
-                    <property name="RightAttach">2</property>
-                    <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
                   </packing>
                 </child>
                 <child>
@@ -2792,149 +2730,47 @@
                     <property name="MemberName" />
                     <property name="Spacing">6</property>
                     <child>
-                      <widget class="Gtk.Button" id="buttonSave">
+                      <widget class="Gamma.GtkWidgets.yEntry" id="yentrySearch">
                         <property name="MemberName" />
-                        <property name="Sensitive">False</property>
-                        <property name="Tooltip" translatable="yes">Сохранить изменения</property>
                         <property name="CanFocus">True</property>
-                        <property name="Type">TextAndIcon</property>
-                        <property name="Icon">stock:gtk-floppy Menu</property>
-                        <property name="Label" translatable="yes">Сохранить</property>
-                        <property name="UseUnderline">True</property>
-                        <signal name="Clicked" handler="OnButtonSaveClicked" />
+                        <property name="IsEditable">True</property>
+                        <property name="InvisibleChar">●</property>
+                        <signal name="Changed" handler="OnYentrySearchChanged" />
                       </widget>
                       <packing>
                         <property name="Position">0</property>
-                        <property name="AutoSize">False</property>
+                        <property name="AutoSize">True</property>
+                        <property name="Expand">False</property>
+                        <property name="Fill">False</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.Button" id="buttonCancel">
+                      <widget class="Gtk.Button" id="buttonSearchClean">
                         <property name="MemberName" />
-                        <property name="Tooltip" translatable="yes">Отменить внесенные изменения. Заново загрузятся данные из базы</property>
                         <property name="CanFocus">True</property>
                         <property name="Type">TextAndIcon</property>
-                        <property name="Icon">stock:gtk-refresh Menu</property>
-                        <property name="Label" translatable="yes">Отменить</property>
+                        <property name="Icon">stock:gtk-clear Menu</property>
+                        <property name="Label" translatable="yes" />
                         <property name="UseUnderline">True</property>
-                        <signal name="Clicked" handler="OnButtonCancelClicked" />
+                        <signal name="Clicked" handler="OnButtonSearchCleanClicked" />
                       </widget>
                       <packing>
                         <property name="Position">1</property>
-                        <property name="AutoSize">False</property>
+                        <property name="AutoSize">True</property>
+                        <property name="Expand">False</property>
+                        <property name="Fill">False</property>
                       </packing>
                     </child>
                   </widget>
                   <packing>
-                    <property name="TopAttach">5</property>
-                    <property name="BottomAttach">6</property>
-                    <property name="RightAttach">2</property>
-                    <property name="AutoSize">False</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.Label" id="label1">
-                    <property name="MemberName" />
-                    <property name="Xalign">1</property>
-                    <property name="LabelProp" translatable="yes">Марка:</property>
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">1</property>
-                    <property name="BottomAttach">2</property>
+                    <property name="Position">1</property>
                     <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Label" id="label2">
-                    <property name="MemberName" />
-                    <property name="Xalign">1</property>
-                    <property name="LabelProp" translatable="yes">Модель:</property>
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">2</property>
-                    <property name="BottomAttach">3</property>
-                    <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.Label" id="label3">
-                    <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">&lt;b&gt;Автомобиль&lt;/b&gt;</property>
-                    <property name="UseMarkup">True</property>
-                  </widget>
-                  <packing>
-                    <property name="RightAttach">2</property>
-                    <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.Label" id="label4">
-                    <property name="MemberName" />
-                    <property name="Xalign">1</property>
-                    <property name="LabelProp" translatable="yes">Стекло:</property>
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">3</property>
-                    <property name="BottomAttach">4</property>
-                    <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.Label" id="label5">
-                    <property name="MemberName" />
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">4</property>
-                    <property name="BottomAttach">5</property>
-                    <property name="AutoSize">False</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">True</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
+                  <placeholder />
                 </child>
               </widget>
               <packing>
@@ -2957,7 +2793,7 @@
             <property name="MemberName" />
             <property name="ShadowType">In</property>
             <child>
-              <widget class="Gamma.GtkWidgets.yTreeView" id="ytreeviewStore">
+              <widget class="QSOrmProject.RepresentationTreeView" id="representationViewStoreItems">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
@@ -2976,7 +2812,6 @@
             <child>
               <widget class="Gtk.Button" id="buttonAddRow">
                 <property name="MemberName" />
-                <property name="Sensitive">False</property>
                 <property name="CanFocus">True</property>
                 <property name="Type">TextAndIcon</property>
                 <property name="Icon">stock:gtk-add Menu</property>
