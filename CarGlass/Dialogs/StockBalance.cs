@@ -18,6 +18,7 @@ namespace CarGlass.Dialogs
 			representation = new StoreItemsVM(UoW);
 
 			representationViewStoreItems.RepresentationModel = representation;
+			representationViewStoreItems.ModifyFont(Pango.FontDescription.FromString("Purisa 12"));
 
 			representationViewStoreItems.Selection.Changed += TreeviewStoreSelection_Changed;
         }
