@@ -13,10 +13,18 @@ namespace CarGlass
 
 		public static void Main(string[] args)
 		{
-			Application.Init();
-			QSMain.SubscribeToUnhadledExceptions ();
-			QSMain.GuiThread = System.Threading.Thread.CurrentThread;
-			QSSupportLib.MainSupport.Init();
+			try{
+				WindowStartupFix.WindowsCheck();
+				Application.Init();
+				QSMain.SubscribeToUnhadledExceptions ();
+				QSMain.GuiThread = System.Threading.Thread.CurrentThread;
+				QSSupportLib.MainSupport.Init();
+			}
+			catch(Exception falalEx)
+			{
+				System.Diagnostics.Process.Start("msg",String.Format("* \"{0}\"", falalEx));
+			}
+
 			CreateProjectParam();
 
 			// Создаем окно входа
