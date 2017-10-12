@@ -55,6 +55,7 @@ namespace CarGlass.Representation
 				            .Select(() => storeItemAlias.Placement).WithAlias(() => resultAlias.Placement)
 				            .Select(() => storeItemAlias.Comment).WithAlias(() => resultAlias.Comment)
 				)
+				.OrderBy(() => storeItemAlias.EuroCode).Asc
 				.TransformUsing(Transformers.AliasToBean<StoreItemsVMNode>())
 				.List<StoreItemsVMNode>();
 
