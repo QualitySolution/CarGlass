@@ -6,7 +6,7 @@ using QSOrmProject;
 namespace CarGlass.Dialogs
 {
     [System.ComponentModel.ToolboxItem(true)]
-    public partial class StockBalance : Gtk.Bin
+	public partial class StockBalance : WidgetOnDialogBase
     {
 		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 		StoreItemsVM representation;
@@ -26,11 +26,8 @@ namespace CarGlass.Dialogs
 
 		protected void OnButtonAddRowClicked(object sender, EventArgs e)
 		{
-			//var row = new StoreItem();
-			//row.CarModel = entryCarModel.GetSubject<CarModel>();
-			//row.CarBrand = row.CarModel.Brand;
-			//row.CarWindow = comboGlass.SelectedItem as CarWindow;
-			//ObservableStoreItems.Add(row);
+			var rowDlg = new StoreItemDlg(GetSelectedWindow());
+			OpenNewTab(rowDlg);
 		}
 
 		protected void OnButtonDeleteRowClicked(object sender, EventArgs e)
@@ -40,10 +37,9 @@ namespace CarGlass.Dialogs
 			UoW.Delete(item);
 		}
 
-
 		void TreeviewStoreSelection_Changed(object sender, EventArgs e)
 		{
-			buttonDeleteRow.Sensitive = representationViewStoreItems.Selection.CountSelectedRows() > 0;
+			buttonDeleteRow.Sensitive = buttonEdit.Sensitive = representationViewStoreItems.Selection.CountSelectedRows() > 0;
 		}
 
 		protected void OnButtonSearchCleanClicked(object sender, EventArgs e)
@@ -53,13 +49,30 @@ namespace CarGlass.Dialogs
 
 		protected void OnGlassselectorGlassChanged(object sender, EventArgs e)
 		{
+			representation.OnlyItemType = GetSelectedWindow();
+		}
+
+		private CarWindow GetSelectedWindow()
+		{
 			var glass = glassselector.SelectedGlass;
-			representation.OnlyItemType = glass.HasValue ? UoW.GetById<CarWindow>((int)glass.Value) : null;
+			return glass.HasValue ? UoW.GetById<CarWindow>((int)glass.Value) : null;
 		}
 
 		protected void OnYentrySearchChanged(object sender, EventArgs e)
 		{
 			representation.SearchString = yentrySearch.Text;
+		}
+
+		protected void OnButtonEditClicked(object sender, EventArgs e)
+		{
+			var selected = representationViewStoreItems.GetSelectedObject<StoreItemsVMNode>();
+			var rowDlg = new StoreItemDlg(selected.Id);
+			OpenNewTab(rowDlg);
+		}
+
+		protected void OnRepresentationViewStoreItemsRowActivated(object o, Gtk.RowActivatedArgs args)
+		{
+			buttonEdit.Click();
 		}
 	}
 }

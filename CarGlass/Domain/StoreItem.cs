@@ -1,14 +1,19 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using QSOrmProject;
 
 namespace CarGlass.Domain
 {
+	[OrmSubject(Gender = QSProjectsLib.GrammaticalGender.Feminine,
+	NominativePlural = "складские позиции",
+	Nominative = "складская позиция")]
 	public class StoreItem : PropertyChangedBase, IDomainObject
 	{
 		public virtual int Id { get; set; }
 
 		private CarBrand carBrand;
 
+		[Required(ErrorMessage = "Марка должна быть заполнена.")]
 		public virtual CarBrand CarBrand
 		{
 			get { return carBrand; }
@@ -17,6 +22,7 @@ namespace CarGlass.Domain
 
 		private CarModel carModel;
 
+		[Required(ErrorMessage = "Модель должна быть заполнена.")]
 		public virtual CarModel CarModel
 		{
 			get { return carModel; }
@@ -25,6 +31,7 @@ namespace CarGlass.Domain
 
 		private CarWindow carWindow;
 
+		[Required(ErrorMessage = "Размещение стекла должно быть заполнено.")]
 		public virtual CarWindow CarWindow
 		{
 			get { return carWindow; }
@@ -32,7 +39,8 @@ namespace CarGlass.Domain
 		}
 
 		private string euroCode;
-
+		[StringLength(45)]
+		[Required(ErrorMessage = "Еврокод должен быть заполнен.")]
 		public virtual string EuroCode
 		{
 			get { return euroCode; }
@@ -41,6 +49,7 @@ namespace CarGlass.Domain
 
 		private GlassManufacturer manufacturer;
 
+		[Required(ErrorMessage = "Производитель должен быть заполнен.")]
 		public virtual GlassManufacturer Manufacturer
 		{
 			get { return manufacturer; }
@@ -65,6 +74,7 @@ namespace CarGlass.Domain
 
 		private string placement;
 
+		[StringLength(45)]
 		public virtual string Placement
 		{
 			get { return placement; }

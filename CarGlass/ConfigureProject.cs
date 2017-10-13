@@ -2,6 +2,7 @@
 using QSOrmProject;
 using QSProjectsLib;
 using CarGlass.Domain;
+using CarGlass.Dialogs;
 
 namespace CarGlass
 {
@@ -23,6 +24,7 @@ namespace CarGlass
 
             OrmMain.AddObjectDescription<CarBrand>().DefaultTableView().SearchColumn("Наименование", i => i.Name).OrderAsc(i => i.Name).End();
 			OrmMain.AddObjectDescription<CarModel>().Dialog<CarModelDlg>();
+			OrmMain.AddObjectDescription<StoreItem>().Dialog<StoreItemDlg>();
 		}
 	}
 }

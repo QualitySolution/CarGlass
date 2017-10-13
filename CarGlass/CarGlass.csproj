@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="gtk-dotnet, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -114,6 +115,8 @@
     <Compile Include="HibernateMapping\StoreItemMap.cs" />
     <Compile Include="Dialogs\CarModelDlg.cs" />
     <Compile Include="Representation\StoreItemsVM.cs" />
+    <Compile Include="Dialogs\StoreItemDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.StoreItemDlg.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -156,6 +159,14 @@
     <ProjectReference Include="..\..\Gtk.DataBindings\System.Data.Bindings\System.Data.Bindings.csproj">
       <Project>{54F958F5-7E58-4C89-9A04-8835E63B97C3}</Project>
       <Name>System.Data.Bindings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\QSProjects\QSValidation\QSValidation.csproj">
+      <Project>{CE5179E8-3172-4C08-9FE3-9C48C58A3831}</Project>
+      <Name>QSValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\QSProjects\QSExtraGammaWidgets\QSExtraGammaWidgets.csproj">
+      <Project>{3DCDD84A-20D0-4939-BE25-58B19F3961F2}</Project>
+      <Name>QSExtraGammaWidgets</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
