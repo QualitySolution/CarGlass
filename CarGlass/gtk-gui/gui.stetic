@@ -2729,7 +2729,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="CarGlass.Dialogs.StockBalance" design-size="816 485">
+  <widget class="Gtk.Bin" id="CarGlass.Dialogs.StockBalance" design-size="673 485">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -2743,6 +2743,7 @@
             <child>
               <widget class="CarGlass.Widgets.GlassSelector" id="glassselector">
                 <property name="MemberName" />
+                <property name="WidthRequest">300</property>
                 <property name="HeightRequest">250</property>
                 <signal name="GlassChanged" handler="OnGlassselectorGlassChanged" />
               </widget>
@@ -2756,17 +2757,7 @@
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gamma.GtkWidgets.yLabel" id="ylabel1">
-                    <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">&lt;b&gt;Поиск:&lt;/b&gt;</property>
-                    <property name="UseMarkup">True</property>
-                  </widget>
-                  <packing>
-                    <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
+                  <placeholder />
                 </child>
                 <child>
                   <widget class="Gtk.HBox" id="hbox3">
@@ -2782,9 +2773,7 @@
                       </widget>
                       <packing>
                         <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
+                        <property name="AutoSize">False</property>
                       </packing>
                     </child>
                     <child>
@@ -2806,6 +2795,7 @@
                     </child>
                   </widget>
                   <packing>
+                    <property name="PackType">End</property>
                     <property name="Position">1</property>
                     <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
@@ -2813,14 +2803,23 @@
                   </packing>
                 </child>
                 <child>
-                  <placeholder />
+                  <widget class="Gamma.GtkWidgets.yLabel" id="ylabel1">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Поиск:&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="PackType">End</property>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
                 </child>
               </widget>
               <packing>
                 <property name="Position">1</property>
-                <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
+                <property name="AutoSize">False</property>
               </packing>
             </child>
           </widget>

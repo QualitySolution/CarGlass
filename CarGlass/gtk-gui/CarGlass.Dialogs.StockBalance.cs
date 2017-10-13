@@ -12,13 +12,13 @@ namespace CarGlass.Dialogs
 
 		private global::Gtk.VBox vbox1;
 
-		private global::Gamma.GtkWidgets.yLabel ylabel1;
-
 		private global::Gtk.HBox hbox3;
 
 		private global::Gamma.GtkWidgets.yEntry yentrySearch;
 
 		private global::Gtk.Button buttonSearchClean;
+
+		private global::Gamma.GtkWidgets.yLabel ylabel1;
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
@@ -48,6 +48,7 @@ namespace CarGlass.Dialogs
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.glassselector = new global::CarGlass.Widgets.GlassSelector();
+			this.glassselector.WidthRequest = 300;
 			this.glassselector.HeightRequest = 250;
 			this.glassselector.Name = "glassselector";
 			this.hbox1.Add(this.glassselector);
@@ -57,16 +58,6 @@ namespace CarGlass.Dialogs
 			this.vbox1 = new global::Gtk.VBox();
 			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 6;
-			// Container child vbox1.Gtk.Box+BoxChild
-			this.ylabel1 = new global::Gamma.GtkWidgets.yLabel();
-			this.ylabel1.Name = "ylabel1";
-			this.ylabel1.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Поиск:</b>");
-			this.ylabel1.UseMarkup = true;
-			this.vbox1.Add(this.ylabel1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.ylabel1]));
-			w2.Position = 0;
-			w2.Expand = false;
-			w2.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.hbox3 = new global::Gtk.HBox();
 			this.hbox3.Name = "hbox3";
@@ -78,33 +69,41 @@ namespace CarGlass.Dialogs
 			this.yentrySearch.IsEditable = true;
 			this.yentrySearch.InvisibleChar = '●';
 			this.hbox3.Add(this.yentrySearch);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.yentrySearch]));
-			w3.Position = 0;
-			w3.Expand = false;
-			w3.Fill = false;
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.yentrySearch]));
+			w2.Position = 0;
 			// Container child hbox3.Gtk.Box+BoxChild
 			this.buttonSearchClean = new global::Gtk.Button();
 			this.buttonSearchClean.CanFocus = true;
 			this.buttonSearchClean.Name = "buttonSearchClean";
 			this.buttonSearchClean.UseUnderline = true;
-			global::Gtk.Image w4 = new global::Gtk.Image();
-			w4.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-clear", global::Gtk.IconSize.Menu);
-			this.buttonSearchClean.Image = w4;
+			global::Gtk.Image w3 = new global::Gtk.Image();
+			w3.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-clear", global::Gtk.IconSize.Menu);
+			this.buttonSearchClean.Image = w3;
 			this.hbox3.Add(this.buttonSearchClean);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.buttonSearchClean]));
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.buttonSearchClean]));
+			w4.Position = 1;
+			w4.Expand = false;
+			w4.Fill = false;
+			this.vbox1.Add(this.hbox3);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox3]));
+			w5.PackType = ((global::Gtk.PackType)(1));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;
-			this.vbox1.Add(this.hbox3);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox3]));
-			w6.Position = 1;
+			// Container child vbox1.Gtk.Box+BoxChild
+			this.ylabel1 = new global::Gamma.GtkWidgets.yLabel();
+			this.ylabel1.Name = "ylabel1";
+			this.ylabel1.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Поиск:</b>");
+			this.ylabel1.UseMarkup = true;
+			this.vbox1.Add(this.ylabel1);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.ylabel1]));
+			w6.PackType = ((global::Gtk.PackType)(1));
+			w6.Position = 2;
 			w6.Expand = false;
 			w6.Fill = false;
 			this.hbox1.Add(this.vbox1);
 			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vbox1]));
 			w7.Position = 1;
-			w7.Expand = false;
-			w7.Fill = false;
 			this.vbox2.Add(this.hbox1);
 			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
 			w8.Position = 0;
