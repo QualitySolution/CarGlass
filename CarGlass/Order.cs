@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using QSProjectsLib;
 using Gtk;
+using QSOrmProject;
 
 namespace CarGlass
 {
@@ -27,6 +28,7 @@ namespace CarGlass
 			Date = date;
 			Hour = hour;
 			this.pointNumber = pointNumber;
+			labelAuthor.LabelProp = QSMain.User.Name;
 		
 			this.Title = String.Format(GetTitleFormat(CurrentType), "???", Date, Hour);
 		}
@@ -158,8 +160,8 @@ namespace CarGlass
 			string sql;
 			if(NewItem)
 			{
-				sql = "INSERT INTO orders (date, hour, point_number, type, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode, comment) " +
-					"VALUES (@date, @hour, @point_number, @type, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode, @comment)";
+				sql = "INSERT INTO orders (date, hour, point_number, type, created_by, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode, comment) " +
+					"VALUES (@date, @hour, @point_number, @type, @created_by, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode, @comment)";
 			}
 			else
 			{
@@ -178,6 +180,7 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@hour", Hour);
 				cmd.Parameters.AddWithValue("@point_number", pointNumber);
 				cmd.Parameters.AddWithValue("@type", CurrentType.ToString());
+				cmd.Parameters.AddWithValue("@created_by", QSMain.User.Id);
 				cmd.Parameters.AddWithValue("@car_model_id", ComboWorks.GetActiveId(comboModel));
 				cmd.Parameters.AddWithValue("@car_year", DBWorks.ValueOrNull(comboYear.ActiveText != "", comboYear.ActiveText));
 				cmd.Parameters.AddWithValue("@phone", DBWorks.ValueOrNull(entryPhone.Text != "" && entryPhone.Text != "+7" , entryPhone.Text));
@@ -259,8 +262,9 @@ namespace CarGlass
 			NewItem = false;
 
 			logger.Info("Запрос заказа №{0}...", id);
-			string sql = "SELECT orders.*, models.name as model, models.mark_id FROM orders " +
+			string sql = "SELECT orders.*, models.name as model, models.mark_id, users.name as created_by_user FROM orders " +
 				"LEFT JOIN models ON models.id = orders.car_model_id " +
+				"LEFT JOIN users ON users.id = orders.created_by " +
 				"WHERE orders.id = @id";
 			QSMain.CheckConnectionAlive();
 			try
@@ -277,6 +281,8 @@ namespace CarGlass
 
 					this.Title = String.Format(GetTitleFormat(CurrentType), rdr["id"].ToString(), rdr.GetDateTime("date"), rdr.GetInt32("hour"));
 					Date = rdr.GetDateTime("date");
+
+					labelAuthor.LabelProp = DBWorks.GetString(rdr, "created_by_user", "неизвестно");
 
 					ComboWorks.SetActiveItem(comboStatus, rdr.GetInt32("status_id"));
 					model_id = rdr.GetInt32("car_model_id");

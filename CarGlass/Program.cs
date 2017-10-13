@@ -60,6 +60,13 @@ namespace CarGlass
 			//QSMain.ProjectPermission.Add("edit_slips", new UserPermission("edit_slips", "Изменение кассы задним числом",
 			//"Пользователь может изменять или добавлять кассовые документы задним числом."));
 
+			//Настраиваем обновления
+			QSUpdater.DB.DBUpdater.AddMicroUpdate(
+				new Version(1, 3),
+				new Version(1, 3, 1),
+				"CarGlass.Updates.1.3.1.sql");
+
+
 			//Параметры удаления
 			Dictionary<string, TableInfo> Tables = new Dictionary<string, TableInfo>();
 			QSMain.ProjectTables = Tables;
