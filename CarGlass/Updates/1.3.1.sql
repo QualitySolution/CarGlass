@@ -8,3 +8,5 @@ ADD CONSTRAINT `fk_orders_1`
   REFERENCES `CarGlass`.`users` (`id`)
   ON DELETE SET NULL
   ON UPDATE CASCADE;
+
+INSERT INTO `glass` VALUES (11,'Молдинги'),(12,'Дворники');

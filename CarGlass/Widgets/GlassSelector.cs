@@ -1,4 +1,4 @@
-﻿﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -30,18 +30,21 @@ namespace CarGlass.Widgets
 			RearVentLeft,
 			RearVentRight,
 			QuarterLeft,
-			QuarterRight
+			QuarterRight,
+			Moldings,
+			Wipers
 		}
 
 		GlassType? overGlass;
-		
+
 		private GlassType? OverGlass
 		{
 			get
 			{
 				return overGlass;
 			}
-			set{
+			set
+			{
 				if (overGlass == value)
 					return;
 
@@ -83,11 +86,16 @@ namespace CarGlass.Widgets
 
 		public GlassSelector()
 		{
-			string linux = Environment.OSVersion.Platform == PlatformID.Unix ? "_linux" : "";
-
-			Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream($"CarGlass.icons.glass_scheme{linux}.svg");
+			Stream stream = GetSvgStreem();
 			SvgOrigin = SvgDocument.Open<SvgDocument>(stream);
 			AddEvents((int)Gdk.EventMask.PointerMotionMask);
+		}
+
+		public Stream GetSvgStreem()
+		{
+			string linux = Environment.OSVersion.Platform == PlatformID.Unix ? "_linux" : "";
+
+			return System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream($"CarGlass.icons.glass_scheme{linux}.svg");
 		}
 
 		protected override void OnSizeAllocated(Gdk.Rectangle allocation)
@@ -131,13 +139,16 @@ namespace CarGlass.Widgets
 
 		void UpdateGlassMasks()
 		{
-			Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("CarGlass.icons.glass_scheme.svg");
+			Stream stream = GetSvgStreem();
 			var worked = SvgDocument.Open<SvgDocument>(stream);
 			worked.Height = svgHeight;
 			worked.Width = svgWidth;
 
 			foreach (var path in worked.Children.FindSvgElementsOf<SvgPath>())
 				path.Fill = new SvgColourServer(System.Drawing.Color.Black);
+
+			foreach (var path in worked.Children.FindSvgElementsOf<SvgText>())
+				path.Display = "none";
 
 			foreach (var glass in Enum.GetValues(typeof(GlassType)).Cast<GlassType>())
 			{
@@ -147,7 +158,13 @@ namespace CarGlass.Widgets
 				}
 				var bitmap = worked.Draw();
 				GlassMask[glass] = bitmap;
-				//bitmap.Save(glass.ToString() + ".png", System.Drawing.Imaging.ImageFormat.Png);
+
+#if DEBUG
+				var debugImg = "Debug_" + glass.ToString() + ".png";
+				if (System.IO.File.Exists(debugImg))
+					System.IO.File.Delete(debugImg);
+				bitmap.Save(debugImg, System.Drawing.Imaging.ImageFormat.Png);
+#endif
 			}
 		}
 

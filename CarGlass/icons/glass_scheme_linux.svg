@@ -38,9 +38,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.80842394"
-     inkscape:cx="536.85492"
-     inkscape:cy="284.5635"
+     inkscape:zoom="1.1432841"
+     inkscape:cx="428.83857"
+     inkscape:cy="241.29763"
      inkscape:document-units="cm"
      inkscape:current-layer="use5621"
      showgrid="false"
@@ -65,7 +65,24 @@
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
         <dc:title></dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <image
@@ -281,6 +298,39 @@
          id="RearVentLeft"
          inkscape:connector-curvature="0"
          inkscape:label="#path151" />
+      <path
+         transform="scale(1,-1)"
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.92114997;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 38.674051,-210.66643 H 222.32763 c 5.34309,0 9.64457,4.30148 9.64457,9.64457 v 24.25211 c 0,5.34309 -4.30148,9.64457 -9.64457,9.64457 H 38.674051 c -5.343092,0 -9.644571,-4.30148 -9.644571,-9.64457 v -24.25211 c 0,-5.34309 4.301479,-9.64457 9.644571,-9.64457 z"
+         id="Moldings"
+         inkscape:label="#rect3733" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="54.22974"
+         y="-179.23328"
+         id="text3737"
+         transform="scale(1,-1)"><tspan
+           sodipodi:role="line"
+           id="tspan3735"
+           x="54.22974"
+           y="-179.23328"
+           style="font-size:32px">Молдинги</tspan></text>
+      <path
+         inkscape:label="#rect3733"
+         id="Wipers"
+         d="M 38.674051,146.66643 H 222.32763 c 5.34309,0 9.64457,-4.30148 9.64457,-9.64457 v -24.25211 c 0,-5.34309 -4.30148,-9.64457 -9.64457,-9.64457 H 38.674051 c -5.343092,0 -9.644571,4.30148 -9.644571,9.64457 v 24.25211 c 0,5.34309 4.301479,9.64457 9.644571,9.64457 z"
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.92114997;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <text
+         transform="scale(1,-1)"
+         id="text3744"
+         y="-115.23328"
+         x="54.22974"
+         style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'Sans, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+         xml:space="preserve"><tspan
+           sodipodi:role="line"
+           id="tspan3746">Дворники</tspan></text>
     </g>
   </g>
 </svg>
