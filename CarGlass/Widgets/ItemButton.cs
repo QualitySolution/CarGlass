@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Gtk;
 using NLog;
+using QSProjectsLib;
 using QSWidgetLib;
 
 namespace CarGlass
@@ -182,6 +183,11 @@ namespace CarGlass
 					jBox.Add(MenuItem1);       
 				}
 
+				MenuItem1 = new MenuItem("Перенести");
+				MenuItem1.Sensitive = item != null;
+				MenuItem1.Submenu = GetOrderWeekMoveMenu();
+				jBox.Add(MenuItem1);
+
 				MenuItem1 = new MenuItem("Удалить");
 				MenuItem1.Sensitive = item != null;
 				MenuItem1.Activated += OnButtonPopupDelete;
@@ -207,9 +213,39 @@ namespace CarGlass
 			return jBox2;
 		}
 
+		private Gtk.Menu GetOrderWeekMoveMenu()
+		{
+			Gtk.Menu jBox2 = new Gtk.Menu();
+			MenuItemId<int> MenuItem2;
+			for (int weeks = 5; weeks >= -5; weeks--)
+			{
+				if(weeks == 0)
+				{
+					jBox2.Add(new SeparatorMenuItem());
+				}
+				else
+				{
+					string text = RusNumber.FormatCase(Math.Abs(weeks), "на {0} неделю", "на {0} недели", "на {0} недель")
+										+ (weeks > 0 ? " вперед" : " назад");
+
+					MenuItem2 = new MenuItemId<int>(text);
+					MenuItem2.ID = weeks;
+					MenuItem2.ButtonPressEvent += OnButtonPopupMoveWeeks;
+					jBox2.Add(MenuItem2);
+				}
+			}
+			return jBox2;
+		}
+
 		protected void OnButtonPopupDelete(object sender, EventArgs Arg)
 		{
 			item.Delete();
+		}
+
+		protected void OnButtonPopupMoveWeeks(object sender, EventArgs Arg)
+		{
+			var menuItem = sender as MenuItemId<int>;
+			item.ChangeTime(item.Date.AddDays(menuItem.ID * 7), item.Hour);
 		}
 
 		protected void OnButtonPopupAddWithType(object sender, ButtonPressEventArgs Arg)

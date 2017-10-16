@@ -193,11 +193,13 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 			cmd.ExecuteNonQuery();
 			logger.Info("Ok");
+
+			if (arg.Date < order.Calendar.StartDate || arg.Date > order.Calendar.StartDate.AddDays(7))
+				order.Calendar.RefreshOrders();
 		}
 		catch (Exception ex)
 		{
 			QSMain.ErrorMessageWithLog("Ошибка записи заказа!", logger, ex);
 		}
-
 	}
 }
