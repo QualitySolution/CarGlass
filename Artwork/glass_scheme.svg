@@ -46,46 +46,46 @@
        inkscape:collect="always"
        xlink:href="#linearGradient853"
        id="linearGradient855"
-       x1="17.966419"
-       y1="344.08524"
-       x2="155.38286"
-       y2="345.41138"
+       x1="306.61816"
+       y1="459.61957"
+       x2="409.34708"
+       y2="463.53348"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient853"
        id="linearGradient863"
-       x1="238.44585"
-       y1="9.2471027"
-       x2="246.97433"
-       y2="89.717041"
+       x1="485.1037"
+       y1="-116.70584"
+       x2="505.87762"
+       y2="-33.611885"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient853"
        id="linearGradient860"
-       x1="368.05997"
-       y1="4.2580199"
-       x2="368.45859"
-       y2="89.101326"
+       x1="643.58203"
+       y1="-120.82025"
+       x2="643.98065"
+       y2="-34.2276"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient853"
        id="linearGradient868"
-       x1="455.60736"
-       y1="4.9517989"
-       x2="443.36194"
-       y2="89.795105"
+       x1="723.25739"
+       y1="-119.2518"
+       x2="710.13727"
+       y2="-34.408493"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient853"
        id="linearGradient876"
-       x1="520.22534"
-       y1="3.47244"
-       x2="495.18832"
-       y2="90.939766"
+       x1="793.99805"
+       y1="-123.35518"
+       x2="761.96368"
+       y2="-34.138508"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
@@ -141,8 +141,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.1432841"
-     inkscape:cx="497.94866"
-     inkscape:cy="184.57578"
+     inkscape:cx="538.43384"
+     inkscape:cy="232.82717"
      inkscape:document-units="cm"
      inkscape:current-layer="use5621"
      showgrid="false"
@@ -166,7 +166,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
       </cc:Work>
@@ -217,7 +217,7 @@
      id="layer1"
      transform="translate(0,-264.70832)">
     <path
-       style="opacity:1;fill:url(#linearGradient855);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="opacity:1;fill:url(#linearGradient855);fill-opacity:1.0;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 428.04605,381.37728 c -25.64242,46.66234 -26.17938,123.06218 0.0867,173.68782 l -108.57147,22.14286 c -41.6467,-57.50255 -43.46058,-164.97894 0.54097,-220.83683 z"
        id="Windshield"
        inkscape:connector-curvature="0"
