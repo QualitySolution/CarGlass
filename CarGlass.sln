@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarGlass", "CarGlass\CarGlass.csproj", "{2DF2B02C-F5D9-42EE-92C7-4B28EC28FEEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSChat", "..\QSProjects\Modules\QSChat\QSChat.csproj", "{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QSLibs", "QSLibs", "{DF509FEE-C98B-4249-8960-695E5AD9FE4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSProjectsLib", "..\QSProjects\QSProjectsLib\QSProjectsLib.csproj", "{A6C1914F-7732-49F5-BABA-8BBBA521FAAB}"
@@ -39,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSValidation", "..\QSProjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSExtraGammaWidgets", "..\QSProjects\QSExtraGammaWidgets\QSExtraGammaWidgets.csproj", "{3DCDD84A-20D0-4939-BE25-58B19F3961F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSChat", "QSChat\QSChat.csproj", "{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -61,10 +61,6 @@ Global
 		{6D755374-6EAF-44B6-8C6C-6FE5E5AB3432}.Debug|x86.Build.0 = Debug|x86
 		{6D755374-6EAF-44B6-8C6C-6FE5E5AB3432}.Release|x86.ActiveCfg = Release|x86
 		{6D755374-6EAF-44B6-8C6C-6FE5E5AB3432}.Release|x86.Build.0 = Release|x86
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Debug|x86.Build.0 = Debug|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Release|x86.ActiveCfg = Release|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Release|x86.Build.0 = Release|Any CPU
 		{769710D2-BF98-4120-9E07-67BD740CFA1D}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{769710D2-BF98-4120-9E07-67BD740CFA1D}.Debug|x86.Build.0 = Debug|Any CPU
 		{769710D2-BF98-4120-9E07-67BD740CFA1D}.Release|x86.ActiveCfg = Release|Any CPU
@@ -109,6 +105,10 @@ Global
 		{3DCDD84A-20D0-4939-BE25-58B19F3961F2}.Debug|x86.Build.0 = Debug|Any CPU
 		{3DCDD84A-20D0-4939-BE25-58B19F3961F2}.Release|x86.ActiveCfg = Release|Any CPU
 		{3DCDD84A-20D0-4939-BE25-58B19F3961F2}.Release|x86.Build.0 = Release|Any CPU
+		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Debug|x86.Build.0 = Debug|Any CPU
+		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A6C1914F-7732-49F5-BABA-8BBBA521FAAB} = {DF509FEE-C98B-4249-8960-695E5AD9FE4A}
