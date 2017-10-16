@@ -273,4 +273,9 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 	{
 		ViewReportExt.Run("Store", String.Empty);
 	}
+
+	protected void OnActionStorePlacmentActivated(object sender, EventArgs e)
+	{
+		ViewReportExt.Run("StoreByPlacements", String.Empty);
+	}
 }
