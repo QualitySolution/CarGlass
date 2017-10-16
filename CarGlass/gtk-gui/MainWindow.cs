@@ -219,7 +219,7 @@ public partial class MainWindow
 		// Notebook tab
 		this.label3 = new global::Gtk.Label();
 		this.label3.Name = "label3";
-		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("Установка Въезд");
+		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("Заказные");
 		this.notebookMain.SetTabLabel(this.orderscalendar3, this.label3);
 		this.label3.ShowAll();
 		// Container child notebookMain.Gtk.Notebook+NotebookChild
@@ -247,7 +247,8 @@ public partial class MainWindow
 		// Notebook tab
 		this.label5 = new global::Gtk.Label();
 		this.label5.Name = "label5";
-		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Наш склад");
+		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Наш склад</b>");
+		this.label5.UseMarkup = true;
 		this.notebookMain.SetTabLabel(this.stockbalance1, this.label5);
 		this.label5.ShowAll();
 		this.hbox6.Add(this.notebookMain);

@@ -259,7 +259,7 @@
                 <child>
                   <widget class="Gtk.Label" id="label3">
                     <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">Установка Въезд</property>
+                    <property name="LabelProp" translatable="yes">Заказные</property>
                   </widget>
                   <packing>
                     <property name="type">tab</property>
@@ -297,7 +297,8 @@
                 <child>
                   <widget class="Gtk.Label" id="label5">
                     <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">Наш склад</property>
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Наш склад&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
                   </widget>
                   <packing>
                     <property name="type">tab</property>
