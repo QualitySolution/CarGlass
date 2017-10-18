@@ -21,3 +21,6 @@ ALTER TABLE `CarGlass`.`services`
 CHANGE COLUMN `order_type` `order_type` ENUM('install', 'tinting', 'repair', 'polishing', 'armoring') NOT NULL;
 
 UPDATE orders SET orders.calendar_number =( CASE orders.type WHEN 'install' THEN 1 WHEN 'tinting' THEN 2 WHEN 'repair' THEN 2 END );
+
+DELETE FROM base_parameters WHERE name = 'micro_updates';
+UPDATE base_parameters SET str_value = '1.4' WHERE name = 'version';
