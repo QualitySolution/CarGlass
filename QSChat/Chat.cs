@@ -69,6 +69,8 @@ namespace QSChat
 					var result = cmd.ExecuteScalar();
 					if (result != DBNull.Value)
 						lastReadChat = (DateTime)result;
+					else
+						SetLastRead();
 
 					(Toplevel as Window).FocusInEvent += TopLevel_FocusInEvent;
 					(Toplevel as Window).FocusOutEvent += Handle_FocusOutEvent;;
