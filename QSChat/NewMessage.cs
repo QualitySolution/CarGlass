@@ -37,8 +37,8 @@ namespace QSChat
 		{
 			base.OnSizeAllocated(allocation);
 
-			var y = Screen.Height - allocation.Height - 60;
-			var x = Screen.Width - allocation.Width - 20;
+			var y = Screen.Height - allocation.Height - 70;
+			var x = Screen.Width - allocation.Width - 30;
 
 			Move(x, y);
 		}
