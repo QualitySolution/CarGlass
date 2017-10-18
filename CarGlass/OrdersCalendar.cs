@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CarGlass.Domain;
 using Gtk;
 using NLog;
 
@@ -10,7 +11,7 @@ namespace CarGlass
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		public List<CalendarItem>[,] TimeMap;
-		public Dictionary<Order.OrderType, string> OrdersTypes;
+		public List<OrderType> OrdersTypes;
 		private CalendarHBox[,] CalendarBoxes;
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
@@ -22,6 +23,7 @@ namespace CarGlass
 		private bool DragIn;
 
 		public int PointNumber { get; set;}
+		public int CalendarNumber { get; set; }
 
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
@@ -146,6 +148,7 @@ namespace CarGlass
 				e.Date = _StartDate.AddDays(x);
 				e.Hour = y;
 				e.PointNumber = PointNumber;
+				e.CalendarNumber = CalendarNumber;
 				e.result = false;
 				handler(this, e);
 				if (e.result)
@@ -329,8 +332,9 @@ namespace CarGlass
 	{
 		public DateTime Date;
 		public int Hour;
-		public Order.OrderType OrderType;
+		public OrderType OrderType;
 		public int PointNumber;
+		public int CalendarNumber;
 		public bool result { get; set; }
 	}
 

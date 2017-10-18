@@ -3,6 +3,7 @@ using Gtk;
 using MySql.Data.MySqlClient;
 using QSProjectsLib;
 using NLog;
+using CarGlass.Domain;
 
 namespace CarGlass
 {
@@ -15,6 +16,7 @@ namespace CarGlass
 		public Service()
 		{
 			this.Build();
+			comboType.ItemsEnum = typeof(OrderType);
 		}
 
 		public void Fill(int id)
@@ -37,7 +39,7 @@ namespace CarGlass
 
 				labelID.Text = rdr["id"].ToString();
 				entryName.Text = rdr["name"].ToString();
-				comboType.Active = (int) Enum.Parse(typeof(Order.OrderType), rdr["order_type"].ToString());
+				comboType.SelectedItem = Enum.Parse(typeof(OrderType), rdr["order_type"].ToString());
 				spinPrice.Value = DBWorks.GetDouble(rdr, "price", 0);
 
 				rdr.Close();
@@ -79,7 +81,7 @@ namespace CarGlass
 
 				cmd.Parameters.AddWithValue("@id", Serviceid);
 				cmd.Parameters.AddWithValue("@name", entryName.Text);
-				cmd.Parameters.AddWithValue("@order_type", ((Order.OrderType) comboType.Active).ToString() );
+				cmd.Parameters.AddWithValue("@order_type", ((OrderType) comboType.SelectedItem).ToString() );
 				cmd.Parameters.AddWithValue("@price", DBWorks.ValueOrNull(spinPrice.Value > 0, spinPrice.Value));
 
 				cmd.ExecuteNonQuery();

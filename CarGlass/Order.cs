@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using CarGlass.Domain;
+using Gtk;
 using MySql.Data.MySqlClient;
 using QSProjectsLib;
-using Gtk;
-using QSOrmProject;
 
 namespace CarGlass
 {
@@ -11,23 +11,24 @@ namespace CarGlass
 	{
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-		public enum OrderType {install, tinting, repair};
 		public bool NewItem;
 		private DateTime Date;
 		private int Hour;
 
 		private OrderType CurrentType;
 		private int pointNumber;
+		private int calendarNumber;
 		ListStore ServiceListStore;
 		int Item_id = -1;
 
 		private Dictionary<string, bool> GlassInDB;
 
-		public Order(int pointNumber, OrderType Type, DateTime date, int hour) : this (Type)
+		public Order(int pointNumber, int calendarNumber, OrderType Type, DateTime date, int hour) : this (Type)
 		{
 			Date = date;
 			Hour = hour;
 			this.pointNumber = pointNumber;
+			this.calendarNumber = calendarNumber;
 			labelAuthor.LabelProp = QSMain.User.Name;
 		
 			this.Title = String.Format(GetTitleFormat(CurrentType), "???", Date, Hour);
@@ -160,8 +161,8 @@ namespace CarGlass
 			string sql;
 			if(NewItem)
 			{
-				sql = "INSERT INTO orders (date, hour, point_number, type, created_by, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode, comment) " +
-					"VALUES (@date, @hour, @point_number, @type, @created_by, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode, @comment)";
+				sql = "INSERT INTO orders (date, hour, point_number, calendar_number, type, created_by, car_model_id, car_year, phone, status_id, manufacturer_id, stock_id, eurocode, comment) " +
+					"VALUES (@date, @hour, @point_number, @calendar_number, @type, @created_by, @car_model_id, @car_year, @phone, @status_id, @manufacturer_id, @stock_id, @eurocode, @comment)";
 			}
 			else
 			{
@@ -179,6 +180,7 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@date", Date);
 				cmd.Parameters.AddWithValue("@hour", Hour);
 				cmd.Parameters.AddWithValue("@point_number", pointNumber);
+				cmd.Parameters.AddWithValue("@calendar_number", calendarNumber);
 				cmd.Parameters.AddWithValue("@type", CurrentType.ToString());
 				cmd.Parameters.AddWithValue("@created_by", QSMain.User.Id);
 				cmd.Parameters.AddWithValue("@car_model_id", ComboWorks.GetActiveId(comboModel));
@@ -364,7 +366,9 @@ namespace CarGlass
 			{
 				"Заказ установки №{0} на {1:D} в {2} часов",
 				"Заказ тонировки №{0} на {1:D} в {2} часов",
-				"Заказ ремонта №{0} на {1:D} в {2} часов"
+				"Заказ ремонта №{0} на {1:D} в {2} часов",
+				"Заказ полировки №{0} на {1:D} в {2} часов",
+				"Заказ бронировки №{0} на {1:D} в {2} часов",
 			};
 			return str[(int)type];
 		}

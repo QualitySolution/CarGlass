@@ -1,8 +1,10 @@
 ﻿using System;
-using MySql.Data.MySqlClient;
-using QSProjectsLib;
 using System.Collections.Generic;
+using CarGlass.Domain;
+using Gamma.Utilities;
+using MySql.Data.MySqlClient;
 using NLog;
+using QSProjectsLib;
 
 namespace CarGlass
 {
@@ -17,9 +19,9 @@ namespace CarGlass
 		{
 			this.Build();
 
-			checklistTypes.AddCheckButton("install", "Установка");
-			checklistTypes.AddCheckButton("tinting", "Тонировка");
-			checklistTypes.AddCheckButton("repair", "Ремонт сколов");
+			foreach(OrderType type in Enum.GetValues(typeof(OrderType)))
+				checklistTypes.AddCheckButton(
+					type.ToString(), type.GetEnumTitle());	
 		}
 
 		public void Fill(int id)

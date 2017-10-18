@@ -1,4 +1,5 @@
 ﻿using System;
+using CarGlass.Domain;
 
 namespace CarGlass
 {
@@ -7,7 +8,7 @@ namespace CarGlass
 		public DateTime Date;
 		public int Hour;
 		public int id;
-		public int Type;
+		public OrderType Type;
 		public string Text;
 		public string FullText;
 		public string Color;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass;
+using CarGlass.Domain;
+using Gamma.Utilities;
 using Gtk;
 using MySql.Data.MySqlClient;
 using QSOrmProject;
@@ -12,19 +14,24 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 	void PrerareCalendars()
 	{
-		var installServices = new Dictionary<Order.OrderType, string>{
-			{Order.OrderType.install, "Установка стекл"}
+		var installServices = new List<OrderType>{
+			OrderType.install,
+			OrderType.repair,
+			OrderType.polishing,
 		};
 
-		var tintingServices = new Dictionary<Order.OrderType, string>{
-			{ Order.OrderType.tinting, "Тонировка" },
-			{ Order.OrderType.repair, "Ремонт сколов" }
+		var tintingServices = new List<OrderType>{
+			OrderType.tinting,
+			OrderType.repair,
+			OrderType.polishing,
+			OrderType.armoring,
 		};
 
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 22);
 		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);
 		orderscalendar1.PointNumber = 1;
+		orderscalendar1.CalendarNumber = 1;
 		orderscalendar1.OrdersTypes = installServices;
 		orderscalendar1.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar1.NewOrder += OnNewOrder;
@@ -33,6 +40,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.SetTimeRange(9, 22);
 		orderscalendar2.BackgroundColor = new Gdk.Color(255, 230, 230);
 		orderscalendar2.PointNumber = 1;
+		orderscalendar2.CalendarNumber = 2;
 		orderscalendar2.OrdersTypes = tintingServices;
 		orderscalendar2.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar2.NewOrder += OnNewOrder;
@@ -41,6 +49,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.SetTimeRange(9, 22);
 		orderscalendar3.BackgroundColor = new Gdk.Color(234, 230, 255);
 		orderscalendar3.PointNumber = 2;
+		orderscalendar3.CalendarNumber = 1;
 		orderscalendar3.OrdersTypes = installServices;
 		orderscalendar3.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar3.NewOrder += OnNewOrder;
@@ -49,6 +58,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.SetTimeRange(9, 22);
 		orderscalendar4.BackgroundColor = new Gdk.Color(255, 230, 230);
 		orderscalendar4.PointNumber = 2;
+		orderscalendar4.CalendarNumber = 2;
 		orderscalendar4.OrdersTypes = tintingServices;
 		orderscalendar4.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar4.NewOrder += OnNewOrder;
@@ -61,9 +71,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
 		logger.Info("Запрос заказов на {0:d}...", arg.StartDate);
-		var usedTypes = String.Join(",",
-			Calendar.OrdersTypes.Select(x => String.Format("'{0}'", x.Key)).ToArray()
-		);
 		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
 			"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
 			"LEFT JOIN models ON models.id = orders.car_model_id " +
@@ -76,7 +83,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			"ON tablesum.order_id = orders.id " +
 			"WHERE date BETWEEN @start AND @end " +
 			"AND point_number = @point " +
-			"AND orders.type IN (" +  usedTypes + ")";
+			"AND calendar_number = @calendar ";
 		
 		QSMain.CheckConnectionAlive();
 		try
@@ -86,6 +93,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			cmd.Parameters.AddWithValue("@start", arg.StartDate);
 			cmd.Parameters.AddWithValue("@end", arg.StartDate.AddDays(6));
 			cmd.Parameters.AddWithValue("@point", Calendar.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar", Calendar.CalendarNumber);
 
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
@@ -95,12 +103,12 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					CalendarItem order = new CalendarItem(rdr.GetDateTime("date"),
 						rdr.GetInt32("hour")
 					);
-					Order.OrderType type = (Order.OrderType)Enum.Parse(typeof(Order.OrderType), rdr["type"].ToString());
+					OrderType type = (OrderType)Enum.Parse(typeof(OrderType), rdr["type"].ToString());
 					order.id = rdr.GetInt32("id");
 					order.Text = String.Format("{0} {1}\n{2}\n{3}",rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"] );
-					if(type == Order.OrderType.install)
+					if(type == OrderType.install)
 					{
-						order.FullText = String.Format("Состояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
+						order.FullText = String.Format("{9}\nСостояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
 							rdr["status"],
 							rdr["mark"],
 							rdr["model"],
@@ -109,13 +117,14 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							rdr["stock"],
 							rdr["phone"],
 							DBWorks.GetDecimal(rdr, "sum", 0),
-							rdr["comment"]
+							rdr["comment"],
+						                               type.GetEnumTitle()
 						);
 					}
 					else
 					{
-						order.FullText = String.Format("Заказ на {0}\nСостояние: {1}\nАвтомобиль: {2} {3}\nТелефон: {4}\nСтоимость: {5:C}\n{6}",
-							type == Order.OrderType.tinting ? "тонировку" : "ремонт",
+						order.FullText = String.Format("{0}\nСостояние: {1}\nАвтомобиль: {2} {3}\nТелефон: {4}\nСтоимость: {5:C}\n{6}",
+						                               type.GetEnumTitle(),
 							rdr["status"],
 							rdr["mark"],
 							rdr["model"],
@@ -128,7 +137,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					order.TagColor = DBWorks.GetString(rdr, "stockcolor", "");
 					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
 						order.Tag = rdr["stock"].ToString().Substring(0, 1);
-					order.Type = (int) type;
+					order.Type = type;
 					order.Calendar = Calendar;
 					order.DeleteOrder += OnDeleteOrder;
 					order.OpenOrder += OnOpenOrder;
@@ -149,7 +158,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 	protected void OnOpenOrder(object sender, EventArgs arg)
 	{
 		CalendarItem item = (CalendarItem)sender;
-		Order OrderWin = new Order((Order.OrderType)item.Type);
+		Order OrderWin = new Order((OrderType)item.Type);
 		OrderWin.Fill(item.id);
 		OrderWin.Show();
 		if ((ResponseType)OrderWin.Run() == ResponseType.Ok)
@@ -167,7 +176,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 	protected void OnNewOrder(object sender, NewOrderEventArgs arg)
 	{
-		Order OrderWin = new Order(arg.PointNumber, arg.OrderType, arg.Date, arg.Hour);
+		Order OrderWin = new Order(arg.PointNumber, arg.CalendarNumber, arg.OrderType, arg.Date, arg.Hour);
 		OrderWin.NewItem = true;
 		OrderWin.Show();
 		int result = OrderWin.Run();

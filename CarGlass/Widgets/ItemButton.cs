@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CarGlass.Domain;
+using Gamma.Utilities;
 using Gtk;
 using NLog;
 using QSProjectsLib;
@@ -64,7 +66,7 @@ namespace CarGlass
 				if (ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
 					return;
 				else if(ParentCalendar.OrdersTypes.Count == 1)
-					OnNewOrderClicked(ParentCalendar.OrdersTypes.Keys.First());
+					OnNewOrderClicked(ParentCalendar.OrdersTypes.First());
 				else
 				{
 					Gtk.Menu jBox = GetNewOrderTypesMenu();
@@ -76,7 +78,7 @@ namespace CarGlass
 			base.OnClicked();
 		}
 
-		protected void OnNewOrderClicked(Order.OrderType ordertyp)
+		protected void OnNewOrderClicked(OrderType ordertyp)
 		{
 			EventHandler<NewOrderEventArgs> handler = NewOrderClicked;
 			if (handler != null)
@@ -163,7 +165,7 @@ namespace CarGlass
 			{
 				Gtk.Menu jBox = new Gtk.Menu();
 				MenuItem MenuItem1;
-				MenuItemId<Order.OrderType> MenuItem2;
+				MenuItemId<OrderType> MenuItem2;
 
 				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
 				{
@@ -171,8 +173,8 @@ namespace CarGlass
 				}
 				else if(ParentCalendar.OrdersTypes.Count == 1)
 				{
-					MenuItem2 = new MenuItemId<Order.OrderType>("Новый заказ");
-					MenuItem2.ID = ParentCalendar.OrdersTypes.Keys.First();
+					MenuItem2 = new MenuItemId<OrderType>("Новый заказ");
+					MenuItem2.ID = ParentCalendar.OrdersTypes.First();
 					MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 					jBox.Add(MenuItem2);       
 				}
@@ -202,11 +204,11 @@ namespace CarGlass
 		private Gtk.Menu GetNewOrderTypesMenu()
 		{
 			Gtk.Menu jBox2 = new Gtk.Menu();
-			MenuItemId<Order.OrderType> MenuItem2;
-			foreach(KeyValuePair<Order.OrderType, string> pair in ParentCalendar.OrdersTypes)
+			MenuItemId<OrderType> MenuItem2;
+			foreach(var type in ParentCalendar.OrdersTypes)
 			{
-				MenuItem2 = new MenuItemId<Order.OrderType>(pair.Value);
-				MenuItem2.ID = pair.Key;
+				MenuItem2 = new MenuItemId<OrderType>(type.GetEnumTitle());
+				MenuItem2.ID = type;
 				MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 				jBox2.Add(MenuItem2);       
 			}
@@ -250,7 +252,7 @@ namespace CarGlass
 
 		protected void OnButtonPopupAddWithType(object sender, ButtonPressEventArgs Arg)
 		{
-			MenuItemId<Order.OrderType> item = (MenuItemId<Order.OrderType>)sender;
+			MenuItemId<OrderType> item = (MenuItemId<OrderType>)sender;
 			OnNewOrderClicked(item.ID);
 		}
 	}
