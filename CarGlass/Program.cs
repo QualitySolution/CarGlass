@@ -61,10 +61,10 @@ namespace CarGlass
 			//"Пользователь может изменять или добавлять кассовые документы задним числом."));
 
 			//Настраиваем обновления
-			QSUpdater.DB.DBUpdater.AddMicroUpdate(
+			QSUpdater.DB.DBUpdater.AddUpdate(
 				new Version(1, 3),
-				new Version(1, 3, 1),
-				"CarGlass.Updates.1.3.1.sql");
+				new Version(1, 4),
+				"CarGlass.Updates.1.4.sql");
 
 
 			//Параметры удаления

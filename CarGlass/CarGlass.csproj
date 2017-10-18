@@ -70,7 +70,7 @@
     <EmbeddedResource Include="icons\logo.png" />
     <EmbeddedResource Include="icons\glass_scheme_linux.svg" />
     <EmbeddedResource Include="icons\glass_scheme.svg" />
-    <EmbeddedResource Include="Updates\1.3.1.sql" />
+    <EmbeddedResource Include="Updates\1.4.sql" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
