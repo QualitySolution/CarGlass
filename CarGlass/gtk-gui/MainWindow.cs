@@ -159,6 +159,7 @@ public partial class MainWindow
 		w1.Add(this.ActionStorePlacment, null);
 		this.UIManager.InsertActionGroup(w1, 0);
 		this.AddAccelGroup(this.UIManager.AccelGroup);
+		this.Events = ((global::Gdk.EventMask)(16384));
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString("QS: Мастерская автостекла");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));

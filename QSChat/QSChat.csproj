@@ -55,6 +55,8 @@
     <Compile Include="ChatHistory.cs" />
     <Compile Include="gtk-gui\QSChat.ChatHistory.cs" />
     <Compile Include="QSChatMain.cs" />
+    <Compile Include="NewMessage.cs" />
+    <Compile Include="gtk-gui\QSChat.NewMessage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -63,6 +65,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="icons\document-send.png" />
     <EmbeddedResource Include="icons\document-open-recent.png" />
+    <EmbeddedResource Include="icons\mail-message-new.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="icons\" />

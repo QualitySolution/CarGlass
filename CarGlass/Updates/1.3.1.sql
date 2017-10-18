@@ -10,3 +10,6 @@ ADD CONSTRAINT `fk_orders_1`
   ON UPDATE CASCADE;
 
 INSERT INTO `glass` VALUES (11,'Молдинги'),(12,'Дворники');
+
+ALTER TABLE `CarGlass`.`users` 
+ADD COLUMN `last_read_chat` DATETIME NULL DEFAULT NULL AFTER `admin`;

@@ -9,14 +9,14 @@
     <widget-library name="../../../QSProjects/QSProjectsLib/bin/Debug/QSProjectsLib.dll" />
     <widget-library name="../../../QSProjects/QSSupportLib/bin/Debug/QSSupportLib.dll" />
     <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
-    <widget-library name="../../../QSProjects/Modules/QSChat/bin/Debug/QSChat.dll" />
+    <widget-library name="../../QSChat/bin/Debug/QSChat.dll" />
     <widget-library name="../../../QSProjects/QSUpdater/bin/Debug/QSUpdater.dll" />
     <widget-library name="../../../GammaBinding/GammaBinding/bin/Debug/GammaBinding.dll" />
     <widget-library name="../../../QSProjects/QSOrmProject/bin/Debug/QSOrmProject.dll" />
     <widget-library name="../../../QSProjects/QSTDI/bin/Debug/QSTDI.dll" />
-    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
     <widget-library name="../../../QSProjects/QSValidation/bin/Debug/QSValidation.dll" />
     <widget-library name="../../../QSProjects/QSExtraGammaWidgets/bin/Debug/QSExtraGammaWidgets.dll" />
+    <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="1053 431">
     <action-group name="Default">
@@ -146,8 +146,15 @@
         <property name="ShortLabel" translatable="yes">Отчет по складу</property>
         <signal name="Activated" handler="OnActionStoreReportActivated" />
       </action>
+      <action id="ActionStorePlacment">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Отчет по месту хранения</property>
+        <property name="ShortLabel" translatable="yes">Отчет по месту хранения</property>
+        <signal name="Activated" handler="OnActionStorePlacmentActivated" />
+      </action>
     </action-group>
     <property name="MemberName" />
+    <property name="Events">FocusChangeMask</property>
     <property name="Title" translatable="yes">QS: Мастерская автостекла</property>
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
@@ -182,6 +189,7 @@
                 <node type="Menuitem" action="Action16" />
                 <node type="Separator" />
                 <node type="Menuitem" action="ActionStoreReport" />
+                <node type="Menuitem" action="ActionStorePlacment" />
               </node>
               <node type="Menu" action="Action2">
                 <node type="Menuitem" action="ActionHistoryLog" />

@@ -18,8 +18,9 @@ namespace QSChat
 		private int ShowDays = 3;
 		private int slowModeCountdown;
 		private uint ActiveCount = 0;
+		private DateTime? lastReadChat;
+		private bool windowActive;
 		private DateTime lastMessageTime;
-		private DateTime lastShowTime;
 		private TextTagTable textTags;
 		private ChatHistory historyWindow;
 		public int NewMessageCount;
@@ -39,12 +40,12 @@ namespace QSChat
 				if(isHided)
 				{
 					this.Hide();
-					lastShowTime = lastMessageTime;
 				}
 				else 
 				{
 					this.Show();
 					NewMessageCount = 0;
+					SetLastRead();
 				}
 			}
 		}
@@ -59,7 +60,19 @@ namespace QSChat
 			set
 			{
 				if(active == false && value == true)
+				{
 					GLib.Timeout.Add(2000, new GLib.TimeoutHandler(OnUpdateTimer));
+
+					var sql = "SELECT last_read_chat FROM users WHERE id = @id";
+					MySqlCommand cmd = new MySqlCommand(sql, (MySqlConnection)QSMain.ConnectionDB);
+					cmd.Parameters.AddWithValue("@id", ChatUser.Id);
+					var result = cmd.ExecuteScalar();
+					if (result != DBNull.Value)
+						lastReadChat = (DateTime)result;
+
+					(Toplevel as Window).FocusInEvent += TopLevel_FocusInEvent;
+					(Toplevel as Window).FocusOutEvent += Handle_FocusOutEvent;;
+				}
 				active = value;
 			}
 		}
@@ -102,6 +115,8 @@ namespace QSChat
 			MySqlCommand cmd = new MySqlCommand(sql, (MySqlConnection)QSMain.ConnectionDB);
 			TextBuffer tempBuffer = new TextBuffer(textTags);
 			TextIter iter = tempBuffer.EndIter;
+			string lastSender = null, lastMessage = null;
+			var oldNewMessageCount = NewMessageCount;
 			NewMessageCount = 0;
 			DateTime MaxDate = default(DateTime);
 			using (MySqlDataReader rdr = cmd.ExecuteReader())
@@ -117,7 +132,10 @@ namespace QSChat
 						QSChatMain.GetUserTag(rdr.GetString("user")));
 					tempBuffer.Insert(ref iter, rdr.GetString("text"));
 
-					if (isHided && lastShowTime != default(DateTime) && mesDate > lastShowTime)
+					lastSender = rdr.GetString("user");
+					lastMessage = rdr.GetString("text");
+
+					if (lastReadChat.HasValue && mesDate > lastReadChat)
 						NewMessageCount++;
 					if (mesDate > MaxDate)
 						MaxDate = mesDate;
@@ -141,6 +159,13 @@ namespace QSChat
 			logger.Info("Ок");
 			if (ChatUpdated != null)
 				ChatUpdated(this, EventArgs.Empty);
+
+			if(NewMessageCount > oldNewMessageCount && (IsHided || !windowActive))
+			{
+				NewMessage.OpenChat = OnOpenChat;
+				NewMessage.ShowMessage(lastSender, QSChatMain.GetUserColor(lastSender), lastMessage);
+			}
+
 			return true;
 		}
 
@@ -202,6 +227,41 @@ namespace QSChat
 		{
 			historyWindow = null;
 			logger.Debug("History Destroyed");
+		}
+
+		void OnOpenChat()
+		{
+			IsHided = false;
+			(this.Toplevel as Window).Present();
+		}
+
+		void SetLastRead()
+		{
+			logger.Debug("Last read changed");
+			var sql = "UPDATE users SET last_read_chat = NOW() WHERE id = @id;" +
+				"SELECT last_read_chat FROM users WHERE id = @id";
+			MySqlCommand cmd = new MySqlCommand(sql, (MySqlConnection)QSMain.ConnectionDB);
+			cmd.Parameters.AddWithValue("@id", ChatUser.Id);
+			var result = cmd.ExecuteScalar();
+			lastReadChat = (DateTime)result;
+			OnUpdateTimer();
+		}
+
+		void TopLevel_FocusInEvent(object o, FocusInEventArgs args)
+		{
+			logger.Debug("Active");
+			windowActive = true;
+			if (!IsHided)
+			{
+				SetLastRead();
+				NewMessage.HideIfActive();
+			}
+		}
+
+		void Handle_FocusOutEvent(object o, FocusOutEventArgs args)
+		{
+			windowActive = false;
+			logger.Debug("Not Active");
 		}
 	}
 }
