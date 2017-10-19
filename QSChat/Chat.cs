@@ -45,8 +45,8 @@ namespace QSChat
 				{
 					this.Show();
 					NewMessageCount = 0;
-					SetLastRead();
 				}
+				SetLastRead();
 			}
 		}
 
