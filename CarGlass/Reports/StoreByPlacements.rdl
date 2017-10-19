@@ -141,7 +141,7 @@ ORDER BY placement</CommandText>
             <Width>82.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>84.7pt</Width>
+            <Width>88.7pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>55.6pt</Width>
@@ -150,7 +150,7 @@ ORDER BY placement</CommandText>
             <Width>42.0pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>177.8pt</Width>
+            <Width>174.6pt</Width>
           </TableColumn>
         </TableColumns>
         <Header>
