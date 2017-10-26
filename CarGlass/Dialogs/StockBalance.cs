@@ -35,6 +35,8 @@ namespace CarGlass.Dialogs
 			var selected = representationViewStoreItems.GetSelectedObject<StoreItemsVMNode>();
 			var item = UoW.GetById<StoreItem>(selected.Id);
 			UoW.Delete(item);
+			UoW.Commit();
+			representation.UpdateNodes();
 		}
 
 		void TreeviewStoreSelection_Changed(object sender, EventArgs e)
