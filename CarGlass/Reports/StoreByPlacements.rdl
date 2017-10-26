@@ -44,7 +44,7 @@ LEFT JOIN models ON model_id = models.id
 LEFT JOIN glass ON glass_id = glass.id
 LEFT JOIN manufacturers ON manufacturer_id = manufacturers.id
 WHERE @place IS NULL OR placement = @place
-ORDER BY placement</CommandText>
+ORDER BY placement, brand, model, glass_id, amount DESC</CommandText>
         <QueryParameters>
           <QueryParameter Name="@place">
             <Value>={?place}</Value>
