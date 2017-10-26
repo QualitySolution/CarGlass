@@ -120,6 +120,8 @@
     <Compile Include="gtk-gui\CarGlass.Dialogs.StoreItemDlg.cs" />
     <Compile Include="HibernateMapping\UserMap.cs" />
     <Compile Include="Domain\OrderType.cs" />
+    <Compile Include="ReportDialog\StoreByPlacementsRDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.ReportDialog.StoreByPlacementsRDlg.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

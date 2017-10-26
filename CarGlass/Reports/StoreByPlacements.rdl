@@ -43,7 +43,13 @@ LEFT JOIN marks ON store_items.mark_id = marks.id
 LEFT JOIN models ON model_id = models.id
 LEFT JOIN glass ON glass_id = glass.id
 LEFT JOIN manufacturers ON manufacturer_id = manufacturers.id
+WHERE @place IS NULL OR placement = @place
 ORDER BY placement</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@place">
+            <Value>={?place}</Value>
+          </QueryParameter>
+        </QueryParameters>
       </Query>
       <Fields>
         <Field Name="mark_id">
@@ -419,4 +425,14 @@ ORDER BY placement</CommandText>
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageFooter>
+  <ReportParameters>
+    <ReportParameter Name="place">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <MultiValue>false</MultiValue>
+      <Prompt>
+      </Prompt>
+    </ReportParameter>
+  </ReportParameters>
 </Report>

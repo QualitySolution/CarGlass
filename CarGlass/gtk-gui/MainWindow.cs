@@ -190,6 +190,7 @@ public partial class MainWindow
 		this.orderscalendar1.Events = ((global::Gdk.EventMask)(256));
 		this.orderscalendar1.Name = "orderscalendar1";
 		this.orderscalendar1.PointNumber = 0;
+		this.orderscalendar1.CalendarNumber = 0;
 		this.orderscalendar1.StartDate = new global::System.DateTime(0);
 		this.notebookMain.Add(this.orderscalendar1);
 		// Notebook tab
@@ -203,6 +204,7 @@ public partial class MainWindow
 		this.orderscalendar2.Events = ((global::Gdk.EventMask)(256));
 		this.orderscalendar2.Name = "orderscalendar2";
 		this.orderscalendar2.PointNumber = 0;
+		this.orderscalendar2.CalendarNumber = 0;
 		this.orderscalendar2.StartDate = new global::System.DateTime(0);
 		this.notebookMain.Add(this.orderscalendar2);
 		global::Gtk.Notebook.NotebookChild w4 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.orderscalendar2]));
@@ -218,6 +220,7 @@ public partial class MainWindow
 		this.orderscalendar3.Events = ((global::Gdk.EventMask)(256));
 		this.orderscalendar3.Name = "orderscalendar3";
 		this.orderscalendar3.PointNumber = 0;
+		this.orderscalendar3.CalendarNumber = 0;
 		this.orderscalendar3.StartDate = new global::System.DateTime(0);
 		this.notebookMain.Add(this.orderscalendar3);
 		global::Gtk.Notebook.NotebookChild w5 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.orderscalendar3]));
@@ -233,6 +236,7 @@ public partial class MainWindow
 		this.orderscalendar4.Events = ((global::Gdk.EventMask)(256));
 		this.orderscalendar4.Name = "orderscalendar4";
 		this.orderscalendar4.PointNumber = 0;
+		this.orderscalendar4.CalendarNumber = 0;
 		this.orderscalendar4.StartDate = new global::System.DateTime(0);
 		this.notebookMain.Add(this.orderscalendar4);
 		global::Gtk.Notebook.NotebookChild w6 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.orderscalendar4]));

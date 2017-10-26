@@ -1,5 +1,6 @@
 ﻿using System;
 using CarGlass;
+using CarGlass.ReportDialog;
 using Gtk;
 using QSOrmProject;
 using QSProjectsLib;
@@ -276,6 +277,9 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 	protected void OnActionStorePlacmentActivated(object sender, EventArgs e)
 	{
-		ViewReportExt.Run("StoreByPlacements", String.Empty);
+		var report = new StoreByPlacementsRDlg();
+		report.Show();
+		report.Run();
+		report.Destroy();
 	}
 }
