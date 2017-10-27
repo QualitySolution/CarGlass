@@ -1,6 +1,6 @@
 
 ;--------------------------------
-!define PRODUCT_VERSION "1.4"
+!define PRODUCT_VERSION "1.4.1"
 !define NETVersion "4.0"
 !define NETInstaller "dotNetFx40_Full_setup.exe"
 !define PRODUCT_NAME "Автостекла Stekloff"
