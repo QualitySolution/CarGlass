@@ -5,7 +5,7 @@ using QSOrmProject;
 
 namespace CarGlass.Dialogs
 {
-    [System.ComponentModel.ToolboxItem(true)]
+	[System.ComponentModel.ToolboxItem(true)]
 	public partial class StockBalance : WidgetOnDialogBase
     {
 		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
@@ -19,6 +19,7 @@ namespace CarGlass.Dialogs
 
 			representationViewStoreItems.RepresentationModel = representation;
 			representationViewStoreItems.ModifyFont(Pango.FontDescription.FromString("Purisa 12"));
+			representationViewStoreItems.RulesHint = true;
 
 			representationViewStoreItems.Selection.Changed += TreeviewStoreSelection_Changed;
         }
