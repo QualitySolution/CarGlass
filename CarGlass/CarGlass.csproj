@@ -82,8 +82,6 @@
     <Compile Include="gtk-gui\CarGlass.Status.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="gtk-gui\CarGlass.Service.cs" />
-    <Compile Include="Order.cs" />
-    <Compile Include="gtk-gui\CarGlass.Order.cs" />
     <Compile Include="OrdersCalendar.cs" />
     <Compile Include="gtk-gui\CarGlass.OrdersCalendar.cs" />
     <Compile Include="MainWinCalendars.cs" />
@@ -122,6 +120,8 @@
     <Compile Include="Domain\OrderType.cs" />
     <Compile Include="ReportDialog\StoreByPlacementsRDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.ReportDialog.StoreByPlacementsRDlg.cs" />
+    <Compile Include="Dialogs\OrderDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.OrderDlg.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -7,7 +7,7 @@ using QSProjectsLib;
 
 namespace CarGlass
 {
-	public partial class Order : Gtk.Dialog
+	public partial class OrderDlg : Gtk.Dialog
 	{
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -23,7 +23,7 @@ namespace CarGlass
 
 		private Dictionary<string, bool> GlassInDB;
 
-		public Order(int pointNumber, int calendarNumber, OrderType Type, DateTime date, int hour) : this (Type)
+		public OrderDlg(int pointNumber, int calendarNumber, OrderType Type, DateTime date, int hour) : this (Type)
 		{
 			Date = date;
 			Hour = hour;
@@ -34,7 +34,7 @@ namespace CarGlass
 			this.Title = String.Format(GetTitleFormat(CurrentType), "???", Date, Hour);
 		}
 
-		public Order(OrderType Type)
+		public OrderDlg(OrderType Type)
 		{
 			this.Build();
 			CurrentType = Type;
