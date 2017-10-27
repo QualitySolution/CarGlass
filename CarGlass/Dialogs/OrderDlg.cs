@@ -383,9 +383,16 @@ namespace CarGlass
 			Gtk.Menu jBox = new Gtk.Menu();
 			MenuItem MenuItem1;
 
-			MenuItem1 = new MenuItem("Заказ наряд");
-			MenuItem1.Activated += OnPopupPrintOrder;
-			jBox.Add(MenuItem1);       
+			MenuItem1 = new MenuItem("Установка");
+			MenuItem1.Activated += OnPopupPrintOrderInstall;
+			jBox.Add(MenuItem1);
+			MenuItem1 = new MenuItem("Тонировка");
+			MenuItem1.Activated += OnPopupPrintOrderTinting;
+			jBox.Add(MenuItem1);
+			MenuItem1 = new MenuItem("Бронировка");
+			MenuItem1.Activated += OnPopupPrintOrderArmoring;
+			jBox.Add(MenuItem1);
+			jBox.Add(new SeparatorMenuItem());
 			MenuItem1 = new MenuItem("Товарный чек");
 			MenuItem1.Activated += OnPopupPrintReceipt;
 			jBox.Add(MenuItem1);       
@@ -393,12 +400,19 @@ namespace CarGlass
 			jBox.Popup();
 		}
 
-		protected void OnPopupPrintOrder(object sender, EventArgs Arg)
+		protected void OnPopupPrintOrderInstall(object sender, EventArgs Arg)
 		{
-			if(CurrentType == OrderType.tinting)
-				QSProjectsLib.ViewReportExt.Run("order2", String.Format("id={0}", Item_id));
-			else
-				QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Item_id));
+			QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Item_id));
+		}
+
+		protected void OnPopupPrintOrderTinting(object sender, EventArgs Arg)
+		{
+			QSProjectsLib.ViewReportExt.Run("order2", String.Format("id={0}", Item_id));
+		}
+
+		protected void OnPopupPrintOrderArmoring(object sender, EventArgs Arg)
+		{
+			QSProjectsLib.ViewReportExt.Run("order3", String.Format("id={0}", Item_id));
 		}
 
 		protected void OnPopupPrintReceipt(object sender, EventArgs Arg)
