@@ -10,7 +10,6 @@
     <RootNamespace>CarGlass</RootNamespace>
     <AssemblyName>CarGlass</AssemblyName>
     <ReleaseVersion>1.0</ReleaseVersion>
-    <UseMSBuildEngine>False</UseMSBuildEngine>
     <ApplicationIcon>icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -137,10 +136,6 @@
       <Project>{5A2BB01E-E124-432E-8099-D1343D3897B9}</Project>
       <Name>QSWidgetLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\QSProjects\Modules\QSChat\QSChat.csproj">
-      <Project>{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}</Project>
-      <Name>QSChat</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\QSProjects\QSUpdater\QSUpdater.csproj">
       <Project>{6D755374-6EAF-44B6-8C6C-6FE5E5AB3432}</Project>
       <Name>QSUpdater</Name>
@@ -172,6 +167,10 @@
     <ProjectReference Include="..\..\QSProjects\QSExtraGammaWidgets\QSExtraGammaWidgets.csproj">
       <Project>{3DCDD84A-20D0-4939-BE25-58B19F3961F2}</Project>
       <Name>QSExtraGammaWidgets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QSChat\QSChat.csproj">
+      <Project>{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}</Project>
+      <Name>QSChat</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +216,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Reports\StoreByPlacements.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Reports\order3.rdl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
