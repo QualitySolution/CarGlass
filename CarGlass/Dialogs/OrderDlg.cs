@@ -394,6 +394,10 @@ namespace CarGlass
 			MenuItem1 = new MenuItem("Бронировка");
 			MenuItem1.Activated += OnPopupPrintOrderArmoring;
 			jBox.Add(MenuItem1);
+			MenuItem1 = new MenuItem("Полировка");
+			MenuItem1.Activated += OnPopupPrintOrderPolishing;
+			jBox.Add(MenuItem1);
+
 			jBox.Add(new SeparatorMenuItem());
 			MenuItem1 = new MenuItem("Товарный чек");
 			MenuItem1.Activated += OnPopupPrintReceipt;
@@ -415,6 +419,11 @@ namespace CarGlass
 		protected void OnPopupPrintOrderArmoring(object sender, EventArgs Arg)
 		{
 			QSProjectsLib.ViewReportExt.Run("order3", String.Format("id={0}", Item_id));
+		}
+
+		protected void OnPopupPrintOrderPolishing(object sender, EventArgs Arg)
+		{
+			QSProjectsLib.ViewReportExt.Run("order4", String.Format("id={0}", Item_id));
 		}
 
 		protected void OnPopupPrintReceipt(object sender, EventArgs Arg)
