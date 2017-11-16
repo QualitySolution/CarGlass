@@ -18,6 +18,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			OrderType.install,
 			OrderType.repair,
 			OrderType.polishing,
+			OrderType.other,
 		};
 
 		var tintingServices = new List<OrderType>{
@@ -25,6 +26,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			OrderType.repair,
 			OrderType.polishing,
 			OrderType.armoring,
+			OrderType.other,
 		};
 
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));

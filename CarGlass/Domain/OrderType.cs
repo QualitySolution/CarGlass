@@ -14,6 +14,8 @@ namespace CarGlass.Domain
 		[Display(Name = "Полировка")]
 		polishing,
 		[Display(Name = "Бронировка")]
-		armoring
+		armoring,
+		[Display(Name = "Прочее")]
+		other
 	}
 }

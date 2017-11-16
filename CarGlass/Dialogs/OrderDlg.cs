@@ -111,6 +111,7 @@ namespace CarGlass
 					);
 				}
 			}
+			TestCanSave();
 		}
 
 		private void RenderPriceColumn (Gtk.TreeViewColumn column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
@@ -183,10 +184,10 @@ namespace CarGlass
 				cmd.Parameters.AddWithValue("@calendar_number", calendarNumber);
 				cmd.Parameters.AddWithValue("@type", CurrentType.ToString());
 				cmd.Parameters.AddWithValue("@created_by", QSMain.User.Id);
-				cmd.Parameters.AddWithValue("@car_model_id", ComboWorks.GetActiveId(comboModel));
+				cmd.Parameters.AddWithValue("@car_model_id", ComboWorks.GetActiveIdOrNull(comboModel));
 				cmd.Parameters.AddWithValue("@car_year", DBWorks.ValueOrNull(comboYear.ActiveText != "", comboYear.ActiveText));
 				cmd.Parameters.AddWithValue("@phone", DBWorks.ValueOrNull(entryPhone.Text != "" && entryPhone.Text != "+7" , entryPhone.Text));
-				cmd.Parameters.AddWithValue("@status_id",  ComboWorks.GetActiveId(comboStatus));
+				cmd.Parameters.AddWithValue("@status_id",  ComboWorks.GetActiveIdOrNull(comboStatus));
 				cmd.Parameters.AddWithValue("@manufacturer_id", ComboWorks.GetActiveIdOrNull(comboManufacturer));
 				cmd.Parameters.AddWithValue("@stock_id", ComboWorks.GetActiveIdOrNull(comboStock));
 				cmd.Parameters.AddWithValue("@eurocode", DBWorks.ValueOrNull(entryEurocode.Text != "", entryEurocode.Text));
@@ -286,9 +287,9 @@ namespace CarGlass
 
 					labelAuthor.LabelProp = DBWorks.GetString(rdr, "created_by_user", "неизвестно");
 
-					ComboWorks.SetActiveItem(comboStatus, rdr.GetInt32("status_id"));
-					model_id = rdr.GetInt32("car_model_id");
-					mark_id = rdr.GetInt32("mark_id");
+					ComboWorks.SetActiveItem(comboStatus, DBWorks.GetInt(rdr, "status_id", -1));
+					model_id = DBWorks.GetInt(rdr, "car_model_id", -1);
+					mark_id = DBWorks.GetInt(rdr, "mark_id", -1);
 
 					comboYear.Entry.Text = rdr["car_year"].ToString();
 					entryPhone.Text = DBWorks.GetString(rdr, "phone", "+7");
@@ -357,7 +358,7 @@ namespace CarGlass
 		{
 			bool Statusok = comboStatus.Active >= 0;
 			bool Carok = ComboWorks.GetActiveId(comboModel) > 0;
-			buttonOk.Sensitive = Statusok && Carok;
+			buttonOk.Sensitive = (Statusok && Carok) || CurrentType == OrderType.other;
 		}
 
 		private string GetTitleFormat (OrderType type)
@@ -369,6 +370,7 @@ namespace CarGlass
 				"Заказ ремонта №{0} на {1:D} в {2} часов",
 				"Заказ полировки №{0} на {1:D} в {2} часов",
 				"Заказ бронировки №{0} на {1:D} в {2} часов",
+				"Прочее №{0} на {1:D} в {2} часов",
 			};
 			return str[(int)type];
 		}
