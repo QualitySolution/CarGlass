@@ -21,7 +21,7 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query >
+      <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText>SELECT orders.type, SUM(summa.cost) as sum, AVG(summa.cost) as avg, COUNT(orders.id)  as count FROM orders
 LEFT JOIN (
@@ -39,7 +39,7 @@ GROUP BY orders.type </CommandText>
           </QueryParameter>
         </QueryParameters>
       </Query>
-      <Fields >
+      <Fields>
         <Field Name="type">
           <DataField>type</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -59,7 +59,7 @@ GROUP BY orders.type </CommandText>
       </Fields>
     </DataSet>
     <DataSet Name="Pays">
-      <Query >
+      <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText>SELECT services.name as service, SUM(order_pays.cost) as sum, AVG(order_pays.cost) as avg, COUNT(order_pays.id) as count FROM order_pays
 LEFT JOIN services ON services.id = order_pays.service_id 
@@ -77,7 +77,7 @@ ORDER BY services.ordinal</CommandText>
           </QueryParameter>
         </QueryParameters>
       </Query>
-      <Fields >
+      <Fields>
         <Field Name="service">
           <DataField>service</DataField>
           <TypeName>System.String</TypeName>
@@ -223,7 +223,7 @@ ORDER BY services.ordinal</CommandText>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="type">
-                      <Value>=Switch(Fields!type.Value = "install", "Установка", Fields!type.Value = "tinting", "Тонировка", Fields!type.Value = "repair", "Ремонт сколов")</Value>
+                      <Value>=Switch(Fields!type.Value = "install", "Установка", Fields!type.Value = "tinting", "Тонировка", Fields!type.Value = "repair", "Ремонт сколов", Fields!type.Value = "polishing", "Полировка", Fields!type.Value = "armoring", "Бронировка", Fields!type.Value = "other", "Прочее")</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
