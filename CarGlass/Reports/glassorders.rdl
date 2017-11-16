@@ -13,9 +13,9 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query>
+      <Query >
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>SELECT orders.id, orders.date, orders.hour, marks.name as mark, models.name as model, stocks.name as stocks, orders.eurocode, cost1.cost as cost1, manufacturers.name as manufacturer FROM orders LEFT JOIN models ON models.id = orders.car_model_id LEFT JOIN marks ON marks.id = models.mark_id LEFT JOIN stocks ON stocks.id = orders.stock_id 
+        <CommandText>SELECT orders.id, orders.date, orders.hour, marks.name as mark, models.name as model, stocks.name as stocks, orders.eurocode, cost1.cost as cost1, manufacturers.name as manufacturer FROM orders LEFT JOIN models ON models.id = orders.car_model_id LEFT JOIN marks ON marks.id = models.mark_id LEFT JOIN stocks ON stocks.id = orders.stock_id WHERE orders.type &lt;&gt; 'other'
 
 
  LEFT JOIN manufacturers ON manufacturers.id = orders.manufacturer_id 
@@ -46,7 +46,7 @@
           </QueryParameter>
         </QueryParameters>
       </Query>
-      <Fields>
+      <Fields >
         <Field Name="id">
           <DataField>id</DataField>
           <rd:TypeName>System.UInt32</rd:TypeName>

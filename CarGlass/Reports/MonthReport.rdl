@@ -21,13 +21,14 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query>
+      <Query >
         <DataSourceName>DS1</DataSourceName>
         <CommandText>SELECT orders.type, SUM(summa.cost) as sum, AVG(summa.cost) as avg, COUNT(orders.id)  as count FROM orders
 LEFT JOIN (
 SELECT order_id, SUM(order_pays.cost) as cost FROM order_pays GROUP BY order_id
 ) as summa ON summa.order_id = orders.id
-WHERE orders.date BETWEEN @start AND @end 
+WHERE orders.date BETWEEN @start AND @end 
+AND orders.type &lt;&gt; 'other'
 GROUP BY orders.type </CommandText>
         <QueryParameters>
           <QueryParameter Name="start">
@@ -38,7 +39,7 @@ GROUP BY orders.type </CommandText>
           </QueryParameter>
         </QueryParameters>
       </Query>
-      <Fields>
+      <Fields >
         <Field Name="type">
           <DataField>type</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -63,7 +64,8 @@ GROUP BY orders.type </CommandText>
         <CommandText>SELECT services.name as service, SUM(order_pays.cost) as sum, AVG(order_pays.cost) as avg, COUNT(order_pays.id) as count FROM order_pays
 LEFT JOIN services ON services.id = order_pays.service_id 
 LEFT JOIN orders ON order_pays.order_id = orders.id
-WHERE orders.date BETWEEN @start AND @end 
+WHERE orders.date BETWEEN @start AND @end 
+AND orders.type &lt;&gt; 'other'
 GROUP BY order_pays.service_id 
 ORDER BY services.ordinal</CommandText>
         <QueryParameters>
