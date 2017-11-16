@@ -15,16 +15,34 @@
     <DataSet Name="Data">
       <Query >
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>SELECT orders.id, orders.date, orders.hour, marks.name as mark, models.name as model, stocks.name as stocks, orders.eurocode, cost1.cost as cost1, manufacturers.name as manufacturer FROM orders LEFT JOIN models ON models.id = orders.car_model_id LEFT JOIN marks ON marks.id = models.mark_id LEFT JOIN stocks ON stocks.id = orders.stock_id WHERE orders.type &lt;&gt; 'other'
-
-
- LEFT JOIN manufacturers ON manufacturers.id = orders.manufacturer_id 
-
-
- LEFT JOIN order_pays as cost1 ON cost1.order_id = orders.id AND cost1.service_id = @cost1
-
-
- WHERE (orders.date BETWEEN @startdate AND @enddate) AND orders.status_id = @status AND orders.stock_id IN (@stock)</CommandText>
+        <CommandText>SELECT 
+    orders.id,
+    orders.date,
+    orders.hour,
+    marks.name AS mark,
+    models.name AS model,
+    stocks.name AS stocks,
+    orders.eurocode,
+    cost1.cost AS cost1,
+    manufacturers.name AS manufacturer
+FROM
+    orders
+        LEFT JOIN
+    models ON models.id = orders.car_model_id
+        LEFT JOIN
+    marks ON marks.id = models.mark_id
+        LEFT JOIN
+    stocks ON stocks.id = orders.stock_id
+        LEFT JOIN
+    manufacturers ON manufacturers.id = orders.manufacturer_id
+        LEFT JOIN
+    order_pays AS cost1 ON cost1.order_id = orders.id
+        AND cost1.service_id = @cost1
+WHERE
+    (orders.date BETWEEN @startdate AND @enddate)
+        AND orders.status_id = @status
+        AND orders.stock_id IN (@stock)
+        AND orders.type &lt;&gt; 'other';</CommandText>
         <QueryParameters>
           <QueryParameter Name="cost1">
             <Value>=Parameters!cost1</Value>
