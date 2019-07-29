@@ -12,6 +12,7 @@ Bases/*.mwb.bak
 *.userprefs
 *.usertasks
 *~
+.vs/
 
 #Project Specific
 WinInstall/*
