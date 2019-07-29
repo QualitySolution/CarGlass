@@ -9,13 +9,13 @@
     <widget-library name="../../../QSProjects/QSProjectsLib/bin/Debug/QSProjectsLib.dll" />
     <widget-library name="../../../QSProjects/QSSupportLib/bin/Debug/QSSupportLib.dll" />
     <widget-library name="../../../QSProjects/QSWidgetLib/bin/Debug/QSWidgetLib.dll" />
-    <widget-library name="../../QSChat/bin/Debug/QSChat.dll" />
-    <widget-library name="../../../QSProjects/QSUpdater/bin/Debug/QSUpdater.dll" />
     <widget-library name="../../../GammaBinding/GammaBinding/bin/Debug/GammaBinding.dll" />
     <widget-library name="../../../QSProjects/QSOrmProject/bin/Debug/QSOrmProject.dll" />
-    <widget-library name="../../../QSProjects/QSTDI/bin/Debug/QSTDI.dll" />
     <widget-library name="../../../QSProjects/QSValidation/bin/Debug/QSValidation.dll" />
     <widget-library name="../../../QSProjects/QSExtraGammaWidgets/bin/Debug/QSExtraGammaWidgets.dll" />
+    <widget-library name="../../QSChat/bin/Debug/QSChat.dll" />
+    <widget-library name="../../../QSProjects/QS.Updater.Gtk/bin/Debug/QSUpdater.dll" />
+    <widget-library name="../../../QSProjects/QS.Project.Gtk/bin/Debug/QS.Project.Gtk.dll" />
     <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="1053 431">
@@ -54,6 +54,7 @@
         <property name="Label" translatable="yes">В_ыход</property>
         <property name="ShortLabel" translatable="yes">В_ыход</property>
         <property name="StockId">gtk-quit</property>
+        <signal name="Activated" handler="OnQuitActionActivated" />
       </action>
       <action id="aboutAction">
         <property name="Type">Action</property>
@@ -214,7 +215,7 @@
               <widget class="Gtk.Notebook" id="notebookMain">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">0</property>
+                <property name="CurrentPage">4</property>
                 <signal name="SwitchPage" handler="OnNotebookMainSwitchPage" />
                 <child>
                   <widget class="CarGlass.OrdersCalendar" id="orderscalendar1">
@@ -2177,6 +2178,7 @@
                 <property name="ShowCurMonth">True</property>
                 <property name="ShowCurQuarter">False</property>
                 <property name="ShowCurYear">True</property>
+                <property name="WithTime">False</property>
                 <signal name="DatesChanged" handler="OnSelectperiod1DatesChanged" />
               </widget>
               <packing>
@@ -2273,6 +2275,7 @@
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Label" translatable="yes">Установка</property>
+                <property name="Active">True</property>
                 <property name="DrawIndicator">False</property>
                 <property name="HasLabel">True</property>
                 <property name="UseUnderline">True</property>
@@ -2469,6 +2472,7 @@
             <property name="ShowCurMonth">True</property>
             <property name="ShowCurQuarter">True</property>
             <property name="ShowCurYear">True</property>
+            <property name="WithTime">False</property>
             <signal name="DatesChanged" handler="OnSelectperiod1DatesChanged" />
           </widget>
           <packing>
