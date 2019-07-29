@@ -1,7 +1,7 @@
 ﻿using System;
 using CarGlass.Domain;
 using NHibernate.Criterion;
-using QSOrmProject;
+using QS.DomainModel.UoW;
 using QSProjectsLib;
 
 namespace CarGlass.ReportDialog

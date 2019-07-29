@@ -1,12 +1,12 @@
 ﻿using System;
-using Gtk;
-using QSProjectsLib;
 using System.Collections.Generic;
+using Gtk;
 using NLog;
+using QSProjectsLib;
 
 namespace CarGlass
 {
-    partial class MainClass
+	partial class MainClass
 	{
 		public static MainWindow MainWin;
 		private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -61,12 +61,12 @@ namespace CarGlass
 			//"Пользователь может изменять или добавлять кассовые документы задним числом."));
 
 			//Настраиваем обновления
-			QSUpdater.DB.DBUpdater.AddUpdate(
+			QS.Updater.DB.DBUpdater.AddUpdate(
 				new Version(1, 3),
 				new Version(1, 4),
 				"CarGlass.Updates.1.4.sql");
 
-			QSUpdater.DB.DBUpdater.AddMicroUpdate(
+			QS.Updater.DB.DBUpdater.AddMicroUpdate(
 				new Version(1, 4),
 				new Version(1, 4, 2),
 				"CarGlass.Updates.1.4.2.sql");

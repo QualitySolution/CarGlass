@@ -1,12 +1,14 @@
-﻿﻿using System;
-using CarGlass.Domain;
-using QSOrmProject;
+﻿using System;
 using System.Linq;
+using CarGlass.Domain;
+using QS.Dialog.Gtk;
+using QS.DomainModel.UoW;
+using QSOrmProject;
 
 namespace CarGlass.Dialogs
 {
 	[WidgetWindow(HideButtons = true)]
-	public partial class StoreItemDlg : OrmGtkDialogBase<StoreItem>
+	public partial class StoreItemDlg : EntityDialogBase<StoreItem>
 	{
 		static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 

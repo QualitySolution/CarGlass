@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using QSOrmProject;
+﻿using System.ComponentModel.DataAnnotations;
+using QS.DomainModel.Entity;
 
 namespace CarGlass.Domain
 {
-	[OrmSubject(Gender = QSProjectsLib.GrammaticalGender.Feminine,
+	[Appellative(Gender = GrammaticalGender.Feminine,
 	NominativePlural = "складские позиции",
 	Nominative = "складская позиция")]
 	public class StoreItem : PropertyChangedBase, IDomainObject

@@ -1,7 +1,8 @@
 ﻿using System;
 using CarGlass.Domain;
 using CarGlass.Representation;
-using QSOrmProject;
+using QS.Dialog.Gtk;
+using QS.DomainModel.UoW;
 
 namespace CarGlass.Dialogs
 {

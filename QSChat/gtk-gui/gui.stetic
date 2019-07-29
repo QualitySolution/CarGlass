@@ -5,8 +5,8 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/QSChat.dll" internal="true" />
     <widget-library name="../../../QSProjects/QSProjectsLib/bin/Debug/QSProjectsLib.dll" />
+    <widget-library name="../bin/Debug/QSChat.dll" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="QSChat.Chat" design-size="374 345">
     <property name="MemberName" />

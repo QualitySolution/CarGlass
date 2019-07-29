@@ -2,10 +2,10 @@
 using CarGlass;
 using CarGlass.ReportDialog;
 using Gtk;
+using QS.Updater;
 using QSOrmProject;
 using QSProjectsLib;
 using QSSupportLib;
-using QSUpdater;
 
 public partial class MainWindow : FakeTDITabGtkWindowBase
 {
@@ -267,7 +267,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 
 	protected void OnActionCheckUpdatesActivated(object sender, EventArgs e)
 	{
-		CheckUpdate.StartCheckUpdateThread(UpdaterFlags.ShowAnyway);
+		MainUpdater.CheckAppVersionShowAnyway();
 	}
 
 	protected void OnActionStoreReportActivated(object sender, EventArgs e)

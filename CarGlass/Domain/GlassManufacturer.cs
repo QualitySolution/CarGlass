@@ -1,5 +1,4 @@
-﻿using System;
-using QSOrmProject;
+﻿using QS.DomainModel.Entity;
 
 namespace CarGlass.Domain
 {

@@ -1,9 +1,8 @@
-﻿using System;
-using CarGlass.Domain;
+﻿using CarGlass.Domain;
 using Gamma.ColumnConfig;
 using Gamma.GtkWidgets;
 using NHibernate.Transform;
-using QSOrmProject;
+using QS.DomainModel.UoW;
 using QSOrmProject.RepresentationModel;
 
 namespace CarGlass.Representation

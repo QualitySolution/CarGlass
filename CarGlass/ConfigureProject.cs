@@ -1,8 +1,8 @@
-﻿using System;
-using QSOrmProject;
+﻿using QSOrmProject;
 using QSProjectsLib;
 using CarGlass.Domain;
 using CarGlass.Dialogs;
+using QS.Project.DB;
 
 namespace CarGlass
 {
@@ -18,7 +18,7 @@ namespace CarGlass
 				.ShowSql()
 				.FormatSql();
 
-			OrmMain.ConfigureOrm(db, new System.Reflection.Assembly[] {
+			OrmConfig.ConfigureOrm(db, new System.Reflection.Assembly[] {
 				System.Reflection.Assembly.GetAssembly (typeof(MainClass)),
 			});
 
