@@ -5,15 +5,34 @@ cd "$(dirname "$0")"
 
 ProjectName="CarGlass"
 BinDir=../$ProjectName/bin/ReleaseWin
+RdlReaderDir=../../My-FyiReporting/RdlViewer/RdlReader/bin/x86/Release
+
+#Сборка MajorsilenceReporting
+msbuild /p:Configuration=Release /p:Platform=x86 ../../My-FyiReporting/MajorsilenceReporting.sln /target:RdlReader
 
 # Сборка релиза
 msbuild /p:Configuration=ReleaseWin /p:Platform=x86 ../CarGlass.sln
+
+#Чистим папку назначения
+rm -v -f -R ./Files/*
+
+#Копируем RdlReader
+cp -v ${RdlReaderDir}/DataProviders.dll ./Files
+cp -v ${RdlReaderDir}/EncryptionProvider.dll ./Files
+cp -v ${RdlReaderDir}/itextsharp.dll ./Files
+cp -v ${RdlReaderDir}/netstandard.dll ./Files
+cp -v ${RdlReaderDir}/Newtonsoft.Json.dll ./Files
+cp -v ${RdlReaderDir}/NPOI*.dll ./Files
+cp -v ${RdlReaderDir}/RdlCri.dll ./Files
+cp -v ${RdlReaderDir}/RdlEngine.dll ./Files
+cp -v ${RdlReaderDir}/RdlReader.exe ./Files
+cp -v ${RdlReaderDir}/RdlViewer.dll ./Files
+cp -r -v ${RdlReaderDir}/ru-RU ./Files
 
 # Очистка бин от лишний файлов
 
 rm -v -f ${BinDir}/*.mdb
 rm -v -f ${BinDir}/*.pdb
-rm -v -f -R ./Files/*
 
 mkdir -p Files
 cp -r -v ${BinDir}/* ./Files
