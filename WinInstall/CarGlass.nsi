@@ -191,8 +191,13 @@ Section "MS .NET Framework ${NET_VERSION}" SecFramework
 SectionEnd
 
 Section "GTK# 2.12.21" SecGTK
-  SectionIn RO
+  ;SectionIn RO
   
+  ; Test 2.12.45
+  System::Call "msi::MsiQueryProductStateW(t '{0D038544-52B1-4F30-BAE1-46509B4A91A7}') i.r0"
+  StrCmp $0 "5" GTKDone
+  DetailPrint "GTK# 2.12.45 не установлен"
+
   ; Test 2.12.38
   System::Call "msi::MsiQueryProductStateW(t '{C7A0CF1E-A936-426A-9694-035636DCD356}') i.r0"
   StrCmp $0 "5" GTKDone
