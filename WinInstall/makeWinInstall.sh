@@ -25,6 +25,7 @@ cp -v ${RdlReaderDir}/Newtonsoft.Json.dll ./Files
 cp -v ${RdlReaderDir}/NPOI*.dll ./Files
 cp -v ${RdlReaderDir}/RdlCri.dll ./Files
 cp -v ${RdlReaderDir}/RdlEngine.dll ./Files
+cp -v ${RdlReaderDir}/RdlEngineConfig.xml ./Files
 cp -v ${RdlReaderDir}/RdlReader.exe ./Files
 cp -v ${RdlReaderDir}/RdlViewer.dll ./Files
 cp -r -v ${RdlReaderDir}/ru-RU ./Files
