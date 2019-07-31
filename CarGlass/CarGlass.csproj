@@ -11,6 +11,7 @@
     <AssemblyName>CarGlass</AssemblyName>
     <ReleaseVersion>1.0</ReleaseVersion>
     <ApplicationIcon>icons\logo.ico</ApplicationIcon>
+    <TargetOS>Linux</TargetOS>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -32,6 +33,15 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWin|x86' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\ReleaseWin</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Win'))">
+    <TargetOS>Win</TargetOS>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -260,6 +270,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Reports\order4.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Condition=" '$(TargetOS)' == 'Win' " Include="../lib/WinOnly/Mono.Posix.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
