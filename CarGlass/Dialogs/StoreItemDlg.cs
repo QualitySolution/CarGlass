@@ -48,8 +48,8 @@ namespace CarGlass.Dialogs
 
 			comboModel.Binding.AddBinding(Entity, e => e.CarModel, w => w.SelectedItem).InitializeFromSource();
 
-			comboManufacturer.SetRenderTextFunc<GlassManufacturer>(x => x.Name);
-			comboManufacturer.ItemsList = UoW.GetAll<GlassManufacturer>();
+			comboManufacturer.SetRenderTextFunc<Manufacturer>(x => x.Name);
+			comboManufacturer.ItemsList = UoW.GetAll<Manufacturer>();
 			comboManufacturer.Binding.AddBinding(Entity, e => e.Manufacturer, w => w.SelectedItem).InitializeFromSource();
 
 			yentryEurocode.Binding.AddBinding(Entity, e => e.EuroCode, w => w.Text).InitializeFromSource();

@@ -153,8 +153,6 @@
     <Compile Include="Domain\CarWindow.cs" />
     <Compile Include="HibernateMapping\CarWindowMap.cs" />
     <Compile Include="Domain\StoreItem.cs" />
-    <Compile Include="Domain\GlassManufacturer.cs" />
-    <Compile Include="HibernateMapping\GlassManufacturerMap.cs" />
     <Compile Include="HibernateMapping\StoreItemMap.cs" />
     <Compile Include="Dialogs\CarModelDlg.cs" />
     <Compile Include="Representation\StoreItemsVM.cs" />

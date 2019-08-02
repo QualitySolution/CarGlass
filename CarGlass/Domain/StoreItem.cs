@@ -46,10 +46,10 @@ namespace CarGlass.Domain
 			set { SetField(ref euroCode, value, () => EuroCode); }
 		}
 
-		private GlassManufacturer manufacturer;
+		private Manufacturer manufacturer;
 
 		[Required(ErrorMessage = "Производитель должен быть заполнен.")]
-		public virtual GlassManufacturer Manufacturer
+		public virtual Manufacturer Manufacturer
 		{
 			get { return manufacturer; }
 			set { SetField(ref manufacturer, value, () => Manufacturer); }

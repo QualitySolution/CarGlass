@@ -32,7 +32,7 @@ namespace CarGlass.Representation
 			StoreItemsVMNode resultAlias = null;
 			CarBrand brandAlias = null;
 			CarModel modelAlias = null;
-			GlassManufacturer manufacturerAlias = null;
+			Manufacturer manufacturerAlias = null;
 			StoreItem storeItemAlias = null;
 
 			var itemsQuery = UoW.Session.QueryOver<StoreItem>(() => storeItemAlias);
