@@ -167,11 +167,13 @@
     <Compile Include="Domain\WorkOrder.cs" />
     <Compile Include="Domain\OrderState.cs" />
     <Compile Include="Domain\Manufacturer.cs" />
-    <Compile Include="Domain\Stock.cs" />
+    <Compile Include="Domain\Warehouse.cs" />
     <Compile Include="HibernateMapping\ManufacturerMap.cs" />
     <Compile Include="HibernateMapping\OrderStateMap.cs" />
     <Compile Include="HibernateMapping\WorkOrderMap.cs" />
     <Compile Include="HibernateMapping\StockMap.cs" />
+    <Compile Include="Repository\OrderStateRepository.cs" />
+    <Compile Include="Repository\CarModelRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -238,6 +240,7 @@
     <Folder Include="HibernateMapping\" />
     <Folder Include="Representation\" />
     <Folder Include="Updates\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">

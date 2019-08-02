@@ -10,21 +10,21 @@ namespace CarGlass
 
 		private global::Gtk.Table table1;
 
-		private global::Gtk.ComboBox comboManufacturer;
+		private global::QS.Widgets.GtkUI.SpecialListComboBox comboManufacturer;
 
-		private global::Gtk.ComboBox comboMark;
+		private global::QS.Widgets.GtkUI.SpecialListComboBox comboMark;
 
-		private global::Gtk.ComboBox comboModel;
+		private global::QS.Widgets.GtkUI.SpecialListComboBox comboModel;
 
-		private global::Gtk.ComboBox comboStatus;
+		private global::QS.Widgets.GtkUI.SpecialListComboBox comboStatus;
 
-		private global::Gtk.ComboBox comboStock;
+		private global::QS.Widgets.GtkUI.SpecialListComboBox comboStock;
 
-		private global::Gtk.ComboBoxEntry comboYear;
+		private global::Gamma.GtkWidgets.yComboBoxEntry comboYear;
 
-		private global::Gtk.Entry entryEurocode;
+		private global::Gamma.GtkWidgets.yEntry entryEurocode;
 
-		private global::Gtk.Entry entryPhone;
+		private global::Gamma.GtkWidgets.yEntry entryPhone;
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 
@@ -44,7 +44,7 @@ namespace CarGlass
 
 		private global::Gtk.Label label9;
 
-		private global::Gtk.Label labelAuthor;
+		private global::Gtk.Label labelCreated;
 
 		private global::Gtk.Label labelEurocode;
 
@@ -68,7 +68,7 @@ namespace CarGlass
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
-		private global::Gtk.TextView textviewComment;
+		private global::Gamma.GtkWidgets.yTextView textviewComment;
 
 		private global::Gtk.Button buttonDelete;
 
@@ -102,8 +102,12 @@ namespace CarGlass
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboManufacturer = new global::Gtk.ComboBox();
+			this.comboManufacturer = new global::QS.Widgets.GtkUI.SpecialListComboBox();
 			this.comboManufacturer.Name = "comboManufacturer";
+			this.comboManufacturer.AddIfNotExist = false;
+			this.comboManufacturer.DefaultFirst = false;
+			this.comboManufacturer.ShowSpecialStateAll = false;
+			this.comboManufacturer.ShowSpecialStateNot = false;
 			this.table1.Add(this.comboManufacturer);
 			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.comboManufacturer]));
 			w2.TopAttach = ((uint)(8));
@@ -113,8 +117,12 @@ namespace CarGlass
 			w2.XOptions = ((global::Gtk.AttachOptions)(4));
 			w2.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboMark = new global::Gtk.ComboBox();
+			this.comboMark = new global::QS.Widgets.GtkUI.SpecialListComboBox();
 			this.comboMark.Name = "comboMark";
+			this.comboMark.AddIfNotExist = false;
+			this.comboMark.DefaultFirst = false;
+			this.comboMark.ShowSpecialStateAll = false;
+			this.comboMark.ShowSpecialStateNot = false;
 			this.table1.Add(this.comboMark);
 			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.comboMark]));
 			w3.TopAttach = ((uint)(3));
@@ -124,8 +132,12 @@ namespace CarGlass
 			w3.XOptions = ((global::Gtk.AttachOptions)(4));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboModel = new global::Gtk.ComboBox();
+			this.comboModel = new global::QS.Widgets.GtkUI.SpecialListComboBox();
 			this.comboModel.Name = "comboModel";
+			this.comboModel.AddIfNotExist = true;
+			this.comboModel.DefaultFirst = false;
+			this.comboModel.ShowSpecialStateAll = false;
+			this.comboModel.ShowSpecialStateNot = false;
 			this.table1.Add(this.comboModel);
 			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.comboModel]));
 			w4.TopAttach = ((uint)(4));
@@ -135,8 +147,12 @@ namespace CarGlass
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboStatus = new global::Gtk.ComboBox();
+			this.comboStatus = new global::QS.Widgets.GtkUI.SpecialListComboBox();
 			this.comboStatus.Name = "comboStatus";
+			this.comboStatus.AddIfNotExist = false;
+			this.comboStatus.DefaultFirst = false;
+			this.comboStatus.ShowSpecialStateAll = false;
+			this.comboStatus.ShowSpecialStateNot = false;
 			this.table1.Add(this.comboStatus);
 			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.comboStatus]));
 			w5.LeftAttach = ((uint)(1));
@@ -144,8 +160,12 @@ namespace CarGlass
 			w5.XOptions = ((global::Gtk.AttachOptions)(4));
 			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboStock = global::Gtk.ComboBox.NewText();
+			this.comboStock = new global::QS.Widgets.GtkUI.SpecialListComboBox();
 			this.comboStock.Name = "comboStock";
+			this.comboStock.AddIfNotExist = false;
+			this.comboStock.DefaultFirst = false;
+			this.comboStock.ShowSpecialStateAll = false;
+			this.comboStock.ShowSpecialStateNot = false;
 			this.table1.Add(this.comboStock);
 			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.comboStock]));
 			w6.TopAttach = ((uint)(9));
@@ -155,48 +175,7 @@ namespace CarGlass
 			w6.XOptions = ((global::Gtk.AttachOptions)(4));
 			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboYear = global::Gtk.ComboBoxEntry.NewText();
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1980"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1981"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1982"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1983"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1984"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1985"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1986"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1987"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1988"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1989"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1990"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1991"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1992"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1993"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1994"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1995"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1996"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1997"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1998"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("1999"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2000"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2001"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2002"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2003"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2004"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2005"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2006"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2007"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2008"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2009"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2010"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2011"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2012"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2013"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2014"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2015"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2016"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2017"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2018"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2019"));
-			this.comboYear.AppendText(global::Mono.Unix.Catalog.GetString("2020"));
+			this.comboYear = new global::Gamma.GtkWidgets.yComboBoxEntry();
 			this.comboYear.Name = "comboYear";
 			this.table1.Add(this.comboYear);
 			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.comboYear]));
@@ -207,7 +186,7 @@ namespace CarGlass
 			w7.XOptions = ((global::Gtk.AttachOptions)(4));
 			w7.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.entryEurocode = new global::Gtk.Entry();
+			this.entryEurocode = new global::Gamma.GtkWidgets.yEntry();
 			this.entryEurocode.CanFocus = true;
 			this.entryEurocode.Name = "entryEurocode";
 			this.entryEurocode.IsEditable = true;
@@ -221,7 +200,7 @@ namespace CarGlass
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.entryPhone = new global::Gtk.Entry();
+			this.entryPhone = new global::Gamma.GtkWidgets.yEntry();
 			this.entryPhone.CanFocus = true;
 			this.entryPhone.Name = "entryPhone";
 			this.entryPhone.Text = global::Mono.Unix.Catalog.GetString("+7");
@@ -321,7 +300,7 @@ namespace CarGlass
 			this.label9 = new global::Gtk.Label();
 			this.label9.Name = "label9";
 			this.label9.Xalign = 1F;
-			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString("Заказ создал:");
+			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString("Заказ создан:");
 			this.table1.Add(this.label9);
 			global::Gtk.Table.TableChild w18 = ((global::Gtk.Table.TableChild)(this.table1[this.label9]));
 			w18.TopAttach = ((uint)(1));
@@ -329,11 +308,12 @@ namespace CarGlass
 			w18.XOptions = ((global::Gtk.AttachOptions)(4));
 			w18.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.labelAuthor = new global::Gtk.Label();
-			this.labelAuthor.Name = "labelAuthor";
-			this.labelAuthor.LabelProp = global::Mono.Unix.Catalog.GetString("неизвестно");
-			this.table1.Add(this.labelAuthor);
-			global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.table1[this.labelAuthor]));
+			this.labelCreated = new global::Gtk.Label();
+			this.labelCreated.Name = "labelCreated";
+			this.labelCreated.Xalign = 0F;
+			this.labelCreated.LabelProp = global::Mono.Unix.Catalog.GetString("неизвестно");
+			this.table1.Add(this.labelCreated);
+			global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.table1[this.labelCreated]));
 			w19.TopAttach = ((uint)(1));
 			w19.BottomAttach = ((uint)(2));
 			w19.LeftAttach = ((uint)(1));
@@ -455,7 +435,7 @@ namespace CarGlass
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-			this.textviewComment = new global::Gtk.TextView();
+			this.textviewComment = new global::Gamma.GtkWidgets.yTextView();
 			this.textviewComment.CanFocus = true;
 			this.textviewComment.Name = "textviewComment";
 			this.GtkScrolledWindow.Add(this.textviewComment);

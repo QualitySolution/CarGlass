@@ -146,9 +146,9 @@ namespace CarGlass
 				int x, y;
 				GetCalendarPosition(box, out x, out y);
 				e.Date = _StartDate.AddDays(x);
-				e.Hour = y;
-				e.PointNumber = PointNumber;
-				e.CalendarNumber = CalendarNumber;
+				e.Hour = (ushort)y;
+				e.PointNumber = (ushort)PointNumber;
+				e.CalendarNumber = (ushort)CalendarNumber;
 				e.result = false;
 				handler(this, e);
 				if (e.result)
@@ -331,10 +331,10 @@ namespace CarGlass
 	public class NewOrderEventArgs : EventArgs
 	{
 		public DateTime Date;
-		public int Hour;
+		public ushort Hour;
 		public OrderType OrderType;
-		public int PointNumber;
-		public int CalendarNumber;
+		public ushort PointNumber;
+		public ushort CalendarNumber;
 		public bool result { get; set; }
 	}
 

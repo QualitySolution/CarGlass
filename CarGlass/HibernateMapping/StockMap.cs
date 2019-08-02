@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace CarGlass.HibernateMapping
 {
-	public class StockMap : ClassMap<Stock>
+	public class StockMap : ClassMap<Warehouse>
 	{
 		public StockMap()
 		{

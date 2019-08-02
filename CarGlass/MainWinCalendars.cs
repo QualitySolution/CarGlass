@@ -160,8 +160,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 	protected void OnOpenOrder(object sender, EventArgs arg)
 	{
 		CalendarItem item = (CalendarItem)sender;
-		OrderDlg OrderWin = new OrderDlg((OrderType)item.Type);
-		OrderWin.Fill(item.id);
+		OrderDlg OrderWin = new OrderDlg(item.id);
 		OrderWin.Show();
 		if ((ResponseType)OrderWin.Run() == ResponseType.Ok)
 			item.Calendar.RefreshOrders();
@@ -179,7 +178,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 	protected void OnNewOrder(object sender, NewOrderEventArgs arg)
 	{
 		OrderDlg OrderWin = new OrderDlg(arg.PointNumber, arg.CalendarNumber, arg.OrderType, arg.Date, arg.Hour);
-		OrderWin.NewItem = true;
 		OrderWin.Show();
 		int result = OrderWin.Run();
 		if (result == (int)ResponseType.Ok)

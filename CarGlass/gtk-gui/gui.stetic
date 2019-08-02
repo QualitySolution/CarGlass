@@ -1169,10 +1169,14 @@
                       <placeholder />
                     </child>
                     <child>
-                      <widget class="Gtk.ComboBox" id="comboManufacturer">
+                      <widget class="QS.Widgets.GtkUI.SpecialListComboBox" id="comboManufacturer">
                         <property name="MemberName" />
                         <property name="IsTextCombo">False</property>
                         <property name="Items" translatable="yes" />
+                        <property name="AddIfNotExist">False</property>
+                        <property name="DefaultFirst">False</property>
+                        <property name="ShowSpecialStateAll">False</property>
+                        <property name="ShowSpecialStateNot">False</property>
                       </widget>
                       <packing>
                         <property name="TopAttach">8</property>
@@ -1191,10 +1195,14 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.ComboBox" id="comboMark">
+                      <widget class="QS.Widgets.GtkUI.SpecialListComboBox" id="comboMark">
                         <property name="MemberName" />
                         <property name="IsTextCombo">False</property>
                         <property name="Items" translatable="yes" />
+                        <property name="AddIfNotExist">False</property>
+                        <property name="DefaultFirst">False</property>
+                        <property name="ShowSpecialStateAll">False</property>
+                        <property name="ShowSpecialStateNot">False</property>
                         <signal name="Changed" handler="OnComboMarkChanged" />
                       </widget>
                       <packing>
@@ -1214,10 +1222,14 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.ComboBox" id="comboModel">
+                      <widget class="QS.Widgets.GtkUI.SpecialListComboBox" id="comboModel">
                         <property name="MemberName" />
                         <property name="IsTextCombo">False</property>
                         <property name="Items" translatable="yes" />
+                        <property name="AddIfNotExist">True</property>
+                        <property name="DefaultFirst">False</property>
+                        <property name="ShowSpecialStateAll">False</property>
+                        <property name="ShowSpecialStateNot">False</property>
                         <signal name="Changed" handler="OnComboModelChanged" />
                       </widget>
                       <packing>
@@ -1225,7 +1237,7 @@
                         <property name="BottomAttach">5</property>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
+                        <property name="AutoSize">False</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
                         <property name="XExpand">False</property>
@@ -1237,10 +1249,14 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.ComboBox" id="comboStatus">
+                      <widget class="QS.Widgets.GtkUI.SpecialListComboBox" id="comboStatus">
                         <property name="MemberName" />
                         <property name="IsTextCombo">False</property>
                         <property name="Items" translatable="yes" />
+                        <property name="AddIfNotExist">False</property>
+                        <property name="DefaultFirst">False</property>
+                        <property name="ShowSpecialStateAll">False</property>
+                        <property name="ShowSpecialStateNot">False</property>
                         <signal name="Changed" handler="OnComboStatusChanged" />
                       </widget>
                       <packing>
@@ -1258,10 +1274,14 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.ComboBox" id="comboStock">
+                      <widget class="QS.Widgets.GtkUI.SpecialListComboBox" id="comboStock">
                         <property name="MemberName" />
-                        <property name="IsTextCombo">True</property>
+                        <property name="IsTextCombo">False</property>
                         <property name="Items" translatable="yes" />
+                        <property name="AddIfNotExist">False</property>
+                        <property name="DefaultFirst">False</property>
+                        <property name="ShowSpecialStateAll">False</property>
+                        <property name="ShowSpecialStateNot">False</property>
                       </widget>
                       <packing>
                         <property name="TopAttach">9</property>
@@ -1280,50 +1300,10 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.ComboBoxEntry" id="comboYear">
+                      <widget class="Gamma.GtkWidgets.yComboBoxEntry" id="comboYear">
                         <property name="MemberName" />
-                        <property name="IsTextCombo">True</property>
-                        <property name="Items" translatable="yes">1980
-1981
-1982
-1983
-1984
-1985
-1986
-1987
-1988
-1989
-1990
-1991
-1992
-1993
-1994
-1995
-1996
-1997
-1998
-1999
-2000
-2001
-2002
-2003
-2004
-2005
-2006
-2007
-2008
-2009
-2010
-2011
-2012
-2013
-2014
-2015
-2016
-2017
-2018
-2019
-2020</property>
+                        <property name="IsTextCombo">False</property>
+                        <property name="Items" translatable="yes" />
                       </widget>
                       <packing>
                         <property name="TopAttach">5</property>
@@ -1342,7 +1322,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.Entry" id="entryEurocode">
+                      <widget class="Gamma.GtkWidgets.yEntry" id="entryEurocode">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="IsEditable">True</property>
@@ -1365,7 +1345,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.Entry" id="entryPhone">
+                      <widget class="Gamma.GtkWidgets.yEntry" id="entryPhone">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="Text" translatable="yes">+7</property>
@@ -1377,7 +1357,7 @@
                         <property name="BottomAttach">7</property>
                         <property name="LeftAttach">1</property>
                         <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
+                        <property name="AutoSize">False</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
                         <property name="XExpand">False</property>
@@ -1539,7 +1519,7 @@
                       <widget class="Gtk.Label" id="label9">
                         <property name="MemberName" />
                         <property name="Xalign">1</property>
-                        <property name="LabelProp" translatable="yes">Заказ создал:</property>
+                        <property name="LabelProp" translatable="yes">Заказ создан:</property>
                       </widget>
                       <packing>
                         <property name="TopAttach">1</property>
@@ -1556,8 +1536,9 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.Label" id="labelAuthor">
+                      <widget class="Gtk.Label" id="labelCreated">
                         <property name="MemberName" />
+                        <property name="Xalign">0</property>
                         <property name="LabelProp" translatable="yes">неизвестно</property>
                       </widget>
                       <packing>
@@ -1757,7 +1738,7 @@
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
-                  <widget class="Gtk.TextView" id="textviewComment">
+                  <widget class="Gamma.GtkWidgets.yTextView" id="textviewComment">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>

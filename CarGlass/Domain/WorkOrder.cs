@@ -54,7 +54,7 @@ namespace CarGlass.Domain
 			set { SetField(ref calendarNumber, value); }
 		}
 
-		private DateTime? createdDate;
+		private DateTime? createdDate = DateTime.Now;
 
 		[Display(Name = "Время создания")]
 		public virtual DateTime? CreatedDate
@@ -65,7 +65,7 @@ namespace CarGlass.Domain
 
 		private UserBase createdBy;
 
-		[Display(Name = "notset")]
+		[Display(Name = "Автор")]
 		public virtual UserBase CreatedBy
 		{
 			get { return createdBy; }
@@ -81,13 +81,26 @@ namespace CarGlass.Domain
 			set { SetField(ref carModel, value); }
 		}
 
-		private ushort carYear;
+		private ushort? carYear;
 
 		[Display(Name = "Год автомобиля")]
-		public virtual ushort CarYear
+		public virtual ushort? CarYear
 		{
 			get { return carYear; }
 			set { SetField(ref carYear, value); }
+		}
+
+		public virtual string CarYearText
+		{
+			get => String.Format("{0}", CarYear);
+			set
+			{
+				ushort val;
+				if (!String.IsNullOrWhiteSpace(value) && ushort.TryParse(value, out val))
+					CarYear = val;
+				else
+					CarYear = null;
+			}
 		}
 
 		private string phone;
@@ -117,10 +130,10 @@ namespace CarGlass.Domain
 			set { SetField(ref manufacturer, value); }
 		}
 
-		private Stock stock;
+		private Warehouse stock;
 
 		[Display(Name = "Склад")]
-		public virtual Stock Stock
+		public virtual Warehouse Stock
 		{
 			get { return stock; }
 			set { SetField(ref stock, value); }

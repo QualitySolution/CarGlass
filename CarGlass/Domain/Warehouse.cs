@@ -4,7 +4,7 @@ using QS.DomainModel.Entity;
 
 namespace CarGlass.Domain
 {
-	public class Stock : PropertyChangedBase, IDomainObject
+	public class Warehouse : PropertyChangedBase, IDomainObject
 	{
 		public virtual int Id { get; set; }
 
@@ -26,7 +26,7 @@ namespace CarGlass.Domain
 			set { SetField(ref color, value); }
 		}
 
-		public Stock()
+		public Warehouse()
 		{
 		}
 	}

@@ -13,7 +13,7 @@ namespace CarGlass.HibernateMapping
 			Id(x => x.Id).Column("id").GeneratedBy.Native();
 			Map(x => x.Name).Column("name");
 			Map(x => x.Color).Column("color");
-			Map(x => x.UsedForTypesDB).Column("usedtypes");
+			Map(x => x.UsedForTypesPlainText).Column("usedtypes");
 
 		}
 	}

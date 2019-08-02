@@ -26,13 +26,13 @@ namespace CarGlass.Domain
 			set { SetField(ref color, value); }
 		}
 
-		private string usedForTypesDB;
+		private string usedForTypesPlainText;
 
 		[Display(Name = "Испольуется в типах заказов")]
-		public virtual string UsedForTypesDB
+		public virtual string UsedForTypesPlainText
 		{
-			get { return usedForTypesDB; }
-			set { SetField(ref usedForTypesDB, value); }
+			get { return usedForTypesPlainText; }
+			set { SetField(ref usedForTypesPlainText, value); }
 		}
 
 		public OrderState()
