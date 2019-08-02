@@ -151,7 +151,7 @@
     <Compile Include="Representation\CarModelsVM.cs" />
     <Compile Include="Widgets\GlassSelector.cs" />
     <Compile Include="Domain\CarWindow.cs" />
-    <Compile Include="HibernateMapping\CarWindow.cs" />
+    <Compile Include="HibernateMapping\CarWindowMap.cs" />
     <Compile Include="Domain\StoreItem.cs" />
     <Compile Include="Domain\GlassManufacturer.cs" />
     <Compile Include="HibernateMapping\GlassManufacturerMap.cs" />
