@@ -173,6 +173,7 @@
     <Compile Include="HibernateMapping\ManufacturerMap.cs" />
     <Compile Include="HibernateMapping\OrderStateMap.cs" />
     <Compile Include="HibernateMapping\WorkOrderMap.cs" />
+    <Compile Include="HibernateMapping\StockMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

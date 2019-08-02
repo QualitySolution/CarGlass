@@ -18,4 +18,9 @@ namespace CarGlass.Domain
 		[Display(Name = "Прочее")]
 		other
 	}
+
+	public class OrderTypeStringType : NHibernate.Type.EnumStringType
+	{
+		public OrderTypeStringType() : base(typeof(OrderType)) { }
+	}
 }
