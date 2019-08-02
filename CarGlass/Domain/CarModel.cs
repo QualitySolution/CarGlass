@@ -1,10 +1,8 @@
-﻿using System;
-using QS.DomainModel.Entity;
-using QSOrmProject;
+﻿using QS.DomainModel.Entity;
 
 namespace CarGlass.Domain
 {
-    public class CarModel : PropertyChangedBase, IDomainObject
+	public class CarModel : PropertyChangedBase, IDomainObject
     {
 
 		public virtual int Id { get; set; }

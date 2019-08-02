@@ -166,6 +166,13 @@
     <Compile Include="gtk-gui\CarGlass.ReportDialog.StoreByPlacementsRDlg.cs" />
     <Compile Include="Dialogs\OrderDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.OrderDlg.cs" />
+    <Compile Include="Domain\WorkOrder.cs" />
+    <Compile Include="Domain\OrderState.cs" />
+    <Compile Include="Domain\Manufacturer.cs" />
+    <Compile Include="Domain\Stock.cs" />
+    <Compile Include="HibernateMapping\ManufacturerMap.cs" />
+    <Compile Include="HibernateMapping\OrderStateMap.cs" />
+    <Compile Include="HibernateMapping\WorkOrderMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
