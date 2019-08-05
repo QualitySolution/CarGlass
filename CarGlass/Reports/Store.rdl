@@ -128,6 +128,8 @@ ORDER BY brand, model, glass_id, amount DESC</CommandText>
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
+          <BorderColor />
+          <BorderWidth />
         </Style>
         <TableColumns>
           <TableColumn>
@@ -256,6 +258,43 @@ ORDER BY brand, model, glass_id, amount DESC</CommandText>
           <RepeatOnNewPage>true</RepeatOnNewPage>
         </Header>
         <TableGroups>
+          <TableGroup>
+            <Grouping Name="placement_group">
+              <PageBreakAtStart>false</PageBreakAtStart>
+              <PageBreakAtEnd>false</PageBreakAtEnd>
+              <GroupExpressions>
+                <GroupExpression>={placement}</GroupExpression>
+              </GroupExpressions>
+            </Grouping>
+            <Header>
+              <RepeatOnNewPage>false</RepeatOnNewPage>
+              <TableRows>
+                <TableRow>
+                  <Height>.2in</Height>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox2">
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <BorderColor />
+                            <BorderWidth />
+                            <TextAlign>Center</TextAlign>
+                            <FontWeight>Bold</FontWeight>
+                            <FontSize>12pt</FontSize>
+                          </Style>
+                          <Value>=Fields!placement.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                      <ColSpan>6</ColSpan>
+                    </TableCell>
+                  </TableCells>
+                </TableRow>
+              </TableRows>
+            </Header>
+          </TableGroup>
           <TableGroup>
             <Header>
               <TableRows>
