@@ -24,7 +24,7 @@ namespace CarGlass
 
 		private global::Gamma.GtkWidgets.yEntry entryEurocode;
 
-		private global::Gamma.GtkWidgets.yEntry entryPhone;
+		private global::QS.Widgets.GtkUI.PhoneEntry entryPhone;
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 
@@ -200,10 +200,9 @@ namespace CarGlass
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.entryPhone = new global::Gamma.GtkWidgets.yEntry();
+			this.entryPhone = new global::QS.Widgets.GtkUI.PhoneEntry();
 			this.entryPhone.CanFocus = true;
 			this.entryPhone.Name = "entryPhone";
-			this.entryPhone.Text = global::Mono.Unix.Catalog.GetString("+7");
 			this.entryPhone.IsEditable = true;
 			this.entryPhone.InvisibleChar = '●';
 			this.table1.Add(this.entryPhone);
