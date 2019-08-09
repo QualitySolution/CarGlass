@@ -172,6 +172,10 @@
     <Compile Include="HibernateMapping\StockMap.cs" />
     <Compile Include="Repository\OrderStateRepository.cs" />
     <Compile Include="Repository\CarModelRepository.cs" />
+    <Compile Include="Domain\WorkOrderPay.cs" />
+    <Compile Include="Domain\Service.cs" />
+    <Compile Include="HibernateMapping\WorkOrderPayMap.cs" />
+    <Compile Include="HibernateMapping\ServiceMap.cs" />
     <Compile Include="Dialogs\ServiceDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.ServiceDlg.cs" />
   </ItemGroup>

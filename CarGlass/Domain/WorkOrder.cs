@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Bindings.Collections.Generic;
 using QS.DomainModel.Entity;
 using QS.Project.Domain;
 
@@ -8,6 +10,8 @@ namespace CarGlass.Domain
 	public class WorkOrder : PropertyChangedBase, IDomainObject
 	{
 		public virtual int Id { get; set; }
+
+		#region Свойства
 
 		private DateTime date;
 
@@ -156,6 +160,29 @@ namespace CarGlass.Domain
 			get { return comment; }
 			set { SetField(ref comment, value); }
 		}
+
+		#endregion
+
+		#region Коллекции
+
+		IList<WorkOrderPay> pays = new List<WorkOrderPay>();
+		[Display(Name = "не задано")]
+		public virtual IList<WorkOrderPay> Pays {
+		    get => pays;
+			set => SetField(ref pays, value);
+		}
+
+		GenericObservableList<WorkOrderPay> observablepays;
+		//FIXME Кослыль пока не разберемся как научить hibernate работать с обновляемыми списками.
+		public virtual GenericObservableList<WorkOrderPay> Observablepays {
+		    get {
+		        if(observablepays == null)
+		            observablepays = new GenericObservableList<WorkOrderPay>(Pays);
+		        return observablepays;
+			}
+		}
+
+		#endregion
 
 		public WorkOrder()
 		{
