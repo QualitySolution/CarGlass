@@ -40,12 +40,12 @@ namespace CarGlass.Dialogs
 			excel2007.AddPattern("*.xlsx");
 			excel2007.Name = ".xlsx (Excel 2007)";
 
-			Gtk.FileFilter excel2003 = new Gtk.FileFilter();
-			excel2003.AddPattern("*.xls");
-			excel2003.Name = ".xls (Excel 2003)";
+			//Gtk.FileFilter excel2003 = new Gtk.FileFilter();
+			//excel2003.AddPattern("*.xls");
+			//excel2003.Name = ".xls (Excel 2003)";
 
 			fileChooser.AddFilter(excel2007);
-			fileChooser.AddFilter(excel2003);
+			//fileChooser.AddFilter(excel2003);
 
 			string filename;
 			bool result = fileChooser.Run() == (int)ResponseType.Accept;
@@ -62,7 +62,7 @@ namespace CarGlass.Dialogs
 			progressbar1.Adjustment.Upper = 1;
 			GtkHelper.WaitRedraw();
 
-			if (!filename.EndsWith(".xlsx") && !filename.EndsWith(".xls"))
+			if (!filename.EndsWith(".xlsx") )//&& !filename.EndsWith(".xls"))
 				filename += ".xlsx";
 
 			var orders = WorkOrderRepository.GetOrders(UoW, daterange.StartDateOrNull, daterange.EndDateOrNull);
