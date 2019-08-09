@@ -105,6 +105,21 @@
     <Reference Include="Svg">
       <HintPath>..\packages\Svg.2.3.0\lib\net35\Svg.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -172,6 +187,10 @@
     <Compile Include="HibernateMapping\StockMap.cs" />
     <Compile Include="Repository\OrderStateRepository.cs" />
     <Compile Include="Repository\CarModelRepository.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.ExportExcel.cs" />
+    <Compile Include="Dialogs\ExportExcelDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.ExportExcelDlg.cs" />
+    <Compile Include="Repository\WorkOrderRepository.cs" />
     <Compile Include="Domain\WorkOrderPay.cs" />
     <Compile Include="Domain\Service.cs" />
     <Compile Include="HibernateMapping\WorkOrderPayMap.cs" />

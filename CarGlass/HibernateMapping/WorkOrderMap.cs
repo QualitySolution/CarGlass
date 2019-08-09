@@ -27,6 +27,8 @@ namespace CarGlass.HibernateMapping
 			References(x => x.OrderState).Column("status_id");
 			References(x => x.Manufacturer).Column("manufacturer_id");
 			References(x => x.Stock).Column("stock_id");
+
+			HasMany(x => x.Pays).Cascade.AllDeleteOrphan().Inverse().LazyLoad().KeyColumn("order_id");
 		}
 	}
 }

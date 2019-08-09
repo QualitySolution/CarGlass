@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using CarGlass;
+using CarGlass.Dialogs;
 using CarGlass.ReportDialog;
 using Gtk;
 using QS.Updater;
@@ -286,5 +287,13 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 	protected void OnQuitActionActivated(object sender, EventArgs e)
 	{
 		Application.Quit();
+	}
+
+	protected void OnExcelActionActivated(object sender, EventArgs e)
+	{
+		var exportDlg = new ExportExcelDlg();
+		exportDlg.Show();
+		exportDlg.Run();
+		exportDlg.Destroy();
 	}
 }
