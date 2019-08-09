@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CarGlass;
 using CarGlass.ReportDialog;
 using Gtk;
@@ -109,7 +109,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 				StatusEdit.Destroy();
 				break;
 			case "services":
-				Service ServiceEdit = new Service();
+				ServiceDlg ServiceEdit = new ServiceDlg();
 				if (e.NewItem)
 					ServiceEdit.NewItem = true;
 				else

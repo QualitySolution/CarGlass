@@ -124,8 +124,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="gtk-gui\CarGlass.Status.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="gtk-gui\CarGlass.Service.cs" />
     <Compile Include="OrdersCalendar.cs" />
     <Compile Include="gtk-gui\CarGlass.OrdersCalendar.cs" />
     <Compile Include="MainWinCalendars.cs" />
@@ -174,6 +172,8 @@
     <Compile Include="HibernateMapping\StockMap.cs" />
     <Compile Include="Repository\OrderStateRepository.cs" />
     <Compile Include="Repository\CarModelRepository.cs" />
+    <Compile Include="Dialogs\ServiceDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.ServiceDlg.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

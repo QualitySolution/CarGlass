@@ -7,13 +7,13 @@ using CarGlass.Domain;
 
 namespace CarGlass
 {
-	public partial class Service : Gtk.Dialog
+	public partial class ServiceDlg : Gtk.Dialog
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		public bool NewItem;
 		int Serviceid;
 
-		public Service()
+		public ServiceDlg()
 		{
 			this.Build();
 			comboType.ItemsEnum = typeof(OrderType);

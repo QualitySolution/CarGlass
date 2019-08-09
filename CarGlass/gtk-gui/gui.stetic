@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
@@ -870,7 +870,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.Service" design-size="360 186">
+  <widget class="Gtk.Dialog" id="CarGlass.ServiceDlg" design-size="360 186">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Вид работы</property>
     <property name="WindowPosition">CenterOnParent</property>
