@@ -23,8 +23,6 @@ namespace CarGlass
 				typeof(long)    // 4 - order_pay id
 			);
 
-		private Dictionary<string, bool> GlassInDB;
-
 		public OrderDlg(ushort pointNumber, ushort calendarNumber, OrderType Type, DateTime date, ushort hour)
 		{
 			this.Build();
@@ -88,19 +86,6 @@ namespace CarGlass
 			entryEurocode.Binding.AddBinding(Entity, e => e.Eurocode, w => w.Text).InitializeFromSource();
 			textviewComment.Binding.AddBinding(Entity, e => e.Comment, w => w.Buffer.Text).InitializeFromSource();
 
-			//Загрузка списка стекл
-			var sql = "SELECT id, name FROM glass";
-			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
-			GlassInDB = new Dictionary<string, bool>();
-			using (MySqlDataReader rdr = cmd.ExecuteReader())
-			{
-				while(rdr.Read())
-				{
-					checksGlass.AddCheckButton(rdr["id"].ToString(), rdr["name"].ToString());
-					GlassInDB.Add(rdr["id"].ToString(), false);
-				}
-			}
-
 			CellRendererToggle CellPay = new CellRendererToggle();
 			CellPay.Activatable = true;
 			CellPay.Toggled += onCellPayToggled;
@@ -121,8 +106,8 @@ namespace CarGlass
 			treeviewCost.Model = ServiceListStore;
 			treeviewCost.ShowAll();
 
-			sql = "SELECT id, name, price FROM services WHERE order_type = @order_type ORDER BY ordinal";
-			cmd = new MySqlCommand(sql, QSMain.connectionDB);
+			var sql = "SELECT id, name, price FROM services WHERE order_type = @order_type ORDER BY ordinal";
+			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			cmd.Parameters.AddWithValue("@order_type", Entity.OrderType.ToString());
 			using (MySqlDataReader rdr = cmd.ExecuteReader())
 			{
@@ -192,30 +177,6 @@ namespace CarGlass
 			UoW.Save();
 
 			string sql;
-				
-			// Запись стекл
-			foreach(KeyValuePair<string, CheckButton> pair in checksGlass.CheckButtons)
-			{
-				if(pair.Value.Active && !GlassInDB[pair.Key])
-				{
-					sql = "INSERT INTO order_glasses (order_id, glass_id) VALUES (@order_id, @glass_id)";
-
-					var cmd = new MySqlCommand(sql, QSMain.connectionDB);
-					cmd.Parameters.AddWithValue("@order_id", Entity.Id);
-					cmd.Parameters.AddWithValue("@glass_id", pair.Key);
-					cmd.ExecuteNonQuery();
-				}
-				if(!pair.Value.Active && GlassInDB[pair.Key])
-				{
-					sql = "DELETE FROM order_glasses WHERE order_id = @order_id AND glass_id = @glass_id";
-
-					var cmd = new MySqlCommand(sql, QSMain.connectionDB);
-					cmd.Parameters.AddWithValue("@order_id", Entity.Id);
-					cmd.Parameters.AddWithValue("@glass_id", pair.Key);
-					cmd.ExecuteNonQuery();
-				}
-			}
-
 			//Запись стоимости
 			foreach(object[] row in ServiceListStore)
 			{
@@ -250,20 +211,8 @@ namespace CarGlass
 
 		private void Fill()
 		{
-			var sql = "SELECT * FROM order_glasses WHERE order_id = @id";
+			var sql = "SELECT * FROM order_pays WHERE order_id = @id";
 			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
-			cmd.Parameters.AddWithValue("@id", Entity.Id);
-			using(MySqlDataReader rdr = cmd.ExecuteReader())
-			{
-				while(rdr.Read())
-				{
-					checksGlass.CheckButtons[rdr["glass_id"].ToString()].Active = true;
-					GlassInDB[rdr["glass_id"].ToString()] = true;
-				}
-			}
-
-			sql = "SELECT * FROM order_pays WHERE order_id = @id";
-			cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			cmd.Parameters.AddWithValue("@id", Entity.Id);
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
