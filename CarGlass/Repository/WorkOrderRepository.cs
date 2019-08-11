@@ -36,6 +36,9 @@ namespace CarGlass.Repository
 				query.Where(x => x.Date >= startDate.Value.Date);
 			if (endDate.HasValue)
 				query.Where(x => x.Date < endDate.Value.Date);
+
+			query.Where(x => x.OrderType != OrderType.other);
+
 			return query;
 		}
 	}
