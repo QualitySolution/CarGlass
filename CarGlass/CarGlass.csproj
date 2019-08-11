@@ -187,7 +187,6 @@
     <Compile Include="HibernateMapping\StockMap.cs" />
     <Compile Include="Repository\OrderStateRepository.cs" />
     <Compile Include="Repository\CarModelRepository.cs" />
-    <Compile Include="gtk-gui\CarGlass.Dialogs.ExportExcel.cs" />
     <Compile Include="Dialogs\ExportExcelDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.Dialogs.ExportExcelDlg.cs" />
     <Compile Include="Repository\WorkOrderRepository.cs" />
