@@ -196,6 +196,7 @@
     <Compile Include="HibernateMapping\ServiceMap.cs" />
     <Compile Include="Dialogs\ServiceDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.ServiceDlg.cs" />
+    <Compile Include="Domain\Warranty.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

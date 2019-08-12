@@ -22,6 +22,11 @@ namespace CarGlass.HibernateMapping
 			Map(x => x.Eurocode).Column("eurocode");
 			Map(x => x.Comment).Column("comment");
 
+			Map(x => x.WarrantyInstall).Column("warranty_install").CustomType<WarrantyStringType>();
+			Map(x => x.WarrantyTinting).Column("warranty_tinting").CustomType<WarrantyStringType>();
+			Map(x => x.WarrantyPolishing).Column("warranty_polishing").CustomType<WarrantyStringType>();
+			Map(x => x.WarrantyArmoring).Column("warranty_armoring").CustomType<WarrantyStringType>();
+
 			References(x => x.CreatedBy).Column("created_by");
 			References(x => x.CarModel).Column("car_model_id");
 			References(x => x.OrderState).Column("status_id");

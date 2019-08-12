@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CarGlass.Domain;
 using CarGlass.Repository;
 using Gtk;
@@ -85,6 +84,41 @@ namespace CarGlass
 			entryPhone.Binding.AddBinding(Entity, e => e.Phone, w => w.Text).InitializeFromSource();
 			entryEurocode.Binding.AddBinding(Entity, e => e.Eurocode, w => w.Text).InitializeFromSource();
 			textviewComment.Binding.AddBinding(Entity, e => e.Comment, w => w.Buffer.Text).InitializeFromSource();
+
+			yradioInstallNone.BindValueWhenActivated = yradioTintingNone.BindValueWhenActivated
+				= yradioPolishingNone.BindValueWhenActivated = yradioArmoringNone.BindValueWhenActivated = Warranty.None;
+			yradioInstall1Year.BindValueWhenActivated = yradioTinting1Year.BindValueWhenActivated
+				= yradioPolishing1Year.BindValueWhenActivated = yradioArmoring1Year.BindValueWhenActivated = Warranty.OneYear;
+			yradioInstall2Year.BindValueWhenActivated = yradioTinting2Year.BindValueWhenActivated
+				= yradioPolishing2Year.BindValueWhenActivated = yradioArmoring2Year.BindValueWhenActivated = Warranty.TwoYear;
+			yradioInstall3Year.BindValueWhenActivated = yradioTinting3Year.BindValueWhenActivated 
+				= yradioPolishing3Year.BindValueWhenActivated = yradioArmoring3Year.BindValueWhenActivated = Warranty.ThreeYear;
+			yradioInstallIndefinitely.BindValueWhenActivated = yradioTintingIndefinitely.BindValueWhenActivated
+				= yradioPolishingIndefinitely.BindValueWhenActivated = yradioArmoringIndefinitely.BindValueWhenActivated = Warranty.Indefinitely;
+
+			yradioInstallNone.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
+			yradioInstall1Year.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
+			yradioInstall2Year.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
+			yradioInstall3Year.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
+			yradioInstallIndefinitely.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
+
+			yradioTintingNone.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
+			yradioTinting1Year.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
+			yradioTinting2Year.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
+			yradioTinting3Year.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
+			yradioTintingIndefinitely.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
+
+			yradioPolishingNone.Binding.AddBinding(Entity, e => e.WarrantyPolishing, w => w.BindedValue).InitializeFromSource();
+			yradioPolishing1Year.Binding.AddBinding(Entity, e => e.WarrantyPolishing, w => w.BindedValue).InitializeFromSource();
+			yradioPolishing2Year.Binding.AddBinding(Entity, e => e.WarrantyPolishing, w => w.BindedValue).InitializeFromSource();
+			yradioPolishing3Year.Binding.AddBinding(Entity, e => e.WarrantyPolishing, w => w.BindedValue).InitializeFromSource();
+			yradioPolishingIndefinitely.Binding.AddBinding(Entity, e => e.WarrantyPolishing, w => w.BindedValue).InitializeFromSource();
+
+			yradioArmoringNone.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
+			yradioArmoring1Year.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
+			yradioArmoring2Year.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
+			yradioArmoring3Year.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
+			yradioArmoringIndefinitely.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
 
 			CellRendererToggle CellPay = new CellRendererToggle();
 			CellPay.Activatable = true;

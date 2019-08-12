@@ -161,6 +161,46 @@ namespace CarGlass.Domain
 			set { SetField(ref comment, value); }
 		}
 
+		#region Гарантия
+
+		private Warranty warrantyInstall;
+
+		[Display(Name = "Гарантия на установку")]
+		public virtual Warranty WarrantyInstall
+		{
+			get { return warrantyInstall; }
+			set { SetField(ref warrantyInstall, value); }
+		}
+
+		private Warranty warrantyTinting;
+
+		[Display(Name = "Гарантия на тонировку")]
+		public virtual Warranty WarrantyTinting
+		{
+			get { return warrantyTinting; }
+			set { SetField(ref warrantyTinting, value); }
+		}
+
+		private Warranty warrantyPolishing;
+
+		[Display(Name = "Гарантия на полировку")]
+		public virtual Warranty WarrantyPolishing
+		{
+			get { return warrantyPolishing; }
+			set { SetField(ref warrantyPolishing, value); }
+		}
+
+		private Warranty warrantyArmoring;
+
+		[Display(Name = "Гарантия на бронировку")]
+		public virtual Warranty WarrantyArmoring
+		{
+			get { return warrantyArmoring; }
+			set { SetField(ref warrantyArmoring, value); }
+		}
+
+		#endregion
+
 		#endregion
 
 		#region Коллекции
