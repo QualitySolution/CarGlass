@@ -320,17 +320,8 @@ namespace CarGlass
 			Gtk.Menu jBox = new Gtk.Menu();
 			MenuItem MenuItem1;
 
-			MenuItem1 = new MenuItem("Установка");
-			MenuItem1.Activated += OnPopupPrintOrderInstall;
-			jBox.Add(MenuItem1);
-			MenuItem1 = new MenuItem("Тонировка");
-			MenuItem1.Activated += OnPopupPrintOrderTinting;
-			jBox.Add(MenuItem1);
-			MenuItem1 = new MenuItem("Бронировка");
-			MenuItem1.Activated += OnPopupPrintOrderArmoring;
-			jBox.Add(MenuItem1);
-			MenuItem1 = new MenuItem("Полировка");
-			MenuItem1.Activated += OnPopupPrintOrderPolishing;
+			MenuItem1 = new MenuItem("Заказ");
+			MenuItem1.Activated += OnPopupPrintOrder;
 			jBox.Add(MenuItem1);
 
 			jBox.Add(new SeparatorMenuItem());
@@ -341,24 +332,9 @@ namespace CarGlass
 			jBox.Popup();
 		}
 
-		protected void OnPopupPrintOrderInstall(object sender, EventArgs Arg)
+		protected void OnPopupPrintOrder(object sender, EventArgs Arg)
 		{
 			QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Entity.Id));
-		}
-
-		protected void OnPopupPrintOrderTinting(object sender, EventArgs Arg)
-		{
-			QSProjectsLib.ViewReportExt.Run("order2", String.Format("id={0}", Entity.Id));
-		}
-
-		protected void OnPopupPrintOrderArmoring(object sender, EventArgs Arg)
-		{
-			QSProjectsLib.ViewReportExt.Run("order3", String.Format("id={0}", Entity.Id));
-		}
-
-		protected void OnPopupPrintOrderPolishing(object sender, EventArgs Arg)
-		{
-			QSProjectsLib.ViewReportExt.Run("order4", String.Format("id={0}", Entity.Id));
 		}
 
 		protected void OnPopupPrintReceipt(object sender, EventArgs Arg)
