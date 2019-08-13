@@ -199,6 +199,15 @@ namespace CarGlass.Domain
 			set { SetField(ref warrantyArmoring, value); }
 		}
 
+		private Warranty warrantyPasting;
+
+		[Display(Name = "Гарантия на оклейку")]
+		public virtual Warranty WarrantyPasting
+		{
+			get { return warrantyPasting; }
+			set { SetField(ref warrantyPasting, value); }
+		}
+
 		#endregion
 
 		#endregion
