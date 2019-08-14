@@ -458,10 +458,10 @@ WHERE
           <Textbox Name="Textbox10">
             <Height>12.75pt</Height>
             <Width>79.79pt</Width>
-            <Value>stekloff@mail.ru</Value>
+            <Value>stekloff@bk.ru</Value>
             <ZIndex>1</ZIndex>
-            <Left>203.3pt</Left>
-            <Top>373.9pt</Top>
+            <Left>203.30pt</Left>
+            <Top>373.90pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
