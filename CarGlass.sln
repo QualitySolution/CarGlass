@@ -187,7 +187,9 @@ Global
 		$2.FileWidth = 80
 		$2.NoTabsAfterNonTabs = True
 		$2.scope = text/x-csharp
+		$2.EolMarker = Unix
 		$0.CSharpFormattingPolicy = $3
 		$3.scope = text/x-csharp
+		$3.SpaceAfterControlFlowStatementKeyword = False
 	EndGlobalSection
 EndGlobal
