@@ -182,15 +182,6 @@ namespace CarGlass.Domain
 			set { SetField(ref warrantyTinting, value); }
 		}
 
-		private Warranty warrantyPolishing;
-
-		[Display(Name = "Гарантия на полировку")]
-		public virtual Warranty WarrantyPolishing
-		{
-			get { return warrantyPolishing; }
-			set { SetField(ref warrantyPolishing, value); }
-		}
-
 		private Warranty warrantyArmoring;
 
 		[Display(Name = "Гарантия на бронировку")]

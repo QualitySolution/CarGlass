@@ -80,6 +80,8 @@ namespace CarGlass
 
 		private global::Gamma.GtkWidgets.yRadioButton yradioInstallIndefinitely;
 
+		private global::Gamma.GtkWidgets.yRadioButton yradioInstallNoWarranty;
+
 		private global::Gtk.HBox hbox4;
 
 		private global::Gamma.GtkWidgets.yRadioButton yradioTintingNone;
@@ -92,17 +94,7 @@ namespace CarGlass
 
 		private global::Gamma.GtkWidgets.yRadioButton yradioTintingIndefinitely;
 
-		private global::Gtk.HBox hbox5;
-
-		private global::Gamma.GtkWidgets.yRadioButton yradioPolishingNone;
-
-		private global::Gamma.GtkWidgets.yRadioButton yradioPolishing1Year;
-
-		private global::Gamma.GtkWidgets.yRadioButton yradioPolishing2Year;
-
-		private global::Gamma.GtkWidgets.yRadioButton yradioPolishing3Year;
-
-		private global::Gamma.GtkWidgets.yRadioButton yradioPolishingIndefinitely;
+		private global::Gamma.GtkWidgets.yRadioButton yradioTintingNoWarranty;
 
 		private global::Gtk.HBox hbox6;
 
@@ -116,6 +108,8 @@ namespace CarGlass
 
 		private global::Gamma.GtkWidgets.yRadioButton yradioArmoringIndefinitely;
 
+		private global::Gamma.GtkWidgets.yRadioButton yradioArmoringNoWarranty;
+
 		private global::Gtk.HBox hbox7;
 
 		private global::Gamma.GtkWidgets.yRadioButton yradioPastingNone;
@@ -128,6 +122,8 @@ namespace CarGlass
 
 		private global::Gamma.GtkWidgets.yRadioButton yradioPastingIndefinitely;
 
+		private global::Gamma.GtkWidgets.yRadioButton yradioPastingNoWarranty;
+
 		private global::Gtk.Label label1;
 
 		private global::Gtk.Label label10;
@@ -135,8 +131,6 @@ namespace CarGlass
 		private global::Gtk.Label label11;
 
 		private global::Gtk.Label label12;
-
-		private global::Gtk.Label label13;
 
 		private global::Gtk.Label label15;
 
@@ -507,7 +501,8 @@ namespace CarGlass
 			w32.Expand = false;
 			w32.Fill = false;
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.table2 = new global::Gtk.Table(((uint)(6)), ((uint)(2)), false);
+			this.table2 = new global::Gtk.Table(((uint)(5)), ((uint)(2)), false);
+			this.table2.Name = "table2";
 			this.table2.RowSpacing = ((uint)(6));
 			this.table2.ColumnSpacing = ((uint)(6));
 			// Container child table2.Gtk.Table+TableChild
@@ -579,14 +574,27 @@ namespace CarGlass
 			w37.Position = 4;
 			w37.Expand = false;
 			w37.Fill = false;
+			// Container child hbox3.Gtk.Box+BoxChild
+			this.yradioInstallNoWarranty = new global::Gamma.GtkWidgets.yRadioButton();
+			this.yradioInstallNoWarranty.CanFocus = true;
+			this.yradioInstallNoWarranty.Name = "yradioInstallNoWarranty";
+			this.yradioInstallNoWarranty.Label = global::Mono.Unix.Catalog.GetString("Без гарантии");
+			this.yradioInstallNoWarranty.DrawIndicator = true;
+			this.yradioInstallNoWarranty.UseUnderline = true;
+			this.yradioInstallNoWarranty.Group = this.yradioInstallNone.Group;
+			this.hbox3.Add(this.yradioInstallNoWarranty);
+			global::Gtk.Box.BoxChild w38 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.yradioInstallNoWarranty]));
+			w38.Position = 5;
+			w38.Expand = false;
+			w38.Fill = false;
 			this.table2.Add(this.hbox3);
-			global::Gtk.Table.TableChild w38 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox3]));
-			w38.TopAttach = ((uint)(1));
-			w38.BottomAttach = ((uint)(2));
-			w38.LeftAttach = ((uint)(1));
-			w38.RightAttach = ((uint)(2));
-			w38.XOptions = ((global::Gtk.AttachOptions)(4));
-			w38.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w39 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox3]));
+			w39.TopAttach = ((uint)(1));
+			w39.BottomAttach = ((uint)(2));
+			w39.LeftAttach = ((uint)(1));
+			w39.RightAttach = ((uint)(2));
+			w39.XOptions = ((global::Gtk.AttachOptions)(4));
+			w39.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.hbox4 = new global::Gtk.HBox();
 			this.hbox4.Name = "hbox4";
@@ -600,10 +608,10 @@ namespace CarGlass
 			this.yradioTintingNone.UseUnderline = true;
 			this.yradioTintingNone.Group = new global::GLib.SList(global::System.IntPtr.Zero);
 			this.hbox4.Add(this.yradioTintingNone);
-			global::Gtk.Box.BoxChild w39 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTintingNone]));
-			w39.Position = 0;
-			w39.Expand = false;
-			w39.Fill = false;
+			global::Gtk.Box.BoxChild w40 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTintingNone]));
+			w40.Position = 0;
+			w40.Expand = false;
+			w40.Fill = false;
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.yradioTinting1Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioTinting1Year.CanFocus = true;
@@ -613,10 +621,10 @@ namespace CarGlass
 			this.yradioTinting1Year.UseUnderline = true;
 			this.yradioTinting1Year.Group = this.yradioTintingNone.Group;
 			this.hbox4.Add(this.yradioTinting1Year);
-			global::Gtk.Box.BoxChild w40 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTinting1Year]));
-			w40.Position = 1;
-			w40.Expand = false;
-			w40.Fill = false;
+			global::Gtk.Box.BoxChild w41 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTinting1Year]));
+			w41.Position = 1;
+			w41.Expand = false;
+			w41.Fill = false;
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.yradioTinting2Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioTinting2Year.CanFocus = true;
@@ -626,10 +634,10 @@ namespace CarGlass
 			this.yradioTinting2Year.UseUnderline = true;
 			this.yradioTinting2Year.Group = this.yradioTintingNone.Group;
 			this.hbox4.Add(this.yradioTinting2Year);
-			global::Gtk.Box.BoxChild w41 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTinting2Year]));
-			w41.Position = 2;
-			w41.Expand = false;
-			w41.Fill = false;
+			global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTinting2Year]));
+			w42.Position = 2;
+			w42.Expand = false;
+			w42.Fill = false;
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.yradioTinting3Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioTinting3Year.CanFocus = true;
@@ -639,10 +647,10 @@ namespace CarGlass
 			this.yradioTinting3Year.UseUnderline = true;
 			this.yradioTinting3Year.Group = this.yradioTintingNone.Group;
 			this.hbox4.Add(this.yradioTinting3Year);
-			global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTinting3Year]));
-			w42.Position = 3;
-			w42.Expand = false;
-			w42.Fill = false;
+			global::Gtk.Box.BoxChild w43 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTinting3Year]));
+			w43.Position = 3;
+			w43.Expand = false;
+			w43.Fill = false;
 			// Container child hbox4.Gtk.Box+BoxChild
 			this.yradioTintingIndefinitely = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioTintingIndefinitely.CanFocus = true;
@@ -652,95 +660,31 @@ namespace CarGlass
 			this.yradioTintingIndefinitely.UseUnderline = true;
 			this.yradioTintingIndefinitely.Group = this.yradioTintingNone.Group;
 			this.hbox4.Add(this.yradioTintingIndefinitely);
-			global::Gtk.Box.BoxChild w43 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTintingIndefinitely]));
-			w43.Position = 4;
-			w43.Expand = false;
-			w43.Fill = false;
-			this.table2.Add(this.hbox4);
-			global::Gtk.Table.TableChild w44 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox4]));
-			w44.TopAttach = ((uint)(2));
-			w44.BottomAttach = ((uint)(3));
-			w44.LeftAttach = ((uint)(1));
-			w44.RightAttach = ((uint)(2));
-			w44.XOptions = ((global::Gtk.AttachOptions)(4));
-			w44.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table2.Gtk.Table+TableChild
-			this.hbox5 = new global::Gtk.HBox();
-			this.hbox5.Name = "hbox5";
-			this.hbox5.Spacing = 6;
-			// Container child hbox5.Gtk.Box+BoxChild
-			this.yradioPolishingNone = new global::Gamma.GtkWidgets.yRadioButton();
-			this.yradioPolishingNone.CanFocus = true;
-			this.yradioPolishingNone.Name = "yradioPolishingNone";
-			this.yradioPolishingNone.Label = global::Mono.Unix.Catalog.GetString("Нет");
-			this.yradioPolishingNone.DrawIndicator = true;
-			this.yradioPolishingNone.UseUnderline = true;
-			this.yradioPolishingNone.Group = new global::GLib.SList(global::System.IntPtr.Zero);
-			this.hbox5.Add(this.yradioPolishingNone);
-			global::Gtk.Box.BoxChild w45 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.yradioPolishingNone]));
-			w45.Position = 0;
+			global::Gtk.Box.BoxChild w44 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTintingIndefinitely]));
+			w44.Position = 4;
+			w44.Expand = false;
+			w44.Fill = false;
+			// Container child hbox4.Gtk.Box+BoxChild
+			this.yradioTintingNoWarranty = new global::Gamma.GtkWidgets.yRadioButton();
+			this.yradioTintingNoWarranty.CanFocus = true;
+			this.yradioTintingNoWarranty.Name = "yradioTintingNoWarranty";
+			this.yradioTintingNoWarranty.Label = global::Mono.Unix.Catalog.GetString("Без гарантии");
+			this.yradioTintingNoWarranty.DrawIndicator = true;
+			this.yradioTintingNoWarranty.UseUnderline = true;
+			this.yradioTintingNoWarranty.Group = this.yradioTintingNone.Group;
+			this.hbox4.Add(this.yradioTintingNoWarranty);
+			global::Gtk.Box.BoxChild w45 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.yradioTintingNoWarranty]));
+			w45.Position = 5;
 			w45.Expand = false;
 			w45.Fill = false;
-			// Container child hbox5.Gtk.Box+BoxChild
-			this.yradioPolishing1Year = new global::Gamma.GtkWidgets.yRadioButton();
-			this.yradioPolishing1Year.CanFocus = true;
-			this.yradioPolishing1Year.Name = "yradioPolishing1Year";
-			this.yradioPolishing1Year.Label = global::Mono.Unix.Catalog.GetString("1 Год");
-			this.yradioPolishing1Year.DrawIndicator = true;
-			this.yradioPolishing1Year.UseUnderline = true;
-			this.yradioPolishing1Year.Group = this.yradioPolishingNone.Group;
-			this.hbox5.Add(this.yradioPolishing1Year);
-			global::Gtk.Box.BoxChild w46 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.yradioPolishing1Year]));
-			w46.Position = 1;
-			w46.Expand = false;
-			w46.Fill = false;
-			// Container child hbox5.Gtk.Box+BoxChild
-			this.yradioPolishing2Year = new global::Gamma.GtkWidgets.yRadioButton();
-			this.yradioPolishing2Year.CanFocus = true;
-			this.yradioPolishing2Year.Name = "yradioPolishing2Year";
-			this.yradioPolishing2Year.Label = global::Mono.Unix.Catalog.GetString("2 Года");
-			this.yradioPolishing2Year.DrawIndicator = true;
-			this.yradioPolishing2Year.UseUnderline = true;
-			this.yradioPolishing2Year.Group = this.yradioPolishingNone.Group;
-			this.hbox5.Add(this.yradioPolishing2Year);
-			global::Gtk.Box.BoxChild w47 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.yradioPolishing2Year]));
-			w47.Position = 2;
-			w47.Expand = false;
-			w47.Fill = false;
-			// Container child hbox5.Gtk.Box+BoxChild
-			this.yradioPolishing3Year = new global::Gamma.GtkWidgets.yRadioButton();
-			this.yradioPolishing3Year.CanFocus = true;
-			this.yradioPolishing3Year.Name = "yradioPolishing3Year";
-			this.yradioPolishing3Year.Label = global::Mono.Unix.Catalog.GetString("3 Года");
-			this.yradioPolishing3Year.DrawIndicator = true;
-			this.yradioPolishing3Year.UseUnderline = true;
-			this.yradioPolishing3Year.Group = this.yradioPolishingNone.Group;
-			this.hbox5.Add(this.yradioPolishing3Year);
-			global::Gtk.Box.BoxChild w48 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.yradioPolishing3Year]));
-			w48.Position = 3;
-			w48.Expand = false;
-			w48.Fill = false;
-			// Container child hbox5.Gtk.Box+BoxChild
-			this.yradioPolishingIndefinitely = new global::Gamma.GtkWidgets.yRadioButton();
-			this.yradioPolishingIndefinitely.CanFocus = true;
-			this.yradioPolishingIndefinitely.Name = "yradioPolishingIndefinitely";
-			this.yradioPolishingIndefinitely.Label = global::Mono.Unix.Catalog.GetString("Бессрочно");
-			this.yradioPolishingIndefinitely.DrawIndicator = true;
-			this.yradioPolishingIndefinitely.UseUnderline = true;
-			this.yradioPolishingIndefinitely.Group = this.yradioPolishingNone.Group;
-			this.hbox5.Add(this.yradioPolishingIndefinitely);
-			global::Gtk.Box.BoxChild w49 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.yradioPolishingIndefinitely]));
-			w49.Position = 4;
-			w49.Expand = false;
-			w49.Fill = false;
-			this.table2.Add(this.hbox5);
-			global::Gtk.Table.TableChild w50 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox5]));
-			w50.TopAttach = ((uint)(4));
-			w50.BottomAttach = ((uint)(5));
-			w50.LeftAttach = ((uint)(1));
-			w50.RightAttach = ((uint)(2));
-			w50.XOptions = ((global::Gtk.AttachOptions)(4));
-			w50.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.table2.Add(this.hbox4);
+			global::Gtk.Table.TableChild w46 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox4]));
+			w46.TopAttach = ((uint)(2));
+			w46.BottomAttach = ((uint)(3));
+			w46.LeftAttach = ((uint)(1));
+			w46.RightAttach = ((uint)(2));
+			w46.XOptions = ((global::Gtk.AttachOptions)(4));
+			w46.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.hbox6 = new global::Gtk.HBox();
 			this.hbox6.Name = "hbox6";
@@ -754,10 +698,10 @@ namespace CarGlass
 			this.yradioArmoringNone.UseUnderline = true;
 			this.yradioArmoringNone.Group = new global::GLib.SList(global::System.IntPtr.Zero);
 			this.hbox6.Add(this.yradioArmoringNone);
-			global::Gtk.Box.BoxChild w51 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoringNone]));
-			w51.Position = 0;
-			w51.Expand = false;
-			w51.Fill = false;
+			global::Gtk.Box.BoxChild w47 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoringNone]));
+			w47.Position = 0;
+			w47.Expand = false;
+			w47.Fill = false;
 			// Container child hbox6.Gtk.Box+BoxChild
 			this.yradioArmoring1Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioArmoring1Year.CanFocus = true;
@@ -767,10 +711,10 @@ namespace CarGlass
 			this.yradioArmoring1Year.UseUnderline = true;
 			this.yradioArmoring1Year.Group = this.yradioArmoringNone.Group;
 			this.hbox6.Add(this.yradioArmoring1Year);
-			global::Gtk.Box.BoxChild w52 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoring1Year]));
-			w52.Position = 1;
-			w52.Expand = false;
-			w52.Fill = false;
+			global::Gtk.Box.BoxChild w48 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoring1Year]));
+			w48.Position = 1;
+			w48.Expand = false;
+			w48.Fill = false;
 			// Container child hbox6.Gtk.Box+BoxChild
 			this.yradioArmoring2Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioArmoring2Year.CanFocus = true;
@@ -780,10 +724,10 @@ namespace CarGlass
 			this.yradioArmoring2Year.UseUnderline = true;
 			this.yradioArmoring2Year.Group = this.yradioArmoringNone.Group;
 			this.hbox6.Add(this.yradioArmoring2Year);
-			global::Gtk.Box.BoxChild w53 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoring2Year]));
-			w53.Position = 2;
-			w53.Expand = false;
-			w53.Fill = false;
+			global::Gtk.Box.BoxChild w49 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoring2Year]));
+			w49.Position = 2;
+			w49.Expand = false;
+			w49.Fill = false;
 			// Container child hbox6.Gtk.Box+BoxChild
 			this.yradioArmoring3Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioArmoring3Year.CanFocus = true;
@@ -793,10 +737,10 @@ namespace CarGlass
 			this.yradioArmoring3Year.UseUnderline = true;
 			this.yradioArmoring3Year.Group = this.yradioArmoringNone.Group;
 			this.hbox6.Add(this.yradioArmoring3Year);
-			global::Gtk.Box.BoxChild w54 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoring3Year]));
-			w54.Position = 3;
-			w54.Expand = false;
-			w54.Fill = false;
+			global::Gtk.Box.BoxChild w50 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoring3Year]));
+			w50.Position = 3;
+			w50.Expand = false;
+			w50.Fill = false;
 			// Container child hbox6.Gtk.Box+BoxChild
 			this.yradioArmoringIndefinitely = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioArmoringIndefinitely.CanFocus = true;
@@ -806,18 +750,31 @@ namespace CarGlass
 			this.yradioArmoringIndefinitely.UseUnderline = true;
 			this.yradioArmoringIndefinitely.Group = this.yradioArmoringNone.Group;
 			this.hbox6.Add(this.yradioArmoringIndefinitely);
-			global::Gtk.Box.BoxChild w55 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoringIndefinitely]));
-			w55.Position = 4;
-			w55.Expand = false;
-			w55.Fill = false;
+			global::Gtk.Box.BoxChild w51 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoringIndefinitely]));
+			w51.Position = 4;
+			w51.Expand = false;
+			w51.Fill = false;
+			// Container child hbox6.Gtk.Box+BoxChild
+			this.yradioArmoringNoWarranty = new global::Gamma.GtkWidgets.yRadioButton();
+			this.yradioArmoringNoWarranty.CanFocus = true;
+			this.yradioArmoringNoWarranty.Name = "yradioArmoringNoWarranty";
+			this.yradioArmoringNoWarranty.Label = global::Mono.Unix.Catalog.GetString("Без гарантии");
+			this.yradioArmoringNoWarranty.DrawIndicator = true;
+			this.yradioArmoringNoWarranty.UseUnderline = true;
+			this.yradioArmoringNoWarranty.Group = this.yradioArmoringNone.Group;
+			this.hbox6.Add(this.yradioArmoringNoWarranty);
+			global::Gtk.Box.BoxChild w52 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.yradioArmoringNoWarranty]));
+			w52.Position = 5;
+			w52.Expand = false;
+			w52.Fill = false;
 			this.table2.Add(this.hbox6);
-			global::Gtk.Table.TableChild w56 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox6]));
-			w56.TopAttach = ((uint)(3));
-			w56.BottomAttach = ((uint)(4));
-			w56.LeftAttach = ((uint)(1));
-			w56.RightAttach = ((uint)(2));
-			w56.XOptions = ((global::Gtk.AttachOptions)(4));
-			w56.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w53 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox6]));
+			w53.TopAttach = ((uint)(3));
+			w53.BottomAttach = ((uint)(4));
+			w53.LeftAttach = ((uint)(1));
+			w53.RightAttach = ((uint)(2));
+			w53.XOptions = ((global::Gtk.AttachOptions)(4));
+			w53.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.hbox7 = new global::Gtk.HBox();
 			this.hbox7.Name = "hbox7";
@@ -831,10 +788,10 @@ namespace CarGlass
 			this.yradioPastingNone.UseUnderline = true;
 			this.yradioPastingNone.Group = new global::GLib.SList(global::System.IntPtr.Zero);
 			this.hbox7.Add(this.yradioPastingNone);
-			global::Gtk.Box.BoxChild w57 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPastingNone]));
-			w57.Position = 0;
-			w57.Expand = false;
-			w57.Fill = false;
+			global::Gtk.Box.BoxChild w54 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPastingNone]));
+			w54.Position = 0;
+			w54.Expand = false;
+			w54.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.yradioPasting1Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioPasting1Year.CanFocus = true;
@@ -844,10 +801,10 @@ namespace CarGlass
 			this.yradioPasting1Year.UseUnderline = true;
 			this.yradioPasting1Year.Group = this.yradioPastingNone.Group;
 			this.hbox7.Add(this.yradioPasting1Year);
-			global::Gtk.Box.BoxChild w58 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPasting1Year]));
-			w58.Position = 1;
-			w58.Expand = false;
-			w58.Fill = false;
+			global::Gtk.Box.BoxChild w55 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPasting1Year]));
+			w55.Position = 1;
+			w55.Expand = false;
+			w55.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.yradioPasting2Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioPasting2Year.CanFocus = true;
@@ -857,10 +814,10 @@ namespace CarGlass
 			this.yradioPasting2Year.UseUnderline = true;
 			this.yradioPasting2Year.Group = this.yradioPastingNone.Group;
 			this.hbox7.Add(this.yradioPasting2Year);
-			global::Gtk.Box.BoxChild w59 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPasting2Year]));
-			w59.Position = 2;
-			w59.Expand = false;
-			w59.Fill = false;
+			global::Gtk.Box.BoxChild w56 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPasting2Year]));
+			w56.Position = 2;
+			w56.Expand = false;
+			w56.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.yradioPasting3Year = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioPasting3Year.CanFocus = true;
@@ -870,10 +827,10 @@ namespace CarGlass
 			this.yradioPasting3Year.UseUnderline = true;
 			this.yradioPasting3Year.Group = this.yradioPastingNone.Group;
 			this.hbox7.Add(this.yradioPasting3Year);
-			global::Gtk.Box.BoxChild w60 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPasting3Year]));
-			w60.Position = 3;
-			w60.Expand = false;
-			w60.Fill = false;
+			global::Gtk.Box.BoxChild w57 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPasting3Year]));
+			w57.Position = 3;
+			w57.Expand = false;
+			w57.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.yradioPastingIndefinitely = new global::Gamma.GtkWidgets.yRadioButton();
 			this.yradioPastingIndefinitely.CanFocus = true;
@@ -883,92 +840,94 @@ namespace CarGlass
 			this.yradioPastingIndefinitely.UseUnderline = true;
 			this.yradioPastingIndefinitely.Group = this.yradioPastingNone.Group;
 			this.hbox7.Add(this.yradioPastingIndefinitely);
-			global::Gtk.Box.BoxChild w61 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPastingIndefinitely]));
-			w61.Position = 4;
-			w61.Expand = false;
-			w61.Fill = false;
+			global::Gtk.Box.BoxChild w58 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPastingIndefinitely]));
+			w58.Position = 4;
+			w58.Expand = false;
+			w58.Fill = false;
+			// Container child hbox7.Gtk.Box+BoxChild
+			this.yradioPastingNoWarranty = new global::Gamma.GtkWidgets.yRadioButton();
+			this.yradioPastingNoWarranty.CanFocus = true;
+			this.yradioPastingNoWarranty.Name = "yradioPastingNoWarranty";
+			this.yradioPastingNoWarranty.Label = global::Mono.Unix.Catalog.GetString("Без гарантии");
+			this.yradioPastingNoWarranty.DrawIndicator = true;
+			this.yradioPastingNoWarranty.UseUnderline = true;
+			this.yradioPastingNoWarranty.Group = this.yradioPastingNone.Group;
+			this.hbox7.Add(this.yradioPastingNoWarranty);
+			global::Gtk.Box.BoxChild w59 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.yradioPastingNoWarranty]));
+			w59.Position = 5;
+			w59.Expand = false;
+			w59.Fill = false;
 			this.table2.Add(this.hbox7);
-			global::Gtk.Table.TableChild w62 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox7]));
-			w62.TopAttach = ((uint)(5));
-			w62.BottomAttach = ((uint)(6));
-			w62.LeftAttach = ((uint)(1));
-			w62.RightAttach = ((uint)(2));
-			w62.XOptions = ((global::Gtk.AttachOptions)(4));
-			w62.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w60 = ((global::Gtk.Table.TableChild)(this.table2[this.hbox7]));
+			w60.TopAttach = ((uint)(4));
+			w60.BottomAttach = ((uint)(5));
+			w60.LeftAttach = ((uint)(1));
+			w60.RightAttach = ((uint)(2));
+			w60.XOptions = ((global::Gtk.AttachOptions)(4));
+			w60.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label1 = new global::Gtk.Label();
 			this.label1.Name = "label1";
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Гарантия</b>");
 			this.label1.UseMarkup = true;
 			this.table2.Add(this.label1);
-			global::Gtk.Table.TableChild w63 = ((global::Gtk.Table.TableChild)(this.table2[this.label1]));
-			w63.RightAttach = ((uint)(2));
-			w63.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w61 = ((global::Gtk.Table.TableChild)(this.table2[this.label1]));
+			w61.RightAttach = ((uint)(2));
+			w61.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label10 = new global::Gtk.Label();
 			this.label10.Name = "label10";
 			this.label10.Xalign = 1F;
 			this.label10.LabelProp = global::Mono.Unix.Catalog.GetString("Установка:");
 			this.table2.Add(this.label10);
-			global::Gtk.Table.TableChild w64 = ((global::Gtk.Table.TableChild)(this.table2[this.label10]));
-			w64.TopAttach = ((uint)(1));
-			w64.BottomAttach = ((uint)(2));
-			w64.XOptions = ((global::Gtk.AttachOptions)(4));
-			w64.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w62 = ((global::Gtk.Table.TableChild)(this.table2[this.label10]));
+			w62.TopAttach = ((uint)(1));
+			w62.BottomAttach = ((uint)(2));
+			w62.XOptions = ((global::Gtk.AttachOptions)(4));
+			w62.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label11 = new global::Gtk.Label();
 			this.label11.Name = "label11";
 			this.label11.Xalign = 1F;
 			this.label11.LabelProp = global::Mono.Unix.Catalog.GetString("Тонировка:");
 			this.table2.Add(this.label11);
-			global::Gtk.Table.TableChild w65 = ((global::Gtk.Table.TableChild)(this.table2[this.label11]));
-			w65.TopAttach = ((uint)(2));
-			w65.BottomAttach = ((uint)(3));
-			w65.XOptions = ((global::Gtk.AttachOptions)(4));
-			w65.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w63 = ((global::Gtk.Table.TableChild)(this.table2[this.label11]));
+			w63.TopAttach = ((uint)(2));
+			w63.BottomAttach = ((uint)(3));
+			w63.XOptions = ((global::Gtk.AttachOptions)(4));
+			w63.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label12 = new global::Gtk.Label();
 			this.label12.Name = "label12";
 			this.label12.Xalign = 1F;
 			this.label12.LabelProp = global::Mono.Unix.Catalog.GetString("Бронировка:");
 			this.table2.Add(this.label12);
-			global::Gtk.Table.TableChild w66 = ((global::Gtk.Table.TableChild)(this.table2[this.label12]));
-			w66.TopAttach = ((uint)(3));
-			w66.BottomAttach = ((uint)(4));
-			w66.XOptions = ((global::Gtk.AttachOptions)(4));
-			w66.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table2.Gtk.Table+TableChild
-			this.label13 = new global::Gtk.Label();
-			this.label13.Name = "label13";
-			this.label13.Xalign = 1F;
-			this.label13.LabelProp = global::Mono.Unix.Catalog.GetString("Полировка:");
-			this.table2.Add(this.label13);
-			global::Gtk.Table.TableChild w67 = ((global::Gtk.Table.TableChild)(this.table2[this.label13]));
-			w67.TopAttach = ((uint)(4));
-			w67.BottomAttach = ((uint)(5));
-			w67.XOptions = ((global::Gtk.AttachOptions)(4));
-			w67.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w64 = ((global::Gtk.Table.TableChild)(this.table2[this.label12]));
+			w64.TopAttach = ((uint)(3));
+			w64.BottomAttach = ((uint)(4));
+			w64.XOptions = ((global::Gtk.AttachOptions)(4));
+			w64.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label15 = new global::Gtk.Label();
 			this.label15.Name = "label15";
 			this.label15.Xalign = 1F;
 			this.label15.LabelProp = global::Mono.Unix.Catalog.GetString("Оклейка:");
 			this.table2.Add(this.label15);
-			global::Gtk.Table.TableChild w68 = ((global::Gtk.Table.TableChild)(this.table2[this.label15]));
-			w68.TopAttach = ((uint)(5));
-			w68.BottomAttach = ((uint)(6));
-			w68.XOptions = ((global::Gtk.AttachOptions)(4));
-			w68.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w65 = ((global::Gtk.Table.TableChild)(this.table2[this.label15]));
+			w65.TopAttach = ((uint)(4));
+			w65.BottomAttach = ((uint)(5));
+			w65.XOptions = ((global::Gtk.AttachOptions)(4));
+			w65.YOptions = ((global::Gtk.AttachOptions)(4));
 			w1.Add(this.table2);
-			global::Gtk.Box.BoxChild w69 = ((global::Gtk.Box.BoxChild)(w1[this.table2]));
-			w69.Position = 2;
-			w69.Expand = false;
+			global::Gtk.Box.BoxChild w66 = ((global::Gtk.Box.BoxChild)(w1[this.table2]));
+			w66.Position = 2;
+			w66.Expand = false;
 			// Internal child CarGlass.OrderDlg.ActionArea
-			global::Gtk.HButtonBox w70 = this.ActionArea;
-			w70.Name = "dialog1_ActionArea";
-			w70.Spacing = 10;
-			w70.BorderWidth = ((uint)(5));
-			w70.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w67 = this.ActionArea;
+			w67.Name = "dialog1_ActionArea";
+			w67.Spacing = 10;
+			w67.BorderWidth = ((uint)(5));
+			w67.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonDelete = new global::Gtk.Button();
 			this.buttonDelete.Sensitive = false;
@@ -977,10 +936,10 @@ namespace CarGlass
 			this.buttonDelete.UseStock = true;
 			this.buttonDelete.UseUnderline = true;
 			this.buttonDelete.Label = "gtk-delete";
-			w70.Add(this.buttonDelete);
-			global::Gtk.ButtonBox.ButtonBoxChild w71 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w70[this.buttonDelete]));
-			w71.Expand = false;
-			w71.Fill = false;
+			w67.Add(this.buttonDelete);
+			global::Gtk.ButtonBox.ButtonBoxChild w68 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w67[this.buttonDelete]));
+			w68.Expand = false;
+			w68.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonPrint = new global::Gtk.Button();
 			this.buttonPrint.Sensitive = false;
@@ -989,11 +948,11 @@ namespace CarGlass
 			this.buttonPrint.UseStock = true;
 			this.buttonPrint.UseUnderline = true;
 			this.buttonPrint.Label = "gtk-print";
-			w70.Add(this.buttonPrint);
-			global::Gtk.ButtonBox.ButtonBoxChild w72 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w70[this.buttonPrint]));
-			w72.Position = 1;
-			w72.Expand = false;
-			w72.Fill = false;
+			w67.Add(this.buttonPrint);
+			global::Gtk.ButtonBox.ButtonBoxChild w69 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w67[this.buttonPrint]));
+			w69.Position = 1;
+			w69.Expand = false;
+			w69.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button();
 			this.buttonCancel.CanDefault = true;
@@ -1003,10 +962,10 @@ namespace CarGlass
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget(this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w73 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w70[this.buttonCancel]));
-			w73.Position = 2;
-			w73.Expand = false;
-			w73.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w70 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w67[this.buttonCancel]));
+			w70.Position = 2;
+			w70.Expand = false;
+			w70.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button();
 			this.buttonOk.Sensitive = false;
@@ -1016,11 +975,11 @@ namespace CarGlass
 			this.buttonOk.UseStock = true;
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
-			w70.Add(this.buttonOk);
-			global::Gtk.ButtonBox.ButtonBoxChild w74 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w70[this.buttonOk]));
-			w74.Position = 3;
-			w74.Expand = false;
-			w74.Fill = false;
+			w67.Add(this.buttonOk);
+			global::Gtk.ButtonBox.ButtonBoxChild w71 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w67[this.buttonOk]));
+			w71.Position = 3;
+			w71.Expand = false;
+			w71.Fill = false;
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();

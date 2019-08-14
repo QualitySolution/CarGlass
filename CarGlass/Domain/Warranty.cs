@@ -7,7 +7,8 @@ namespace CarGlass.Domain
 		OneYear,
 		TwoYear,
 		ThreeYear,
-		Indefinitely
+		Indefinitely,
+		NoWarranty
 	}
 
 	public class WarrantyStringType : NHibernate.Type.EnumStringType

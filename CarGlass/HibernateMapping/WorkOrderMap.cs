@@ -24,7 +24,6 @@ namespace CarGlass.HibernateMapping
 
 			Map(x => x.WarrantyInstall).Column("warranty_install").CustomType<WarrantyStringType>();
 			Map(x => x.WarrantyTinting).Column("warranty_tinting").CustomType<WarrantyStringType>();
-			Map(x => x.WarrantyPolishing).Column("warranty_polishing").CustomType<WarrantyStringType>();
 			Map(x => x.WarrantyArmoring).Column("warranty_armoring").CustomType<WarrantyStringType>();
 			Map(x => x.WarrantyPasting).Column("warranty_pasting").CustomType<WarrantyStringType>();
 
