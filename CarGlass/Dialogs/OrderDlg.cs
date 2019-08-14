@@ -166,6 +166,7 @@ namespace CarGlass
 					);
 				}
 			}
+			buttonPrint.Sensitive = Entity.OrderType != OrderType.repair && Entity.OrderType != OrderType.other;
 			TestCanSave();
 		}
 
@@ -282,7 +283,6 @@ namespace CarGlass
 				}
 			}
 			CalculateTotal();
-			buttonPrint.Sensitive = Entity.OrderType != OrderType.repair;
 			buttonDelete.Sensitive = true;
 			logger.Info("Ok");
 
@@ -334,11 +334,15 @@ namespace CarGlass
 
 		protected void OnPopupPrintOrder(object sender, EventArgs Arg)
 		{
+			if (UoWGeneric.HasChanges && CommonDialogs.SaveBeforePrint(typeof(WorkOrder), "заказ-наряда"))
+				Save();
 			QSProjectsLib.ViewReportExt.Run("order", String.Format("id={0}", Entity.Id));
 		}
 
 		protected void OnPopupPrintReceipt(object sender, EventArgs Arg)
 		{
+			if (UoWGeneric.HasChanges && CommonDialogs.SaveBeforePrint(typeof(WorkOrder), "товарного чека"))
+				Save();
 			QSProjectsLib.ViewReportExt.Run("receipt", String.Format("id={0}&date={1:d}", Entity.Id, Entity.Date), true);
 		}
 

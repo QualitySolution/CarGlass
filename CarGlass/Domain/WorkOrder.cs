@@ -7,6 +7,7 @@ using QS.Project.Domain;
 
 namespace CarGlass.Domain
 {
+	[Appellative(Nominative = "заказ", Prepositional = "заказе")]
 	public class WorkOrder : PropertyChangedBase, IDomainObject
 	{
 		public virtual int Id { get; set; }
