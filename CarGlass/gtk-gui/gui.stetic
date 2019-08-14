@@ -1149,7 +1149,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="628 659">
+  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="628 670">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">4</property>
@@ -1169,7 +1169,7 @@
                 <child>
                   <widget class="Gtk.Table" id="table1">
                     <property name="MemberName" />
-                    <property name="NRows">15</property>
+                    <property name="NRows">9</property>
                     <property name="NColumns">4</property>
                     <property name="RowSpacing">6</property>
                     <property name="ColumnSpacing">6</property>
@@ -1400,8 +1400,8 @@
                         </child>
                       </widget>
                       <packing>
-                        <property name="TopAttach">13</property>
-                        <property name="BottomAttach">14</property>
+                        <property name="TopAttach">7</property>
+                        <property name="BottomAttach">8</property>
                         <property name="RightAttach">4</property>
                         <property name="AutoSize">False</property>
                         <property name="XExpand">True</property>
@@ -1413,670 +1413,15 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.HBox" id="hbox3">
-                        <property name="MemberName" />
-                        <property name="Spacing">6</property>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstallNone">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Нет</property>
-                            <property name="Active">True</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">group1</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">0</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstall1Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">1 Год</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">group1</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">1</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstall2Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">2 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">group1</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">2</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstall3Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">3 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">group1</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">3</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstallIndefinitely">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Бессрочно</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">group1</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">4</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">7</property>
-                        <property name="BottomAttach">8</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">4</property>
-                        <property name="AutoSize">False</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">True</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.HBox" id="hbox4">
-                        <property name="MemberName" />
-                        <property name="Spacing">6</property>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTintingNone">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Нет</property>
-                            <property name="Active">True</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Tinting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">0</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTinting1Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">1 Год</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Tinting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">1</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTinting2Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">2 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Tinting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">2</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTinting3Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">3 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Tinting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">3</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTintingIndefinitely">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Бессрочно</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Tinting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">4</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">8</property>
-                        <property name="BottomAttach">9</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.HBox" id="hbox5">
-                        <property name="MemberName" />
-                        <property name="Spacing">6</property>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishingNone">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Нет</property>
-                            <property name="Active">True</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Polishing</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">0</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishing1Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">1 Год</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Polishing</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">1</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishing2Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">2 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Polishing</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">2</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishing3Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">3 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Polishing</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">3</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishingIndefinitely">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Бессрочно</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Polishing</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">4</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">10</property>
-                        <property name="BottomAttach">11</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.HBox" id="hbox6">
-                        <property name="MemberName" />
-                        <property name="Spacing">6</property>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoringNone">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Нет</property>
-                            <property name="Active">True</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Armoring</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">0</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoring1Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">1 Год</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Armoring</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">1</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoring2Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">2 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Armoring</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">2</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoring3Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">3 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Armoring</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">3</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoringIndefinitely">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Бессрочно</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Armoring</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">4</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">9</property>
-                        <property name="BottomAttach">10</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.HBox" id="hbox7">
-                        <property name="MemberName" />
-                        <property name="Spacing">6</property>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPastingNone">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Нет</property>
-                            <property name="Active">True</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Pasting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">0</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPasting1Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">1 Год</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Pasting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">1</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPasting2Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">2 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Pasting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">2</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPasting3Year">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">3 Года</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Pasting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">3</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPastingIndefinitely">
-                            <property name="MemberName" />
-                            <property name="CanFocus">True</property>
-                            <property name="Label" translatable="yes">Бессрочно</property>
-                            <property name="DrawIndicator">True</property>
-                            <property name="HasLabel">True</property>
-                            <property name="UseUnderline">True</property>
-                            <property name="Group">Pasting</property>
-                          </widget>
-                          <packing>
-                            <property name="Position">4</property>
-                            <property name="AutoSize">True</property>
-                            <property name="Expand">False</property>
-                            <property name="Fill">False</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">11</property>
-                        <property name="BottomAttach">12</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Label" id="label1">
-                        <property name="MemberName" />
-                        <property name="LabelProp" translatable="yes">&lt;b&gt;Гарантия&lt;/b&gt;</property>
-                        <property name="UseMarkup">True</property>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">6</property>
-                        <property name="BottomAttach">7</property>
-                        <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Label" id="label10">
-                        <property name="MemberName" />
-                        <property name="Xalign">1</property>
-                        <property name="LabelProp" translatable="yes">Установка:</property>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">7</property>
-                        <property name="BottomAttach">8</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Label" id="label11">
-                        <property name="MemberName" />
-                        <property name="Xalign">1</property>
-                        <property name="LabelProp" translatable="yes">Тонировка:</property>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">8</property>
-                        <property name="BottomAttach">9</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Label" id="label12">
-                        <property name="MemberName" />
-                        <property name="Xalign">1</property>
-                        <property name="LabelProp" translatable="yes">Бронировка:</property>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">9</property>
-                        <property name="BottomAttach">10</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Label" id="label13">
-                        <property name="MemberName" />
-                        <property name="Xalign">1</property>
-                        <property name="LabelProp" translatable="yes">Полировка:</property>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">10</property>
-                        <property name="BottomAttach">11</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
                       <widget class="Gtk.Label" id="label14">
                         <property name="MemberName" />
                         <property name="LabelProp" translatable="yes">&lt;b&gt;Услуги&lt;/b&gt;</property>
                         <property name="UseMarkup">True</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">12</property>
-                        <property name="BottomAttach">13</property>
+                        <property name="TopAttach">6</property>
+                        <property name="BottomAttach">7</property>
                         <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
-                        <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
-                        <property name="XShrink">False</property>
-                        <property name="YExpand">False</property>
-                        <property name="YFill">True</property>
-                        <property name="YShrink">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Label" id="label15">
-                        <property name="MemberName" />
-                        <property name="Xalign">1</property>
-                        <property name="LabelProp" translatable="yes">Оклейка:</property>
-                      </widget>
-                      <packing>
-                        <property name="TopAttach">11</property>
-                        <property name="BottomAttach">12</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -2346,8 +1691,8 @@
                         <property name="UseMarkup">True</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">14</property>
-                        <property name="BottomAttach">15</property>
+                        <property name="TopAttach">8</property>
+                        <property name="BottomAttach">9</property>
                         <property name="LeftAttach">3</property>
                         <property name="RightAttach">4</property>
                         <property name="AutoSize">True</property>
@@ -2421,6 +1766,672 @@
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Table" id="table2">
+            <property name="MemberName" />
+            <property name="NRows">6</property>
+            <property name="NColumns">2</property>
+            <property name="RowSpacing">6</property>
+            <property name="ColumnSpacing">6</property>
+            <child>
+              <widget class="Gtk.HBox" id="hbox3">
+                <property name="MemberName" />
+                <property name="Spacing">6</property>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstallNone">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Нет</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">group1</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstall1Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">1 Год</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">group1</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstall2Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">2 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">group1</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstall3Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">3 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">group1</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioInstallIndefinitely">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Бессрочно</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">group1</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">4</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="TopAttach">1</property>
+                <property name="BottomAttach">2</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.HBox" id="hbox4">
+                <property name="MemberName" />
+                <property name="Spacing">6</property>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTintingNone">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Tinting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTinting1Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">1 Год</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Tinting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTinting2Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">2 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Tinting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTinting3Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">3 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Tinting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioTintingIndefinitely">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Бессрочно</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Tinting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">4</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="TopAttach">2</property>
+                <property name="BottomAttach">3</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.HBox" id="hbox5">
+                <property name="MemberName" />
+                <property name="Spacing">6</property>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishingNone">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Polishing</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishing1Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">1 Год</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Polishing</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishing2Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">2 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Polishing</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishing3Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">3 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Polishing</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPolishingIndefinitely">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Бессрочно</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Polishing</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">4</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="TopAttach">4</property>
+                <property name="BottomAttach">5</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.HBox" id="hbox6">
+                <property name="MemberName" />
+                <property name="Spacing">6</property>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoringNone">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Armoring</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoring1Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">1 Год</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Armoring</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoring2Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">2 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Armoring</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoring3Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">3 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Armoring</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioArmoringIndefinitely">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Бессрочно</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Armoring</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">4</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="TopAttach">3</property>
+                <property name="BottomAttach">4</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.HBox" id="hbox7">
+                <property name="MemberName" />
+                <property name="Spacing">6</property>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPastingNone">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Pasting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPasting1Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">1 Год</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Pasting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPasting2Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">2 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Pasting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPasting3Year">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">3 Года</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Pasting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">3</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gamma.GtkWidgets.yRadioButton" id="yradioPastingIndefinitely">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Label" translatable="yes">Бессрочно</property>
+                    <property name="DrawIndicator">True</property>
+                    <property name="HasLabel">True</property>
+                    <property name="UseUnderline">True</property>
+                    <property name="Group">Pasting</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">4</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="TopAttach">5</property>
+                <property name="BottomAttach">6</property>
+                <property name="LeftAttach">1</property>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label1">
+                <property name="MemberName" />
+                <property name="LabelProp" translatable="yes">&lt;b&gt;Гарантия&lt;/b&gt;</property>
+                <property name="UseMarkup">True</property>
+              </widget>
+              <packing>
+                <property name="RightAttach">2</property>
+                <property name="AutoSize">False</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">True</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label10">
+                <property name="MemberName" />
+                <property name="Xalign">1</property>
+                <property name="LabelProp" translatable="yes">Установка:</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">1</property>
+                <property name="BottomAttach">2</property>
+                <property name="AutoSize">False</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label11">
+                <property name="MemberName" />
+                <property name="Xalign">1</property>
+                <property name="LabelProp" translatable="yes">Тонировка:</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">2</property>
+                <property name="BottomAttach">3</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label12">
+                <property name="MemberName" />
+                <property name="Xalign">1</property>
+                <property name="LabelProp" translatable="yes">Бронировка:</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">3</property>
+                <property name="BottomAttach">4</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label13">
+                <property name="MemberName" />
+                <property name="Xalign">1</property>
+                <property name="LabelProp" translatable="yes">Полировка:</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">4</property>
+                <property name="BottomAttach">5</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label15">
+                <property name="MemberName" />
+                <property name="Xalign">1</property>
+                <property name="LabelProp" translatable="yes">Оклейка:</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">5</property>
+                <property name="BottomAttach">6</property>
+                <property name="AutoSize">True</property>
+                <property name="XOptions">Fill</property>
+                <property name="YOptions">Fill</property>
+                <property name="XExpand">False</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+            <property name="AutoSize">False</property>
+            <property name="Expand">False</property>
           </packing>
         </child>
       </widget>
