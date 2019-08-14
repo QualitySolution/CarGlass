@@ -38,5 +38,11 @@ namespace CarGlass.Domain
 		public WorkOrderPay()
 		{
 		}
+
+		public WorkOrderPay(WorkOrder order, Service service)
+		{
+			workOrder = order;
+			this.service = service;
+		}
 	}
 }
