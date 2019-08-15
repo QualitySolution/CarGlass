@@ -24,7 +24,6 @@
     cost.cost,
     warranty_install,
     warranty_tinting,
-    warranty_polishing,
     warranty_armoring,
     warranty_pasting
 FROM
@@ -80,10 +79,6 @@ WHERE
         </Field>
         <Field Name="warranty_tinting">
           <DataField>warranty_tinting</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="warranty_polishing">
-          <DataField>warranty_polishing</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="warranty_armoring">
@@ -560,11 +555,10 @@ WHERE
           <Textbox Name="Textbox17">
             <Height>71.27pt</Height>
             <Width>401.98pt</Width>
-            <Value>=Iif({warranty_install} = "None", "", "Гарантия от протекания "+ Switch({warranty_install} = "OneYear", "1 год",{warranty_install} = "TwoYear", "2 года",{warranty_install} = "ThreeYear", "3 года",{warranty_install} = "Indefinitely", "пожизненная*") + "\n") +
-Iif({warranty_tinting} = "None", "", "Гарантия на тонировку "+ Switch({warranty_tinting} = "OneYear", "1 год",{warranty_tinting} = "TwoYear", "2 года",{warranty_tinting} = "ThreeYear", "3 года",{warranty_tinting} = "Indefinitely", "пожизненная*") + "\n") +
-Iif({warranty_polishing} = "None", "", "Гарантия на полировку "+ Switch({warranty_polishing} = "OneYear", "1 год",{warranty_polishing} = "TwoYear", "2 года",{warranty_polishing} = "ThreeYear", "3 года",{warranty_polishing} = "Indefinitely", "пожизненная*") + "\n") 
-+ Iif({warranty_armoring} = "None", "", "Гарантия на Защитную пленку "+ Switch({warranty_armoring} = "OneYear", "1 год",{warranty_armoring} = "TwoYear", "2 года",{warranty_armoring} = "ThreeYear", "3 года",{warranty_armoring} = "Indefinitely", "пожизненная*")+ "\n") + 
-Iif({warranty_pasting} = "None", "", "Гарантия на оклейку пленками ПВХ "+ Switch({warranty_pasting} = "OneYear", "1 год",{warranty_pasting} = "TwoYear", "2 года",{warranty_pasting} = "ThreeYear", "3 года",{warranty_pasting} = "Indefinitely", "пожизненная*")+ "\n") </Value>
+            <Value>=Iif({warranty_install} = "None", "", Iif({warranty_install} = "NoWarranty", "Без гарантии на установку", "Гарантия от протекания "+ Switch({warranty_install} = "OneYear", "1 год",{warranty_install} = "TwoYear", "2 года",{warranty_install} = "ThreeYear", "3 года",{warranty_install} = "Indefinitely", "пожизненная*")) + "\n") +
+Iif({warranty_tinting} = "None", "", Iif({warranty_tinting} = "NoWarranty", "Без гарантии на тонировку", "Гарантия на тонировку "+ Switch({warranty_tinting} = "OneYear", "1 год",{warranty_tinting} = "TwoYear", "2 года",{warranty_tinting} = "ThreeYear", "3 года",{warranty_tinting} = "Indefinitely", "пожизненная*")) + "\n") +
+Iif({warranty_armoring} = "None", "", Iif({warranty_armoring} = "NoWarranty", "Без гарантии на защитную пленку", "Гарантия на защитную пленку "+ Switch({warranty_armoring} = "OneYear", "1 год",{warranty_armoring} = "TwoYear", "2 года",{warranty_armoring} = "ThreeYear", "3 года",{warranty_armoring} = "Indefinitely", "пожизненная*"))+ "\n") + 
+Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Без гарантии на оклейку пленками ПВХ", "Гарантия на оклейку пленками ПВХ "+ Switch({warranty_pasting} = "OneYear", "1 год",{warranty_pasting} = "TwoYear", "2 года",{warranty_pasting} = "ThreeYear", "3 года",{warranty_pasting} = "Indefinitely", "пожизненная*"))+ "\n") </Value>
             <ZIndex>1</ZIndex>
             <Left>4.80pt</Left>
             <Top>454.10pt</Top>
