@@ -98,7 +98,7 @@ WHERE
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <Body>
-    <Height>626.7pt</Height>
+    <Height>601.5pt</Height>
     <ReportItems>
       <List Name="List1">
         <DataSetName>Data</DataSetName>
@@ -471,7 +471,7 @@ WHERE
             <Value>Отрывной талон</Value>
             <ZIndex>1</ZIndex>
             <Left>121.3pt</Left>
-            <Top>394.9pt</Top>
+            <Top>387.7pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -487,7 +487,7 @@ WHERE
             <Value>(сдается заказчику)</Value>
             <ZIndex>1</ZIndex>
             <Left>142.0pt</Left>
-            <Top>411.4pt</Top>
+            <Top>404.2pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -503,7 +503,7 @@ WHERE
             <Value>к заказ - наряду №</Value>
             <ZIndex>1</ZIndex>
             <Left>95.2pt</Left>
-            <Top>419.9pt</Top>
+            <Top>411.1pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -514,7 +514,7 @@ WHERE
             </Style>
           </Textbox>
           <Textbox Name="Textbox14" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-            <Top>421.2pt</Top>
+            <Top>412.4pt</Top>
             <Left>250.2pt</Left>
             <Width>90.48pt</Width>
             <Height>20.31pt</Height>
@@ -537,7 +537,7 @@ WHERE
             </Style>
           </Textbox>
           <Textbox Name="Textbox16" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-            <Top>442.9pt</Top>
+            <Top>434.1pt</Top>
             <Left>140.1pt</Left>
             <Width>136.97pt</Width>
             <Height>12.82pt</Height>
@@ -560,8 +560,8 @@ Iif({warranty_tinting} = "None", "", Iif({warranty_tinting} = "NoWarranty", "Б�
 Iif({warranty_armoring} = "None", "", Iif({warranty_armoring} = "NoWarranty", "Без гарантии на защитную пленку", "Гарантия на защитную пленку "+ Switch({warranty_armoring} = "OneYear", "1 год",{warranty_armoring} = "TwoYear", "2 года",{warranty_armoring} = "ThreeYear", "3 года",{warranty_armoring} = "Indefinitely", "пожизненная*"))+ "\n") + 
 Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Без гарантии на оклейку пленками ПВХ", "Гарантия на оклейку пленками ПВХ "+ Switch({warranty_pasting} = "OneYear", "1 год",{warranty_pasting} = "TwoYear", "2 года",{warranty_pasting} = "ThreeYear", "3 года",{warranty_pasting} = "Indefinitely", "пожизненная*"))+ "\n") </Value>
             <ZIndex>1</ZIndex>
-            <Left>4.80pt</Left>
-            <Top>454.10pt</Top>
+            <Left>0.8pt</Left>
+            <Top>443.7pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -578,7 +578,7 @@ Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Б�
             <Value>(до смены владельца автомобиля, гарантия на заводской брак стекла 7 дней)</Value>
             <ZIndex>1</ZIndex>
             <Left>56.3pt</Left>
-            <Top>523.7pt</Top>
+            <Top>513.3pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -594,7 +594,7 @@ Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Б�
             <Value>Действительна только при наличии данного талона</Value>
             <ZIndex>1</ZIndex>
             <Left>61.6pt</Left>
-            <Top>532.2pt</Top>
+            <Top>521.8pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -612,7 +612,7 @@ Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Б�
 </Value>
             <ZIndex>1</ZIndex>
             <Left>30.0pt</Left>
-            <Top>549.8pt</Top>
+            <Top>539.4pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -623,7 +623,7 @@ Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Б�
             </Style>
           </Textbox>
           <Textbox Name="Textbox21" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-            <Top>548.3pt</Top>
+            <Top>538.7pt</Top>
             <Left>187.7pt</Left>
             <Width>219.18pt</Width>
             <Height>12.82pt</Height>
@@ -642,8 +642,8 @@ Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Б�
           </Textbox>
         </ReportItems>
         <Width>402.82pt</Width>
-        <Left>0.00pt</Left>
-        <Top>0.00pt</Top>
+        <Left>0.0pt</Left>
+        <Top>0.0pt</Top>
         <Style>
           <BorderStyle />
           <BorderColor />
@@ -657,7 +657,7 @@ Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Б�
         <Value>Дата:</Value>
         <ZIndex>1</ZIndex>
         <Left>114.0pt</Left>
-        <Top>443.5pt</Top>
+        <Top>434.7pt</Top>
         <Style>
           <BorderStyle />
           <BorderColor />
