@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
 using CarGlass.Repository;
+using Gamma.GtkWidgets;
+using Gamma.Utilities;
 using Gtk;
 using MySql.Data.MySqlClient;
 using QS.DomainModel.UoW;
@@ -36,6 +39,8 @@ namespace CarGlass
 
 			ConfigureDlg();
 		}
+
+		public OrderDlg(WorkOrder order) : this(order.Id) { }
 
 		public OrderDlg(int id)
 		{
@@ -162,6 +167,21 @@ namespace CarGlass
 					);
 				}
 			}
+
+			ytreeOtherOrders.ColumnsConfig = ColumnsConfigFactory.Create<WorkOrder>()
+				.AddColumn("Тип").AddTextRenderer(x => x.OrderType.GetEnumTitle())
+				.AddColumn("Состояние").AddTextRenderer(x => x.OrderState != null ? x.OrderState.Name : null)
+					.AddSetter((c, x) => c.Background = x.OrderState != null ? x.OrderState.Color : null)
+				.AddColumn("Дата").AddTextRenderer(x => x.Date.ToShortDateString())
+				.AddColumn("Марка").AddTextRenderer(x => x.CarModel !=null ? x.CarModel.Brand.Name : null)
+				.AddColumn("Модель").AddTextRenderer(x => x.CarModel != null ? x.CarModel.Name : null)
+				.AddColumn("Еврокод").AddTextRenderer(x => x.Eurocode)
+				.AddColumn("Производитель").AddTextRenderer(x => x.Manufacturer != null ? x.Manufacturer.Name : null)
+				.AddColumn("Сумма").AddTextRenderer(x => x.Pays.Sum(p => p.Cost).ToString("C"))
+				.AddColumn("Комментарий").AddTextRenderer(x => x.Comment)
+				.AddColumn("Номер").AddTextRenderer(x => x.Id.ToString())
+				.Finish();
+
 			buttonPrint.Sensitive = Entity.OrderType != OrderType.repair && Entity.OrderType != OrderType.other;
 			TestCanSave();
 		}
@@ -360,6 +380,24 @@ namespace CarGlass
 		protected void OnComboModelChanged(object sender, EventArgs e)
 		{
 			TestCanSave();
+		}
+
+		protected void OnEntryPhoneChanged(object sender, EventArgs e)
+		{
+			IList<WorkOrder> list = null;
+			if(entryPhone.Text.Length == 16)
+			{
+				list = WorkOrderRepository.GetOrdersByPhone(UoW, entryPhone.Text, Entity.Id);
+			}
+
+			ytreeOtherOrders.ItemsDataSource = list;
+			GtkScrolledWindowOtherOrders.Visible = list != null && list.Count > 0;
+		}
+
+		protected void OnYtreeOtherOrdersRowActivated(object o, RowActivatedArgs args)
+		{
+			var order = ytreeOtherOrders.GetSelectedObject<WorkOrder>();
+			OpenTab<OrderDlg, WorkOrder>(order);
 		}
 	}
 }

@@ -41,5 +41,31 @@ namespace CarGlass.Repository
 
 			return query;
 		}
+
+		public static IList<WorkOrder> GetOrdersByPhone(IUnitOfWork uow, string phone, int excludeId)
+		{
+			WorkOrderPay workOrderPayAlias = null;
+
+			var query = uow.Session.QueryOver<WorkOrder>()
+				.Where(x => x.Phone == phone)
+				.Where(x => x.Id != excludeId)
+				.OrderBy(x => x.Date).Desc
+				.Fetch(SelectMode.Fetch, x => x.CarModel)
+				.Fetch(SelectMode.Fetch, x => x.CarModel.Brand)
+				//.Fetch(SelectMode.Fetch, x => x.Stock)
+				.Fetch(SelectMode.Fetch, x => x.Manufacturer)
+				.Fetch(SelectMode.Fetch, x => x.OrderState)
+				.Future();
+
+			uow.Session.QueryOver<WorkOrder>()
+				.Where(x => x.Phone == phone)
+				.Where(x => x.Id != excludeId)
+				.OrderBy(x => x.Date).Desc
+				.Left.JoinAlias(x => x.Pays, () => workOrderPayAlias)
+				.Fetch(SelectMode.Fetch, x => x.Pays)
+				.Future();
+
+			return query.ToList();
+		}
 	}
 }
