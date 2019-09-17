@@ -13,6 +13,9 @@ msbuild /p:Configuration=Release /p:Platform=x86 ../../My-FyiReporting/Majorsile
 # Сборка релиза
 msbuild /p:Configuration=ReleaseWin /p:Platform=x86 ../CarGlass.sln
 
+#Создаем папку если вдруг ее нет.
+mkdir -p Files
+
 #Чистим папку назначения
 rm -v -f -R ./Files/*
 
@@ -35,7 +38,6 @@ cp -r -v ${RdlReaderDir}/ru-RU ./Files
 rm -v -f ${BinDir}/*.mdb
 rm -v -f ${BinDir}/*.pdb
 
-mkdir -p Files
 cp -r -v ${BinDir}/* ./Files
 
 if [ ! -f "gtk-sharp-2.12.21.msi" ]; then
