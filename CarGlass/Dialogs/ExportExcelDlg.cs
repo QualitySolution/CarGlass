@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CarGlass.Domain;
@@ -10,12 +11,16 @@ using NPOI.XSSF.UserModel;
 using QS.Dialog.GtkUI;
 using QS.DomainModel.UoW;
 using QS.Helpers;
+using QS.Utilities.Numeric;
 
 namespace CarGlass.Dialogs
 {
 	public partial class ExportExcelDlg : Gtk.Dialog
 	{
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+		//Это по сути разовый режим работы. оставлен на случай вдруг пригодится.
+		private bool updatePhoneFormat = false;
 
 		public virtual IUnitOfWork UoW { get; protected set; }
 
@@ -24,7 +29,6 @@ namespace CarGlass.Dialogs
 			this.Build();
 			UoW = UnitOfWorkFactory.CreateWithoutRoot();
 		}
-
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
@@ -168,6 +172,9 @@ namespace CarGlass.Dialogs
 				}
 			}
 
+			if(updatePhoneFormat)
+				PhoneUpdate(workbook, orders);
+
 			progressbar1.Text = "Записываем фаил...";
 			progressbar1.Adjustment.Value++;
 			GtkHelper.WaitRedraw();
@@ -201,6 +208,81 @@ namespace CarGlass.Dialogs
 			}
 			logger.Info("Ок");
 			Respond(ResponseType.Ok);
+		}
+
+		void PhoneUpdate(XSSFWorkbook workbook, IList<WorkOrder> orders)
+		{
+			progressbar1.Adjustment.Value = 1;
+			var sheet = workbook.CreateSheet("Телефоны");
+
+			//Заголовок
+			var headerStyle = workbook.CreateCellStyle();
+			var headerFont = workbook.CreateFont();
+			headerFont.FontName = "Calibri";
+			headerFont.FontHeightInPoints = 11;
+			headerFont.IsBold = true;
+			headerStyle.SetFont(headerFont);
+
+			var newDataFormat = workbook.CreateDataFormat();
+			var dateCellStyle = workbook.CreateCellStyle();
+			dateCellStyle.DataFormat = newDataFormat.GetFormat("dd.MM.yyyy");
+
+			//Ширина измеряется в количестве симвовлов * 256
+			sheet.SetColumnWidth(0, 20 * 256);
+			sheet.SetColumnWidth(1, 20 * 256);
+			sheet.SetColumnWidth(2, 20 * 256);
+
+			#region параметры экспорта
+
+			string[] columnTiles = new string[] {
+				"Старый",
+				"Новый",
+				"Действие",
+			};
+
+			#endregion
+
+			var headerRow = sheet.CreateRow(0);
+			for(var i = 0; i < columnTiles.Length; i++)
+			{
+				var cell = headerRow.CreateCell(i);
+				cell.SetCellValue(columnTiles[i]);
+				cell.CellStyle = headerStyle;
+			}
+
+			var PhoneFormatter = new PhoneFormatter();
+
+			for(var row = 1; row <= orders.Count; row++)
+			{
+				progressbar1.Text = $"Телефон {row} из {orders.Count}";
+				progressbar1.Adjustment.Value++;
+				GtkHelper.WaitRedraw();
+
+				var order = orders[row-1];
+				var dataRow = sheet.CreateRow(row);
+				var cellOld = dataRow.CreateCell(0);
+				var cellNew = dataRow.CreateCell(1);
+				var cellAction = dataRow.CreateCell(2);
+				cellOld.SetCellValue(order.Phone);
+				var formated = order.Phone != null ? PhoneFormatter.FormatString(order.Phone) : order.Phone;
+				if(formated == order.Phone)
+				{
+					cellAction.SetCellValue("Без изменений");
+				}
+				else if(formated.Length == 16)
+				{
+					cellAction.SetCellValue("Отформатирован");
+					order.Phone = formated;
+					UoW.Save(order);
+				}
+				else
+					cellAction.SetCellValue("Пропущен");
+
+				cellNew.SetCellValue(order.Phone);
+				logger.Debug($"{row} - {order.Id}");
+			}
+			logger.Debug("Комит в базу");
+			UoW.Commit();
 		}
 	}
 }
