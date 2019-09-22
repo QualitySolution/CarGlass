@@ -61,7 +61,7 @@ namespace CarGlass.Dialogs
 
 		public override bool Save()
 		{
-			var valid = new QSValidation.QSValidator<StoreItem>(UoWGeneric.Root);
+			var valid = new QS.Validation.GtkUI.QSValidator<StoreItem>(UoWGeneric.Root);
 			if (valid.RunDlgIfNotValid((Gtk.Window)this.Toplevel))
 				return false;
 
