@@ -12,7 +12,7 @@ using QSProjectsLib;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Quality Solution")]
 [assembly: AssemblyProduct("QS: Мастерская автостекла")]
-[assembly: AssemblyCopyright("Quality Solution 2019")]
+[assembly: AssemblyCopyright("Quality Solution 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyLogoIcon ("CarGlass.icons.logo.png")]
