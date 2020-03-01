@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using QS.Dialog.GtkUI;
 using QS.DomainModel.UoW;
-using QS.Helpers;
+using QS.Utilities;
 using QS.Utilities.Numeric;
 
 namespace CarGlass.Dialogs
