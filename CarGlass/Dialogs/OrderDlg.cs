@@ -305,7 +305,8 @@ namespace CarGlass
 		{
 			bool Statusok = Entity.OrderState != null;
 			bool Carok = Entity.CarModel != null;
-			buttonOk.Sensitive = (Statusok && Carok) || Entity.OrderType == OrderType.other;
+			bool NumberOk = Entity.Phone != null && Entity.Phone.Length == 16;
+			buttonOk.Sensitive = (Statusok && Carok && NumberOk) || Entity.OrderType == OrderType.other;
 		}
 
 		private string GetTitleFormat(OrderType type)
@@ -388,10 +389,12 @@ namespace CarGlass
 			if(entryPhone.Text.Length == 16)
 			{
 				list = WorkOrderRepository.GetOrdersByPhone(UoW, entryPhone.Text, Entity.Id);
+				TestCanSave();
 			}
 
 			ytreeOtherOrders.ItemsDataSource = list;
 			GtkScrolledWindowOtherOrders.Visible = list != null && list.Count > 0;
+
 		}
 
 		protected void OnYtreeOtherOrdersRowActivated(object o, RowActivatedArgs args)

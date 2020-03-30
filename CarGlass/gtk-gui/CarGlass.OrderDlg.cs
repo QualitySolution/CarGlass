@@ -361,7 +361,8 @@ namespace CarGlass
 			this.label5 = new global::Gtk.Label();
 			this.label5.Name = "label5";
 			this.label5.Xalign = 1F;
-			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Телефон:");
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Телефон<span foreground=\"red\">*</span>:");
+			this.label5.UseMarkup = true;
 			this.table1.Add(this.label5);
 			global::Gtk.Table.TableChild w18 = ((global::Gtk.Table.TableChild)(this.table1[this.label5]));
 			w18.TopAttach = ((uint)(5));

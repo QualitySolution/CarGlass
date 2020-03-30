@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
@@ -1148,7 +1148,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="628 670">
+  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="794 688">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">4</property>
@@ -1527,7 +1527,8 @@
                       <widget class="Gtk.Label" id="label5">
                         <property name="MemberName" />
                         <property name="Xalign">1</property>
-                        <property name="LabelProp" translatable="yes">Телефон:</property>
+                        <property name="LabelProp" translatable="yes">Телефон&lt;span foreground="red"&gt;*&lt;/span&gt;:</property>
+                        <property name="UseMarkup">True</property>
                       </widget>
                       <packing>
                         <property name="TopAttach">5</property>
