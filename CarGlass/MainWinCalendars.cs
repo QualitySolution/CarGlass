@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass;
+using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gamma.Utilities;
 using Gtk;
@@ -37,6 +38,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar1.OrdersTypes = installServices;
 		orderscalendar1.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar1.NewOrder += OnNewOrder;
+		orderscalendar1.NewSheduleWork += OnNewSheduleWork;
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 22);
@@ -149,12 +151,44 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				}
 			}
 			logger.Info("Ok");
+
 		}
 		catch (Exception ex)
 		{
 			QSMain.ErrorMessageWithLog("Ошибка получения списка заказов!", logger, ex);
 		}
 
+		logger.Info("Запрос расписания работы сотрудников на {0:d}...", arg.StartDate);
+		sql = "select shw.id, shw.date_work, shew.id_shedule_works, shew.id_employee, emp.id, emp.first_name, emp.last_name, emp.patronymic" +
+			" from CarGlass.shedule_works shw " +
+			"LEFT JOIN CarGlass.shedule_employee_works shew on shw.id = shew.id_shedule_works " +
+			"LEFT JOIN CarGlass.employees emp on emp.id = shew.id_employee " +
+			"WHERE shw.date_work BETWEEN @start AND @end" +
+			"AND  shw.point_number = @point AND shw.calendar_number = @calendar";
+
+		QSMain.CheckConnectionAlive();
+		try
+		{
+			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+
+			cmd.Parameters.AddWithValue("@start", arg.StartDate);
+			cmd.Parameters.AddWithValue("@end", arg.StartDate.AddDays(6));
+			cmd.Parameters.AddWithValue("@point", Calendar.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar", Calendar.CalendarNumber);
+
+			using(MySqlDataReader rdr = cmd.ExecuteReader())
+			{
+				while(rdr.Read())
+				{
+					// заполнение CalandarItem
+				}
+			}
+		}
+
+		catch(Exception ex)
+		{
+			QSMain.ErrorMessageWithLog("Ошибка получения списка сотрудников!", logger, ex);
+		}
 	}
 
 	protected void OnOpenOrder(object sender, EventArgs arg)
@@ -184,6 +218,17 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			((OrdersCalendar)sender).RefreshOrders();
 		OrderWin.Destroy();
 	}
+
+	protected void OnNewSheduleWork(object sender, NewSheduleWorkEventArgs arg)
+	{
+		SheduleDlg frmSheduleWork = new SheduleDlg(arg.PointNumber, arg.CalendarNumber, arg.Date);
+		frmSheduleWork.Show();
+		int result = frmSheduleWork.Run();
+		if(result == (int)ResponseType.Ok)
+			((OrdersCalendar)sender).RefreshOrders();
+		frmSheduleWork.Destroy();
+	}
+
 
 	protected void OnChangeTimeOrderEvent(object sender, CalendarItem.TimeChangedEventArgs arg)
 	{

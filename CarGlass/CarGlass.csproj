@@ -217,6 +217,14 @@
     <Compile Include="Dialogs\ServiceDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.ServiceDlg.cs" />
     <Compile Include="Domain\Warranty.cs" />
+    <Compile Include="Domain\Employee.cs" />
+    <Compile Include="Domain\SheduleWorks.cs" />
+    <Compile Include="HibernateMapping\EmployeeMap.cs" />
+    <Compile Include="HibernateMapping\SheduleWorksMap.cs" />
+    <Compile Include="Dialogs\SheduleDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.SheduleDlg.cs" />
+    <Compile Include="Domain\SheduleEmployeeWork.cs" />
+    <Compile Include="HibernateMapping\SheduleEmployeeWorkMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
