@@ -180,6 +180,23 @@ namespace CarGlass
 				new TableInfo.DeleteDependenceItem ("WHERE mark_id = @id ", "", "@id"));
 			Tables.Add("marks", PrepareTable);
 
+			PrepareTable = new TableInfo();
+			PrepareTable.ObjectsName = "График работ";
+			PrepareTable.ObjectName = "график работы";
+			PrepareTable.SqlSelect = "SELECT id, date_work, point_number, calendar_number FROM shedule_works ";
+			PrepareTable.DisplayString = "График работ {1:d} числа";
+			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
+			PrepareTable.DeleteItems.Add("shedule_employee_works",
+			new TableInfo.DeleteDependenceItem("WHERE id_shedule_works = @id ", "", "@id"));
+			Tables.Add("shedule_works", PrepareTable);
+
+			PrepareTable = new TableInfo();
+			PrepareTable.ObjectsName = "График работ сотрудников";
+			PrepareTable.ObjectName = "график работ сотрудников";
+			PrepareTable.SqlSelect = "SELECT id, id_shedule_works, id_employee FROM shedule_employee_works ";
+			PrepareTable.DisplayString = "График работ сотрудников {1}";
+			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
+			Tables.Add("shedule_employee_works", PrepareTable);
 		}
 	}
 }

@@ -90,6 +90,7 @@ namespace CarGlass.Dialogs
 					);
 				}
 			}
+			buttonOk.Sensitive = false;
 
 		}
 
@@ -137,14 +138,16 @@ namespace CarGlass.Dialogs
 			}
 			labelSum.LabelProp = String.Format("<span foreground=\"red\"><b>Выбрано: {0}</b></span>", Total);
 			labelSum.QueueResize();
+			buttonOk.Sensitive = Total > 0;
+
 		}
 
 		private void Fill()
 		{
-			var sql = "select shw.id, emp.id, emp.first_name, emp.last_name, emp.patronymic from CarGlass.employees emp " +
-				" left join CarGlass.shedule_employee_works shew on shew.id_employee = emp.id" +
-				" left join CarGlass.shedule_works shw on shew.id_shedule_works = shw.id" +
-				" where shw.id = @id or shw.id is null" +
+			var sql = "select shw.id as shw_id, emp.id as emp_id, emp.first_name, emp.last_name, emp.patronymic from employees emp " +
+				" left join shedule_employee_works shew on shew.id_employee = emp.id" +
+				" left join shedule_works shw on shew.id_shedule_works = shw.id" +
+				" where shw.id = @id" +
 				" order by shw.id desc, emp.first_name;";
 			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			cmd.Parameters.AddWithValue("@id", Entity.Id);
@@ -153,9 +156,12 @@ namespace CarGlass.Dialogs
 				TreeIter iter;
 				while(rdr.Read())
 				{
-					if(ListStoreWorks.SearchListStore(EmployeeWorkList, rdr.GetInt32("shw.id"), 0, out iter))
+					if(ListStoreWorks.SearchListStore(EmployeeWorkList, rdr.GetInt32("emp_id"), 0, out iter))
 					{
 						EmployeeWorkList.SetValue(iter, 1, true);
+						EmployeeWorkList.SetValue(iter, 2, rdr["first_name"].ToString());
+						EmployeeWorkList.SetValue(iter, 3, rdr["last_name"].ToString());
+						EmployeeWorkList.SetValue(iter, 4, rdr["patronymic"].ToString());
 					}
 				}
 			}
@@ -190,15 +196,22 @@ namespace CarGlass.Dialogs
 
 		void PrepareSave()
 		{
+			foreach(object[] emp in EmployeeWorkList)
+			{
+				emp[2] = emp[2].ToString().Replace("-", "");
+				emp[3] = emp[3].ToString().Replace("-", "");
+				emp[4] = emp[4].ToString().Replace("-", "");
+			}
+
 			foreach(object[] row in EmployeeWorkList)
 			{
-				var empWork = Entity.SheduleEmployeeWorks.FirstOrDefault(x => x.Id == (int)row[0]);
+				var empWork = Entity.SheduleEmployeeWorks.FirstOrDefault(x => x.Employee.Id == (int)row[0]);
 
+				var emp = new Employee((int)row[0], row[2].ToString().Replace("-", ""), row[3].ToString().Replace("-", ""), row[4].ToString().Replace("-", ""));
 				if((bool)row[1])
 				{
 					if(empWork == null)
 					{
-						var emp = new Employee((int)row[0], row[2].ToString(), row[3].ToString(), row[4].ToString());
 						empWork = new SheduleEmployeeWork(Entity, emp);
 						Entity.SheduleEmployeeWorks.Add(empWork);
 					}
@@ -209,16 +222,11 @@ namespace CarGlass.Dialogs
 					Entity.SheduleEmployeeWorks.Remove(empWork);
 				}
 			}
+
 		}
 
 		public override bool Save()
 		{
-			foreach(object[] emp in EmployeeWorkList)
-			{
-				emp[2] = emp[2].ToString().Replace("-", "");
-				emp[3] = emp[3].ToString().Replace("-", "");
-				emp[4] = emp[4].ToString().Replace("-", "");
-			}
 
 			UoW.Save();
 

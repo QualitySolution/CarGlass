@@ -33,6 +33,7 @@ namespace CarGlass
 			ParentCalendar = calendar;
 			emptyButton = new ItemButton();
 			emptyButton.ParentCalendar = ParentCalendar;
+			emptyButton.isSetSheduleWork = false;
 			emptyButton.NewOrderClicked += HandleNewOrderClicked;
 			this.Add(emptyButton);
 			Drag.DestSet(this, DestDefaults.Highlight, null, 0);

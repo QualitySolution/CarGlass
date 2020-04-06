@@ -48,6 +48,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.OrdersTypes = tintingServices;
 		orderscalendar2.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar2.NewOrder += OnNewOrder;
+		orderscalendar2.NewSheduleWork += OnNewSheduleWork;
 
 		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar3.SetTimeRange(9, 22);
@@ -57,6 +58,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.OrdersTypes = installServices;
 		orderscalendar3.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar3.NewOrder += OnNewOrder;
+		orderscalendar3.NewSheduleWork += OnNewSheduleWork;
 
 		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar4.SetTimeRange(9, 22);
@@ -66,6 +68,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.OrdersTypes = tintingServices;
 		orderscalendar4.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar4.NewOrder += OnNewOrder;
+		orderscalendar4.NewSheduleWork += OnNewSheduleWork;
 
 		orderscalendar1.RefreshOrders();
 	}
@@ -159,13 +162,12 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		}
 
 		logger.Info("Запрос расписания работы сотрудников на {0:d}...", arg.StartDate);
-		sql = "select shw.id, shw.date_work, shew.id_shedule_works, shew.id_employee, emp.id, emp.first_name, emp.last_name, emp.patronymic" +
-			" from CarGlass.shedule_works shw " +
-			"LEFT JOIN CarGlass.shedule_employee_works shew on shw.id = shew.id_shedule_works " +
-			"LEFT JOIN CarGlass.employees emp on emp.id = shew.id_employee " +
-			"WHERE shw.date_work BETWEEN @start AND @end" +
+		sql = "select shw.id, shw.date_work " +
+			"from shedule_works shw " +
+			"WHERE shw.date_work BETWEEN @start AND @end " +
 			"AND  shw.point_number = @point AND shw.calendar_number = @calendar";
 
+		List<CalendarItem> calendarItemsShedule = new List<CalendarItem>();
 		QSMain.CheckConnectionAlive();
 		try
 		{
@@ -180,8 +182,23 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			{
 				while(rdr.Read())
 				{
-					// заполнение CalandarItem
+					CalendarItem shedule = new CalendarItem(rdr.GetDateTime("date_work"), 23);
+
+					shedule.id = rdr.GetInt32("id");
+					shedule.Tag = "";
+					shedule.Color = shedule.TagColor = "#ffffff";
+					shedule.Calendar = Calendar;
+					shedule.DeleteOrder += OnDeleteShedule;
+					shedule.OpenOrder += OnOpenSheduleWork;
+					shedule.isSetSheduleWork = true;
+					calendarItemsShedule.Add(shedule);
 				}
+			}
+
+			foreach( var sh in calendarItemsShedule)
+			{
+				sh.Text = getEmployeeInShedule(sh.id);
+				Calendar.AddItem((sh.Date - Calendar.StartDate).Days, 23, sh);
 			}
 		}
 
@@ -189,6 +206,48 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		{
 			QSMain.ErrorMessageWithLog("Ошибка получения списка сотрудников!", logger, ex);
 		}
+
+	}
+
+	private string getEmployeeInShedule(int idShedule)
+	{
+		string sql = " select shew.id_shedule_works, shew.id_employee, emp.id, emp.first_name, emp.last_name, emp.patronymic" +
+			"  FROM shedule_employee_works shew " +
+			" LEFT JOIN employees emp on emp.id = shew.id_employee" +
+			" WHERE shew.id_shedule_works = @id; ";
+		string text = "";
+		QSMain.CheckConnectionAlive();
+		try
+		{
+
+			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+
+			cmd.Parameters.AddWithValue("@id", idShedule);
+			using(MySqlDataReader rdr = cmd.ExecuteReader())
+			{
+				while(rdr.Read())
+				{
+					text += String.Format("{0} {1} {2}\n", rdr["first_name"], rdr["last_name"], rdr["patronymic"]); 
+				}
+			return text;
+			}
+		}
+		catch(Exception ex)
+		{
+			QSMain.ErrorMessageWithLog("Ошибка получения списка сотрудников!", logger, ex);
+			return text;
+		}
+
+	}
+
+	protected void OnOpenSheduleWork(object sender, EventArgs arg)
+	{
+		CalendarItem item = (CalendarItem)sender;
+		SheduleDlg shedule = new SheduleDlg(item.id);
+		shedule.Show();
+		if((ResponseType)shedule.Run() == ResponseType.Ok)
+			item.Calendar.RefreshOrders();
+		shedule.Destroy();
 	}
 
 	protected void OnOpenOrder(object sender, EventArgs arg)
@@ -199,6 +258,14 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		if ((ResponseType)OrderWin.Run() == ResponseType.Ok)
 			item.Calendar.RefreshOrders();
 		OrderWin.Destroy();
+	}
+
+	protected void OnDeleteShedule(object sender, EventArgs arg)
+	{
+		CalendarItem item = (CalendarItem)sender;
+		Delete winDelete = new Delete();
+		if(winDelete.RunDeletion("shedule_works", item.id))
+			item.Calendar.RefreshOrders();
 	}
 
 	protected void OnDeleteOrder(object sender, EventArgs arg)

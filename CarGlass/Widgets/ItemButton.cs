@@ -70,7 +70,7 @@ namespace CarGlass
 					return;
 				else if(ParentCalendar.OrdersTypes.Count == 1)
 					OnNewOrderClicked(ParentCalendar.OrdersTypes.First());
-				else if (isSetSheduleWork)
+				else if (isSetSheduleWork )
 					OnNewSheduleWorkClicked(ParentCalendar);
 				else
 				{
@@ -186,24 +186,26 @@ namespace CarGlass
 				{
 					throw new InvalidOperationException("Типы заказов для календаря не установлены.");
 				}
-				else if(ParentCalendar.OrdersTypes.Count == 1)
+				else if(ParentCalendar.OrdersTypes.Count == 1 && !item.isSetSheduleWork)
 				{
 					MenuItem2 = new MenuItemId<OrderType>("Новый заказ");
 					MenuItem2.ID = ParentCalendar.OrdersTypes.First();
 					MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 					jBox.Add(MenuItem2);       
 				}
-				else
+				else if (!item.isSetSheduleWork)
 				{
 					MenuItem1 = new MenuItem("Новый заказ");
 					MenuItem1.Submenu = GetNewOrderTypesMenu();
 					jBox.Add(MenuItem1);       
 				}
-
-				MenuItem1 = new MenuItem("Перенести");
-				MenuItem1.Sensitive = item != null;
-				MenuItem1.Submenu = GetOrderWeekMoveMenu();
-				jBox.Add(MenuItem1);
+				if(!item.isSetSheduleWork)
+				{
+					MenuItem1 = new MenuItem("Перенести");
+					MenuItem1.Sensitive = item != null;
+					MenuItem1.Submenu = GetOrderWeekMoveMenu();
+					jBox.Add(MenuItem1);
+				}
 
 				MenuItem1 = new MenuItem("Удалить");
 				MenuItem1.Sensitive = item != null;
