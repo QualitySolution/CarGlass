@@ -181,25 +181,26 @@ namespace CarGlass
 				Gtk.Menu jBox = new Gtk.Menu();
 				MenuItem MenuItem1;
 				MenuItemId<OrderType> MenuItem2;
+				bool isSheduleWork = isSetSheduleWork || (item?.isSetSheduleWork ?? false);
 
 				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
 				{
 					throw new InvalidOperationException("Типы заказов для календаря не установлены.");
 				}
-				else if(ParentCalendar.OrdersTypes.Count == 1 && !item.isSetSheduleWork)
+				else if(ParentCalendar.OrdersTypes.Count == 1 && !isSheduleWork)
 				{
 					MenuItem2 = new MenuItemId<OrderType>("Новый заказ");
 					MenuItem2.ID = ParentCalendar.OrdersTypes.First();
 					MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 					jBox.Add(MenuItem2);       
 				}
-				else if (!item.isSetSheduleWork)
+				else if (!isSheduleWork)
 				{
 					MenuItem1 = new MenuItem("Новый заказ");
 					MenuItem1.Submenu = GetNewOrderTypesMenu();
 					jBox.Add(MenuItem1);       
 				}
-				if(!item.isSetSheduleWork)
+				if(!isSheduleWork)
 				{
 					MenuItem1 = new MenuItem("Перенести");
 					MenuItem1.Sensitive = item != null;
