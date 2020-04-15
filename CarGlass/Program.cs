@@ -101,6 +101,8 @@ namespace CarGlass
 			PrepareTable.SqlSelect = "SELECT order_id, id, cost FROM order_pays ";
 			PrepareTable.DisplayString = "Оплата в заказе {0} на сумму{2:C}";
 			PrepareTable.PrimaryKey = new  TableInfo.PrimaryKeys("id");
+			PrepareTable.DeleteItems.Add("employee_service_work",
+				new TableInfo.DeleteDependenceItem("WHERE id_order_pay = @id ", "", "@id"));
 			Tables.Add("order_pays", PrepareTable);
 
 			PrepareTable = new TableInfo();
@@ -197,6 +199,14 @@ namespace CarGlass
 			PrepareTable.DisplayString = "График работ сотрудников {1}";
 			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
 			Tables.Add("shedule_employee_works", PrepareTable);
+
+			PrepareTable = new TableInfo();
+			PrepareTable.ObjectsName = "Список выполняемых услуг";
+			PrepareTable.ObjectName = "список выполняемых услуг";
+			PrepareTable.SqlSelect = "SELECT id, id_employee, id_employee, id_order_pay, date_work FROM employee_service_work";
+			PrepareTable.DisplayString = "Список выполненных услуг";
+			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
+			Tables.Add("employee_service_work", PrepareTable);
 		}
 	}
 }
