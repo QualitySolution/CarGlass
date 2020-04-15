@@ -39,19 +39,31 @@ namespace CarGlass.Domain
 			get { return String.Format("{0} {1} {2}", LastName, FirstName, Patronymic).Trim(); }
 		}
 
+		StatusEmployee statusEmployee;
+
+		public virtual StatusEmployee StatusEmployee
+		{
+			get { return statusEmployee; }
+			set { SetField(ref statusEmployee, value, () => StatusEmployee); }
+		}
+
 		public Employee()
 		{
 		}
 
-		public Employee(int id, string firstName, string lastName, string Patronymic)
+		public Employee(int id, string firstName, string lastName, string patronymic)
 		{
-			IUnitOfWork uow = UnitOfWorkFactory.CreateWithNewRoot<Employee>(this);
 			Id = id;
 			this.firstName = firstName;
 			this.lastName = lastName;
-			this.patronymic = Patronymic;
-			uow.Save(this);
+			this.patronymic = patronymic;
+		}
 
+		public Employee(string firstName, string lastName = "", string patronymic = "")
+		{
+			this.FirstName = firstName;
+			this.LastName = lastName;
+			this.Patronymic = patronymic;
 		}
 	}
 }
