@@ -227,9 +227,15 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			{
 				while(rdr.Read())
 				{
-					text += String.Format("{0} {1} {2}\n", rdr["first_name"], rdr["last_name"], rdr["patronymic"]); 
+					if(text.Length > 0)
+						text += ", ";
+					text += String.Format("{0} {1} {2}", rdr["last_name"], rdr["first_name"], rdr["patronymic"]);
+	
 				}
-			return text;
+				for(int i = 1; i < text.Length; i++)
+					if((i % 30) == 0)
+						text = text.Insert(++i, "\n");
+				return text;
 			}
 		}
 		catch(Exception ex)

@@ -84,8 +84,8 @@ namespace CarGlass.Dialogs
 				{
 					EmployeeWorkList.AppendValues(rdr.GetInt32("id"),
 						false,
-						rdr.GetString("first_name"),
 						rdr.GetString("last_name"),
+						rdr.GetString("first_name"),
 						rdr.GetString("patronymic")
 					);
 				}
@@ -159,8 +159,8 @@ namespace CarGlass.Dialogs
 					if(ListStoreWorks.SearchListStore(EmployeeWorkList, rdr.GetInt32("emp_id"), 0, out iter))
 					{
 						EmployeeWorkList.SetValue(iter, 1, true);
-						EmployeeWorkList.SetValue(iter, 2, rdr["first_name"].ToString());
-						EmployeeWorkList.SetValue(iter, 3, rdr["last_name"].ToString());
+						EmployeeWorkList.SetValue(iter, 2, rdr["last_name"].ToString());
+						EmployeeWorkList.SetValue(iter, 3, rdr["first_name"].ToString());
 						EmployeeWorkList.SetValue(iter, 4, rdr["patronymic"].ToString());
 					}
 				}
@@ -175,7 +175,7 @@ namespace CarGlass.Dialogs
 			bool isAdd = true;
 			foreach(object[] emp in EmployeeWorkList)
 			{
-				if(emp[2].ToString() == "-" || emp[2].ToString() == "")
+				if(emp[3].ToString() == "-" || emp[3].ToString() == "")
 					isAdd = false;
 			}
 
@@ -207,12 +207,15 @@ namespace CarGlass.Dialogs
 			{
 				var empWork = Entity.SheduleEmployeeWorks.FirstOrDefault(x => x.Employee.Id == (int)row[0]);
 
-				var emp = new Employee((int)row[0], row[2].ToString().Replace("-", ""), row[3].ToString().Replace("-", ""), row[4].ToString().Replace("-", ""));
+				var emp = new Employee((int)row[0], row[3].ToString().Replace("-", ""), row[2].ToString().Replace("-", ""), row[4].ToString().Replace("-", ""));
+				UoW.Save(emp);
+				UoW.Commit();
 				if((bool)row[1])
 				{
 					if(empWork == null)
 					{
 						empWork = new SheduleEmployeeWork(Entity, emp);
+
 						Entity.SheduleEmployeeWorks.Add(empWork);
 					}
 
