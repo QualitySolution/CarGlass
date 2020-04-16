@@ -59,6 +59,34 @@ namespace CarGlass.Dialogs
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
+			if (!CheckFormula())
+			{
+				MessageDialogWorks.RunWarningDialog("В формуле присутсвуют коэффициенты,\n которых нет в справочнике.\n Сохранение невозможно.");
+				return;
+			}
+			Save();
+			Respond(ResponseType.Ok);
+			this.Destroy();
+		}
+
+		private bool CheckFormula()
+		{
+			string text = yentry.Text;
+			foreach(var coeff in listCoefficients)
+				if(text.Contains(coeff.Name))
+					text = text.Replace(coeff.Name, "");
+			foreach(var ch in text)
+				if(char.IsLetter(ch))
+					return false;
+			return true;
+		}
+
+		private void Save()
+		{
+			foreach(var del in listCoefficientsDelete)
+				UoW.Delete(del);
+
+			UoW.Commit();
 			var deleteList = listCoefficients.Where(x => x.Name == "-" || x.Name == "").ToList();
 			foreach(var coeff in listCoefficients)
 				if(deleteList.Contains(coeff))
