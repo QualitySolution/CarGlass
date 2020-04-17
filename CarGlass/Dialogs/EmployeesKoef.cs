@@ -6,7 +6,7 @@ using Gamma.GtkWidgets;
 using Gtk;
 using QS.Dialog.Gtk;
 using QS.DomainModel.UoW;
-using QSOrmProject;
+using QSProjectsLib;
 
 namespace CarGlass.Dialogs
 {
@@ -74,11 +74,16 @@ namespace CarGlass.Dialogs
 
 		protected void OnBtnSaveClicked(object sender, EventArgs e)
 		{
+			var q = listEmployeeCoeff;
 			foreach(var row in listEmployeeCoeff)
 			{
+				if(row.Value == null)
+					row.Value = "1";
 				UoW.Save(row);
+
 			}
 			UoW.Commit();
+			MessageDialogWorks.RunInfoDialog("Сохранено.");
 		}
 	}
 

@@ -7,6 +7,7 @@ namespace CarGlass.Dialogs
 		public SalarySettingsDlg()
 		{
 			this.Build();
+			this.Title = "Настройки";
 		}
 
 		protected void OnButton3053Clicked(object sender, EventArgs e)

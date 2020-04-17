@@ -130,8 +130,8 @@ namespace CarGlass.Dialogs
 		protected void OnYcheckbutton1Clicked(object sender, EventArgs e)
 		{
 			ActiveCode = ycheckbutton1.Active ? 1 : 0;
-			btnAccept.Sensitive = ycheckbutton1.Active;
-			btnDismiss.Sensitive = !ycheckbutton1.Active;
+			btnAccept.Sensitive = !ycheckbutton1.Active;
+			btnDismiss.Sensitive = ycheckbutton1.Active;
 			if(ycheckbutton1.Active)
 				ycheckbutton1.Label = "работающие";
 			else

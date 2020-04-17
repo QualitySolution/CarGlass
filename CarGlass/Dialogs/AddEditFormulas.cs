@@ -28,6 +28,7 @@ namespace CarGlass.Dialogs
 		public AddEditFormulas(Domain.SalaryFormulas salaryFormulas)
 		{
 			this.Build();
+			this.Title = "Редактирование формулы";
 			this.salaryFormulas = salaryFormulas;
 			if(salaryFormulas.Id != 0)
 				listSalaryFormulas = UoW.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).Where(x => x.Id == salaryFormulas.Id).List();
