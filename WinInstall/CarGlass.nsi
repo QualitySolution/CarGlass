@@ -1,6 +1,6 @@
 Unicode true
 ;--------------------------------
-!define PRODUCT_VERSION "1.4.4"
+!define PRODUCT_VERSION "1.5"
 !define NET_VERSION "4.6.1"
 !define PRODUCT_NAME "Автостекла Stekloff"
 !define SHORTCUT_NAME "Автостекла Stekloff"
