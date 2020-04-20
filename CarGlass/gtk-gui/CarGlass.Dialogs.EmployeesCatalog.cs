@@ -96,6 +96,7 @@ namespace CarGlass.Dialogs
 			w6.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.btnAccept = new global::Gtk.Button();
+			this.btnAccept.Sensitive = false;
 			this.btnAccept.CanFocus = true;
 			this.btnAccept.Name = "btnAccept";
 			this.btnAccept.UseUnderline = true;
@@ -107,7 +108,6 @@ namespace CarGlass.Dialogs
 			w7.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.btnDismiss = new global::Gtk.Button();
-			this.btnDismiss.Sensitive = false;
 			this.btnDismiss.CanFocus = true;
 			this.btnDismiss.Name = "btnDismiss";
 			this.btnDismiss.UseUnderline = true;

@@ -76,7 +76,13 @@ namespace CarGlass.Dialogs
 			table.Model = EmployeeWorkList;
 			table.ShowAll();
 
-			var sql = "SELECT id, first_name, last_name, patronymic FROM employees ORDER BY last_name";
+			var sql = "SELECT emp.id, emp.first_name, emp.last_name, emp.patronymic, st.id_status, stEmp.code FROM employees emp " +
+				" LEFT JOIN (select history1.id_status,  history1.id_employee as id_employee" +
+				" from employee_status_history history1 where history1.date_create = " +
+				" (select max(date_create) from employee_status_history where id_employee = history1.id_employee) ) as st on st.id_employee = emp.id" +
+				" LEFT JOIN status_employee stEmp on stEmp.id = st.id_status" +
+				" where stEmp.code != 0 " +
+				" ORDER BY emp.last_name";
 			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
