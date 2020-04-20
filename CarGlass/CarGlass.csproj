@@ -232,8 +232,6 @@
     <Compile Include="gtk-gui\CarGlass.Dialogs.SalarySettingsDlg.cs" />
     <Compile Include="Dialogs\SalaryFormulas.cs" />
     <Compile Include="gtk-gui\CarGlass.Dialogs.SalaryFormulas.cs" />
-    <Compile Include="Dialogs\EmployeesCatalog.cs" />
-    <Compile Include="gtk-gui\CarGlass.Dialogs.EmployeesCatalog.cs" />
     <Compile Include="Dialogs\EmployeesKoef.cs" />
     <Compile Include="gtk-gui\CarGlass.Dialogs.EmployeesKoef.cs" />
     <Compile Include="HibernateMapping\StatusEmployeeMap.cs" />
@@ -252,6 +250,8 @@
     <Compile Include="gtk-gui\CarGlass.Dialogs.AddEditFormulas.cs" />
     <Compile Include="Domain\EmployeeServiceSalary.cs" />
     <Compile Include="Domain\EmployeeSalaryServiceType.cs" />
+    <Compile Include="Dialogs\EmployeesCatalogDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.EmployeesCatalogDlg.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -10,8 +10,7 @@ using QSOrmProject;
 
 namespace CarGlass.Dialogs
 {
-	[System.ComponentModel.ToolboxItem(true)]
-	public partial class EmployeesCatalog : Gtk.Bin
+	public partial class EmployeesCatalogDlg : Gtk.Dialog
 	{
 		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 		Employee employee = null;
@@ -24,10 +23,11 @@ namespace CarGlass.Dialogs
 		IList<EmployeeStatusHistory> listEmployeeStatusHistory;
 		IList<EmployeeStatusHistory> listNewEmployeeStatusHistory = new List<EmployeeStatusHistory>();
 
-		public EmployeesCatalog()
+		public EmployeesCatalogDlg()
 		{
 			this.Build();
 			Configure();
+			this.Title = "Справочник сотрудников";
 		}
 
 		void Configure()
@@ -84,6 +84,18 @@ namespace CarGlass.Dialogs
 			createTable();
 		}
 
+		protected void OnYcheckbutton1Clicked(object sender, EventArgs e)
+		{
+			ActiveCode = ycheckbutton1.Active ? 1 : 0;
+			btnAccept.Sensitive = !ycheckbutton1.Active;
+			btnDismiss.Sensitive = ycheckbutton1.Active;
+			if(ycheckbutton1.Active)
+				ycheckbutton1.Label = "работающие";
+			else
+				ycheckbutton1.Label = "уволенные";
+			createTable();
+		}
+
 		protected void OnBtnAddClicked(object sender, EventArgs e)
 		{
 			bool isAdd = true;
@@ -112,7 +124,7 @@ namespace CarGlass.Dialogs
 			setStatus(0);
 		}
 
-		protected void OnBtnSaveClicked(object sender, EventArgs e)
+		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
 			var delEmp = listEmployees.FirstOrDefault(x => x.FirstName == "-" || x.FirstName == "");
 			listEmployees.Remove(delEmp);
@@ -124,18 +136,6 @@ namespace CarGlass.Dialogs
 				UoW.Save(stHis);
 			UoW.Commit();
 
-			createTable();
-		}
-
-		protected void OnYcheckbutton1Clicked(object sender, EventArgs e)
-		{
-			ActiveCode = ycheckbutton1.Active ? 1 : 0;
-			btnAccept.Sensitive = !ycheckbutton1.Active;
-			btnDismiss.Sensitive = ycheckbutton1.Active;
-			if(ycheckbutton1.Active)
-				ycheckbutton1.Label = "работающие";
-			else
-				ycheckbutton1.Label = "уволенные";
 			createTable();
 		}
 	}

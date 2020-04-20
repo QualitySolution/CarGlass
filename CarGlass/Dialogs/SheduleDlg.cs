@@ -176,23 +176,7 @@ namespace CarGlass.Dialogs
 
 		}
 
-		protected void OnBtnAddEmployeeClicked(object sender, EventArgs e)
-		{
-			bool isAdd = true;
-			foreach(object[] emp in EmployeeWorkList)
-			{
-				if(emp[3].ToString() == "-" || emp[3].ToString() == "")
-					isAdd = false;
-			}
 
-			if (isAdd)
-				EmployeeWorkList.AppendValues(0,
-				false,
-				"-",
-				"-",
-				"-"
-			);
-		}
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
@@ -202,26 +186,16 @@ namespace CarGlass.Dialogs
 
 		void PrepareSave()
 		{
-			foreach(object[] emp in EmployeeWorkList)
-			{
-				emp[2] = emp[2].ToString().Replace("-", "");
-				emp[3] = emp[3].ToString().Replace("-", "");
-				emp[4] = emp[4].ToString().Replace("-", "");
-			}
-
 			foreach(object[] row in EmployeeWorkList)
 			{
 				var empWork = Entity.SheduleEmployeeWorks.FirstOrDefault(x => x.Employee.Id == (int)row[0]);
+				var emp = UoW.GetById<Employee>((int)row[0]);
 
-				var emp = new Employee((int)row[0], row[3].ToString().Replace("-", ""), row[2].ToString().Replace("-", ""), row[4].ToString().Replace("-", ""));
-				UoW.Save(emp);
-				UoW.Commit();
 				if((bool)row[1])
 				{
 					if(empWork == null)
 					{
 						empWork = new SheduleEmployeeWork(Entity, emp);
-
 						Entity.SheduleEmployeeWorks.Add(empWork);
 					}
 
@@ -236,9 +210,7 @@ namespace CarGlass.Dialogs
 
 		public override bool Save()
 		{
-
 			UoW.Save();
-
 			logger.Info("Save shedule works on " + Entity.DateWork);
 			Respond(ResponseType.Ok);
 			return true;

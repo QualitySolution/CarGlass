@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CarGlass;
 using CarGlass.Dialogs;
 using CarGlass.ReportDialog;
@@ -295,5 +295,14 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		exportDlg.Show();
 		exportDlg.Run();
 		exportDlg.Destroy();
+	}
+
+	protected void OnAction17Activated(object sender, EventArgs e)
+	{
+		EmployeesCatalogDlg employeesCatalogDlg = new EmployeesCatalogDlg();
+		employeesCatalogDlg.Show();
+		employeesCatalogDlg.Run();
+		employeesCatalogDlg.Destroy();
+
 	}
 }
