@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
@@ -327,6 +327,7 @@
                 <child>
                   <widget class="CarGlass.Dialogs.SalaryCalculation" id="salarycalculation1">
                     <property name="MemberName" />
+                    <property name="Visible">False</property>
                     <property name="Events">ButtonPressMask</property>
                   </widget>
                   <packing>
@@ -4514,15 +4515,6 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.HSeparator" id="hseparator1">
-                <property name="MemberName" />
-              </widget>
-              <packing>
-                <property name="Position">2</property>
-                <property name="AutoSize">False</property>
-              </packing>
-            </child>
-            <child>
               <widget class="Gtk.Button" id="btnCalc">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
@@ -4532,14 +4524,20 @@
                 <signal name="Clicked" handler="OnBtnCalcClicked" />
               </widget>
               <packing>
-                <property name="Position">3</property>
+                <property name="Position">2</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
               </packing>
             </child>
             <child>
-              <placeholder />
+              <widget class="Gtk.HSeparator" id="hseparator1">
+                <property name="MemberName" />
+              </widget>
+              <packing>
+                <property name="Position">3</property>
+                <property name="AutoSize">False</property>
+              </packing>
             </child>
             <child>
               <widget class="Gtk.Button" id="btnSetting">
@@ -4551,7 +4549,7 @@
                 <signal name="Clicked" handler="OnBtnSettingClicked" />
               </widget>
               <packing>
-                <property name="Position">5</property>
+                <property name="Position">4</property>
                 <property name="AutoSize">False</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
@@ -4590,6 +4588,7 @@
                 <property name="DefaultFirst">False</property>
                 <property name="ShowSpecialStateAll">False</property>
                 <property name="ShowSpecialStateNot">False</property>
+                <signal name="ItemSelected" handler="OnCmbEmployeesItemSelected" />
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -4616,6 +4615,7 @@
                 <property name="Visible">False</property>
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
+                <signal name="RowActivated" handler="OnYtreeMainRowActivated" />
               </widget>
             </child>
           </widget>
@@ -4659,10 +4659,12 @@
             <property name="MemberName" />
             <property name="ShadowType">In</property>
             <child>
-              <widget class="Gtk.TreeView" id="treeviewCost1">
+              <widget class="Gamma.GtkWidgets.yTreeView" id="ytreeService">
                 <property name="MemberName" />
+                <property name="Visible">False</property>
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
+                <signal name="RowActivated" handler="OnYtreeMainRowActivated" />
               </widget>
             </child>
           </widget>

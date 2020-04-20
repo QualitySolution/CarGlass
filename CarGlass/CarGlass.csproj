@@ -250,6 +250,7 @@
     <Compile Include="Dialogs\AddEditFormulas.cs" />
     <Compile Include="gtk-gui\CarGlass.Dialogs.AddEditFormulas.cs" />
     <Compile Include="Domain\EmployeeServiceSalary.cs" />
+    <Compile Include="Domain\EmployeeSalaryServiceType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
