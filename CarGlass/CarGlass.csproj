@@ -150,6 +150,7 @@
     <EmbeddedResource Include="icons\glass_scheme.svg" />
     <EmbeddedResource Include="Updates\1.4.sql" />
     <EmbeddedResource Include="Updates\1.4.2.sql" />
+    <EmbeddedResource Include="Updates\1.5.sql" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
