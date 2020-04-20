@@ -150,8 +150,17 @@ namespace CarGlass.Dialogs
 			{
 				if (str.Contains(coef.Coeff.Name)) continue;
 				if(formulaName.Contains(coef.Coeff.Name))
-					formulaName = formulaName.Replace(coef.Coeff.Name, coef.Value);
+					formulaName = formulaName.Replace(coef.Coeff.Name, coef.Value );
 			}
+
+			var listCoeff = UoW.Session.QueryOver<Coefficients>().List();
+			foreach(var coeff in listCoeff)
+			{
+				if(str.Contains(coeff.Name)) continue;
+				if(formulaName.Contains(coeff.Name))
+					formulaName = formulaName.Replace(coeff.Name, "1");
+			}
+
 			return formulaName;
 		}
 

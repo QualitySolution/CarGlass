@@ -87,6 +87,7 @@ namespace CarGlass.Domain
 			{
 				for(int i = 0; i < cr.Errors.Count; i++)
 					Console.WriteLine("Col {0} - {1}", cr.Errors[i].Column, cr.Errors[i].ErrorText);
+				MessageDialogWorks.RunWarningDialog($"Для улсуги\n {Service.Name}\n указана неккоректная формулу");
 				return (0.0);
 			}
 

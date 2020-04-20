@@ -129,7 +129,12 @@ namespace CarGlass.Dialogs
 			var delEmp = listEmployees.FirstOrDefault(x => x.FirstName == "-" || x.FirstName == "");
 			listEmployees.Remove(delEmp);
 			foreach(var emp in listEmployees)
+			{
+				emp.FirstName = emp.FirstName.Replace("-", "");
+				emp.LastName = emp.LastName.Replace("-", "");
+				emp.Patronymic = emp.Patronymic.Replace("-", "");
 				UoW.Save(emp);
+			}
 			UoW.Commit();
 
 			foreach(var stHis in listNewEmployeeStatusHistory)

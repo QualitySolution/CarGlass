@@ -438,9 +438,12 @@ namespace CarGlass
 			IList<Employee> listEmp = new List<Employee>();
 			var sql = "SELECT emp.id, emp.first_name, emp.last_name, emp.patronymic FROM shedule_works sw " +
 				" LEFT JOIN shedule_employee_works eshw on sw.id = eshw.id_shedule_works" +
-				" LEFT JOIN employees emp on  emp.id = eshw.id_employee WHERE sw.date_work = @date";
+				" LEFT JOIN employees emp on  emp.id = eshw.id_employee WHERE sw.date_work = @date and " +
+				" sw.point_number = @point_number and calendar_number = @calendar_number";
 			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			cmd.Parameters.AddWithValue("@date", Entity.Date);
+			cmd.Parameters.AddWithValue("@point_number", Entity.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar_number", Entity.CalendarNumber);
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
 				while(rdr.Read())
