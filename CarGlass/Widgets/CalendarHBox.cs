@@ -1,6 +1,7 @@
 ﻿using System;
 using Gtk;
 using System.Collections.Generic;
+using CarGlass.Domain;
 
 namespace CarGlass
 {
@@ -8,6 +9,7 @@ namespace CarGlass
 	{
 		private ItemButton emptyButton;
 		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
+		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWorkClicked;
 		private OrdersCalendar ParentCalendar;
 
 		List<CalendarItem> listItems;
@@ -25,14 +27,26 @@ namespace CarGlass
 			}
 		}
 
+
 		public CalendarHBox(OrdersCalendar calendar) : base ()
 		{
 			ParentCalendar = calendar;
 			emptyButton = new ItemButton();
 			emptyButton.ParentCalendar = ParentCalendar;
+			emptyButton.isSetSheduleWork = false;
 			emptyButton.NewOrderClicked += HandleNewOrderClicked;
 			this.Add(emptyButton);
 			Drag.DestSet(this, DestDefaults.Highlight, null, 0);
+		}
+
+		public CalendarHBox(OrdersCalendar calendar, string str) : base()
+		{
+			ParentCalendar = calendar;
+			emptyButton = new ItemButton();
+			emptyButton.ParentCalendar = ParentCalendar;
+			emptyButton.isSetSheduleWork = true;
+			emptyButton.NewSheduleWorkClicked += HandleNewSheduleWorkClicked;
+			this.Add(emptyButton);
 		}
 
 		void HandleNewOrderClicked (object sender, NewOrderEventArgs e)
@@ -41,6 +55,11 @@ namespace CarGlass
 			{
 				NewOrderClicked(this, e);
 			}
+		}
+
+		void HandleNewSheduleWorkClicked(object sender, NewSheduleWorkEventArgs e)
+		{
+			NewSheduleWorkClicked?.Invoke(this, e);
 		}
 
 		void UpdateItemsList()

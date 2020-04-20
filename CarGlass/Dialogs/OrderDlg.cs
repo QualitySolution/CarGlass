@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
@@ -24,7 +24,11 @@ namespace CarGlass
 				typeof(string), // 2 - Наименование
 				typeof(double), // 3 - Цена
 				typeof(long)    // 4 - order_pay id
+				,typeof(bool)
+				,typeof(bool)
+				,typeof(bool)
 			);
+		IList<Employee> listPerformers = new List<Employee>();
 
 		public OrderDlg(ushort pointNumber, ushort calendarNumber, OrderType Type, DateTime date, ushort hour)
 		{
@@ -147,6 +151,9 @@ namespace CarGlass
 			treeviewCost.AppendColumn("Название", new CellRendererText(), "text", 2);
 			treeviewCost.AppendColumn("Стоимость", CellCost, RenderPriceColumn);
 
+			if(Entity.OrderType == OrderType.tinting)
+				setInTablePerformers();
+
 			((CellRendererToggle)treeviewCost.Columns[0].CellRenderers[0]).Activatable = true;
 
 			treeviewCost.Model = ServiceListStore;
@@ -163,7 +170,8 @@ namespace CarGlass
 						false,
 						rdr.GetString("name"),
 						DBWorks.GetDouble(rdr, "price", 0),
-						(long)-1
+						(long)-1,
+						false,false, false
 					);
 				}
 			}
@@ -184,6 +192,20 @@ namespace CarGlass
 
 			buttonPrint.Sensitive = Entity.OrderType != OrderType.repair && Entity.OrderType != OrderType.other;
 			TestCanSave();
+		}
+
+		private void setInTablePerformers()
+		{
+			listPerformers = getPerformers();
+			List<CellRendererToggle> referActive = new List<CellRendererToggle>();
+			int i = 5;
+			foreach(var emp in listPerformers)
+			{
+				getCellActive(ref referActive);
+				treeviewCost.AppendColumn(emp.FullName, referActive[i - 5], "active", i);
+				i++;
+			}
+
 		}
 
 		private void RenderPriceColumn(Gtk.TreeViewColumn column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
@@ -213,8 +235,42 @@ namespace CarGlass
 			{
 				bool old = (bool)ServiceListStore.GetValue(iter, 1);
 				ServiceListStore.SetValue(iter, 1, !old);
+				if(!old == false)
+				{
+					ServiceListStore.SetValue(iter, 5, false);
+					ServiceListStore.SetValue(iter, 6, false);
+					ServiceListStore.SetValue(iter, 7, false);
+				}
 			}
 			CalculateTotal();
+		}
+
+		void onCellActiveToggled(object o, ToggledArgs args)
+		{
+			setActiveToggled(o, args, 5);
+		}
+		void onCellActiveToggled2(object o, ToggledArgs args)
+		{
+			setActiveToggled(o, args, 6);
+		}
+		void onCellActiveToggled3(object o, ToggledArgs args)
+		{
+			setActiveToggled(o, args, 7);
+		}
+
+		void setActiveToggled(object o, ToggledArgs args, int column)
+		{
+			TreeIter iter;
+
+			if(ServiceListStore.GetIter(out iter, new TreePath(args.Path)))
+			{
+				if(ServiceListStore.GetValue(iter, column).ToString() != null)
+				{
+					bool old = (bool)ServiceListStore.GetValue(iter, column);
+					if ((bool)ServiceListStore.GetValue(iter, 1))
+						ServiceListStore.SetValue(iter, column, !old);
+				}
+			}
 		}
 
 		private void CalculateTotal()
@@ -248,6 +304,9 @@ namespace CarGlass
 						pay = new WorkOrderPay(Entity, UoW.GetById<Service>((int)row[0]));
 						Entity.Pays.Add(pay);
 					}
+					//Добавление исолнителей
+					if(Entity.OrderType == OrderType.tinting)
+						pay = getPerformers(pay, row);
 
 					pay.Cost = Convert.ToDecimal(row[3]);
 				}
@@ -255,8 +314,45 @@ namespace CarGlass
 				{
 					Entity.Pays.Remove(pay);
 				}
+
 			}
 		}
+
+		private WorkOrderPay getPerformers(WorkOrderPay pay, object[] row)
+		{
+			if(listPerformers.Count > 0)
+			{
+				pay = getEmployeeServiceWorkforSave(row, pay, 5);
+			}
+
+			if(listPerformers.Count > 1)
+			{
+				pay = getEmployeeServiceWorkforSave(row, pay, 6);
+			}
+
+			if(listPerformers.Count > 2)
+			{
+				pay = getEmployeeServiceWorkforSave(row, pay, 7);
+			}
+
+			return pay;
+		}
+
+		private WorkOrderPay getEmployeeServiceWorkforSave(object[] row, WorkOrderPay pay, int column)
+		{
+			var employeeService = pay.EmployeeServiceWork.FirstOrDefault(x => x.Employee.Id == listPerformers[column - 5].Id);
+			if((bool)row[column])
+			{
+				if(employeeService == null)
+					pay.EmployeeServiceWork.Add(new EmployeeServiceWork(listPerformers[column - 5], pay, Entity.Date));
+			}
+			else if(employeeService != null)
+			{
+				pay.EmployeeServiceWork.Remove(employeeService);
+			}
+			return pay;
+		}
+
 
 		public override bool Save()
 		{
@@ -264,12 +360,15 @@ namespace CarGlass
 
 			logger.Info("Ok");
 			Respond(ResponseType.Ok);
+
 			return true;
 		}
 
 		private void Fill()
 		{
-			var sql = "SELECT * FROM order_pays WHERE order_id = @id";
+			var sql = "SELECT * FROM order_pays op" +
+				" LEFT JOIN employee_service_work  esw on op.id = esw.id_order_pay" +
+				" WHERE order_id = @id";
 			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			cmd.Parameters.AddWithValue("@id", Entity.Id);
 			using (MySqlDataReader rdr = cmd.ExecuteReader())
@@ -282,6 +381,17 @@ namespace CarGlass
 						ServiceListStore.SetValue(iter, 1, true);
 						ServiceListStore.SetValue(iter, 3, rdr.GetDouble("cost"));
 						ServiceListStore.SetValue(iter, 4, (object)rdr.GetInt64("id"));
+						if (rdr["id_employee"].ToString().Length > 0)
+						{
+							int i = 5;
+							foreach(var emp in listPerformers)
+							{
+								if(emp.Id == rdr.GetInt32("id_employee"))
+									break;
+								i++;
+							}
+							ServiceListStore.SetValue(iter, i, true);
+						}
 					}
 					else
 					{
@@ -305,7 +415,8 @@ namespace CarGlass
 		{
 			bool Statusok = Entity.OrderState != null;
 			bool Carok = Entity.CarModel != null;
-			buttonOk.Sensitive = (Statusok && Carok) || Entity.OrderType == OrderType.other;
+			bool NumberOk = Entity.Phone != null && Entity.Phone.Length == 16;
+			buttonOk.Sensitive = (Statusok && Carok && NumberOk) || Entity.OrderType == OrderType.other;
 		}
 
 		private string GetTitleFormat(OrderType type)
@@ -320,6 +431,48 @@ namespace CarGlass
 				"Прочее №{0} на {1:D} в {2} часов",
 			};
 			return str[(int)type];
+		}
+
+		private IList<Employee> getPerformers()
+		{
+			IList<Employee> listEmp = new List<Employee>();
+			var sql = "SELECT emp.id, emp.first_name, emp.last_name, emp.patronymic FROM shedule_works sw " +
+				" LEFT JOIN shedule_employee_works eshw on sw.id = eshw.id_shedule_works" +
+				" LEFT JOIN employees emp on  emp.id = eshw.id_employee WHERE sw.date_work = @date";
+			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
+			cmd.Parameters.AddWithValue("@date", Entity.Date);
+			using(MySqlDataReader rdr = cmd.ExecuteReader())
+			{
+				while(rdr.Read())
+				{
+					listEmp.Add(new Employee(int.Parse(rdr.GetString("id")), rdr.GetString("first_name"), rdr.GetString("last_name")
+					, rdr.GetString("patronymic")));
+				 }
+			}
+			return listEmp;
+		}
+
+		protected void getCellActive(ref List<CellRendererToggle> referActive)
+		{
+			CellRendererToggle CellActive = new CellRendererToggle();
+			CellActive.Activatable = true;
+			
+			switch(referActive.Count)
+			{
+				case 0:
+					CellActive.Toggled += onCellActiveToggled;
+					referActive.Add(CellActive);
+					break;
+				case 1:
+					CellActive.Toggled += onCellActiveToggled2;
+					referActive.Add(CellActive);
+					break;
+				case 2:
+					CellActive.Toggled += onCellActiveToggled3;
+					referActive.Add(CellActive);
+					break;
+
+			}
 		}
 
 		protected void OnComboStatusChanged(object sender, EventArgs e)
@@ -388,10 +541,12 @@ namespace CarGlass
 			if(entryPhone.Text.Length == 16)
 			{
 				list = WorkOrderRepository.GetOrdersByPhone(UoW, entryPhone.Text, Entity.Id);
+				TestCanSave();
 			}
 
 			ytreeOtherOrders.ItemsDataSource = list;
 			GtkScrolledWindowOtherOrders.Visible = list != null && list.Count > 0;
+
 		}
 
 		protected void OnYtreeOtherOrdersRowActivated(object o, RowActivatedArgs args)

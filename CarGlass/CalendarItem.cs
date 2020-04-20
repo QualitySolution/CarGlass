@@ -14,6 +14,7 @@ namespace CarGlass
 		public string Color;
 		public string Tag;
 		public string TagColor;
+		public bool isSetSheduleWork;
 		public OrdersCalendar Calendar;
 
 		public event EventHandler OpenOrder;

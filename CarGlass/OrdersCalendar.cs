@@ -21,12 +21,14 @@ namespace CarGlass
 		public Label[] HoursLabels;
 
 		private bool DragIn;
+		int RowEmployees = 1;
 
 		public int PointNumber { get; set;}
 		public int CalendarNumber { get; set; }
 
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
+		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWork;
 
 		internal void OnNeedRefreshOrders()
 		{
@@ -94,27 +96,41 @@ namespace CarGlass
 			StartTime = StartHour;
 			EndTime = EndHour;
 
-			tableOrders.NRows =  (uint)(EndHour - StartHour + 2);
+			tableOrders.NRows =  (uint)(EndHour - StartHour + 2 + RowEmployees);
 
 			uint Position = 1;
-			for(int i = StartHour; i <= EndHour; i++)
+			for(int i = StartHour; i <= EndHour + RowEmployees; i++)
 			{
-				Label templabel = new Label(String.Format(" {0:D2}:00 ", i));
+				Label templabel;
+				if(i == EndHour + RowEmployees)
+					templabel = new Label(" ʕ ᵔᴥᵔ ʔ ".ToUpper()); // ( o˘◡˘o)
+				else
+					templabel = new Label(String.Format(" {0:D2}:00 ", i));
 				templabel.UseMarkup = true;
 				tableOrders.Attach(templabel, 0, 1, Position, Position + 1, AttachOptions.Shrink, AttachOptions.Expand, 0, 0);
 				HoursLabels[i] = templabel;
 				templabel.Show();
 				//Добавляем воксы календаря
-				for(uint x = 1; x <= 7; x++)
-				{
-					CalendarHBox tempBox = new CalendarHBox(this);
-					tempBox.NewOrderClicked += OnButtonNewOrderClick;
-					tempBox.DragMotion += HandleTargetDragMotion;
-					tempBox.DragLeave += HandleTargetDragLeave;
-					tempBox.DragDrop += HandleTargetDragDrop;
-					CalendarBoxes[x - 1, i] = tempBox;
-					tableOrders.Attach(tempBox, x, x + 1, Position, Position + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
-				}
+
+				if (i == EndHour + RowEmployees)
+					for (uint x = 1; x <= 7; x++)
+					{
+						CalendarHBox tempBox = new CalendarHBox(this, "newSheduleWork");
+						tempBox.NewSheduleWorkClicked += OnButtonNewSheduleWorkClick;
+						CalendarBoxes[x - 1, i] = tempBox;
+						tableOrders.Attach(tempBox, x, x + 1, Position, Position + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
+					}
+				else
+					for(uint x = 1; x <= 7; x++)
+					{
+						CalendarHBox tempBox = new CalendarHBox(this);
+						tempBox.NewOrderClicked += OnButtonNewOrderClick;
+						tempBox.DragMotion += HandleTargetDragMotion;
+						tempBox.DragLeave += HandleTargetDragLeave;
+						tempBox.DragDrop += HandleTargetDragDrop;
+						CalendarBoxes[x - 1, i] = tempBox;
+						tableOrders.Attach(tempBox, x, x + 1, Position, Position + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
+					}
 				Position++;
 			}
 			tableOrders.ShowAll();
@@ -156,6 +172,24 @@ namespace CarGlass
 			}
 		}
 
+		protected void OnButtonNewSheduleWorkClick(object sender, NewSheduleWorkEventArgs e)
+		{
+			CalendarHBox box = (CalendarHBox)sender;
+			EventHandler<NewSheduleWorkEventArgs> handler = NewSheduleWork;
+			if(handler != null)
+			{
+				int x, y;
+				GetCalendarPosition(box, out x, out y);
+				e.Date = _StartDate.AddDays(x);
+				e.PointNumber = (ushort)PointNumber;
+				e.CalendarNumber = (ushort)CalendarNumber;
+				e.result = false;
+				handler(this, e);
+				if(e.result)
+				RefreshOrders();
+			}
+		}
+
 		public void RefreshOrders()
 		{
 			if(_StartDate != default(DateTime) && EndTime > 0)
@@ -166,7 +200,7 @@ namespace CarGlass
 		{
 			for(int x = 0; x < 7; x++)
 			{
-				for(int y = StartTime; y <= EndTime; y++)
+				for(int y = StartTime; y <= EndTime + RowEmployees; y++)
 				{
 					CalendarBoxes[x, y].ListItems = TimeMap[x, y];
 				}
@@ -239,12 +273,11 @@ namespace CarGlass
 				CalendarBoxes[day, 10].TranslateCoordinates(tableOrders, -1, 0, out x, out y);
 				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), x, 0, x, h);
 			}
-			for (int hour = StartTime; hour <= EndTime; hour++)
+			for (int hour = StartTime; hour <= EndTime + RowEmployees; hour++)
 			{
 				if (CalendarBoxes[0, hour] == null)
 					continue;
 				CalendarBoxes[0, hour].TranslateCoordinates(tableOrders, 0, -1, out x, out y);
-				//logger.Debug("cor: {0}, {1}", x, y);
 				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), 0, y, w, y);
 			}
 		}
@@ -255,7 +288,7 @@ namespace CarGlass
 			hour = -1;
 			for (int day1 = 0; day1 < 7; day1++)
 			{
-				for (int hour1 = StartTime; hour1 <= EndTime; hour1++)
+				for (int hour1 = StartTime; hour1 <= EndTime + RowEmployees; hour1++)
 				{
 					if (cell == CalendarBoxes[day1, hour1])
 					{
@@ -333,6 +366,14 @@ namespace CarGlass
 		public DateTime Date;
 		public ushort Hour;
 		public OrderType OrderType;
+		public ushort PointNumber;
+		public ushort CalendarNumber;
+		public bool result { get; set; }
+	}
+
+	public class NewSheduleWorkEventArgs : EventArgs
+	{
+		public DateTime Date;
 		public ushort PointNumber;
 		public ushort CalendarNumber;
 		public bool result { get; set; }

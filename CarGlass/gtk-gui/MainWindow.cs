@@ -77,6 +77,10 @@ public partial class MainWindow
 
 	private global::CarGlass.Dialogs.StockBalance stockbalance1;
 
+	private global::Gtk.Label label6;
+
+	private global::CarGlass.Dialogs.SalaryCalculation salarycalculation1;
+
 	private global::Gtk.Label label5;
 
 	private global::QSChat.ChatVSlider chatvsliderMain;
@@ -189,7 +193,7 @@ public partial class MainWindow
 		this.notebookMain = new global::Gtk.Notebook();
 		this.notebookMain.CanFocus = true;
 		this.notebookMain.Name = "notebookMain";
-		this.notebookMain.CurrentPage = 4;
+		this.notebookMain.CurrentPage = 5;
 		// Container child notebookMain.Gtk.Notebook+NotebookChild
 		this.orderscalendar1 = new global::CarGlass.OrdersCalendar();
 		this.orderscalendar1.Events = ((global::Gdk.EventMask)(256));
@@ -260,28 +264,41 @@ public partial class MainWindow
 		global::Gtk.Notebook.NotebookChild w7 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.stockbalance1]));
 		w7.Position = 4;
 		// Notebook tab
+		this.label6 = new global::Gtk.Label();
+		this.label6.Name = "label6";
+		this.label6.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Наш склад</b>");
+		this.label6.UseMarkup = true;
+		this.notebookMain.SetTabLabel(this.stockbalance1, this.label6);
+		this.label6.ShowAll();
+		// Container child notebookMain.Gtk.Notebook+NotebookChild
+		this.salarycalculation1 = new global::CarGlass.Dialogs.SalaryCalculation();
+		this.salarycalculation1.Events = ((global::Gdk.EventMask)(256));
+		this.salarycalculation1.Name = "salarycalculation1";
+		this.notebookMain.Add(this.salarycalculation1);
+		global::Gtk.Notebook.NotebookChild w8 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.salarycalculation1]));
+		w8.Position = 5;
+		// Notebook tab
 		this.label5 = new global::Gtk.Label();
 		this.label5.Name = "label5";
-		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Наш склад</b>");
-		this.label5.UseMarkup = true;
-		this.notebookMain.SetTabLabel(this.stockbalance1, this.label5);
+		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Расчет ЗП");
+		this.notebookMain.SetTabLabel(this.salarycalculation1, this.label5);
 		this.label5.ShowAll();
 		this.hbox6.Add(this.notebookMain);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.notebookMain]));
-		w8.Position = 0;
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.notebookMain]));
+		w9.Position = 0;
 		// Container child hbox6.Gtk.Box+BoxChild
 		this.chatvsliderMain = new global::QSChat.ChatVSlider();
 		this.chatvsliderMain.Events = ((global::Gdk.EventMask)(256));
 		this.chatvsliderMain.Name = "chatvsliderMain";
 		this.chatvsliderMain.IsHided = false;
 		this.hbox6.Add(this.chatvsliderMain);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.chatvsliderMain]));
-		w9.Position = 1;
-		w9.Expand = false;
-		w9.Fill = false;
-		this.vbox1.Add(this.hbox6);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox6]));
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.chatvsliderMain]));
 		w10.Position = 1;
+		w10.Expand = false;
+		w10.Fill = false;
+		this.vbox1.Add(this.hbox6);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox6]));
+		w11.Position = 1;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.statusbar1 = new global::Gtk.Statusbar();
 		this.statusbar1.Name = "statusbar1";
@@ -291,31 +308,32 @@ public partial class MainWindow
 		this.labelUser.Name = "labelUser";
 		this.labelUser.LabelProp = global::Mono.Unix.Catalog.GetString("label5");
 		this.statusbar1.Add(this.labelUser);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelUser]));
-		w11.Position = 0;
-		w11.Expand = false;
-		w11.Fill = false;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelUser]));
+		w12.Position = 0;
+		w12.Expand = false;
+		w12.Fill = false;
 		// Container child statusbar1.Gtk.Box+BoxChild
 		this.labelStatus = new global::Gtk.Label();
 		this.labelStatus.Name = "labelStatus";
 		this.labelStatus.LabelProp = global::Mono.Unix.Catalog.GetString("label4");
 		this.statusbar1.Add(this.labelStatus);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelStatus]));
-		w12.Position = 2;
-		w12.Expand = false;
-		w12.Fill = false;
-		this.vbox1.Add(this.statusbar1);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelStatus]));
 		w13.Position = 2;
 		w13.Expand = false;
 		w13.Fill = false;
+		this.vbox1.Add(this.statusbar1);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
+		w14.Position = 2;
+		w14.Expand = false;
+		w14.Fill = false;
 		this.Add(this.vbox1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 1092;
-		this.DefaultHeight = 435;
+		this.DefaultWidth = 1139;
+		this.DefaultHeight = 457;
+		this.salarycalculation1.Hide();
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.dialogAuthenticationAction.Activated += new global::System.EventHandler(this.OnDialogAuthenticationActionActivated);

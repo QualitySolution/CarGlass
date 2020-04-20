@@ -15,6 +15,8 @@ namespace CarGlass.HibernateMapping
 
 			References(x => x.WorkOrder).Column("order_id");
 			References(x => x.Service).Column("service_id");
+
+			HasMany(x => x.EmployeeServiceWork).Cascade.AllDeleteOrphan().Inverse().LazyLoad().KeyColumn("id_order_pay");
 		}
 	}
 }
