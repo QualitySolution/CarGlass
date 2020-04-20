@@ -12,9 +12,9 @@ namespace CarGlass.Dialogs
 
 		private global::QS.Widgets.GtkUI.DateRangePicker daterangepicker1;
 
-		private global::Gtk.HSeparator hseparator1;
-
 		private global::Gtk.Button btnCalc;
+
+		private global::Gtk.HSeparator hseparator1;
 
 		private global::Gtk.Button btnSetting;
 
@@ -34,7 +34,7 @@ namespace CarGlass.Dialogs
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 
-		private global::Gtk.TreeView treeviewCost1;
+		private global::Gamma.GtkWidgets.yTreeView ytreeService;
 
 		protected virtual void Build()
 		{
@@ -71,22 +71,22 @@ namespace CarGlass.Dialogs
 			w2.Expand = false;
 			w2.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.hseparator1 = new global::Gtk.HSeparator();
-			this.hseparator1.Name = "hseparator1";
-			this.hbox1.Add(this.hseparator1);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.hseparator1]));
-			w3.Position = 2;
-			// Container child hbox1.Gtk.Box+BoxChild
 			this.btnCalc = new global::Gtk.Button();
 			this.btnCalc.CanFocus = true;
 			this.btnCalc.Name = "btnCalc";
 			this.btnCalc.UseUnderline = true;
 			this.btnCalc.Label = global::Mono.Unix.Catalog.GetString("Рассчитать");
 			this.hbox1.Add(this.btnCalc);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.btnCalc]));
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.btnCalc]));
+			w3.Position = 2;
+			w3.Expand = false;
+			w3.Fill = false;
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.hseparator1 = new global::Gtk.HSeparator();
+			this.hseparator1.Name = "hseparator1";
+			this.hbox1.Add(this.hseparator1);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.hseparator1]));
 			w4.Position = 3;
-			w4.Expand = false;
-			w4.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.btnSetting = new global::Gtk.Button();
 			this.btnSetting.CanFocus = true;
@@ -95,7 +95,7 @@ namespace CarGlass.Dialogs
 			this.btnSetting.Label = global::Mono.Unix.Catalog.GetString("Настройки");
 			this.hbox1.Add(this.btnSetting);
 			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.btnSetting]));
-			w5.Position = 5;
+			w5.Position = 4;
 			w5.Expand = false;
 			w5.Fill = false;
 			this.vbox2.Add(this.hbox1);
@@ -168,10 +168,10 @@ namespace CarGlass.Dialogs
 			this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
 			this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-			this.treeviewCost1 = new global::Gtk.TreeView();
-			this.treeviewCost1.CanFocus = true;
-			this.treeviewCost1.Name = "treeviewCost1";
-			this.GtkScrolledWindow1.Add(this.treeviewCost1);
+			this.ytreeService = new global::Gamma.GtkWidgets.yTreeView();
+			this.ytreeService.CanFocus = true;
+			this.ytreeService.Name = "ytreeService";
+			this.GtkScrolledWindow1.Add(this.ytreeService);
 			this.vbox2.Add(this.GtkScrolledWindow1);
 			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow1]));
 			w15.Position = 4;
@@ -181,9 +181,13 @@ namespace CarGlass.Dialogs
 				this.Child.ShowAll();
 			}
 			this.ytreeMain.Hide();
+			this.ytreeService.Hide();
 			this.Hide();
 			this.btnCalc.Clicked += new global::System.EventHandler(this.OnBtnCalcClicked);
 			this.btnSetting.Clicked += new global::System.EventHandler(this.OnBtnSettingClicked);
+			this.cmbEmployees.ItemSelected += new global::System.EventHandler<Gamma.Widgets.ItemSelectedEventArgs>(this.OnCmbEmployeesItemSelected);
+			this.ytreeMain.RowActivated += new global::Gtk.RowActivatedHandler(this.OnYtreeMainRowActivated);
+			this.ytreeService.RowActivated += new global::Gtk.RowActivatedHandler(this.OnYtreeMainRowActivated);
 		}
 	}
 }

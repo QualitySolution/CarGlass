@@ -30,6 +30,9 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			OrderType.other,
 		};
 
+		if(QSMain.User.Login == "admin")
+			salarycalculation1.Visible = true;
+
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 22);
 		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);

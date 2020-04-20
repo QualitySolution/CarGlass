@@ -333,6 +333,7 @@ public partial class MainWindow
 		}
 		this.DefaultWidth = 1139;
 		this.DefaultHeight = 457;
+		this.salarycalculation1.Hide();
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.dialogAuthenticationAction.Activated += new global::System.EventHandler(this.OnDialogAuthenticationActionActivated);

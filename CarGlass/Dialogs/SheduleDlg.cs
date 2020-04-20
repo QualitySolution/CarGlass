@@ -138,7 +138,7 @@ namespace CarGlass.Dialogs
 			}
 			labelSum.LabelProp = String.Format("<span foreground=\"red\"><b>Выбрано: {0}</b></span>", Total);
 			labelSum.QueueResize();
-			buttonOk.Sensitive = Total > 0;
+			buttonOk.Sensitive = Total > 0 && Total < 4;
 
 		}
 

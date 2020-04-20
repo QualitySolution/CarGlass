@@ -58,8 +58,7 @@ namespace CarGlass.Dialogs
 			Domain.SalaryFormulas w = ytreeFormulas.GetSelectedObject<Domain.SalaryFormulas>();
 			AddEditFormulas addEditFormulas = new AddEditFormulas(w);
 			addEditFormulas.Show();
-			//addEditFormulas.Run();
-		//addEditFormulas.Destroy();
+			createTableFormulas();
 		}
 
 	}
