@@ -39,6 +39,20 @@ namespace CarGlass.Domain
 			get { return String.Format("{0} {1} {2}", LastName, FirstName, Patronymic).Trim(); }
 		}
 
+		public virtual string PersonNameWithInitials()
+		{
+			string result = String.Empty;
+			if(!String.IsNullOrWhiteSpace(LastName))
+				result += String.Format("{0} ", LastName);
+			if(!String.IsNullOrWhiteSpace(FirstName) && !String.IsNullOrWhiteSpace(LastName))
+				result += String.Format("{0}.", FirstName[0]);
+			if(String.IsNullOrWhiteSpace(LastName))
+				result += String.Format("{0}", FirstName);
+			if(!String.IsNullOrWhiteSpace(Patronymic) && !String.IsNullOrWhiteSpace(FirstName) && !String.IsNullOrWhiteSpace(LastName))
+				result += String.Format("{0}.", Patronymic[0]);
+			return result;
+		}
+
 		StatusEmployee statusEmployee;
 
 		public virtual StatusEmployee StatusEmployee

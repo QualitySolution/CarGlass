@@ -45,15 +45,7 @@ namespace CarGlass.Dialogs
 					var statushistory = listEmployeeStatusHistory.FirstOrDefault(x => x.Employee == emp && x.DateCreate == date);
 					emp.StatusEmployee = statushistory.Status;
 				}
-				else
-				{
-
-					StatusEmployee inWork = listStatusEmployee.FirstOrDefault(x => x.Code == 1);
-					var st = new EmployeeStatusHistory(emp, inWork);
-					UoW.Save(st);
-					UoW.Commit();
-					emp.StatusEmployee = st.Status;
-				}
+		
 			}
 
 			createTable();
@@ -133,6 +125,11 @@ namespace CarGlass.Dialogs
 				emp.FirstName = emp.FirstName.Replace("-", "");
 				emp.LastName = emp.LastName.Replace("-", "");
 				emp.Patronymic = emp.Patronymic.Replace("-", "");
+				if(emp.Id == 0)
+				{
+					StatusEmployee st = listStatusEmployee.FirstOrDefault(x => x.Code == 1);
+					listNewEmployeeStatusHistory.Add(new EmployeeStatusHistory(emp, st));
+				}
 				UoW.Save(emp);
 			}
 			UoW.Commit();

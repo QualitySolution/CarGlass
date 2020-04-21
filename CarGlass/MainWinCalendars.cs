@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass;
@@ -229,9 +229,10 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			{
 				while(rdr.Read())
 				{
+					Employee emp = new Employee(rdr["last_name"].ToString(), rdr["first_name"].ToString(), rdr["patronymic"].ToString());
 					if(text.Length > 0)
 						text += ", ";
-					text += String.Format("{0} {1} {2}", rdr["last_name"], rdr["first_name"], rdr["patronymic"]);
+					text += emp.PersonNameWithInitials();
 	
 				}
 				for(int i = 1; i < text.Length; i++)
