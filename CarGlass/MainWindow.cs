@@ -302,7 +302,6 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		EmployeesCatalogDlg employeesCatalogDlg = new EmployeesCatalogDlg();
 		employeesCatalogDlg.Show();
 		employeesCatalogDlg.Run();
-		employeesCatalogDlg.Destroy();
 
 	}
 }
