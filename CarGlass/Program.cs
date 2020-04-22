@@ -32,7 +32,7 @@ namespace CarGlass
 			LoginDialog.Logo = Gdk.Pixbuf.LoadFromResource ("CarGlass.icons.logo.png");
 			LoginDialog.SetDefaultNames ("CarGlass");
 			LoginDialog.DefaultLogin = "";
-			LoginDialog.DefaultServer = "193.27.73.239";
+			LoginDialog.DefaultServer = "stekloff.qsolution.ru";
 			LoginDialog.UpdateFromGConf ();
 
 			ResponseType LoginResult;
