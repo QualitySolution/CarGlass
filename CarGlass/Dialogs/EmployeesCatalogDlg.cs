@@ -7,6 +7,7 @@ using Gtk;
 using QS.Dialog.Gtk;
 using QS.DomainModel.UoW;
 using QSOrmProject;
+using QSProjectsLib;
 
 namespace CarGlass.Dialogs
 {
@@ -45,7 +46,7 @@ namespace CarGlass.Dialogs
 					var statushistory = listEmployeeStatusHistory.FirstOrDefault(x => x.Employee == emp && x.DateCreate == date);
 					emp.StatusEmployee = statushistory.Status;
 				}
-		
+
 			}
 
 			createTable();
@@ -90,20 +91,20 @@ namespace CarGlass.Dialogs
 
 		protected void OnBtnAddClicked(object sender, EventArgs e)
 		{
-			bool isAdd = true;
-			foreach(var emp in listEmployees)
-			{
-				if(emp.FirstName == "-" || emp.FirstName == "")
-					isAdd = false;
-			}
+			//bool isAdd = true;
+			//foreach(var emp in listEmployees)
+			//{
+			//	if(emp.FirstName == "-" || emp.FirstName == "")
+			//		isAdd = false;
+			//}
 
-			if(isAdd)
-			{
+			//if(isAdd)
+			//{
 				Employee s = new Employee("-", "-", "-");
 				s.StatusEmployee = listStatusEmployee.First(x => x.Code == 1);
 				listEmployees.Add(s);
 				createTable();
-			}
+			//}
 		}
 
 		protected void OnBtnAcceptClicked(object sender, EventArgs e)
@@ -118,13 +119,22 @@ namespace CarGlass.Dialogs
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
-			var delEmp = listEmployees.FirstOrDefault(x => x.FirstName == "-" || x.FirstName == "");
-			listEmployees.Remove(delEmp);
+
 			foreach(var emp in listEmployees)
 			{
 				emp.FirstName = emp.FirstName.Replace("-", "");
 				emp.LastName = emp.LastName.Replace("-", "");
 				emp.Patronymic = emp.Patronymic.Replace("-", "");
+
+				if(emp.FirstName == "" && emp.LastName == "" && emp.Patronymic == "")
+				{
+					MessageDialogWorks.RunWarningDialog($"В списке присутствуют пустые строки. \n Сохранение невозможно.");
+					return;
+				}
+			} 
+
+			foreach(var emp in listEmployees)
+			{
 				if(emp.Id == 0)
 				{
 					StatusEmployee st = listStatusEmployee.FirstOrDefault(x => x.Code == 1);
@@ -132,13 +142,12 @@ namespace CarGlass.Dialogs
 				}
 				UoW.Save(emp);
 			}
-			UoW.Commit();
 
 			foreach(var stHis in listNewEmployeeStatusHistory)
 				UoW.Save(stHis);
-			UoW.Commit();
 
-			createTable();
+			UoW.Commit();
+			this.Destroy();
 		}
 	}
 }
