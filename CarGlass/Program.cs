@@ -32,7 +32,7 @@ namespace CarGlass
 			LoginDialog.Logo = Gdk.Pixbuf.LoadFromResource ("CarGlass.icons.logo.png");
 			LoginDialog.SetDefaultNames ("CarGlass");
 			LoginDialog.DefaultLogin = "";
-			LoginDialog.DefaultServer = "193.27.73.239";
+			LoginDialog.DefaultServer = "stekloff.qsolution.ru";
 			LoginDialog.UpdateFromGConf ();
 
 			ResponseType LoginResult;
@@ -75,6 +75,11 @@ namespace CarGlass
 				new Version(1, 4),
 				new Version(1, 5),
 				"CarGlass.Updates.1.5.sql");
+
+			QS.Updater.DB.DBUpdater.AddMicroUpdate(
+				new Version(1, 5),
+				new Version(1, 5, 1),
+				"CarGlass.Updates.1.5.1.sql");
 
 			//Параметры удаления
 			Dictionary<string, TableInfo> Tables = new Dictionary<string, TableInfo>();
