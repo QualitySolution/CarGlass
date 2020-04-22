@@ -74,7 +74,7 @@ namespace CarGlass.Dialogs
 			// Container child table1.Gtk.Table+TableChild
 			this.label13 = new global::Gtk.Label();
 			this.label13.Name = "label13";
-			this.label13.LabelProp = global::Mono.Unix.Catalog.GetString("Коеф.");
+			this.label13.LabelProp = global::Mono.Unix.Catalog.GetString("Коэффициент:");
 			this.table1.Add(this.label13);
 			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.label13]));
 			w4.LeftAttach = ((uint)(2));

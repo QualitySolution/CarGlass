@@ -55,6 +55,7 @@ namespace CarGlass.Dialogs
 		protected void OnBtnDeleteCoeffClicked(object sender, EventArgs e)
 		{
 			Coefficients coeff = ytreeCoeff.GetSelectedObject<Coefficients>();
+			if(coeff == null) return;
 			if(checkCoeffBeforeDelete(coeff.Name))
 			{
 				MessageDialogWorks.RunWarningDialog("Коэффициент присутствует в формулах.\n Удаление невозможно.");
