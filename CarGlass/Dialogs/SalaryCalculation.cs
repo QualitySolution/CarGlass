@@ -14,7 +14,7 @@ namespace CarGlass.Dialogs
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class SalaryCalculation : WidgetOnDialogBase
 	{
-		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
+		IUnitOfWork UoW;
 		IList<EmployeeServiceSalary> listEmployeeServiceSalaries = new List<EmployeeServiceSalary>();
 		IList<Employee> listEmployees = new List<Employee>();
 		public SalaryCalculation()
@@ -72,6 +72,7 @@ namespace CarGlass.Dialogs
 		public void Calculate(DateTime start, DateTime end)
 		{
 			listEmployeeServiceSalaries.Clear();
+			UoW = UnitOfWorkFactory.CreateWithoutRoot();
 			EmployeeServiceWork employeeServiceWork = null;
 			IList <EmployeeServiceWork> listEmployeeServiceWork;
 

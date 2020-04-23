@@ -74,11 +74,11 @@ namespace CarGlass.Dialogs
 
 		protected void OnBtnSaveClicked(object sender, EventArgs e)
 		{
-			var q = listEmployeeCoeff;
 			foreach(var row in listEmployeeCoeff)
 			{
 				if(row.Value == null)
 					row.Value = "1";
+				row.Value.Replace(",", ".");
 				UoW.Save(row);
 
 			}
