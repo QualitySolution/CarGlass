@@ -82,7 +82,7 @@ namespace CarGlass
 				"CarGlass.Updates.1.5.1.sql");
 
 			QS.Updater.DB.DBUpdater.AddMicroUpdate(
-				new Version(1, 5),
+				new Version(1, 5, 1),
 				new Version(1, 5, 2),
 				"CarGlass.Updates.1.5.2.sql");
 

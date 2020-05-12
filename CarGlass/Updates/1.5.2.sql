@@ -1,1 +1,1 @@
-ALTER TABLE CarGlass.employee_coeff CHANGE COLUMN value value VARCHAR(10) NULL DEFAULT NULL ;
+ALTER TABLE employee_coeff CHANGE COLUMN value value VARCHAR(10) NULL DEFAULT NULL ;
