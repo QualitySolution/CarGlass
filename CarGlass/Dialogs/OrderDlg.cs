@@ -202,7 +202,9 @@ namespace CarGlass
 			foreach(var emp in listPerformers)
 			{
 				getCellActive(ref referActive);
-				treeviewCost.AppendColumn(emp.PersonNameWithInitials(), referActive[i - 5], "active", i);
+				var column = treeviewCost.AppendColumn(emp.PersonNameWithInitials(), referActive[i - 5], "active", i);
+				column.Alignment = 0.5f;
+				column.Expand = true;
 				i++;
 			}
 
