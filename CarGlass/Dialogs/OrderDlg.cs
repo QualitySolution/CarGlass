@@ -30,11 +30,11 @@ namespace CarGlass
 			);
 		IList<Employee> listPerformers = new List<Employee>();
 
-		public OrderDlg(ushort pointNumber, ushort calendarNumber, OrderType Type, DateTime date, ushort hour)
+		public OrderDlg(ushort pointNumber, ushort calendarNumber, OrderTypeClass Type, DateTime date, ushort hour)
 		{
 			this.Build();
 			UoWGeneric = UnitOfWorkFactory.CreateWithNewRoot<WorkOrder>();
-			Entity.OrderType = Type;
+			Entity.OrderTypeClass = Type;
 			Entity.Date = date;
 			Entity.Hour = hour;
 			Entity.PointNumber = pointNumber;
@@ -58,9 +58,10 @@ namespace CarGlass
 		void ConfigureDlg()
 		{
 			labelCreated.LabelProp = $"{Entity.CreatedDate} - {Entity.CreatedBy?.Name}";
-			this.Title = String.Format(GetTitleFormat(Entity.OrderType), UoW.IsNew ? "???" : Entity.Id.ToString(), Entity.Date, Entity.Hour);
 
-			comboStatus.ItemsList = OrderStateRepository.GetStates(UoW, Entity.OrderType);
+			this.Title = String.Format(GetTitleFormat(Entity.OrderTypeClass), UoW.IsNew ? "???" : Entity.Id.ToString(), Entity.Date, Entity.Hour);
+
+			comboStatus.ItemsList = OrderStateRepository.GetStates(UoW, Entity.OrderTypeClass);
 			comboStatus.Binding.AddBinding(Entity, e => e.OrderState, w => w.SelectedItem).InitializeFromSource();
 
 			comboMark.ItemsList = UoW.GetAll<CarBrand>();
@@ -68,7 +69,7 @@ namespace CarGlass
 				comboMark.SelectedItem = Entity.CarModel.Brand;
 			comboModel.Binding.AddBinding(Entity, e => e.CarModel, w => w.SelectedItem).InitializeFromSource();
 
-			if(Entity.OrderType == OrderType.install)
+			if(Entity.OrderTypeClass.IsShowMainWidgets)
 			{
 				comboManufacturer.ShowSpecialStateNot = true;
 				comboManufacturer.ItemsList = UoW.GetAll<Manufacturer>();
@@ -151,17 +152,19 @@ namespace CarGlass
 			treeviewCost.AppendColumn("Название", new CellRendererText(), "text", 2);
 			treeviewCost.AppendColumn("Стоимость", CellCost, RenderPriceColumn);
 
-			if(Entity.OrderType == OrderType.tinting)
-				setInTablePerformers();
+			setInTablePerformers();
 
 			((CellRendererToggle)treeviewCost.Columns[0].CellRenderers[0]).Activatable = true;
 
 			treeviewCost.Model = ServiceListStore;
 			treeviewCost.ShowAll();
-
-			var sql = "SELECT id, name, price FROM services WHERE order_type = @order_type ORDER BY ordinal";
+			//fixme Изменить запрос
+			var sql = "SELECT ser.id, ser.name, ser.price FROM services ser " +
+				"JOIN service_order_type ordt on ser.id = ordt.id_service " +
+				"JOIN order_type ord on ord.id = ordt.id_type_order " +
+				"WHERE ord.name = @order_type ORDER BY ord.name";
 			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
-			cmd.Parameters.AddWithValue("@order_type", Entity.OrderType.ToString());
+			cmd.Parameters.AddWithValue("@order_type", Entity.OrderTypeClass.Name.ToString());
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
 				while(rdr.Read())
@@ -177,7 +180,7 @@ namespace CarGlass
 			}
 
 			ytreeOtherOrders.ColumnsConfig = ColumnsConfigFactory.Create<WorkOrder>()
-				.AddColumn("Тип").AddTextRenderer(x => x.OrderType.GetEnumTitle())
+				.AddColumn("Тип").AddTextRenderer(x => x.OrderTypeClass.Name) // x.OrderType.GetEnumTitle()
 				.AddColumn("Состояние").AddTextRenderer(x => x.OrderState != null ? x.OrderState.Name : null)
 					.AddSetter((c, x) => c.Background = x.OrderState != null ? x.OrderState.Color : null)
 				.AddColumn("Дата").AddTextRenderer(x => x.Date.ToShortDateString())
@@ -190,7 +193,7 @@ namespace CarGlass
 				.AddColumn("Номер").AddTextRenderer(x => x.Id.ToString())
 				.Finish();
 
-			buttonPrint.Sensitive = Entity.OrderType != OrderType.repair && Entity.OrderType != OrderType.other;
+			buttonPrint.Sensitive = Entity.OrderTypeClass.Name.Equals("Ремонт сколов") && !Entity.OrderTypeClass.IsOtherType;
 			TestCanSave();
 		}
 
@@ -306,9 +309,8 @@ namespace CarGlass
 						pay = new WorkOrderPay(Entity, UoW.GetById<Service>((int)row[0]));
 						Entity.Pays.Add(pay);
 					}
-					//Добавление исолнителей
-					if(Entity.OrderType == OrderType.tinting)
-						pay = getPerformers(pay, row);
+
+					pay = getPerformers(pay, row);
 
 					pay.Cost = Convert.ToDecimal(row[3]);
 				}
@@ -418,21 +420,13 @@ namespace CarGlass
 			bool Statusok = Entity.OrderState != null;
 			bool Carok = Entity.CarModel != null;
 			bool NumberOk = Entity.Phone != null && Entity.Phone.Length == 16;
-			buttonOk.Sensitive = (Statusok && Carok && NumberOk) || Entity.OrderType == OrderType.other;
+			buttonOk.Sensitive = (Statusok && Carok && NumberOk) || Entity.OrderTypeClass.IsOtherType;
 		}
 
-		private string GetTitleFormat(OrderType type)
+		private string GetTitleFormat(OrderTypeClass type)
 		{
-			string[] str = new string[]
-			{
-				"Заказ установки №{0} на {1:D} в {2} часов",
-				"Заказ тонировки №{0} на {1:D} в {2} часов",
-				"Заказ ремонта №{0} на {1:D} в {2} часов",
-				"Заказ полировки №{0} на {1:D} в {2} часов",
-				"Заказ бронировки №{0} на {1:D} в {2} часов",
-				"Прочее №{0} на {1:D} в {2} часов",
-			};
-			return str[(int)type];
+			string str = "Тип заказа \'" + type.Name + "\' №{0} на {1:D} в {2} часов";
+			return str;
 		}
 
 		private IList<Employee> getPerformers()

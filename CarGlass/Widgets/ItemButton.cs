@@ -83,7 +83,7 @@ namespace CarGlass
 			base.OnClicked();
 		}
 
-		protected void OnNewOrderClicked(OrderType ordertyp)
+		protected void OnNewOrderClicked(OrderTypeClass ordertyp)
 		{
 			EventHandler<NewOrderEventArgs> handler = NewOrderClicked;
 			if (handler != null)
@@ -180,7 +180,7 @@ namespace CarGlass
 			{
 				Gtk.Menu jBox = new Gtk.Menu();
 				MenuItem MenuItem1;
-				MenuItemId<OrderType> MenuItem2;
+				MenuItemId<OrderTypeClass> MenuItem2;
 				bool isSheduleWork = isSetSheduleWork || (item?.isSetSheduleWork ?? false);
 
 				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
@@ -189,7 +189,7 @@ namespace CarGlass
 				}
 				else if(ParentCalendar.OrdersTypes.Count == 1 && !isSheduleWork)
 				{
-					MenuItem2 = new MenuItemId<OrderType>("Новый заказ");
+					MenuItem2 = new MenuItemId<OrderTypeClass>("Новый заказ");
 					MenuItem2.ID = ParentCalendar.OrdersTypes.First();
 					MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 					jBox.Add(MenuItem2);       
@@ -222,10 +222,10 @@ namespace CarGlass
 		private Gtk.Menu GetNewOrderTypesMenu()
 		{
 			Gtk.Menu jBox2 = new Gtk.Menu();
-			MenuItemId<OrderType> MenuItem2;
+			MenuItemId<OrderTypeClass> MenuItem2;
 			foreach(var type in ParentCalendar.OrdersTypes)
 			{
-				MenuItem2 = new MenuItemId<OrderType>(type.GetEnumTitle());
+				MenuItem2 = new MenuItemId<OrderTypeClass>(type.Name);//type.GetEnumTitle()
 				MenuItem2.ID = type;
 				MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 				jBox2.Add(MenuItem2);       
@@ -270,7 +270,7 @@ namespace CarGlass
 
 		protected void OnButtonPopupAddWithType(object sender, ButtonPressEventArgs Arg)
 		{
-			MenuItemId<OrderType> item = (MenuItemId<OrderType>)sender;
+			MenuItemId<OrderTypeClass> item = (MenuItemId<OrderTypeClass>)sender;
 			OnNewOrderClicked(item.ID);
 		}
 	}

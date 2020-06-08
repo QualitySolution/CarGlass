@@ -6,7 +6,7 @@ namespace CarGlass
 	{
 		private global::Gtk.Table table1;
 
-		private global::Gamma.Widgets.yEnumComboBox comboType;
+		private global::QS.Widgets.GtkUI.SpecialListComboBox comboboxOrderType;
 
 		private global::Gtk.Entry entryName;
 
@@ -20,9 +20,9 @@ namespace CarGlass
 
 		private global::Gtk.Label label2;
 
-		private global::Gtk.Label label3;
-
 		private global::Gtk.Label label4;
+
+		private global::Gtk.Label label5;
 
 		private global::Gtk.Label labelID;
 
@@ -42,21 +42,21 @@ namespace CarGlass
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.table1 = new global::Gtk.Table(((uint)(4)), ((uint)(2)), false);
+			this.table1 = new global::Gtk.Table(((uint)(5)), ((uint)(2)), false);
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.comboType = new global::Gamma.Widgets.yEnumComboBox();
-			this.comboType.Name = "comboType";
-			this.comboType.ShowSpecialStateAll = false;
-			this.comboType.ShowSpecialStateNot = false;
-			this.comboType.UseShortTitle = false;
-			this.comboType.DefaultFirst = false;
-			this.table1.Add(this.comboType);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.comboType]));
-			w2.TopAttach = ((uint)(2));
-			w2.BottomAttach = ((uint)(3));
+			this.comboboxOrderType = new global::QS.Widgets.GtkUI.SpecialListComboBox();
+			this.comboboxOrderType.Name = "comboboxOrderType";
+			this.comboboxOrderType.AddIfNotExist = false;
+			this.comboboxOrderType.DefaultFirst = false;
+			this.comboboxOrderType.ShowSpecialStateAll = false;
+			this.comboboxOrderType.ShowSpecialStateNot = false;
+			this.table1.Add(this.comboboxOrderType);
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.comboboxOrderType]));
+			w2.TopAttach = ((uint)(3));
+			w2.BottomAttach = ((uint)(4));
 			w2.LeftAttach = ((uint)(1));
 			w2.RightAttach = ((uint)(2));
 			w2.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -100,8 +100,8 @@ namespace CarGlass
 			w5.Fill = false;
 			this.table1.Add(this.hbox1);
 			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.hbox1]));
-			w6.TopAttach = ((uint)(3));
-			w6.BottomAttach = ((uint)(4));
+			w6.TopAttach = ((uint)(4));
+			w6.BottomAttach = ((uint)(5));
 			w6.LeftAttach = ((uint)(1));
 			w6.RightAttach = ((uint)(2));
 			w6.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -128,23 +128,23 @@ namespace CarGlass
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.label3 = new global::Gtk.Label();
-			this.label3.Name = "label3";
-			this.label3.Xalign = 1F;
-			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("Тип заказа<span foreground=\"red\">*</span>:");
-			this.label3.UseMarkup = true;
-			this.table1.Add(this.label3);
-			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1[this.label3]));
-			w9.TopAttach = ((uint)(2));
-			w9.BottomAttach = ((uint)(3));
-			w9.XOptions = ((global::Gtk.AttachOptions)(4));
-			w9.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
 			this.label4 = new global::Gtk.Label();
 			this.label4.Name = "label4";
 			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString("Цена по умолчанию:");
 			this.table1.Add(this.label4);
-			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1[this.label4]));
+			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1[this.label4]));
+			w9.TopAttach = ((uint)(4));
+			w9.BottomAttach = ((uint)(5));
+			w9.XOptions = ((global::Gtk.AttachOptions)(4));
+			w9.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.label5 = new global::Gtk.Label();
+			this.label5.Name = "label5";
+			this.label5.Xalign = 1F;
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Тип заказа<span foreground=\"red\">*</span>:");
+			this.label5.UseMarkup = true;
+			this.table1.Add(this.label5);
+			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1[this.label5]));
 			w10.TopAttach = ((uint)(3));
 			w10.BottomAttach = ((uint)(4));
 			w10.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -162,8 +162,6 @@ namespace CarGlass
 			w1.Add(this.table1);
 			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(w1[this.table1]));
 			w12.Position = 0;
-			w12.Expand = false;
-			w12.Fill = false;
 			// Internal child CarGlass.ServiceDlg.ActionArea
 			global::Gtk.HButtonBox w13 = this.ActionArea;
 			w13.Name = "dialog1_ActionArea";
@@ -201,10 +199,10 @@ namespace CarGlass
 				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 360;
-			this.DefaultHeight = 186;
+			this.DefaultHeight = 203;
 			this.Show();
 			this.entryName.Changed += new global::System.EventHandler(this.OnEntryNameChanged);
-			this.comboType.Changed += new global::System.EventHandler(this.OnComboTypeChanged);
+			this.comboboxOrderType.Changed += new global::System.EventHandler(this.OnComboTypeChanged);
 			this.buttonOk.Clicked += new global::System.EventHandler(this.OnButtonOkClicked);
 		}
 	}

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CarGlass.Domain;
 using Gamma.Utilities;
 using MySql.Data.MySqlClient;
 using NLog;
+using QS.DomainModel.UoW;
 using QSProjectsLib;
 
 namespace CarGlass
@@ -11,63 +13,48 @@ namespace CarGlass
 	public partial class Status : Gtk.Dialog
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
-
+		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
+		Domain.Status status = new Domain.Status();
 		public bool NewItem;
-		int Status_id;
 
 		public Status()
 		{
 			this.Build();
-
-			foreach(OrderType type in Enum.GetValues(typeof(OrderType)))
+			foreach( OrderTypeClass orderTypeClass in UoW.Query<OrderTypeClass>().List())
 				checklistTypes.AddCheckButton(
-					type.ToString(), type.GetEnumTitle());	
+					orderTypeClass.Id.ToString(), orderTypeClass.Name);
+
 		}
 
 		public void Fill(int id)
 		{
-			Status_id = id;
 			NewItem = false;
 
 			logger.Info("Запрос статуса №{0}...", id);
-			string sql = "SELECT status.* FROM status WHERE status.id = @id";
-			QSMain.CheckConnectionAlive();
-			try
-			{
-				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+			status = UoW.Query<Domain.Status>().List().First(x => x.Id == id);
 
-				cmd.Parameters.AddWithValue("@id", id);
+            labelId.Text = status.Id.ToString();
+            entryName.Text = status.Name;
+			checkColor.Active = !String.IsNullOrEmpty(status.Color);
 
-				using(MySqlDataReader rdr = cmd.ExecuteReader())
-				{
+            if(!String.IsNullOrEmpty(status.Color))
+            {
+                Gdk.Color TempColor = new Gdk.Color();
+				Gdk.Color.Parse(status.Color, ref TempColor);
+                colorbuttonMarker.Color = TempColor;
+            }
 
-					rdr.Read();
+            //Читаем лист типов заказов
+            string[] types = status.Usedtypes.Split(new char[] { ',' });
+            foreach(string ordertype in types)
+            {
+                if(checklistTypes.CheckButtons.ContainsKey(ordertype))
+                    checklistTypes.CheckButtons[ordertype].Active = true;
+            }
 
-					labelId.Text = rdr["id"].ToString();
-					entryName.Text = rdr["name"].ToString();
-					checkColor.Active = rdr["color"] != DBNull.Value;
-					if(rdr["color"] != DBNull.Value)
-					{
-						Gdk.Color TempColor = new Gdk.Color();
-						Gdk.Color.Parse(rdr.GetString ("color"), ref TempColor);
-						colorbuttonMarker.Color = TempColor;
-					}
-
-					//Читаем лист типов заказов
-					string[] types = rdr["usedtypes"].ToString().Split(new char[] {','} );
-					foreach(string ordertype in types)
-					{
-						if(checklistTypes.CheckButtons.ContainsKey(ordertype))
-							checklistTypes.CheckButtons[ordertype].Active = true;
-					}
-				}
-				logger.Info("Ok");
+            logger.Info("Ok");
 				this.Title = entryName.Text;
-			}
-			catch (Exception ex)
-			{
-				QSMain.ErrorMessageWithLog("Ошибка получения информации о статусе!", logger, ex);
-			}
+
 			TestCanSave();
 		}
 
@@ -84,52 +71,28 @@ namespace CarGlass
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
-			string sql;
-			if(NewItem)
-			{
-				sql = "INSERT INTO status (name, color, usedtypes) " +
-					"VALUES (@name, @color, @usedtypes)";
-			}
-			else
-			{
-				sql = "UPDATE status SET name = @name, color = @color, usedtypes = @usedtypes WHERE id = @id";
-			}
-			logger.Info("Запись статуса...");
-			QSMain.CheckConnectionAlive();
-			try 
-			{
-				MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+			status.Name = entryName.Text;
+            if(checkColor.Active)
+            {
+                Gdk.Color c = colorbuttonMarker.Color;
+                string ColorStr = String.Format("#{0:x4}{1:x4}{2:x4}", c.Red, c.Green, c.Blue);
+                logger.Debug(ColorStr);
+                status.Color = ColorStr;
 
-				cmd.Parameters.AddWithValue("@id", Status_id);
-				cmd.Parameters.AddWithValue("@name", entryName.Text);
-				if(checkColor.Active)
-				{
-					Gdk.Color c = colorbuttonMarker.Color;
-					string ColorStr = String.Format("#{0:x4}{1:x4}{2:x4}", c.Red, c.Green, c.Blue);
-					logger.Debug(ColorStr);
-					cmd.Parameters.AddWithValue("@color", ColorStr);
-				}
-				else
-					cmd.Parameters.AddWithValue("@color", DBNull.Value);
-				string types = "";
-				foreach(KeyValuePair<string, Gtk.CheckButton> Pair in checklistTypes.CheckButtons)
-				{
-					if(Pair.Value.Active)
-						types += Pair.Key + ",";
-				}
-				cmd.Parameters.AddWithValue("@usedtypes", types.TrimEnd(','));
+            }
+            status.Usedtypes = "";
+            foreach(KeyValuePair<string, Gtk.CheckButton> Pair in checklistTypes.CheckButtons)
+            {
+                if(Pair.Value.Active)
+                    status.Usedtypes += Pair.Key + ",";
+            }
+            UoW.Save(status);
+            UoW.Commit();
+            Respond(Gtk.ResponseType.Ok);
 
-				cmd.ExecuteNonQuery();
-				logger.Info("Ok");
-				Respond (Gtk.ResponseType.Ok);
-			} 
-			catch (Exception ex) 
-			{
-				QSMain.ErrorMessageWithLog("Ошибка записи статуса!", logger, ex);
-			}
-		}
+        }
 
-		protected void OnEntryNameChanged(object sender, EventArgs e)
+        protected void OnEntryNameChanged(object sender, EventArgs e)
 		{
 			TestCanSave();
 		}

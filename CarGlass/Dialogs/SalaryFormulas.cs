@@ -22,9 +22,10 @@ namespace CarGlass.Dialogs
 
 		private void createTableFormulas()
 		{
-			Service service = null;
+			//Service service = null;
 			Domain.SalaryFormulas salaryFormulas = null;
-			var itemsQueryService = UoW.Session.QueryOver<Service>(() => service).Where(x => x.OrderType == OrderType.tinting).List();
+
+			var itemsQueryService = UoW.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType.Count > 0 && x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).List();
 			var itemsQuerySalaryFormulas = UoW.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).List();
 
 			foreach (var serv in itemsQueryService)

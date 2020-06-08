@@ -8,7 +8,7 @@ namespace CarGlass
 		public DateTime Date;
 		public int Hour;
 		public int id;
-		public OrderType Type;
+		public OrderTypeClass OrderType;
 		public string Text;
 		public string FullText;
 		public string Color;

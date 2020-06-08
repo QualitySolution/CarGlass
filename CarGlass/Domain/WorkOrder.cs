@@ -162,6 +162,15 @@ namespace CarGlass.Domain
 			set { SetField(ref comment, value); }
 		}
 
+		private OrderTypeClass orderTypeClass;
+
+		[Display(Name = "Тип заказа")]
+		public virtual OrderTypeClass OrderTypeClass
+		{
+			get { return orderTypeClass; }
+			set {SetField(ref orderTypeClass, value); }
+		}
+
 		#region Гарантия
 
 		private Warranty warrantyInstall;

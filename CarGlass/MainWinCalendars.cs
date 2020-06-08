@@ -7,37 +7,28 @@ using CarGlass.Domain;
 using Gamma.Utilities;
 using Gtk;
 using MySql.Data.MySqlClient;
+using QS.DomainModel.UoW;
 using QSOrmProject;
 using QSProjectsLib;
 
 public partial class MainWindow: FakeTDITabGtkWindowBase
 {
-
+	
 	void PrerareCalendars()
 	{
-		var installServices = new List<OrderType>{
-			OrderType.install,
-			OrderType.repair,
-			OrderType.polishing,
-			OrderType.other,
-		};
+		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 
-		var tintingServices = new List<OrderType>{
-			OrderType.tinting,
-			OrderType.repair,
-			OrderType.polishing,
-			OrderType.armoring,
-			OrderType.other,
-		};
+		var listOrderTypesOrderCalendar1 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label1.LabelProp.ToUpper())).ToList();
+		var listOrderTypesOrderCalendar2 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label2.LabelProp.ToUpper())).ToList();
+		var listOrderTypesOrderCalendar3 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label3.LabelProp.ToUpper())).ToList();
+		var listOrderTypesOrderCalendar4 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label4.LabelProp.ToUpper())).ToList();
 
-		salarycalculation1.Visible = QSMain.User.Admin;
-		
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 22);
 		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);
 		orderscalendar1.PointNumber = 1;
 		orderscalendar1.CalendarNumber = 1;
-		orderscalendar1.OrdersTypes = installServices;
+		orderscalendar1.OrdersTypes = listOrderTypesOrderCalendar1; //installServices;
 		orderscalendar1.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar1.NewOrder += OnNewOrder;
 		orderscalendar1.NewSheduleWork += OnNewSheduleWork;
@@ -47,7 +38,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.BackgroundColor = new Gdk.Color(255, 230, 230);
 		orderscalendar2.PointNumber = 1;
 		orderscalendar2.CalendarNumber = 2;
-		orderscalendar2.OrdersTypes = tintingServices;
+		orderscalendar2.OrdersTypes = listOrderTypesOrderCalendar2;
 		orderscalendar2.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar2.NewOrder += OnNewOrder;
 		orderscalendar2.NewSheduleWork += OnNewSheduleWork;
@@ -57,7 +48,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.BackgroundColor = new Gdk.Color(234, 230, 255);
 		orderscalendar3.PointNumber = 2;
 		orderscalendar3.CalendarNumber = 1;
-		orderscalendar3.OrdersTypes = installServices;
+		orderscalendar3.OrdersTypes = listOrderTypesOrderCalendar3;
 		orderscalendar3.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar3.NewOrder += OnNewOrder;
 		orderscalendar3.NewSheduleWork += OnNewSheduleWork;
@@ -67,7 +58,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.BackgroundColor = new Gdk.Color(255, 230, 230);
 		orderscalendar4.PointNumber = 2;
 		orderscalendar4.CalendarNumber = 2;
-		orderscalendar4.OrdersTypes = tintingServices;
+		orderscalendar4.OrdersTypes = listOrderTypesOrderCalendar4;
 		orderscalendar4.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar4.NewOrder += OnNewOrder;
 		orderscalendar4.NewSheduleWork += OnNewSheduleWork;
@@ -77,6 +68,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 	protected void OnRefreshCalendarEvent(object sender, RefreshOrdersEventArgs arg)
 	{
+		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
 		logger.Info("Запрос заказов на {0:d}...", arg.StartDate);
@@ -108,14 +100,15 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			{
 				Calendar.ClearTimeMap();
 				while(rdr.Read())
-				{
+                {
 					CalendarItem order = new CalendarItem(rdr.GetDateTime("date"),
 						rdr.GetInt32("hour")
 					);
-					OrderType type = (OrderType)Enum.Parse(typeof(OrderType), rdr["type"].ToString());
+					OrderTypeClass orderTypeClass = UoW.Session.QueryOver<OrderTypeClass>().List().FirstOrDefault(x => x.Id == int.Parse(rdr["id_order_type"].ToString()));
+
 					order.id = rdr.GetInt32("id");
 					order.Text = String.Format("{0} {1}\n{2}\n{3}",rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"] );
-					if(type == OrderType.install)
+					if(orderTypeClass.IsShowAdditionalWidgets)
 					{
 						order.FullText = String.Format("{9}\nСостояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
 							rdr["status"],
@@ -127,13 +120,14 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							rdr["phone"],
 							DBWorks.GetDecimal(rdr, "sum", 0),
 							rdr["comment"],
-						                               type.GetEnumTitle()
+							orderTypeClass.Name
+						                               
 						);
 					}
 					else
 					{
 						order.FullText = String.Format("{0}\nСостояние: {1}\nАвтомобиль: {2} {3}\nТелефон: {4}\nСтоимость: {5:C}\n{6}",
-						                               type.GetEnumTitle(),
+							 orderTypeClass.Name,
 							rdr["status"],
 							rdr["mark"],
 							rdr["model"],
@@ -146,7 +140,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					order.TagColor = DBWorks.GetString(rdr, "stockcolor", "");
 					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
 						order.Tag = rdr["stock"].ToString().Substring(0, 1);
-					order.Type = type;
+					order.OrderType = orderTypeClass;
 					order.Calendar = Calendar;
 					order.DeleteOrder += OnDeleteOrder;
 					order.OpenOrder += OnOpenOrder;

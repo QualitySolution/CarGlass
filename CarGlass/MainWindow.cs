@@ -129,7 +129,15 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 				Result = (ResponseType)StocksEdit.Run();
 				StocksEdit.Destroy();
 				break;
-
+			case "order_type":
+				OrderTypeDlg OrderTypeEdit = new OrderTypeDlg();
+				if(e.NewItem)
+					OrderTypeEdit.NewItem = true;
+				else OrderTypeEdit.Fill(e.ItemId);
+				OrderTypeEdit.Show();
+				Result = (ResponseType)OrderTypeEdit.Run();
+				OrderTypeEdit.Destroy();
+				break;
 			default:
 				Result = ResponseType.None;
 				break;
@@ -303,5 +311,15 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		employeesCatalogDlg.Show();
 		employeesCatalogDlg.Run();
 
+	}
+
+    protected void OnAction18Activated(object sender, EventArgs e)
+    {
+		Reference winref = new Reference();
+		winref.SetMode(false, false, true, true, true);
+		winref.FillList("order_type", "Заказы", "Виды заказов");
+		winref.Show();
+		winref.Run();
+		winref.Destroy();
 	}
 }

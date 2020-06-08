@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Gtk;
 using NLog;
@@ -44,6 +44,9 @@ namespace CarGlass
 
 			//Настройка базы
 			CreateBaseConfig();
+
+			// Для корректного удаления в справочниках
+			QSOrmProject.OrmMain.DisableLegacyDeletion();
 
 			//Запускаем программу
 			MainWin = new MainWindow ();
@@ -221,6 +224,16 @@ namespace CarGlass
 			PrepareTable.DisplayString = "Список выполненных услуг";
 			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
 			Tables.Add("employee_service_work", PrepareTable);
+
+			PrepareTable = new TableInfo();
+			PrepareTable.ObjectsName = "Список типов заказов";
+			PrepareTable.ObjectName = "список типов заказов";
+			PrepareTable.SqlSelect = "SELECT id, name, is_calculate_salary, position_in_tabs," +
+				"is_show_main_widgets, is_show_additional_widgets, is_install_type FROM order_type";
+			PrepareTable.DisplayString = "Список типов заказов";
+			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
+			Tables.Add("order_type", PrepareTable);
 		}
-	}
+
+    }
 }
