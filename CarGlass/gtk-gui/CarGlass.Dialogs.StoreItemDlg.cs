@@ -262,11 +262,11 @@ namespace CarGlass.Dialogs
 			w17.RightAttach = ((uint)(2));
 			w17.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.yspinAmount = new global::Gamma.GtkWidgets.ySpinButton(0, 100, 1);
+			this.yspinAmount = new global::Gamma.GtkWidgets.ySpinButton(0D, 100D, 1D);
 			this.yspinAmount.CanFocus = true;
 			this.yspinAmount.Name = "yspinAmount";
-			this.yspinAmount.Adjustment.PageIncrement = 10;
-			this.yspinAmount.ClimbRate = 1;
+			this.yspinAmount.Adjustment.PageIncrement = 10D;
+			this.yspinAmount.ClimbRate = 1D;
 			this.yspinAmount.Numeric = true;
 			this.yspinAmount.ValueAsDecimal = 0m;
 			this.yspinAmount.ValueAsInt = 0;
@@ -279,11 +279,11 @@ namespace CarGlass.Dialogs
 			w18.XOptions = ((global::Gtk.AttachOptions)(4));
 			w18.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.yspinCost = new global::Gamma.GtkWidgets.ySpinButton(0, 1000000, 100);
+			this.yspinCost = new global::Gamma.GtkWidgets.ySpinButton(0D, 1000000D, 100D);
 			this.yspinCost.CanFocus = true;
 			this.yspinCost.Name = "yspinCost";
-			this.yspinCost.Adjustment.PageIncrement = 1000;
-			this.yspinCost.ClimbRate = 1;
+			this.yspinCost.Adjustment.PageIncrement = 1000D;
+			this.yspinCost.ClimbRate = 1D;
 			this.yspinCost.Numeric = true;
 			this.yspinCost.ValueAsDecimal = 0m;
 			this.yspinCost.ValueAsInt = 0;

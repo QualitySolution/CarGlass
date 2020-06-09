@@ -11,7 +11,7 @@ namespace CarGlass
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		public List<CalendarItem>[,] TimeMap;
-		public List<OrderType> OrdersTypes;
+		public List<OrderTypeClass> OrdersTypes;
 		private CalendarHBox[,] CalendarBoxes;
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
@@ -365,7 +365,7 @@ namespace CarGlass
 	{
 		public DateTime Date;
 		public ushort Hour;
-		public OrderType OrderType;
+		public OrderTypeClass OrderType;
 		public ushort PointNumber;
 		public ushort CalendarNumber;
 		public bool result { get; set; }

@@ -7,10 +7,10 @@ namespace CarGlass.Repository
 {
 	public static class OrderStateRepository
 	{
-		public static IList<OrderState> GetStates(IUnitOfWork uow, OrderType orderType)
+		public static IList<OrderState> GetStates(IUnitOfWork uow, OrderTypeClass orderType)
 		{
 			return uow.Session.QueryOver<OrderState>()
-				.Where(x => x.UsedForTypesPlainText.IsLike(orderType.ToString(), MatchMode.Anywhere))
+				.Where(x => x.UsedForTypesPlainText.IsLike(orderType.Name.ToString(), MatchMode.Anywhere))
 				.List();
 		}
 	}

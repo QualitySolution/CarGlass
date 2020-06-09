@@ -53,6 +53,8 @@ public partial class MainWindow
 
 	private global::Gtk.Action Action17;
 
+	private global::Gtk.Action Action18;
+
 	private global::Gtk.VBox vbox1;
 
 	private global::Gtk.MenuBar menuMain;
@@ -171,6 +173,9 @@ public partial class MainWindow
 		this.Action17 = new global::Gtk.Action("Action17", global::Mono.Unix.Catalog.GetString("Справочник сотрудников"), null, null);
 		this.Action17.ShortLabel = global::Mono.Unix.Catalog.GetString("Справочник сотрудников");
 		w1.Add(this.Action17, null);
+		this.Action18 = new global::Gtk.Action("Action18", global::Mono.Unix.Catalog.GetString("Виды заказов"), null, null);
+		this.Action18.ShortLabel = global::Mono.Unix.Catalog.GetString("Виды заказов");
+		w1.Add(this.Action18, null);
 		this.UIManager.InsertActionGroup(w1, 0);
 		this.AddAccelGroup(this.UIManager.AccelGroup);
 		this.Events = ((global::Gdk.EventMask)(16384));
@@ -182,7 +187,7 @@ public partial class MainWindow
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString(@"<ui><menubar name='menuMain'><menu name='Action' action='Action'><menuitem name='dialogAuthenticationAction' action='dialogAuthenticationAction'/><menuitem name='UsersAction' action='UsersAction'/><separator/><menuitem name='quitAction' action='quitAction'/></menu><menu name='Action8' action='Action8'><menuitem name='Action3' action='Action3'/><menuitem name='Action4' action='Action4'/><separator/><menuitem name='Action5' action='Action5'/><menuitem name='Action6' action='Action6'/><separator/><menuitem name='Action11' action='Action11'/><menuitem name='Action10' action='Action10'/><menuitem name='Action7' action='Action7'/><menuitem name='Action17' action='Action17'/></menu><menu name='Action12' action='Action12'><menuitem name='ExcelAction' action='ExcelAction'/><separator/><menuitem name='Action15' action='Action15'/><menuitem name='Action14' action='Action14'/><menuitem name='Action16' action='Action16'/><separator/><menuitem name='ActionStoreReport' action='ActionStoreReport'/><menuitem name='ActionStorePlacment' action='ActionStorePlacment'/></menu><menu name='Action2' action='Action2'><menuitem name='ActionHistoryLog' action='ActionHistoryLog'/><menuitem name='ActionCheckUpdates' action='ActionCheckUpdates'/><separator/><menuitem name='aboutAction' action='aboutAction'/></menu></menubar></ui>");
+		this.UIManager.AddUiFromString(@"<ui><menubar name='menuMain'><menu name='Action' action='Action'><menuitem name='dialogAuthenticationAction' action='dialogAuthenticationAction'/><menuitem name='UsersAction' action='UsersAction'/><separator/><menuitem name='quitAction' action='quitAction'/></menu><menu name='Action8' action='Action8'><menuitem name='Action3' action='Action3'/><menuitem name='Action4' action='Action4'/><separator/><menuitem name='Action5' action='Action5'/><menuitem name='Action6' action='Action6'/><separator/><menuitem name='Action11' action='Action11'/><menuitem name='Action18' action='Action18'/><menuitem name='Action10' action='Action10'/><menuitem name='Action7' action='Action7'/><menuitem name='Action17' action='Action17'/></menu><menu name='Action12' action='Action12'><menuitem name='ExcelAction' action='ExcelAction'/><separator/><menuitem name='Action15' action='Action15'/><menuitem name='Action14' action='Action14'/><menuitem name='Action16' action='Action16'/><separator/><menuitem name='ActionStoreReport' action='ActionStoreReport'/><menuitem name='ActionStorePlacment' action='ActionStorePlacment'/></menu><menu name='Action2' action='Action2'><menuitem name='ActionHistoryLog' action='ActionHistoryLog'/><menuitem name='ActionCheckUpdates' action='ActionCheckUpdates'/><separator/><menuitem name='aboutAction' action='aboutAction'/></menu></menubar></ui>");
 		this.menuMain = ((global::Gtk.MenuBar)(this.UIManager.GetWidget("/menuMain")));
 		this.menuMain.Name = "menuMain";
 		this.vbox1.Add(this.menuMain);
@@ -198,7 +203,7 @@ public partial class MainWindow
 		this.notebookMain = new global::Gtk.Notebook();
 		this.notebookMain.CanFocus = true;
 		this.notebookMain.Name = "notebookMain";
-		this.notebookMain.CurrentPage = 5;
+		this.notebookMain.CurrentPage = 0;
 		// Container child notebookMain.Gtk.Notebook+NotebookChild
 		this.orderscalendar1 = new global::CarGlass.OrdersCalendar();
 		this.orderscalendar1.Events = ((global::Gdk.EventMask)(256));
@@ -361,6 +366,7 @@ public partial class MainWindow
 		this.ActionStorePlacment.Activated += new global::System.EventHandler(this.OnActionStorePlacmentActivated);
 		this.ExcelAction.Activated += new global::System.EventHandler(this.OnExcelActionActivated);
 		this.Action17.Activated += new global::System.EventHandler(this.OnAction17Activated);
+		this.Action18.Activated += new global::System.EventHandler(this.OnAction18Activated);
 		this.notebookMain.SwitchPage += new global::Gtk.SwitchPageHandler(this.OnNotebookMainSwitchPage);
 	}
 }

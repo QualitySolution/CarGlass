@@ -254,6 +254,13 @@
     <Compile Include="Domain\EmployeeSalaryServiceType.cs" />
     <Compile Include="Dialogs\EmployeesCatalogDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.Dialogs.EmployeesCatalogDlg.cs" />
+    <Compile Include="Dialogs\OrderTypeDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.OrderTypeDlg.cs" />
+    <Compile Include="HibernateMapping\OrderTypeMap.cs" />
+    <Compile Include="Domain\ServiceOrderType.cs" />
+    <Compile Include="HibernateMapping\ServiceOrderTypeMap.cs" />
+    <Compile Include="Domain\Status.cs" />
+    <Compile Include="HibernateMapping\StatusMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
