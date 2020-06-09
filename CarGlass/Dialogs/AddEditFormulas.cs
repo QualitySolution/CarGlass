@@ -14,25 +14,25 @@ namespace CarGlass.Dialogs
 	public partial class AddEditFormulas : Gtk.Dialog
 	{
 		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
-		Domain.SalaryFormulas salaryFormulas = null;
-		Coefficients coefficients = null;
-		IList<Domain.SalaryFormulas> listSalaryFormulas;
+		Domain.SalaryFormulas salaryFormulas = new Domain.SalaryFormulas();
 		IList<Coefficients> listCoefficients;
 		IList<Coefficients> listCoefficientsDelete = new List<Coefficients>();
+		bool isEditCoeff;
 
 		public AddEditFormulas()
 		{
 			this.Build();
 		}
 
-		public AddEditFormulas(Domain.SalaryFormulas salaryFormulas)
+		public AddEditFormulas(Domain.SalaryFormulas SalaryFormula)
 		{
 			this.Build();
 			this.Title = "Редактирование формулы";
-			this.salaryFormulas = salaryFormulas;
-			if(salaryFormulas.Id != 0)
-				listSalaryFormulas = UoW.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).Where(x => x.Id == salaryFormulas.Id).List();
-			listCoefficients = UoW.Session.QueryOver<Coefficients>(() => coefficients).List();
+			if(SalaryFormula.Id != 0)
+				this.salaryFormulas = UoW.Session.QueryOver<Domain.SalaryFormulas>().List().FirstOrDefault(x => x.Id == SalaryFormula.Id);
+
+			salaryFormulas.Service = SalaryFormula.Service;
+			listCoefficients = UoW.Session.QueryOver<Coefficients>().List();
 			yentry.Text = salaryFormulas.Formula;
 			ytreeCoeff.ItemsDataSource = listCoefficients;
 			label2.Text = "Коэффициенты:";
@@ -50,6 +50,7 @@ namespace CarGlass.Dialogs
 		{
 			listCoefficients.Add(new Coefficients("-", "-"));
 			ytreeCoeff.ItemsDataSource = listCoefficients;
+			isEditCoeff = true;
 		}
 
 		protected void OnBtnDeleteCoeffClicked(object sender, EventArgs e)
@@ -64,6 +65,7 @@ namespace CarGlass.Dialogs
 			listCoefficients.Remove(coeff);
 			listCoefficientsDelete.Add(coeff);
 			ytreeCoeff.ItemsDataSource = listCoefficients;
+			isEditCoeff = true;
 		}
 
 		private bool checkCoeffBeforeDelete(string coeff)
@@ -101,7 +103,11 @@ namespace CarGlass.Dialogs
 				MessageDialogWorks.RunWarningDialog("В формуле присутсвуют коэффициенты,\n которых нет в справочнике.\n Сохранение невозможно.");
 				return;
 			}
-			Save();
+
+			if(isEditCoeff)
+				SaveCoeff();
+
+			SaveSalaryFormula();
 			Respond(ResponseType.Ok);
 			this.Destroy();
 		}
@@ -118,8 +124,17 @@ namespace CarGlass.Dialogs
 			return true;
 		}
 
-		private void Save()
+		private void SaveSalaryFormula()
 		{
+            salaryFormulas.Formula = yentry.Text;
+			salaryFormulas.Comment = yentryComment.Text;
+			UoW.Save(salaryFormulas);
+			UoW.Commit();
+
+		}
+
+		protected void SaveCoeff()
+        {
 			foreach(var del in listCoefficientsDelete)
 				UoW.Delete(del);
 
@@ -130,17 +145,10 @@ namespace CarGlass.Dialogs
 					listCoefficients.Remove(coeff);
 				else
 				{
-					UoW = UnitOfWorkFactory.CreateWithNewRoot<Coefficients>();
 					UoW.Save(coeff);
 					UoW.Commit();
 				}
-			salaryFormulas.Formula = yentry.Text;
-			salaryFormulas.Comment = yentryComment.Text;
-			var r = salaryFormulas;
-			UoW = UnitOfWorkFactory.CreateWithNewRoot<Domain.SalaryFormulas>();
-			UoW.Save(salaryFormulas);
-			UoW.Commit();
-			Respond(ResponseType.Ok);
+
 		}
 
 		protected void OnBtnSelectCoeffClicked(object sender, EventArgs e)

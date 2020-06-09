@@ -22,14 +22,13 @@ namespace CarGlass.Dialogs
 
 		private void createTableFormulas()
 		{
-			//Service service = null;
 			Domain.SalaryFormulas salaryFormulas = null;
-
-			var itemsQueryService = UoW.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType.Count > 0 && x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).List();
+			var itemsQueryService = UoW.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
+			.Where(x=> x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
 			var itemsQuerySalaryFormulas = UoW.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).List();
 
 			foreach (var serv in itemsQueryService)
-				if(itemsQuerySalaryFormulas.Where(x => x.Service == serv).Count() < 1)
+				if(itemsQuerySalaryFormulas.Where(x => x.Service.Id == serv.Id).Count() < 1)
 					itemsQuerySalaryFormulas.Add(new Domain.SalaryFormulas(serv, "", ""));
 
 			ytreeFormulas.ColumnsConfig = ColumnsConfigFactory.Create<Domain.SalaryFormulas>()
@@ -57,9 +56,11 @@ namespace CarGlass.Dialogs
 		protected void OnBtnEditFormulaClicked(object sender, EventArgs e)
 		{
 			Domain.SalaryFormulas w = ytreeFormulas.GetSelectedObject<Domain.SalaryFormulas>();
-			AddEditFormulas addEditFormulas = new AddEditFormulas(w);
-			addEditFormulas.Show();
-			createTableFormulas();
+			AddEditFormulas frmAddEditFormulas = new AddEditFormulas(w);
+			frmAddEditFormulas.Show();
+			int result = frmAddEditFormulas.Run();
+			if(result == (int)ResponseType.Ok)	
+				createTableFormulas();
 		}
 
 	}
