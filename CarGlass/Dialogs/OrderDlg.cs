@@ -24,9 +24,9 @@ namespace CarGlass
 				typeof(string), // 2 - Наименование
 				typeof(double), // 3 - Цена
 				typeof(long)    // 4 - order_pay id
-				,typeof(bool)
-				,typeof(bool)
-				,typeof(bool)
+				,typeof(bool)	// первый исполнитель
+				,typeof(bool)   // второй исполнитель
+				,typeof(bool)	// третий исполнитель
 			);
 		IList<Employee> listPerformers = new List<Employee>();
 
@@ -246,6 +246,8 @@ namespace CarGlass
 					ServiceListStore.SetValue(iter, 6, false);
 					ServiceListStore.SetValue(iter, 7, false);
 				}
+				if (!old && listPerformers.Count == 1)
+					ServiceListStore.SetValue(iter, 5, true);
 			}
 			CalculateTotal();
 		}
