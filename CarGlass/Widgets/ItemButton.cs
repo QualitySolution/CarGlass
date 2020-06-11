@@ -19,8 +19,10 @@ namespace CarGlass
 		private Pango.Layout PangoTag;
 		public OrdersCalendar ParentCalendar;
 		public bool isSetSheduleWork;
+		public bool isSetNote;
 		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
 		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWorkClicked;
+		public event EventHandler<NewNoteEventArgs> NewNoteClicked;
 
 		public CalendarItem Item
 		{
@@ -66,12 +68,14 @@ namespace CarGlass
 				item.Open();
 			else
 			{
-				if (ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
+				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
 					return;
 				else if(ParentCalendar.OrdersTypes.Count == 1)
 					OnNewOrderClicked(ParentCalendar.OrdersTypes.First());
-				else if (isSetSheduleWork )
+				else if(isSetSheduleWork)
 					OnNewSheduleWorkClicked(ParentCalendar);
+				else if(isSetNote)
+					OnNewNoteClicked(ParentCalendar);
 				else
 				{
 					Gtk.Menu jBox = GetNewOrderTypesMenu();
@@ -100,6 +104,16 @@ namespace CarGlass
 			if(handler != null)
 			{
 				NewSheduleWorkEventArgs e = new NewSheduleWorkEventArgs();
+				handler(this, e);
+			}
+		}
+
+		protected void OnNewNoteClicked(OrdersCalendar calendar)
+		{
+			EventHandler<NewNoteEventArgs> handler = NewNoteClicked;
+			if(handler != null)
+			{
+				NewNoteEventArgs e = new NewNoteEventArgs();
 				handler(this, e);
 			}
 		}
@@ -181,26 +195,26 @@ namespace CarGlass
 				Gtk.Menu jBox = new Gtk.Menu();
 				MenuItem MenuItem1;
 				MenuItemId<OrderTypeClass> MenuItem2;
-				bool isSheduleWork = isSetSheduleWork || (item?.isSetSheduleWork ?? false);
+				bool isNoOrders = isSetSheduleWork || (item?.isNoOrder?? false) || isSetNote;
 
 				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
 				{
 					throw new InvalidOperationException("Типы заказов для календаря не установлены.");
 				}
-				else if(ParentCalendar.OrdersTypes.Count == 1 && !isSheduleWork)
+				else if(ParentCalendar.OrdersTypes.Count == 1 && !isNoOrders)
 				{
 					MenuItem2 = new MenuItemId<OrderTypeClass>("Новый заказ");
 					MenuItem2.ID = ParentCalendar.OrdersTypes.First();
 					MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 					jBox.Add(MenuItem2);       
 				}
-				else if (!isSheduleWork)
+				else if (!isNoOrders)
 				{
 					MenuItem1 = new MenuItem("Новый заказ");
 					MenuItem1.Submenu = GetNewOrderTypesMenu();
 					jBox.Add(MenuItem1);       
 				}
-				if(!isSheduleWork)
+				if(!isNoOrders)
 				{
 					MenuItem1 = new MenuItem("Перенести");
 					MenuItem1.Sensitive = item != null;

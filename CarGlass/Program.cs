@@ -238,6 +238,14 @@ namespace CarGlass
 			PrepareTable.DisplayString = "Список типов заказов";
 			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
 			Tables.Add("order_type", PrepareTable);
+
+			PrepareTable = new TableInfo();
+			PrepareTable.ObjectsName = "Заметки";
+			PrepareTable.ObjectName = "список заметок";
+			PrepareTable.SqlSelect = "SELECT id, date, point_number, calendar_number, message";
+			PrepareTable.DisplayString = "Список заметок";
+			PrepareTable.PrimaryKey = new TableInfo.PrimaryKeys("id");
+			Tables.Add("note", PrepareTable);
 		}
 
     }

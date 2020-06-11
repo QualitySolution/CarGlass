@@ -24,17 +24,18 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		var listOrderTypesOrderCalendar4 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label4.LabelProp.ToUpper())).ToList();
 
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
-		orderscalendar1.SetTimeRange(9, 22);
+		orderscalendar1.SetTimeRange(9, 21);
 		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);
 		orderscalendar1.PointNumber = 1;
 		orderscalendar1.CalendarNumber = 1;
-		orderscalendar1.OrdersTypes = listOrderTypesOrderCalendar1; //installServices;
+		orderscalendar1.OrdersTypes = listOrderTypesOrderCalendar1;
 		orderscalendar1.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar1.NewOrder += OnNewOrder;
 		orderscalendar1.NewSheduleWork += OnNewSheduleWork;
+		orderscalendar1.NewNote += OnNewNote;
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
-		orderscalendar2.SetTimeRange(9, 22);
+		orderscalendar2.SetTimeRange(9, 21);
 		orderscalendar2.BackgroundColor = new Gdk.Color(255, 230, 230);
 		orderscalendar2.PointNumber = 1;
 		orderscalendar2.CalendarNumber = 2;
@@ -42,9 +43,10 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar2.NewOrder += OnNewOrder;
 		orderscalendar2.NewSheduleWork += OnNewSheduleWork;
+		orderscalendar2.NewNote += OnNewNote;
 
 		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
-		orderscalendar3.SetTimeRange(9, 22);
+		orderscalendar3.SetTimeRange(9, 21);
 		orderscalendar3.BackgroundColor = new Gdk.Color(234, 230, 255);
 		orderscalendar3.PointNumber = 2;
 		orderscalendar3.CalendarNumber = 1;
@@ -52,9 +54,10 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar3.NewOrder += OnNewOrder;
 		orderscalendar3.NewSheduleWork += OnNewSheduleWork;
+		orderscalendar3.NewNote += OnNewNote;
 
 		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
-		orderscalendar4.SetTimeRange(9, 22);
+		orderscalendar4.SetTimeRange(9, 21);
 		orderscalendar4.BackgroundColor = new Gdk.Color(255, 230, 230);
 		orderscalendar4.PointNumber = 2;
 		orderscalendar4.CalendarNumber = 2;
@@ -62,6 +65,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.NeedRefreshOrders += OnRefreshCalendarEvent;
 		orderscalendar4.NewOrder += OnNewOrder;
 		orderscalendar4.NewSheduleWork += OnNewSheduleWork;
+		orderscalendar4.NewNote += OnNewNote;
 
 		orderscalendar1.RefreshOrders();
 	}
@@ -182,11 +186,11 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 					shedule.id = rdr.GetInt32("id");
 					shedule.Tag = "";
-					shedule.Color = shedule.TagColor = "#ffffff";
+					shedule.Color = shedule.TagColor = GetBgColor(Calendar);
 					shedule.Calendar = Calendar;
 					shedule.DeleteOrder += OnDeleteShedule;
 					shedule.OpenOrder += OnOpenSheduleWork;
-					shedule.isSetSheduleWork = true;
+					shedule.isNoOrder = true;
 					calendarItemsShedule.Add(shedule);
 				}
 			}
@@ -196,6 +200,8 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				sh.Text = getEmployeeInShedule(sh.id);
 				Calendar.AddItem((sh.Date - Calendar.StartDate).Days, 23, sh);
 			}
+
+
 		}
 
 		catch(Exception ex)
@@ -203,6 +209,27 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			QSMain.ErrorMessageWithLog("Ошибка получения списка сотрудников!", logger, ex);
 		}
 
+		IList<Note> listNote = UoW.Session.QueryOver<Note>().List().Where(x => x.Date >= arg.StartDate && x.Date <= arg.StartDate.AddDays(6) &&
+								x.PointNumber == Calendar.PointNumber && x.CalendarNumber == Calendar.CalendarNumber).ToList();
+
+		if(listNote != null && listNote.Count > 0)
+			foreach(var note in listNote)
+			{
+				CalendarItem calendarItemNote = new CalendarItem(note.Date, 22);
+
+				calendarItemNote.id = note.Id;
+				calendarItemNote.Tag = "";
+				calendarItemNote.Color = calendarItemNote.TagColor = GetBgColor(Calendar);
+				calendarItemNote.Calendar = Calendar;
+				calendarItemNote.DeleteOrder += OnDeleteNote;
+				calendarItemNote.OpenOrder += OnOpenNote;
+				calendarItemNote.isNoOrder = true;
+				if(note.Message.Length > 400)
+					calendarItemNote.Text = note.Message.Substring(0, 400);
+				else calendarItemNote.Text = note.Message;
+				int day = (note.Date - Calendar.StartDate).Days;
+				Calendar.AddItem(day, 22, calendarItemNote);
+			}
 	}
 
 	private string getEmployeeInShedule(int idShedule)
@@ -242,6 +269,13 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		}
 
 	}
+	private string GetBgColor(OrdersCalendar Calendar)
+	{
+		if(Calendar.CalendarNumber == 1)
+			return "#f0f8ff";
+		else 
+			return "#fffaf0";
+	}
 
 	protected void OnOpenSheduleWork(object sender, EventArgs arg)
 	{
@@ -263,6 +297,16 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		OrderWin.Destroy();
 	}
 
+	protected void OnOpenNote(object sender, EventArgs arg)
+	{
+		CalendarItem item = (CalendarItem)sender;
+		NoteDlg frmNote = new NoteDlg(item.id);
+		frmNote.Show();
+		if((ResponseType)frmNote.Run() == ResponseType.Ok)
+			item.Calendar.RefreshOrders();
+		frmNote.Destroy();
+	}
+
 	protected void OnDeleteShedule(object sender, EventArgs arg)
 	{
 		CalendarItem item = (CalendarItem)sender;
@@ -276,6 +320,14 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		CalendarItem item = (CalendarItem)sender;
 		Delete winDelete = new Delete();
 		if (winDelete.RunDeletion("orders", item.id))
+			item.Calendar.RefreshOrders();
+	}
+
+	protected void OnDeleteNote(object sender, EventArgs arg)
+	{
+		CalendarItem item = (CalendarItem)sender;
+		Delete winDelete = new Delete();
+		if(winDelete.RunDeletion("note", item.id))
 			item.Calendar.RefreshOrders();
 	}
 
@@ -299,7 +351,15 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		frmSheduleWork.Destroy();
 	}
 
-
+	protected void OnNewNote(object sender, NewNoteEventArgs arg)
+	{
+		NoteDlg frmNote = new NoteDlg(arg.PointNumber, arg.CalendarNumber, arg.Date);
+		frmNote.Show();
+		int result = frmNote.Run();
+		if(result == (int)ResponseType.Ok)
+			((OrdersCalendar)sender).RefreshOrders();
+		frmNote.Destroy();
+	}
 	protected void OnChangeTimeOrderEvent(object sender, CalendarItem.TimeChangedEventArgs arg)
 	{
 		CalendarItem order = (CalendarItem)sender;

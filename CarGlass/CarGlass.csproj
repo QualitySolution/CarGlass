@@ -43,6 +43,18 @@
   <PropertyGroup Condition="$(Configuration.Contains('Win'))">
     <TargetOS>Win</TargetOS>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWinAnuCPU|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\ReleaseWinAnuCPU</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Mono.Posix" />
@@ -262,6 +274,10 @@
     <Compile Include="HibernateMapping\ServiceOrderTypeMap.cs" />
     <Compile Include="Domain\Status.cs" />
     <Compile Include="HibernateMapping\StatusMap.cs" />
+    <Compile Include="Dialogs\NoteDlg.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.NoteDlg.cs" />
+    <Compile Include="Domain\Note.cs" />
+    <Compile Include="HibernateMapping\NoteMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -10,6 +10,7 @@ namespace CarGlass
 		private ItemButton emptyButton;
 		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
 		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWorkClicked;
+		public event EventHandler<NewNoteEventArgs> NewNoteClicked;
 		private OrdersCalendar ParentCalendar;
 
 		List<CalendarItem> listItems;
@@ -44,8 +45,17 @@ namespace CarGlass
 			ParentCalendar = calendar;
 			emptyButton = new ItemButton();
 			emptyButton.ParentCalendar = ParentCalendar;
-			emptyButton.isSetSheduleWork = true;
-			emptyButton.NewSheduleWorkClicked += HandleNewSheduleWorkClicked;
+
+			if(str.Equals("newSheduleWork"))
+			{
+				emptyButton.isSetSheduleWork = true;
+				emptyButton.NewSheduleWorkClicked += HandleNewSheduleWorkClicked;
+			}
+			else if(str.Equals("newNote"))
+            {
+				emptyButton.NewNoteClicked += HandleNewNoteClicked;
+				emptyButton.isSetNote = true;
+			}
 			this.Add(emptyButton);
 		}
 
@@ -60,6 +70,11 @@ namespace CarGlass
 		void HandleNewSheduleWorkClicked(object sender, NewSheduleWorkEventArgs e)
 		{
 			NewSheduleWorkClicked?.Invoke(this, e);
+		}
+
+		void HandleNewNoteClicked(object sender, NewNoteEventArgs e)
+		{
+			NewNoteClicked?.Invoke(this, e);
 		}
 
 		void UpdateItemsList()

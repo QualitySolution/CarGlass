@@ -22,6 +22,7 @@ namespace CarGlass
 
 		private bool DragIn;
 		int RowEmployees = 1;
+		int RowNote = 1;
 
 		public int PointNumber { get; set;}
 		public int CalendarNumber { get; set; }
@@ -29,6 +30,7 @@ namespace CarGlass
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
 		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWork;
+		public event EventHandler<NewNoteEventArgs> NewNote;
 
 		internal void OnNeedRefreshOrders()
 		{
@@ -96,14 +98,16 @@ namespace CarGlass
 			StartTime = StartHour;
 			EndTime = EndHour;
 
-			tableOrders.NRows =  (uint)(EndHour - StartHour + 2 + RowEmployees);
+			tableOrders.NRows =  (uint)(EndHour - StartHour + 2 + RowEmployees + RowNote);
 
 			uint Position = 1;
-			for(int i = StartHour; i <= EndHour + RowEmployees; i++)
+			for(int i = StartHour; i <= EndHour + RowEmployees + RowNote; i++)
 			{
 				Label templabel;
-				if(i == EndHour + RowEmployees)
+				if(i == EndHour + RowEmployees + RowNote)
 					templabel = new Label(" ʕ ᵔᴥᵔ ʔ ".ToUpper()); // ( o˘◡˘o)
+				else if (i == 22)
+					templabel = new Label(" ☰ ".ToUpper()); // ▒ ☰ 
 				else
 					templabel = new Label(String.Format(" {0:D2}:00 ", i));
 				templabel.UseMarkup = true;
@@ -112,7 +116,7 @@ namespace CarGlass
 				templabel.Show();
 				//Добавляем воксы календаря
 
-				if (i == EndHour + RowEmployees)
+				if (i == EndHour + RowEmployees + RowNote)
 					for (uint x = 1; x <= 7; x++)
 					{
 						CalendarHBox tempBox = new CalendarHBox(this, "newSheduleWork");
@@ -120,6 +124,15 @@ namespace CarGlass
 						CalendarBoxes[x - 1, i] = tempBox;
 						tableOrders.Attach(tempBox, x, x + 1, Position, Position + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
 					}
+				else if (i == 22)
+					for(uint x = 1; x <= 7; x++)
+					{
+						CalendarHBox tempBox = new CalendarHBox(this, "newNote");
+						tempBox.NewNoteClicked += OnButtonNewNoteClick;
+						CalendarBoxes[x - 1, i] = tempBox;
+						tableOrders.Attach(tempBox, x, x + 1, Position, Position + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
+					}
+
 				else
 					for(uint x = 1; x <= 7; x++)
 					{
@@ -190,6 +203,24 @@ namespace CarGlass
 			}
 		}
 
+		protected void OnButtonNewNoteClick(object sender, NewNoteEventArgs e)
+		{
+			CalendarHBox box = (CalendarHBox)sender;
+			EventHandler<NewNoteEventArgs> handler = NewNote;
+			if(handler != null)
+			{
+				int x, y;
+				GetCalendarPosition(box, out x, out y);
+				e.Date = _StartDate.AddDays(x);
+				e.PointNumber = (ushort)PointNumber;
+				e.CalendarNumber = (ushort)CalendarNumber;
+				e.result = false;
+				handler(this, e);
+				if(e.result)
+					RefreshOrders();
+			}
+		}
+
 		public void RefreshOrders()
 		{
 			if(_StartDate != default(DateTime) && EndTime > 0)
@@ -200,7 +231,7 @@ namespace CarGlass
 		{
 			for(int x = 0; x < 7; x++)
 			{
-				for(int y = StartTime; y <= EndTime + RowEmployees; y++)
+				for(int y = StartTime; y <= EndTime + RowEmployees + RowNote; y++)
 				{
 					CalendarBoxes[x, y].ListItems = TimeMap[x, y];
 				}
@@ -273,7 +304,7 @@ namespace CarGlass
 				CalendarBoxes[day, 10].TranslateCoordinates(tableOrders, -1, 0, out x, out y);
 				tableOrders.GdkWindow.DrawLine(this.Style.ForegroundGC (this.State), x, 0, x, h);
 			}
-			for (int hour = StartTime; hour <= EndTime + RowEmployees; hour++)
+			for (int hour = StartTime; hour <= EndTime + RowEmployees + RowNote; hour++)
 			{
 				if (CalendarBoxes[0, hour] == null)
 					continue;
@@ -288,7 +319,7 @@ namespace CarGlass
 			hour = -1;
 			for (int day1 = 0; day1 < 7; day1++)
 			{
-				for (int hour1 = StartTime; hour1 <= EndTime + RowEmployees; hour1++)
+				for (int hour1 = StartTime; hour1 <= EndTime + RowEmployees + RowNote; hour1++)
 				{
 					if (cell == CalendarBoxes[day1, hour1])
 					{
@@ -376,6 +407,15 @@ namespace CarGlass
 		public DateTime Date;
 		public ushort PointNumber;
 		public ushort CalendarNumber;
+		public bool result { get; set; }
+	}
+
+	public class NewNoteEventArgs : EventArgs
+	{
+		public DateTime Date;
+		public ushort PointNumber;
+		public ushort CalendarNumber;
+		public string Message;
 		public bool result { get; set; }
 	}
 
