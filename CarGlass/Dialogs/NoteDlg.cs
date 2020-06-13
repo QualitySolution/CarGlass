@@ -38,7 +38,7 @@ namespace CarGlass.Dialogs
         {
 			ydatepicker.Date = Entity.Date;
 			textview.Buffer.Text = Entity.Message;
-			this.Title = $"Заметка на {Entity.Date} число";
+			this.Title = $"Заметка на {Entity.Date.ToShortDateString()} число";
 		}
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
