@@ -86,6 +86,10 @@ INSERT INTO order_type (name, is_calculate_salary, position_in_tabs, is_show_mai
 is_show_additional_widgets, is_install_type, is_other_type) 
 VALUES( 'Прочее', false, 'Установка пригородный Тонировка пригородный Заказные Тонировка въезд ', true, false, false, true);
 
+INSERT INTO order_type (name, is_calculate_salary, position_in_tabs, is_show_main_widgets,
+is_show_additional_widgets, is_install_type, is_other_type) 
+VALUES( 'Ремонт сколов', false, 'Установка пригородный Тонировка пригородный Заказные Тонировка въезд ', true, false, false, false);
+
 -- Для обновления данных в таблице заказов. 
 update orders ord set ord.id_order_type =
  (select id from order_type where name = 'Установка стекол') where ord.type = 'install';
@@ -121,6 +125,10 @@ INSERT INTO service_order_type (id_service, id_type_order)
  INSERT INTO service_order_type (id_service, id_type_order) 
  select ser.id, ord.id from services ser, order_type ord
  where ser.order_type = 'armoring' and ord.name = 'Бронировка';
+
+ INSERT INTO service_order_type (id_service, id_type_order) 
+ select ser.id, ord.id from services ser, order_type ord
+ where ser.order_type = 'repair' and ord.name = 'Ремонт сколов';
 
 -- Изменить в таблице status столбец usedtypes. Исправить наименования типов заказов на те, что будут в справочниках.
 update status set usedtypes = 'Установка стекол' where name = 'Заказан';
