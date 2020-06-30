@@ -87,22 +87,22 @@ is_show_additional_widgets, is_install_type, is_other_type)
 VALUES( 'Прочее', false, 'Установка пригородный Тонировка пригородный Заказные Тонировка въезд ', true, false, false, true);
 
 -- Для обновления данных в таблице заказов. 
-update CarGlass.orders ord set ord.id_order_type =
+update orders ord set ord.id_order_type =
  (select id from CarGlass.order_type where name = 'Установка стекол') where ord.type = 'install';
  
- update CarGlass.orders ord set ord.id_order_type = 
+ update orders ord set ord.id_order_type = 
  (select id from CarGlass.order_type where name = 'Тонировка') where ord.type = 'tinting';
  
-  update CarGlass.orders ord set ord.id_order_type = 
+  update orders ord set ord.id_order_type = 
  (select id from CarGlass.order_type where name = 'Полировка') where ord.type = 'polishing';
  
-   update CarGlass.orders ord set ord.id_order_type = 
+   update orders ord set ord.id_order_type = 
  (select id from CarGlass.order_type where name = 'Бронировка') where ord.type = 'armoring';
  
-   update CarGlass.orders ord set ord.id_order_type = 
+   update orders ord set ord.id_order_type = 
  (select id from CarGlass.order_type where name = 'Ремонт сколов')  where ord.type = 'repair';
  
-    update CarGlass.orders ord set ord.id_order_type = 
+    update orders ord set ord.id_order_type = 
  (select id from CarGlass.order_type where name = 'Прочее') where ord.type = 'other';
 
 -- В service_order_type вставить все виды работ с их типами из таблицы server
