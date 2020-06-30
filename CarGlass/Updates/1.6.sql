@@ -1,7 +1,7 @@
 ﻿-- -----------------------------------------------------
 -- Table `CarGlass`.`order_types`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `CarGlass`.`order_type` (
+CREATE TABLE IF NOT EXISTS `order_type` (
  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `is_calculate_salary` BOOLEAN NOT NULL DEFAULT 0,
@@ -17,7 +17,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `CarGlass`.`service_order_type`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `CarGlass`.`service_order_type` (
+CREATE TABLE IF NOT EXISTS `service_order_type` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_service` INT(10) UNSIGNED NOT NULL,
   `id_type_order` INT(10) UNSIGNED NOT NULL,
@@ -26,12 +26,12 @@ CREATE TABLE IF NOT EXISTS `CarGlass`.`service_order_type` (
   INDEX `fk_service_order_type_2_idx` (`id_type_order` ASC),
   CONSTRAINT `fk_service_order_type_1`
     FOREIGN KEY (`id_service`)
-    REFERENCES `CarGlass`.`services` (`id`)
+    REFERENCES `services` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_service_order_type_2`
     FOREIGN KEY (`id_type_order`)
-    REFERENCES `CarGlass`.`order_type` (`id`)
+    REFERENCES `order_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -41,13 +41,13 @@ DEFAULT CHARACTER SET = utf8;
 -- Alter table `CarGlass`.`orders`
 -- -----------------------------------------------------
 
-ALTER TABLE `CarGlass`.`orders` 
+ALTER TABLE `orders` 
 ADD COLUMN `id_order_type` INT(10) UNSIGNED NULL DEFAULT NULL AFTER `comment`,
 ADD INDEX `fk_order_type_idx` (`id_order_type` ASC);
-ALTER TABLE `CarGlass`.`orders` 
+ALTER TABLE `orders` 
 ADD CONSTRAINT `fk_order_type`
   FOREIGN KEY (`id_order_type`)
-  REFERENCES `CarGlass`.`order_type` (`id`)
+  REFERENCES `order_type` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
@@ -55,7 +55,7 @@ ADD CONSTRAINT `fk_order_type`
 -- Alter table `CarGlass`.`note`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `CarGlass`.`note` (
+CREATE TABLE IF NOT EXISTS `note` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` DATETIME NOT NULL,
   `point_number` TINYINT(4) NOT NULL,
@@ -86,12 +86,10 @@ INSERT INTO order_type (name, is_calculate_salary, position_in_tabs, is_show_mai
 is_show_additional_widgets, is_install_type, is_other_type) 
 VALUES( 'Прочее', false, 'Установка пригородный Тонировка пригородный Заказные Тонировка въезд ', true, false, false, true);
 
-
 -- Для обновления данных в таблице заказов. 
 UPDATE orders ord
 INNER JOIN order_type ordt ON ord.type = ordt.name
 SET ord.id_order_type = ordt.id;
---where ord.date > '2020-04-01';
 
 -- В service_order_type вставить все виды работ с их типами из таблицы server
 INSERT INTO service_order_type (id_service, id_type_order) 
