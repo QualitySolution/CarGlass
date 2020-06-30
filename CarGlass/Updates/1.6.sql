@@ -88,22 +88,22 @@ VALUES( 'Прочее', false, 'Установка пригородный Тон
 
 -- Для обновления данных в таблице заказов. 
 update orders ord set ord.id_order_type =
- (select id from CarGlass.order_type where name = 'Установка стекол') where ord.type = 'install';
+ (select id from order_type where name = 'Установка стекол') where ord.type = 'install';
  
  update orders ord set ord.id_order_type = 
- (select id from CarGlass.order_type where name = 'Тонировка') where ord.type = 'tinting';
+ (select id from order_type where name = 'Тонировка') where ord.type = 'tinting';
  
   update orders ord set ord.id_order_type = 
- (select id from CarGlass.order_type where name = 'Полировка') where ord.type = 'polishing';
+ (select id from order_type where name = 'Полировка') where ord.type = 'polishing';
  
    update orders ord set ord.id_order_type = 
- (select id from CarGlass.order_type where name = 'Бронировка') where ord.type = 'armoring';
+ (select id from order_type where name = 'Бронировка') where ord.type = 'armoring';
  
    update orders ord set ord.id_order_type = 
- (select id from CarGlass.order_type where name = 'Ремонт сколов')  where ord.type = 'repair';
+ (select id from order_type where name = 'Ремонт сколов')  where ord.type = 'repair';
  
     update orders ord set ord.id_order_type = 
- (select id from CarGlass.order_type where name = 'Прочее') where ord.type = 'other';
+ (select id from order_type where name = 'Прочее') where ord.type = 'other';
 
 -- В service_order_type вставить все виды работ с их типами из таблицы server
 INSERT INTO service_order_type (id_service, id_type_order) 
