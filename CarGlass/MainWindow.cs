@@ -46,6 +46,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		}
 
 		UsersAction.Sensitive = QSMain.User.Admin;
+		salarycalculation1.Visible = QSMain.User.Admin;
 		labelUser.LabelProp = QSMain.User.Name;
 		chatvsliderMain.Chat.ChatUser = QSMain.User;
 
