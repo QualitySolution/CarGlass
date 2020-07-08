@@ -139,10 +139,11 @@ namespace CarGlass.Dialogs
 				UoW.Delete(del);
 
 			UoW.Commit();
+
 			var deleteList = listCoefficients.Where(x => x.Name == "-" || x.Name == "").ToList();
 			foreach(var coeff in listCoefficients)
 				if(deleteList.Contains(coeff))
-					listCoefficients.Remove(coeff);
+					continue;
 				else
 				{
 					UoW.Save(coeff);
