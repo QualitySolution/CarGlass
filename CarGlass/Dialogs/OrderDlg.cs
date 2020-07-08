@@ -193,7 +193,7 @@ namespace CarGlass
 				.AddColumn("Номер").AddTextRenderer(x => x.Id.ToString())
 				.Finish();
 
-			buttonPrint.Sensitive = Entity.OrderTypeClass.Name.Equals("Ремонт сколов") && !Entity.OrderTypeClass.IsOtherType;
+			buttonPrint.Sensitive = !Entity.OrderTypeClass.IsOtherType;
 			TestCanSave();
 		}
 
