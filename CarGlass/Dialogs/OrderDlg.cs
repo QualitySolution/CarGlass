@@ -69,7 +69,7 @@ namespace CarGlass
 				comboMark.SelectedItem = Entity.CarModel.Brand;
 			comboModel.Binding.AddBinding(Entity, e => e.CarModel, w => w.SelectedItem).InitializeFromSource();
 
-			if(Entity.OrderTypeClass.IsShowMainWidgets)
+			if(Entity.OrderTypeClass.IsShowAdditionalWidgets)
 			{
 				comboManufacturer.ShowSpecialStateNot = true;
 				comboManufacturer.ItemsList = UoW.GetAll<Manufacturer>();
