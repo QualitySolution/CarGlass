@@ -87,7 +87,7 @@ namespace CarGlass.Domain
 			{
 				for(int i = 0; i < cr.Errors.Count; i++)
 					Console.WriteLine("Col {0} - {1}", cr.Errors[i].Column, cr.Errors[i].ErrorText);
-				MessageDialogWorks.RunWarningDialog($"Для улсуги\n {Service.Name}\n указана неккоректная формулу");
+				MessageDialogWorks.RunWarningDialog($"Для услуги\n {Service.Name}\n указана неккоректная формулу");
 				return (0.0);
 			}
 
@@ -96,7 +96,7 @@ namespace CarGlass.Domain
 				object ob = cr.CompiledAssembly.CreateInstance("CSEvaluator.Evaluate");
 				return ((double)ob.GetType().InvokeMember("GetResult", BindingFlags.InvokeMethod, null, ob, new object[] { }));
 			}
-			catch(Exception ex) { MessageDialogWorks.RunWarningDialog($"Для улсуги\n {Service.Name}\n указана неккоректная формулу"); Console.WriteLine(ex.Message); return (0.0); }
+			catch(Exception ex) { MessageDialogWorks.RunWarningDialog($"Для услуги\n {Service.Name}\n указана неккоректная формулу"); Console.WriteLine(ex.Message); return (0.0); }
 		}
 	}
 }

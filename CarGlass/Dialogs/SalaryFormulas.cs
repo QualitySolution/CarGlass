@@ -22,6 +22,7 @@ namespace CarGlass.Dialogs
 
 		private void createTableFormulas()
 		{
+			UoW = UnitOfWorkFactory.CreateWithoutRoot();
 			Domain.SalaryFormulas salaryFormulas = null;
 			var itemsQueryService = UoW.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
 			.Where(x=> x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
@@ -58,8 +59,7 @@ namespace CarGlass.Dialogs
 			Domain.SalaryFormulas w = ytreeFormulas.GetSelectedObject<Domain.SalaryFormulas>();
 			AddEditFormulas frmAddEditFormulas = new AddEditFormulas(w);
 			frmAddEditFormulas.Show();
-			int result = frmAddEditFormulas.Run();
-			if(result == (int)ResponseType.Ok)	
+			if(frmAddEditFormulas.Run() == (int)ResponseType.Ok)	
 				createTableFormulas();
 		}
 
