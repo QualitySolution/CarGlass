@@ -76,7 +76,12 @@ namespace CarGlass.Dialogs
 			EmployeeServiceWork employeeServiceWork = null;
 			IList <EmployeeServiceWork> listEmployeeServiceWork;
 
+			var listServiceDontCalculate = UoW.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
+			.Where(x => x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
 			listEmployeeServiceWork = UoW.Session.QueryOver<EmployeeServiceWork>(() => employeeServiceWork).Where(x => x.DateWork >= start && x.DateWork <= end).List();
+
+			if(listServiceDontCalculate != null)
+			listEmployeeServiceWork = listEmployeeServiceWork.Where(x => listServiceDontCalculate.Contains(x.WorkOrderPay.Service)).ToList();
 
 			if (!checkServiceFormulas(listEmployeeServiceWork))
 			{
@@ -121,8 +126,9 @@ namespace CarGlass.Dialogs
 					listEmployeeServiceSalaries.Add(empServiceSalary);
 				}
 
-				setData();
 			}
+
+			setData();
 
 			foreach(var row in listEmployeeServiceSalaries)
 			{
