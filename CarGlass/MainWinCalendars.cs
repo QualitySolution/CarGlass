@@ -108,9 +108,10 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					CalendarItem order = new CalendarItem(rdr.GetDateTime("date"),
 						rdr.GetInt32("hour")
 					);
-					OrderTypeClass orderTypeClass = UoW.Session.QueryOver<OrderTypeClass>().List().FirstOrDefault(x => x.Id == int.Parse(rdr["id_order_type"].ToString()));
-
 					order.id = rdr.GetInt32("id");
+					if(rdr["id_order_type"] == DBNull.Value)
+						throw new InvalidCastException($"В заказе {order.id} id_order_type = null");
+					OrderTypeClass orderTypeClass = UoW.Session.QueryOver<OrderTypeClass>().List().FirstOrDefault(x => x.Id == rdr.GetInt32("id_order_type"));
 					order.Text = String.Format("{0} {1}\n{2}\n{3}",rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"] );
 					if(orderTypeClass.IsShowAdditionalWidgets)
 					{
