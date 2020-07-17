@@ -366,7 +366,8 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		CalendarItem order = (CalendarItem)sender;
 
 		logger.Info("Изменение времени заказа на {0:d} {1}ч...", arg.Date, arg.Hour);
-		string sql = "UPDATE orders SET date = @date, hour = @hour WHERE id = @id ";
+		string sql = "UPDATE orders SET date = @date, hour = @hour WHERE id = @id;" +
+			" DELETE FROM employee_service_work WHERE id_order_pay in (SELECT id FROM order_pays WHERE order_id = @id)";
 		QSMain.CheckConnectionAlive();
 		try
 		{
