@@ -5,139 +5,133 @@ namespace CarGlass
 	public partial class PrintDay
 	{
 		private global::Gtk.Label label2;
-		private global::Gtk.HBox hbox3;
-		private global::Gtk.RadioButton radioinstall;
-		private global::Gtk.RadioButton radiotinting;
+
+		private global::Gtk.HBox hbox2;
+
+		private global::Gtk.VBox vbox2;
+
 		private global::Gtk.Table table1;
+
 		private global::QSWidgetLib.DatePicker dateCalendar;
+
 		private global::Gtk.Label label1;
+
 		private global::Gtk.Button buttonCancel;
+
 		private global::Gtk.Button buttonOk;
 
-		protected virtual void Build ()
+		protected virtual void Build()
 		{
-			global::Stetic.Gui.Initialize (this);
+			global::Stetic.Gui.Initialize(this);
 			// Widget CarGlass.PrintDay
 			this.Name = "CarGlass.PrintDay";
-			this.Title = global::Mono.Unix.Catalog.GetString ("Печать календаря на день");
+			this.Title = global::Mono.Unix.Catalog.GetString("Печать календаря на день");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Internal child CarGlass.PrintDay.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.label2 = new global::Gtk.Label ();
+			this.label2 = new global::Gtk.Label();
 			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Календарь");
-			w1.Add (this.label2);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(w1 [this.label2]));
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Календарь");
+			w1.Add(this.label2);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(w1[this.label2]));
 			w2.Position = 0;
 			w2.Expand = false;
 			w2.Fill = false;
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.hbox3 = new global::Gtk.HBox ();
-			this.hbox3.Name = "hbox3";
-			this.hbox3.Spacing = 6;
-			this.hbox3.BorderWidth = ((uint)(9));
-			// Container child hbox3.Gtk.Box+BoxChild
-			this.radioinstall = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Установка"));
-			this.radioinstall.CanFocus = true;
-			this.radioinstall.Name = "radioinstall";
-			this.radioinstall.Active = true;
-			this.radioinstall.DrawIndicator = false;
-			this.radioinstall.UseUnderline = true;
-			this.radioinstall.Group = new global::GLib.SList (global::System.IntPtr.Zero);
-			this.hbox3.Add (this.radioinstall);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.radioinstall]));
+			this.hbox2 = new global::Gtk.HBox();
+			this.hbox2.Name = "hbox2";
+			this.hbox2.Spacing = 6;
+			this.hbox2.BorderWidth = ((uint)(6));
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.vbox2 = new global::Gtk.VBox();
+			this.vbox2.Name = "vbox2";
+			this.vbox2.Spacing = 6;
+			this.hbox2.Add(this.vbox2);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.vbox2]));
 			w3.Position = 0;
-			// Container child hbox3.Gtk.Box+BoxChild
-			this.radiotinting = new global::Gtk.RadioButton (global::Mono.Unix.Catalog.GetString ("Тонировка"));
-			this.radiotinting.CanFocus = true;
-			this.radiotinting.Name = "radiotinting";
-			this.radiotinting.DrawIndicator = false;
-			this.radiotinting.UseUnderline = true;
-			this.radiotinting.Group = this.radioinstall.Group;
-			this.hbox3.Add (this.radiotinting);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.radiotinting]));
+			w1.Add(this.hbox2);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(w1[this.hbox2]));
 			w4.Position = 1;
-			w1.Add (this.hbox3);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(w1 [this.hbox3]));
-			w5.Position = 1;
-			w5.Expand = false;
-			w5.Fill = false;
+			w4.Expand = false;
+			w4.Fill = false;
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.table1 = new global::Gtk.Table (((uint)(3)), ((uint)(4)), false);
+			this.table1 = new global::Gtk.Table(((uint)(3)), ((uint)(4)), false);
 			this.table1.Name = "table1";
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.dateCalendar = new global::QSWidgetLib.DatePicker ();
+			this.dateCalendar = new global::QSWidgetLib.DatePicker();
 			this.dateCalendar.Events = ((global::Gdk.EventMask)(256));
 			this.dateCalendar.Name = "dateCalendar";
-			this.dateCalendar.Date = new global::System.DateTime (0);
+			this.dateCalendar.WithTime = false;
+			this.dateCalendar.Date = new global::System.DateTime(0);
 			this.dateCalendar.IsEditable = true;
 			this.dateCalendar.AutoSeparation = true;
-			this.table1.Add (this.dateCalendar);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.dateCalendar]));
-			w6.TopAttach = ((uint)(1));
-			w6.BottomAttach = ((uint)(2));
-			w6.LeftAttach = ((uint)(2));
-			w6.RightAttach = ((uint)(3));
-			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.table1.Add(this.dateCalendar);
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.dateCalendar]));
+			w5.TopAttach = ((uint)(1));
+			w5.BottomAttach = ((uint)(2));
+			w5.LeftAttach = ((uint)(2));
+			w5.RightAttach = ((uint)(3));
+			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
-			this.label1 = new global::Gtk.Label ();
+			this.label1 = new global::Gtk.Label();
 			this.label1.Name = "label1";
 			this.label1.Xalign = 1F;
-			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("На дату:");
-			this.table1.Add (this.label1);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.label1]));
-			w7.TopAttach = ((uint)(1));
-			w7.BottomAttach = ((uint)(2));
-			w7.LeftAttach = ((uint)(1));
-			w7.RightAttach = ((uint)(2));
-			w7.XOptions = ((global::Gtk.AttachOptions)(4));
-			w7.YOptions = ((global::Gtk.AttachOptions)(4));
-			w1.Add (this.table1);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(w1 [this.table1]));
-			w8.Position = 2;
+			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("На дату:");
+			this.table1.Add(this.label1);
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
+			w6.TopAttach = ((uint)(1));
+			w6.BottomAttach = ((uint)(2));
+			w6.LeftAttach = ((uint)(1));
+			w6.RightAttach = ((uint)(2));
+			w6.XOptions = ((global::Gtk.AttachOptions)(4));
+			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			w1.Add(this.table1);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(w1[this.table1]));
+			w7.Position = 2;
 			// Internal child CarGlass.PrintDay.ActionArea
-			global::Gtk.HButtonBox w9 = this.ActionArea;
-			w9.Name = "dialog1_ActionArea";
-			w9.Spacing = 10;
-			w9.BorderWidth = ((uint)(5));
-			w9.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w8 = this.ActionArea;
+			w8.Name = "dialog1_ActionArea";
+			w8.Spacing = 10;
+			w8.BorderWidth = ((uint)(5));
+			w8.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.buttonCancel = new global::Gtk.Button ();
+			this.buttonCancel = new global::Gtk.Button();
 			this.buttonCancel.CanDefault = true;
 			this.buttonCancel.CanFocus = true;
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.UseStock = true;
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
-			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w10 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w9 [this.buttonCancel]));
-			w10.Expand = false;
-			w10.Fill = false;
+			this.AddActionWidget(this.buttonCancel, -6);
+			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8[this.buttonCancel]));
+			w9.Expand = false;
+			w9.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.buttonOk = new global::Gtk.Button ();
+			this.buttonOk = new global::Gtk.Button();
 			this.buttonOk.CanDefault = true;
 			this.buttonOk.CanFocus = true;
 			this.buttonOk.Name = "buttonOk";
 			this.buttonOk.UseStock = true;
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
-			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w11 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w9 [this.buttonOk]));
-			w11.Position = 1;
-			w11.Expand = false;
-			w11.Fill = false;
-			if ((this.Child != null)) {
-				this.Child.ShowAll ();
+			this.AddActionWidget(this.buttonOk, -5);
+			global::Gtk.ButtonBox.ButtonBoxChild w10 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w8[this.buttonOk]));
+			w10.Position = 1;
+			w10.Expand = false;
+			w10.Fill = false;
+			if ((this.Child != null))
+			{
+				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 311;
-			this.DefaultHeight = 194;
-			this.Show ();
-			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
+			this.DefaultHeight = 273;
+			this.Show();
+			this.buttonOk.Clicked += new global::System.EventHandler(this.OnButtonOkClicked);
 		}
 	}
 }
