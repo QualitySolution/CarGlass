@@ -14,7 +14,6 @@ namespace CarGlass.Dialogs
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class SalaryCalculation : WidgetOnDialogBase
 	{
-		IUnitOfWork UoW;
 		IList<EmployeeServiceSalary> listEmployeeServiceSalaries = new List<EmployeeServiceSalary>();
 		IList<Employee> listEmployees = new List<Employee>();
 		public SalaryCalculation()
@@ -72,71 +71,73 @@ namespace CarGlass.Dialogs
 		public void Calculate(DateTime start, DateTime end)
 		{
 			listEmployeeServiceSalaries.Clear();
-			UoW = UnitOfWorkFactory.CreateWithoutRoot();
-			EmployeeServiceWork employeeServiceWork = null;
-			IList <EmployeeServiceWork> listEmployeeServiceWork;
+			using(IUnitOfWork uow = UnitOfWorkFactory.CreateWithoutRoot())
 
-			var listServiceDontCalculate = UoW.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
-			.Where(x => x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
-			listEmployeeServiceWork = UoW.Session.QueryOver<EmployeeServiceWork>(() => employeeServiceWork).Where(x => x.DateWork >= start && x.DateWork <= end).List();
-
-			if(listServiceDontCalculate != null)
-			listEmployeeServiceWork = listEmployeeServiceWork.Where(x => listServiceDontCalculate.Contains(x.WorkOrderPay.Service)).ToList();
-
-			if (!checkServiceFormulas(listEmployeeServiceWork))
 			{
-				MessageDialogWorks.RunWarningDialog("Не для всех услуг указаны формулы расчета.");
-				return;
-			}
+				EmployeeServiceWork employeeServiceWork = null;
+				IList<EmployeeServiceWork> listEmployeeServiceWork;
 
-			foreach(var order in listEmployeeServiceWork)
-			{
-				EmployeeServiceSalary employeeServiceSalary = listEmployeeServiceSalaries.FirstOrDefault(x => x.Employee.Id == order.Employee.Id); 
-				if (employeeServiceSalary != null)
+				var listServiceDontCalculate = uow.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
+				.Where(x => x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
+				listEmployeeServiceWork = uow.Session.QueryOver<EmployeeServiceWork>(() => employeeServiceWork).Where(x => x.DateWork >= start && x.DateWork <= end).List();
+
+				if(listServiceDontCalculate != null)
+					listEmployeeServiceWork = listEmployeeServiceWork.Where(x => listServiceDontCalculate.Contains(x.WorkOrderPay.Service)).ToList();
+
+				if(!checkServiceFormulas(listEmployeeServiceWork, uow))
 				{
-					WorkOrderPay workOrderPay = UoW.GetById<WorkOrderPay>(order.WorkOrderPay.Id);
-					var employeeServiceWorkType = employeeServiceSalary.listEmployeeSalarySirviceType.FirstOrDefault(x => x.Service.Id == workOrderPay.Service.Id);
-					if(employeeServiceWorkType != null)
+					MessageDialogWorks.RunWarningDialog("Не для всех услуг указаны формулы расчета.");
+					return;
+				}
+
+				foreach(var order in listEmployeeServiceWork)
+				{
+					EmployeeServiceSalary employeeServiceSalary = listEmployeeServiceSalaries.FirstOrDefault(x => x.Employee.Id == order.Employee.Id);
+					if(employeeServiceSalary != null)
 					{
-						foreach(var emp in listEmployeeServiceSalaries)
-							if(emp.Employee == order.Employee)
-								foreach(var service in emp.listEmployeeSalarySirviceType)
-									if(service.Service == order.WorkOrderPay.Service)
-										service.listCost.Add(getCost(order, listEmployeeServiceWork));
+						WorkOrderPay workOrderPay = uow.GetById<WorkOrderPay>(order.WorkOrderPay.Id);
+						var employeeServiceWorkType = employeeServiceSalary.listEmployeeSalarySirviceType.FirstOrDefault(x => x.Service.Id == workOrderPay.Service.Id);
+						if(employeeServiceWorkType != null)
+						{
+							foreach(var emp in listEmployeeServiceSalaries)
+								if(emp.Employee == order.Employee)
+									foreach(var service in emp.listEmployeeSalarySirviceType)
+										if(service.Service == order.WorkOrderPay.Service)
+											service.listCost.Add(getCost(order, listEmployeeServiceWork));
+						}
+						else
+						{
+							EmployeeSalaryServiceType empServiceType = new EmployeeSalaryServiceType(order.WorkOrderPay.Service);
+							empServiceType.listCost.Add(getCost(order, listEmployeeServiceWork));
+							empServiceType.Formula = getFormula(order, uow);
+							foreach(var emp in listEmployeeServiceSalaries)
+								if(emp.Employee == order.Employee)
+									emp.listEmployeeSalarySirviceType.Add(empServiceType);
+						}
 					}
 					else
 					{
+						Employee emp = uow.GetById<Employee>(order.Employee.Id);
+						EmployeeServiceSalary empServiceSalary = new EmployeeServiceSalary(order.Employee);
 						EmployeeSalaryServiceType empServiceType = new EmployeeSalaryServiceType(order.WorkOrderPay.Service);
 						empServiceType.listCost.Add(getCost(order, listEmployeeServiceWork));
-						empServiceType.Formula = getFormula(order);
-						foreach(var emp in listEmployeeServiceSalaries)
-							if(emp.Employee == order.Employee)
-								emp.listEmployeeSalarySirviceType.Add(empServiceType);
+						empServiceType.Formula = getFormula(order, uow);
+						empServiceSalary.listEmployeeSalarySirviceType.Add(empServiceType);
+						var r = empServiceType.SummaAfterFormula;
+						listEmployeeServiceSalaries.Add(empServiceSalary);
 					}
+
 				}
-				else
+
+				setData();
+
+				foreach(var row in listEmployeeServiceSalaries)
 				{
-					Employee emp  = UoW.GetById<Employee>(order.Employee.Id);
-					EmployeeServiceSalary empServiceSalary = new EmployeeServiceSalary(order.Employee);
-					EmployeeSalaryServiceType empServiceType = new EmployeeSalaryServiceType(order.WorkOrderPay.Service);
-					empServiceType.listCost.Add(getCost(order, listEmployeeServiceWork));
-					empServiceType.Formula = getFormula(order);
-					empServiceSalary.listEmployeeSalarySirviceType.Add(empServiceType);
-					var r = empServiceType.SummaAfterFormula;
-					listEmployeeServiceSalaries.Add(empServiceSalary);
+					foreach(var service in row.listEmployeeSalarySirviceType)
+						service.Calculation();
+					row.getAllSumma();
 				}
-
 			}
-
-			setData();
-
-			foreach(var row in listEmployeeServiceSalaries)
-			{
-				foreach(var service in row.listEmployeeSalarySirviceType)
-					service.Calculation();
-				row.getAllSumma();
-			}
-
 		}
 
 		private decimal getCost(EmployeeServiceWork order, IList<EmployeeServiceWork> listEmployeeServiceWork)
@@ -146,11 +147,11 @@ namespace CarGlass.Dialogs
 
 		}
 
-		private string getFormula(EmployeeServiceWork order)
+		private string getFormula(EmployeeServiceWork order, IUnitOfWork uow)
 		{
 			IList<EmployeeCoeff> listEmployeeCoeffs;
-			listEmployeeCoeffs = UoW.Session.QueryOver<EmployeeCoeff>().Where(x => x.Employee == order.Employee).List();
-			var formulaName = UoW.Session.QueryOver<Domain.SalaryFormulas>().Where(x => x.Service.Id == order.WorkOrderPay.Service.Id).List()
+			listEmployeeCoeffs = uow.Session.QueryOver<EmployeeCoeff>().Where(x => x.Employee == order.Employee).List();
+			var formulaName = uow.Session.QueryOver<Domain.SalaryFormulas>().Where(x => x.Service.Id == order.WorkOrderPay.Service.Id).List()
 								.FirstOrDefault(x => x.Service.Id == order.WorkOrderPay.Service.Id).Formula;
 			string str =  "СУММ СУММА SUM сумм сумма sum Сумм Сумма Sum" ;
 			foreach(var coef in listEmployeeCoeffs)
@@ -160,7 +161,7 @@ namespace CarGlass.Dialogs
 					formulaName = formulaName.Replace(coef.Coeff.Name, coef.Value );
 			}
 
-			var listCoeff = UoW.Session.QueryOver<Coefficients>().List();
+			var listCoeff = uow.Session.QueryOver<Coefficients>().List();
 			foreach(var coeff in listCoeff)
 			{
 				if(str.Contains(coeff.Name)) continue;
@@ -171,11 +172,11 @@ namespace CarGlass.Dialogs
 			return formulaName;
 		}
 
-		private bool checkServiceFormulas(IList<EmployeeServiceWork> listEmployeeServiceWork)
+		private bool checkServiceFormulas(IList<EmployeeServiceWork> listEmployeeServiceWork, IUnitOfWork uow)
 		{
 			bool isFormulasOK = true;
 			Domain.SalaryFormulas salaryFormulas = null;
-			var listFormulas = UoW.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).List();
+			var listFormulas = uow.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).List();
 			foreach(var service in listEmployeeServiceWork)
 				if(!listFormulas.Where(x => x.Service == service.WorkOrderPay.Service).Any())
 				{

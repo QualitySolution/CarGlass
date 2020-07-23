@@ -8,8 +8,6 @@ namespace CarGlass
 {
 	public partial class PrintDay : Gtk.Dialog
 	{
-		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
-
 		public PrintDay()
 		{
 			this.Build();
@@ -21,17 +19,19 @@ namespace CarGlass
 
 		protected void AddCheckButton()
 		{
-			var listOrderType = UoW.Session.QueryOver<OrderTypeClass>().List();
-			foreach(var type in listOrderType)
+			using(IUnitOfWork uow = UnitOfWorkFactory.CreateWithoutRoot())
 			{
-				var title = type.Name;
-				var check = new yCheckButton(title);
-				check.Label = title;
-				check.Tag = type.Id;
-				vbox2.Add(check);
-				ShowAll();
+				var listOrderType = uow.Session.QueryOver<OrderTypeClass>().List();
+				foreach(var type in listOrderType)
+				{
+					var title = type.Name;
+					var check = new yCheckButton(title);
+					check.Label = title;
+					check.Tag = type.Id;
+					vbox2.Add(check);
+					ShowAll();
+				}
 			}
-
 		}
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)

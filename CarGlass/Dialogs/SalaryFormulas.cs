@@ -12,8 +12,6 @@ namespace CarGlass.Dialogs
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class SalaryFormulas : WidgetOnDialogBase
 	{
-		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
-
 		public SalaryFormulas()
 		{
 			this.Build();
@@ -22,26 +20,26 @@ namespace CarGlass.Dialogs
 
 		private void createTableFormulas()
 		{
-			UoW = UnitOfWorkFactory.CreateWithoutRoot();
-			Domain.SalaryFormulas salaryFormulas = null;
-			var itemsQueryService = UoW.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
-			.Where(x=> x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
-			var itemsQuerySalaryFormulas = UoW.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).List();
+			using(IUnitOfWork uow = UnitOfWorkFactory.CreateWithoutRoot())
+			{
+				Domain.SalaryFormulas salaryFormulas = null;
+				var itemsQueryService = uow.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
+				.Where(x => x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
+				var itemsQuerySalaryFormulas = uow.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).List();
 
-			foreach (var serv in itemsQueryService)
-				if(itemsQuerySalaryFormulas.Where(x => x.Service.Id == serv.Id).Count() < 1)
-					itemsQuerySalaryFormulas.Add(new Domain.SalaryFormulas(serv, "", ""));
+				foreach(var serv in itemsQueryService)
+					if(itemsQuerySalaryFormulas.Where(x => x.Service.Id == serv.Id).Count() < 1)
+						itemsQuerySalaryFormulas.Add(new Domain.SalaryFormulas(serv, "", ""));
 
-			ytreeFormulas.ColumnsConfig = ColumnsConfigFactory.Create<Domain.SalaryFormulas>()
-															.AddColumn("Услуга").AddTextRenderer(x => x.Service.Name)
-															.AddColumn("Формула").AddTextRenderer(x => x.Formula)
-															.AddColumn("Комментарий").AddTextRenderer(x => x.Comment)
-															.Finish();
-			ytreeFormulas.ItemsDataSource = itemsQuerySalaryFormulas;
-			ytreeFormulas.Selection.Changed += Selection_Changed;
-
+				ytreeFormulas.ColumnsConfig = ColumnsConfigFactory.Create<Domain.SalaryFormulas>()
+																.AddColumn("Услуга").AddTextRenderer(x => x.Service.Name)
+																.AddColumn("Формула").AddTextRenderer(x => x.Formula)
+																.AddColumn("Комментарий").AddTextRenderer(x => x.Comment)
+																.Finish();
+				ytreeFormulas.ItemsDataSource = itemsQuerySalaryFormulas;
+				ytreeFormulas.Selection.Changed += Selection_Changed;
+			}
 		}
-
 
 		void Selection_Changed(object sender, EventArgs e)
 		{
