@@ -170,7 +170,7 @@
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <Format>"Заказ №"0</Format>
+              <Format>"№"0</Format>
               <FontSize>11pt</FontSize>
               <TextAlign>Center</TextAlign>
             </Style>
