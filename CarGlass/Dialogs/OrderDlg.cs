@@ -4,7 +4,6 @@ using System.Linq;
 using CarGlass.Domain;
 using CarGlass.Repository;
 using Gamma.GtkWidgets;
-using Gamma.Utilities;
 using Gtk;
 using MySql.Data.MySqlClient;
 using QS.DomainModel.UoW;
@@ -89,15 +88,29 @@ namespace CarGlass
 			for (int year = 1980; year <= DateTime.Today.Year; year++)
 				comboYear.AppendText(year.ToString());
 
+			var stock = new StoreItemsRepository();
+			var completion = new Gtk.EntryCompletion();
+			entryEurocode.Completion = completion;
+			var list = new ListStore(typeof(string));
+			foreach(var item in stock.GetEurocodes(UoW))
+			{
+				list.AppendValues(item);
+			}
+			completion.TextColumn = 0;
+			completion.Model = list;
+
 			comboYear.Binding.AddBinding(Entity, e => e.CarYearText, w => w.Entry.Text).InitializeFromSource();
 			comboManufacturer.Binding.AddBinding(Entity, e => e.Manufacturer, w => w.SelectedItem).InitializeFromSource();
 			comboStock.Binding.AddBinding(Entity, e => e.Stock, w => w.SelectedItem).InitializeFromSource();
 			entryPhone.Binding.AddBinding(Entity, e => e.Phone, w => w.Text).InitializeFromSource();
 			entryEurocode.Binding.AddBinding(Entity, e => e.Eurocode, w => w.Text).InitializeFromSource();
+
 			textviewComment.Binding.AddBinding(Entity, e => e.Comment, w => w.Buffer.Text).InitializeFromSource();
 
 			yradioInstallNone.BindValueWhenActivated = yradioTintingNone.BindValueWhenActivated
 				= yradioArmoringNone.BindValueWhenActivated = yradioPastingNone.BindValueWhenActivated = Warranty.None;
+			yradioInstall6Month.BindValueWhenActivated = yradioTinting6Month.BindValueWhenActivated
+				= yradioArmoring6Month.BindValueWhenActivated = yradioPasting6Month.BindValueWhenActivated = Warranty.SixMonth;
 			yradioInstall1Year.BindValueWhenActivated = yradioTinting1Year.BindValueWhenActivated
 				= yradioArmoring1Year.BindValueWhenActivated = yradioPasting1Year.BindValueWhenActivated = Warranty.OneYear;
 			yradioInstall2Year.BindValueWhenActivated = yradioTinting2Year.BindValueWhenActivated
@@ -110,6 +123,7 @@ namespace CarGlass
 				= yradioArmoringNoWarranty.BindValueWhenActivated = yradioPastingNoWarranty.BindValueWhenActivated = Warranty.NoWarranty;
 
 			yradioInstallNone.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
+			yradioInstall6Month.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
 			yradioInstall1Year.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
 			yradioInstall2Year.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
 			yradioInstall3Year.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
@@ -117,6 +131,7 @@ namespace CarGlass
 			yradioInstallNoWarranty.Binding.AddBinding(Entity, e => e.WarrantyInstall, w => w.BindedValue).InitializeFromSource();
 
 			yradioTintingNone.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
+			yradioTinting6Month.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
 			yradioTinting1Year.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
 			yradioTinting2Year.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
 			yradioTinting3Year.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
@@ -124,6 +139,7 @@ namespace CarGlass
 			yradioTintingNoWarranty.Binding.AddBinding(Entity, e => e.WarrantyTinting, w => w.BindedValue).InitializeFromSource();
 
 			yradioArmoringNone.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
+			yradioArmoring6Month.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
 			yradioArmoring1Year.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
 			yradioArmoring2Year.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
 			yradioArmoring3Year.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
@@ -131,6 +147,7 @@ namespace CarGlass
 			yradioArmoringNoWarranty.Binding.AddBinding(Entity, e => e.WarrantyArmoring, w => w.BindedValue).InitializeFromSource();
 
 			yradioPastingNone.Binding.AddBinding(Entity, e => e.WarrantyPasting, w => w.BindedValue).InitializeFromSource();
+			yradioPasting6Month.Binding.AddBinding(Entity, e => e.WarrantyPasting, w => w.BindedValue).InitializeFromSource();
 			yradioPasting1Year.Binding.AddBinding(Entity, e => e.WarrantyPasting, w => w.BindedValue).InitializeFromSource();
 			yradioPasting2Year.Binding.AddBinding(Entity, e => e.WarrantyPasting, w => w.BindedValue).InitializeFromSource();
 			yradioPasting3Year.Binding.AddBinding(Entity, e => e.WarrantyPasting, w => w.BindedValue).InitializeFromSource();

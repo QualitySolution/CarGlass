@@ -4,6 +4,7 @@ namespace CarGlass.Domain
 	public enum Warranty
 	{
 		None,
+		SixMonth,
 		OneYear,
 		TwoYear,
 		ThreeYear,

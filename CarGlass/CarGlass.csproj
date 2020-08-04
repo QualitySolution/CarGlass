@@ -290,6 +290,7 @@
     <Compile Include="gtk-gui\CarGlass.Dialogs.NoteDlg.cs" />
     <Compile Include="Domain\Note.cs" />
     <Compile Include="HibernateMapping\NoteMap.cs" />
+    <Compile Include="Repository\StoreItemsRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
