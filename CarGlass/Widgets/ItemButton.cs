@@ -18,8 +18,7 @@ namespace CarGlass
 		private Pango.Layout PangoText;
 		private Pango.Layout PangoTag;
 		public OrdersCalendar ParentCalendar;
-		public bool isSetSheduleWork;
-		public bool isSetNote;
+		public TypeItemOrButton TypeItemButton;
 		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
 		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWorkClicked;
 		public event EventHandler<NewNoteEventArgs> NewNoteClicked;
@@ -64,6 +63,8 @@ namespace CarGlass
 
 		protected override void OnClicked()
 		{
+			if(item != null && item.TypeItemOrButton == TypeItemOrButton.OrderDemonsration) return;
+
 			if (item != null)
 				item.Open();
 			else
@@ -72,9 +73,9 @@ namespace CarGlass
 					return;
 				else if(ParentCalendar.OrdersTypes.Count == 1)
 					OnNewOrderClicked(ParentCalendar.OrdersTypes.First());
-				else if(isSetSheduleWork)
+				else if(TypeItemButton == TypeItemOrButton.Shedule)
 					OnNewSheduleWorkClicked(ParentCalendar);
-				else if(isSetNote)
+				else if(TypeItemButton == TypeItemOrButton.Note)
 					OnNewNoteClicked(ParentCalendar);
 				else
 				{
@@ -195,26 +196,28 @@ namespace CarGlass
 				Gtk.Menu jBox = new Gtk.Menu();
 				MenuItem MenuItem1;
 				MenuItemId<OrderTypeClass> MenuItem2;
-				bool isNoOrders = isSetSheduleWork || (item?.isNoOrder?? false) || isSetNote;
+
+				if(ParentCalendar == null) return false;
 
 				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
 				{
 					throw new InvalidOperationException("Типы заказов для календаря не установлены.");
 				}
-				else if(ParentCalendar.OrdersTypes.Count == 1 && !isNoOrders)
+				else if(ParentCalendar.OrdersTypes.Count == 1 && TypeItemButton == TypeItemOrButton.Order)
 				{
 					MenuItem2 = new MenuItemId<OrderTypeClass>("Новый заказ");
 					MenuItem2.ID = ParentCalendar.OrdersTypes.First();
 					MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 					jBox.Add(MenuItem2);       
 				}
-				else if (!isNoOrders)
+				else if (TypeItemButton == TypeItemOrButton.Order)
 				{
 					MenuItem1 = new MenuItem("Новый заказ");
 					MenuItem1.Submenu = GetNewOrderTypesMenu();
 					jBox.Add(MenuItem1);       
 				}
-				if(!isNoOrders)
+
+				if(TypeItemButton == TypeItemOrButton.Order)
 				{
 					MenuItem1 = new MenuItem("Перенести");
 					MenuItem1.Sensitive = item != null;
@@ -287,5 +290,13 @@ namespace CarGlass
 			MenuItemId<OrderTypeClass> item = (MenuItemId<OrderTypeClass>)sender;
 			OnNewOrderClicked(item.ID);
 		}
+	}
+
+	public enum TypeItemOrButton
+	{
+		Order,
+		Shedule,
+		Note,
+		OrderDemonsration
 	}
 }

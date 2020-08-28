@@ -23,6 +23,8 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		var listOrderTypesOrderCalendar3 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label3.LabelProp.ToUpper())).ToList();
 		var listOrderTypesOrderCalendar4 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label4.LabelProp.ToUpper())).ToList();
 
+		ClientCalendar frmClientCalendar = new ClientCalendar();
+
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 21);
 		orderscalendar1.BackgroundColor = new Gdk.Color(234, 230, 255);
@@ -33,6 +35,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar1.NewOrder += OnNewOrder;
 		orderscalendar1.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar1.NewNote += OnNewNote;
+		orderscalendar1.frmClientCalendar = frmClientCalendar;
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 21);
@@ -44,6 +47,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.NewOrder += OnNewOrder;
 		orderscalendar2.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar2.NewNote += OnNewNote;
+		orderscalendar2.frmClientCalendar = frmClientCalendar;
 
 		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar3.SetTimeRange(9, 21);
@@ -55,6 +59,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.NewOrder += OnNewOrder;
 		orderscalendar3.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar3.NewNote += OnNewNote;
+		orderscalendar3.frmClientCalendar = frmClientCalendar;
 
 		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar4.SetTimeRange(9, 21);
@@ -66,6 +71,8 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.NewOrder += OnNewOrder;
 		orderscalendar4.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar4.NewNote += OnNewNote;
+		orderscalendar4.frmClientCalendar = frmClientCalendar;
+
 
 		orderscalendar1.RefreshOrders();
 	}
@@ -150,6 +157,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					order.DeleteOrder += OnDeleteOrder;
 					order.OpenOrder += OnOpenOrder;
 					order.TimeChanged += OnChangeTimeOrderEvent;
+					order.TypeItemOrButton = TypeItemOrButton.Order;
 					int day = (order.Date - Calendar.StartDate).Days;
 					Calendar.AddItem(day, order.Hour, order);
 				}
@@ -191,7 +199,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					shedule.Calendar = Calendar;
 					shedule.DeleteOrder += OnDeleteShedule;
 					shedule.OpenOrder += OnOpenSheduleWork;
-					shedule.isNoOrder = true;
+					shedule.TypeItemOrButton = TypeItemOrButton.Shedule;
 					calendarItemsShedule.Add(shedule);
 				}
 			}
@@ -224,7 +232,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				calendarItemNote.Calendar = Calendar;
 				calendarItemNote.DeleteOrder += OnDeleteNote;
 				calendarItemNote.OpenOrder += OnOpenNote;
-				calendarItemNote.isNoOrder = true;
+				calendarItemNote.TypeItemOrButton = TypeItemOrButton.Note;
 				if(note.Message.Length > 400)
 					calendarItemNote.Text = note.Message.Substring(0, 400);
 				else calendarItemNote.Text = note.Message;

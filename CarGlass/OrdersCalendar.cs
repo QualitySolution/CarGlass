@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gtk;
 using NLog;
@@ -26,6 +27,8 @@ namespace CarGlass
 
 		public int PointNumber { get; set;}
 		public int CalendarNumber { get; set; }
+
+		public ClientCalendar frmClientCalendar;
 
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
@@ -224,7 +227,10 @@ namespace CarGlass
 		public void RefreshOrders()
 		{
 			if(_StartDate != default(DateTime) && EndTime > 0)
+			{
 				OnNeedRefreshOrders();
+				UpdateClietCalendar();
+			}
 		}
 
 		private void RefreshButtons()
@@ -390,6 +396,30 @@ namespace CarGlass
 			hourHilight = -1;
 		}
 
+		protected void OnButtonShowClientCalendarClicked(object sender, EventArgs e)
+		{
+			OpenClientCalendar();
+		}
+
+		protected void UpdateClietCalendar()
+		{
+			if(frmClientCalendar.isOpen)
+			{
+				frmClientCalendar.StartDate = this.StartDate;
+				frmClientCalendar.TimeMap = this.TimeMap;
+				frmClientCalendar.RefreshButtons();
+			}
+		}
+
+		protected void OpenClientCalendar()
+		{
+			frmClientCalendar.CreaeteClientCalendar(TimeMap);
+			frmClientCalendar.StartDate = this.StartDate;
+			frmClientCalendar.SetTimeRange(9, 21);
+			//frm.BackgroundColor = new Gdk.Color(255, 230, 230);
+			frmClientCalendar.isOpen = true;
+			UpdateClietCalendar();
+		}
 	}
 
 	public class NewOrderEventArgs : EventArgs

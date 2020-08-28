@@ -2,6 +2,7 @@
 using Gtk;
 using System.Collections.Generic;
 using CarGlass.Domain;
+using CarGlass.Dialogs;
 
 namespace CarGlass
 {
@@ -34,10 +35,15 @@ namespace CarGlass
 			ParentCalendar = calendar;
 			emptyButton = new ItemButton();
 			emptyButton.ParentCalendar = ParentCalendar;
-			emptyButton.isSetSheduleWork = false;
+			emptyButton.TypeItemButton = TypeItemOrButton.Order;
 			emptyButton.NewOrderClicked += HandleNewOrderClicked;
 			this.Add(emptyButton);
 			Drag.DestSet(this, DestDefaults.Highlight, null, 0);
+		}
+
+		public CalendarHBox(ClientCalendar calendar)
+		{
+
 		}
 
 		public CalendarHBox(OrdersCalendar calendar, string str) : base()
@@ -48,13 +54,13 @@ namespace CarGlass
 
 			if(str.Equals("newSheduleWork"))
 			{
-				emptyButton.isSetSheduleWork = true;
+				emptyButton.TypeItemButton = TypeItemOrButton.Shedule;
 				emptyButton.NewSheduleWorkClicked += HandleNewSheduleWorkClicked;
 			}
 			else if(str.Equals("newNote"))
             {
 				emptyButton.NewNoteClicked += HandleNewNoteClicked;
-				emptyButton.isSetNote = true;
+				emptyButton.TypeItemButton = TypeItemOrButton.Note;
 			}
 			this.Add(emptyButton);
 		}
