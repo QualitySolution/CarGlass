@@ -91,20 +91,10 @@ namespace CarGlass.Dialogs
 
 		protected void OnBtnAddClicked(object sender, EventArgs e)
 		{
-			//bool isAdd = true;
-			//foreach(var emp in listEmployees)
-			//{
-			//	if(emp.FirstName == "-" || emp.FirstName == "")
-			//		isAdd = false;
-			//}
-
-			//if(isAdd)
-			//{
-				Employee s = new Employee("-", "-", "-");
-				s.StatusEmployee = listStatusEmployee.First(x => x.Code == 1);
-				listEmployees.Add(s);
-				createTable();
-			//}
+			Employee s = new Employee("-", "-", "-");
+			s.StatusEmployee = listStatusEmployee.First(x => x.Code == 1);
+			listEmployees.Add(s);
+			createTable();
 		}
 
 		protected void OnBtnAcceptClicked(object sender, EventArgs e)
@@ -119,14 +109,10 @@ namespace CarGlass.Dialogs
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
-
 			foreach(var emp in listEmployees)
 			{
-				emp.FirstName = emp.FirstName.Replace("-", "");
-				emp.LastName = emp.LastName.Replace("-", "");
-				emp.Patronymic = emp.Patronymic.Replace("-", "");
-
-				if(emp.FirstName == "" && emp.LastName == "" && emp.Patronymic == "")
+				if((emp.FirstName == "" && emp.LastName == "" && emp.Patronymic == "") ||
+				(emp.FirstName == "-" && emp.LastName == "-" && emp.Patronymic == "-"))
 				{
 					MessageDialogWorks.RunWarningDialog($"В списке присутствуют пустые строки. \n Сохранение невозможно.");
 					return;
@@ -148,6 +134,26 @@ namespace CarGlass.Dialogs
 
 			UoW.Commit();
 			this.Destroy();
+		}
+
+		protected void OnButtonCancelClicked(object sender, EventArgs e)
+		{
+			if(MessageDialogWorks.RunQuestionDialog("Выйти без сохранения?"))
+				this.Destroy();
+		}
+
+		protected void OnBtnDeleteClicked(object sender, EventArgs e)
+		{
+			foreach(var emp in listEmployees)
+			{
+				emp.FirstName = emp.FirstName.Replace("-", "");
+				emp.LastName = emp.LastName.Replace("-", "");
+				emp.Patronymic = emp.Patronymic.Replace("-", "");
+			}
+			for(int i = listEmployees.Count - 1; i > 0; i--)
+				if(string.IsNullOrWhiteSpace(listEmployees[i].FirstName) && string.IsNullOrWhiteSpace(listEmployees[i].LastName) && string.IsNullOrWhiteSpace(listEmployees[i].Patronymic))
+					listEmployees.RemoveAt(i);
+			createTable();
 		}
 	}
 }
