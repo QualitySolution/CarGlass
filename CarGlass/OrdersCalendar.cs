@@ -4,6 +4,7 @@ using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gtk;
 using NLog;
+using QSProjectsLib;
 
 namespace CarGlass
 {
@@ -59,6 +60,7 @@ namespace CarGlass
 		public OrdersCalendar()
 		{
 			this.Build();
+			buttonShowClientCalendar.Sensitive = QSMain.User.Permissions["manager"];
 
 			TimeMap = new List<CalendarItem>[7,24];
 			CalendarBoxes = new CalendarHBox[7,24];
