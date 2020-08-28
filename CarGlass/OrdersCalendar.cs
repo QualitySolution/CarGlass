@@ -60,7 +60,7 @@ namespace CarGlass
 		public OrdersCalendar()
 		{
 			this.Build();
-			buttonShowClientCalendar.Sensitive = QSMain.User.Permissions["manager"];
+			buttonShowClientCalendar.Sensitive = QSMain.User.Permissions["manager"] || QSMain.User.Permissions["admin"];
 
 			TimeMap = new List<CalendarItem>[7,24];
 			CalendarBoxes = new CalendarHBox[7,24];
