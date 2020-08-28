@@ -5,113 +5,140 @@ namespace CarGlass
 	public partial class OrdersCalendar
 	{
 		private global::Gtk.VBox vbox3;
+
 		private global::Gtk.HBox hbox1;
+
 		private global::Gtk.HBox hbox2;
+
 		private global::Gtk.Button buttonLeft;
+
 		private global::Gtk.Label labelWeek;
+
 		private global::Gtk.Button buttonRight;
+
+		private global::Gtk.Button buttonShowClientCalendar;
+
 		private global::Gtk.Button buttonRefresh;
+
 		private global::Gtk.EventBox eventbox1;
+
 		private global::Gtk.Table tableOrders;
 
-		protected virtual void Build ()
+		protected virtual void Build()
 		{
-			global::Stetic.Gui.Initialize (this);
+			global::Stetic.Gui.Initialize(this);
 			// Widget CarGlass.OrdersCalendar
-			global::Stetic.BinContainer.Attach (this);
+			global::Stetic.BinContainer.Attach(this);
 			this.Name = "CarGlass.OrdersCalendar";
 			// Container child CarGlass.OrdersCalendar.Gtk.Container+ContainerChild
-			this.vbox3 = new global::Gtk.VBox ();
+			this.vbox3 = new global::Gtk.VBox();
 			this.vbox3.Name = "vbox3";
 			this.vbox3.Spacing = 6;
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.hbox1 = new global::Gtk.HBox ();
+			this.hbox1 = new global::Gtk.HBox();
 			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.hbox2 = new global::Gtk.HBox ();
+			this.hbox2 = new global::Gtk.HBox();
 			this.hbox2.Name = "hbox2";
 			this.hbox2.Spacing = 6;
 			// Container child hbox2.Gtk.Box+BoxChild
-			this.buttonLeft = new global::Gtk.Button ();
+			this.buttonLeft = new global::Gtk.Button();
 			this.buttonLeft.CanFocus = true;
 			this.buttonLeft.Name = "buttonLeft";
 			this.buttonLeft.UseUnderline = true;
-			global::Gtk.Image w1 = new global::Gtk.Image ();
-			w1.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-go-back", global::Gtk.IconSize.Button);
+			global::Gtk.Image w1 = new global::Gtk.Image();
+			w1.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-go-back", global::Gtk.IconSize.Button);
 			this.buttonLeft.Image = w1;
-			this.hbox2.Add (this.buttonLeft);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.buttonLeft]));
+			this.hbox2.Add(this.buttonLeft);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonLeft]));
 			w2.Position = 0;
 			w2.Expand = false;
 			w2.Fill = false;
 			// Container child hbox2.Gtk.Box+BoxChild
-			this.labelWeek = new global::Gtk.Label ();
+			this.labelWeek = new global::Gtk.Label();
 			this.labelWeek.Name = "labelWeek";
-			this.labelWeek.LabelProp = global::Mono.Unix.Catalog.GetString ("label1");
-			this.hbox2.Add (this.labelWeek);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.labelWeek]));
+			this.labelWeek.LabelProp = global::Mono.Unix.Catalog.GetString("label1");
+			this.hbox2.Add(this.labelWeek);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.labelWeek]));
 			w3.Position = 1;
 			w3.Expand = false;
 			w3.Fill = false;
 			// Container child hbox2.Gtk.Box+BoxChild
-			this.buttonRight = new global::Gtk.Button ();
+			this.buttonRight = new global::Gtk.Button();
 			this.buttonRight.CanFocus = true;
 			this.buttonRight.Name = "buttonRight";
 			this.buttonRight.UseUnderline = true;
-			global::Gtk.Image w4 = new global::Gtk.Image ();
-			w4.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-go-forward", global::Gtk.IconSize.Button);
+			global::Gtk.Image w4 = new global::Gtk.Image();
+			w4.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-go-forward", global::Gtk.IconSize.Button);
 			this.buttonRight.Image = w4;
-			this.hbox2.Add (this.buttonRight);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.buttonRight]));
+			this.hbox2.Add(this.buttonRight);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonRight]));
 			w5.Position = 2;
 			w5.Expand = false;
 			w5.Fill = false;
-			this.hbox1.Add (this.hbox2);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.hbox2]));
+			this.hbox1.Add(this.hbox2);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.hbox2]));
 			w6.Position = 0;
 			w6.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.buttonRefresh = new global::Gtk.Button ();
-			this.buttonRefresh.CanFocus = true;
-			this.buttonRefresh.Name = "buttonRefresh";
-			this.buttonRefresh.UseUnderline = true;
-			global::Gtk.Image w7 = new global::Gtk.Image ();
-			w7.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-refresh", global::Gtk.IconSize.Button);
-			this.buttonRefresh.Image = w7;
-			this.hbox1.Add (this.buttonRefresh);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.buttonRefresh]));
+			this.buttonShowClientCalendar = new global::Gtk.Button();
+			this.buttonShowClientCalendar.TooltipMarkup = "Показать календарь клиенту";
+			this.buttonShowClientCalendar.CanFocus = true;
+			this.buttonShowClientCalendar.Name = "buttonShowClientCalendar";
+			this.buttonShowClientCalendar.UseUnderline = true;
+			global::Gtk.Image w7 = new global::Gtk.Image();
+			w7.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("CarGlass.icons.display.png");
+			this.buttonShowClientCalendar.Image = w7;
+			this.hbox1.Add(this.buttonShowClientCalendar);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.buttonShowClientCalendar]));
 			w8.Position = 1;
 			w8.Expand = false;
 			w8.Fill = false;
-			this.vbox3.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox1]));
-			w9.Position = 0;
-			w9.Expand = false;
-			w9.Fill = false;
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.buttonRefresh = new global::Gtk.Button();
+			this.buttonRefresh.TooltipMarkup = "Обновить календарь";
+			this.buttonRefresh.CanFocus = true;
+			this.buttonRefresh.Name = "buttonRefresh";
+			this.buttonRefresh.UseUnderline = true;
+			global::Gtk.Image w9 = new global::Gtk.Image();
+			w9.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-refresh", global::Gtk.IconSize.Button);
+			this.buttonRefresh.Image = w9;
+			this.hbox1.Add(this.buttonRefresh);
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.buttonRefresh]));
+			w10.Position = 2;
+			w10.Expand = false;
+			w10.Fill = false;
+			this.vbox3.Add(this.hbox1);
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.hbox1]));
+			w11.Position = 0;
+			w11.Expand = false;
+			w11.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.eventbox1 = new global::Gtk.EventBox ();
+			this.eventbox1 = new global::Gtk.EventBox();
 			this.eventbox1.Name = "eventbox1";
 			// Container child eventbox1.Gtk.Container+ContainerChild
-			this.tableOrders = new global::Gtk.Table (((uint)(3)), ((uint)(8)), false);
+			this.tableOrders = new global::Gtk.Table(((uint)(3)), ((uint)(8)), false);
 			this.tableOrders.Name = "tableOrders";
 			this.tableOrders.RowSpacing = ((uint)(1));
 			this.tableOrders.ColumnSpacing = ((uint)(1));
-			this.eventbox1.Add (this.tableOrders);
-			this.vbox3.Add (this.eventbox1);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.eventbox1]));
-			w11.Position = 1;
-			this.Add (this.vbox3);
-			if ((this.Child != null)) {
-				this.Child.ShowAll ();
+			this.eventbox1.Add(this.tableOrders);
+			this.vbox3.Add(this.eventbox1);
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.eventbox1]));
+			w13.Position = 1;
+			this.Add(this.vbox3);
+			if ((this.Child != null))
+			{
+				this.Child.ShowAll();
 			}
-			this.Hide ();
-			this.buttonLeft.Clicked += new global::System.EventHandler (this.OnButtonLeftClicked);
-			this.buttonRight.Clicked += new global::System.EventHandler (this.OnButtonRightClicked);
-			this.buttonRefresh.Clicked += new global::System.EventHandler (this.OnButtonRefreshClicked);
-			this.eventbox1.MotionNotifyEvent += new global::Gtk.MotionNotifyEventHandler (this.OnEventbox1MotionNotifyEvent);
-			this.eventbox1.LeaveNotifyEvent += new global::Gtk.LeaveNotifyEventHandler (this.OnEventbox1LeaveNotifyEvent);
-			this.tableOrders.ExposeEvent += new global::Gtk.ExposeEventHandler (this.OnTableOrdersExposeEvent);
+			this.Hide();
+			this.buttonLeft.Clicked += new global::System.EventHandler(this.OnButtonLeftClicked);
+			this.buttonRight.Clicked += new global::System.EventHandler(this.OnButtonRightClicked);
+			this.buttonShowClientCalendar.Clicked += new global::System.EventHandler(this.OnButtonShowClientCalendarClicked);
+			this.buttonRefresh.Clicked += new global::System.EventHandler(this.OnButtonRefreshClicked);
+			this.eventbox1.MotionNotifyEvent += new global::Gtk.MotionNotifyEventHandler(this.OnEventbox1MotionNotifyEvent);
+			this.eventbox1.LeaveNotifyEvent += new global::Gtk.LeaveNotifyEventHandler(this.OnEventbox1LeaveNotifyEvent);
+			this.tableOrders.ExposeEvent += new global::Gtk.ExposeEventHandler(this.OnTableOrdersExposeEvent);
 		}
 	}
 }
