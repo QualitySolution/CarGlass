@@ -60,8 +60,15 @@ namespace CarGlass
 		static void CreateProjectParam()
 		{
 			QSMain.ProjectPermission = new Dictionary<string, UserPermission>();
-			//QSMain.ProjectPermission.Add("edit_slips", new UserPermission("edit_slips", "Изменение кассы задним числом",
-			//"Пользователь может изменять или добавлять кассовые документы задним числом."));
+			QSMain.ProjectPermission.Add("manager", new UserPermission("manager", "Режим менеджера",
+				"Пользователь может добавлять и редактировать заказы."
+			));
+			QSMain.ProjectPermission.Add("worker", new UserPermission("worker", "Режим менеджера",
+			"Пользователь может просматривать заказы."
+			));
+			QSMain.ProjectPermission.Add("admin", new UserPermission("admin", "Запуск клиентского интерфейса",
+			"Пользователь может использовать весь функционал программы."
+			));
 
 			//Настраиваем обновления
 			QS.Updater.DB.DBUpdater.AddUpdate(
