@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
@@ -236,7 +236,7 @@
               <widget class="Gtk.Notebook" id="notebookMain">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">5</property>
+                <property name="CurrentPage">0</property>
                 <signal name="SwitchPage" handler="OnNotebookMainSwitchPage" />
                 <child>
                   <widget class="CarGlass.OrdersCalendar" id="orderscalendar1">
@@ -2663,8 +2663,27 @@
               </packing>
             </child>
             <child>
+              <widget class="Gtk.Button" id="buttonShowClientCalendar">
+                <property name="MemberName" />
+                <property name="Tooltip" translatable="yes">Показать календарь клиенту</property>
+                <property name="CanFocus">True</property>
+                <property name="Type">TextAndIcon</property>
+                <property name="Icon">resource:CarGlass.icons.display.png</property>
+                <property name="Label" translatable="yes" />
+                <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnButtonShowClientCalendarClicked" />
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">False</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
               <widget class="Gtk.Button" id="buttonRefresh">
                 <property name="MemberName" />
+                <property name="Tooltip" translatable="yes">Обновить календарь</property>
                 <property name="CanFocus">True</property>
                 <property name="Type">TextAndIcon</property>
                 <property name="Icon">stock:gtk-refresh Button</property>
@@ -2673,7 +2692,7 @@
                 <signal name="Clicked" handler="OnButtonRefreshClicked" />
               </widget>
               <packing>
-                <property name="Position">1</property>
+                <property name="Position">2</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
@@ -5297,7 +5316,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.Dialogs.EmployeesCatalogDlg" design-size="400 300">
+  <widget class="Gtk.Dialog" id="CarGlass.Dialogs.EmployeesCatalogDlg" design-size="427 300">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">2</property>
@@ -6147,6 +6166,108 @@
             <property name="Position">1</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="CarGlass.Dialogs.ClientCalendar" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">ClientCalendar</property>
+    <property name="WindowPosition">CenterAlways</property>
+    <child>
+      <widget class="Gtk.HBox" id="hbox1">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.EventBox" id="eventbox">
+            <property name="MemberName" />
+            <child>
+              <widget class="Gtk.Table" id="tableOrders">
+                <property name="MemberName" />
+                <property name="NRows">3</property>
+                <property name="NColumns">8</property>
+                <property name="RowSpacing">1</property>
+                <property name="ColumnSpacing">1</property>
+                <signal name="ExposeEvent" handler="OnTableOrdersExposeEvent" />
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
           </packing>
         </child>
       </widget>

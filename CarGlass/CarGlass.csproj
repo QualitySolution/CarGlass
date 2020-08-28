@@ -178,6 +178,7 @@
     <EmbeddedResource Include="Updates\1.5.1.sql" />
     <EmbeddedResource Include="Updates\1.5.2.sql" />
     <EmbeddedResource Include="Updates\1.6.sql" />
+    <EmbeddedResource Include="icons\display.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -291,6 +292,8 @@
     <Compile Include="Domain\Note.cs" />
     <Compile Include="HibernateMapping\NoteMap.cs" />
     <Compile Include="Repository\StoreItemsRepository.cs" />
+    <Compile Include="Dialogs\ClientCalendar.cs" />
+    <Compile Include="gtk-gui\CarGlass.Dialogs.ClientCalendar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
