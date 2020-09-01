@@ -3,6 +3,7 @@ using Gtk;
 using System.Collections.Generic;
 using CarGlass.Domain;
 using CarGlass.Dialogs;
+using QSProjectsLib;
 
 namespace CarGlass
 {
@@ -29,9 +30,9 @@ namespace CarGlass
 			}
 		}
 
-
 		public CalendarHBox(OrdersCalendar calendar) : base ()
 		{
+			if(QSMain.User.Permissions["worker"]) return;
 			ParentCalendar = calendar;
 			emptyButton = new ItemButton();
 			emptyButton.ParentCalendar = ParentCalendar;
