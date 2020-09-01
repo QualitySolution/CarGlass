@@ -61,7 +61,7 @@ namespace CarGlass.Domain
 
 		private bool isShowMainWidgets;
 
-		[Display(Name = "Показывать виджеты: состояний заказа, марка, модель, год, телефон")]
+		[Display(Name = "Показывать виджеты: состояние заказа, марка, модель, год, телефон")]
 		public virtual bool IsShowMainWidgets
 		{
 			get { return isShowMainWidgets; }
