@@ -36,6 +36,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar1.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar1.NewNote += OnNewNote;
 		orderscalendar1.frmClientCalendar = frmClientCalendar;
+		orderscalendar1.TypeTab = TypeTab.Setting;
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 21);
@@ -48,6 +49,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar2.NewNote += OnNewNote;
 		orderscalendar2.frmClientCalendar = frmClientCalendar;
+		orderscalendar2.TypeTab = TypeTab.Toning;
 
 		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar3.SetTimeRange(9, 21);
@@ -60,6 +62,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar3.NewNote += OnNewNote;
 		orderscalendar3.frmClientCalendar = frmClientCalendar;
+		orderscalendar3.TypeTab = TypeTab.Setting;
 
 		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar4.SetTimeRange(9, 21);
@@ -72,7 +75,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.NewSheduleWork += OnNewSheduleWork;
 		orderscalendar4.NewNote += OnNewNote;
 		orderscalendar4.frmClientCalendar = frmClientCalendar;
-
+		orderscalendar4.TypeTab = TypeTab.Toning;
 
 		orderscalendar1.RefreshOrders();
 	}
@@ -119,8 +122,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					if(rdr["id_order_type"] == DBNull.Value)
 						throw new InvalidCastException($"В заказе {order.id} id_order_type = null");
 					OrderTypeClass orderTypeClass = UoW.Session.QueryOver<OrderTypeClass>().List().FirstOrDefault(x => x.Id == rdr.GetInt32("id_order_type"));
-					order.Text = String.Format("{0} {1}\n{2}\n{3}",rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"] );
-					if(orderTypeClass.IsShowAdditionalWidgets)
+					if(!QSMain.User.Permissions["worker"])
 					{
 						order.FullText = String.Format("{9}\nСостояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
 							rdr["status"],
@@ -132,32 +134,35 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							rdr["phone"],
 							DBWorks.GetDecimal(rdr, "sum", 0),
 							rdr["comment"],
-							orderTypeClass.Name
-						                               
+							orderTypeClass.Name                           
 						);
+						order.Text = String.Format("{0} {1}\n{2}\n{3}", rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"]);
+						order.Color = DBWorks.GetString(rdr, "color", "");
+						order.TagColor = DBWorks.GetString(rdr, "stockcolor", "");
+						order.DeleteOrder += OnDeleteOrder;
+						order.OpenOrder += OnOpenOrder;
+						order.TimeChanged += OnChangeTimeOrderEvent;
 					}
 					else
 					{
-						order.FullText = String.Format("{0}\nСостояние: {1}\nАвтомобиль: {2} {3}\nТелефон: {4}\nСтоимость: {5:C}\n{6}",
-							 orderTypeClass.Name,
+						order.FullText = String.Format("{7}\nСостояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:\n{5}\n{6}",
 							rdr["status"],
 							rdr["mark"],
 							rdr["model"],
-							rdr["phone"],
-							DBWorks.GetDecimal(rdr, "sum", 0),
-							rdr["comment"]
+							rdr["eurocode"],
+							rdr["manufacturer"],
+							rdr["stock"],
+							rdr["comment"],
+							orderTypeClass.Name
+
 						);
+						order.Text = String.Format("{0} {1}\n{2}", rdr["mark"], rdr["model"], rdr["comment"]);
+						order.Color = order.TagColor = "#f0f8ff";
 					}
-					order.Color = DBWorks.GetString(rdr, "color", "");
-					order.TagColor = DBWorks.GetString(rdr, "stockcolor", "");
 					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
 						order.Tag = rdr["stock"].ToString().Substring(0, 1);
 					order.OrderType = orderTypeClass;
 					order.Calendar = Calendar;
-					order.DeleteOrder += OnDeleteOrder;
-					order.OpenOrder += OnOpenOrder;
-					order.TimeChanged += OnChangeTimeOrderEvent;
-					order.TypeItemOrButton = TypeItemOrButton.Order;
 					int day = (order.Date - Calendar.StartDate).Days;
 					Calendar.AddItem(day, order.Hour, order);
 				}
@@ -199,7 +204,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					shedule.Calendar = Calendar;
 					shedule.DeleteOrder += OnDeleteShedule;
 					shedule.OpenOrder += OnOpenSheduleWork;
-					shedule.TypeItemOrButton = TypeItemOrButton.Shedule;
 					calendarItemsShedule.Add(shedule);
 				}
 			}
@@ -232,7 +236,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				calendarItemNote.Calendar = Calendar;
 				calendarItemNote.DeleteOrder += OnDeleteNote;
 				calendarItemNote.OpenOrder += OnOpenNote;
-				calendarItemNote.TypeItemOrButton = TypeItemOrButton.Note;
 				if(note.Message.Length > 400)
 					calendarItemNote.Text = note.Message.Substring(0, 400);
 				else calendarItemNote.Text = note.Message;
