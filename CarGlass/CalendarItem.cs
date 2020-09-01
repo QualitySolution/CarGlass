@@ -14,8 +14,6 @@ namespace CarGlass
 		public string Color;
 		public string Tag;
 		public string TagColor;
-		public TypeItemOrButton TypeItemOrButton;
-		public bool isClientCalendarItem;
 		public OrdersCalendar Calendar;
 
 		public event EventHandler OpenOrder;
@@ -36,20 +34,12 @@ namespace CarGlass
 
 		public void Open()
 		{
-			EventHandler handler = OpenOrder;
-			if (handler != null)
-			{
-				handler(this, EventArgs.Empty);
-			}
+			OpenOrder?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void Delete()
 		{
-			EventHandler handler = DeleteOrder;
-			if (handler != null)
-			{
-				handler(this, EventArgs.Empty);
-			}
+			DeleteOrder?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void ChangeTime(DateTime date, int hour)

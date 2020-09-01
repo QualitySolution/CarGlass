@@ -14,7 +14,7 @@ namespace CarGlass
 	public class ItemButton : Button
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
-		private CalendarItem item;
+		private CalendarItem calendarItem;
 		private Pango.Layout PangoText;
 		private Pango.Layout PangoTag;
 		public OrdersCalendar ParentCalendar;
@@ -27,11 +27,11 @@ namespace CarGlass
 		{
 			get
 			{
-				return item;
+				return calendarItem;
 			}
 			set
 			{
-				item = value;
+				calendarItem = value;
 				UpdateButton();
 			}
 		}
@@ -46,7 +46,7 @@ namespace CarGlass
 
 		protected override bool OnEnterNotifyEvent(Gdk.EventCrossing evnt)
 		{
-			if (this.Relief == ReliefStyle.None && this.Image == null)
+			if (this.Relief == ReliefStyle.None && this.Image == null && TypeItemButton == TypeItemOrButton.Order)
 				this.Image = new Image("gtk-add", IconSize.Button);
 			return base.OnEnterNotifyEvent(evnt);
 		}
@@ -63,10 +63,8 @@ namespace CarGlass
 
 		protected override void OnClicked()
 		{
-			if(item != null && item.TypeItemOrButton == TypeItemOrButton.OrderDemonsration) return;
-
-			if (item != null)
-				item.Open();
+			if (calendarItem != null)
+				calendarItem.Open();
 			else
 			{
 				if(ParentCalendar.OrdersTypes == null || ParentCalendar.OrdersTypes.Count == 0)
@@ -121,16 +119,16 @@ namespace CarGlass
 
 		protected override bool OnExposeEvent(Gdk.EventExpose evnt)
 		{
-			if(item != null)
+			if(calendarItem != null)
 			{
 				int triangleSize = 25;
 				Gdk.Rectangle targetRectangle = this.Allocation;
 				evnt.Window.DrawRectangle(Style.BackgroundGC(State), true, targetRectangle);
 				Style.PaintLayout(Style, evnt.Window, State, true, targetRectangle, this, null, targetRectangle.X, targetRectangle.Y, PangoText);
-				if (item.TagColor != "")
+				if (calendarItem.TagColor != "")
 				{
 					Gdk.Color col = new Gdk.Color();
-					Gdk.Color.Parse(item.TagColor, ref col);
+					Gdk.Color.Parse(calendarItem.TagColor, ref col);
 					Gdk.GC TagGC = new Gdk.GC(evnt.Window);
 					TagGC.RgbFgColor = col;
 
@@ -157,16 +155,16 @@ namespace CarGlass
 
 		private void UpdateButton()
 		{
-			if(item != null)
+			if(calendarItem != null )
 			{
 				this.Image = null;
-				PangoText.SetText(item.Text);
-				this.TooltipText = item.FullText;
+				PangoText.SetText(calendarItem.Text);
+				this.TooltipText = calendarItem.FullText;
 				this.Relief = ReliefStyle.Normal;
 				Drag.DestUnset(this);
 				Drag.SourceSet(this, Gdk.ModifierType.Button1Mask, null, Gdk.DragAction.Move );
 				Gdk.Color col = new Gdk.Color();
-				Gdk.Color.Parse(item.Color, ref col);
+				Gdk.Color.Parse(calendarItem.Color, ref col);
 				logger.Debug("a={0} - {1} - {2}", col.Red, col.Green, col.Blue);
 				this.ModifyBg(StateType.Normal, col);
 				byte r = (byte) Math.Min(((double)col.Red / ushort.MaxValue) * byte.MaxValue + 30 , byte.MaxValue);
@@ -176,7 +174,7 @@ namespace CarGlass
 				this.ModifyBg(StateType.Prelight, col);
 				logger.Debug("b={0} - {1} - {2}", col.Red, col.Green, col.Blue);
 				//Tag
-				PangoTag.SetText(item.Tag);
+				PangoTag.SetText(calendarItem.Tag);
 			}
 			else
 			{
@@ -220,13 +218,13 @@ namespace CarGlass
 				if(TypeItemButton == TypeItemOrButton.Order)
 				{
 					MenuItem1 = new MenuItem("Перенести");
-					MenuItem1.Sensitive = item != null;
+					MenuItem1.Sensitive = calendarItem != null;
 					MenuItem1.Submenu = GetOrderWeekMoveMenu();
 					jBox.Add(MenuItem1);
 				}
 
 				MenuItem1 = new MenuItem("Удалить");
-				MenuItem1.Sensitive = item != null;
+				MenuItem1.Sensitive = calendarItem != null;
 				MenuItem1.Activated += OnButtonPopupDelete;
 				jBox.Add(MenuItem1);       
 				jBox.ShowAll();
@@ -276,13 +274,13 @@ namespace CarGlass
 
 		protected void OnButtonPopupDelete(object sender, EventArgs Arg)
 		{
-			item.Delete();
+			calendarItem.Delete();
 		}
 
 		protected void OnButtonPopupMoveWeeks(object sender, EventArgs Arg)
 		{
 			var menuItem = sender as MenuItemId<int>;
-			item.ChangeTime(item.Date.AddDays(menuItem.ID * 7), item.Hour);
+			calendarItem.ChangeTime(calendarItem.Date.AddDays(menuItem.ID * 7), calendarItem.Hour);
 		}
 
 		protected void OnButtonPopupAddWithType(object sender, ButtonPressEventArgs Arg)
@@ -296,7 +294,6 @@ namespace CarGlass
 	{
 		Order,
 		Shedule,
-		Note,
-		OrderDemonsration
+		Note
 	}
 }
