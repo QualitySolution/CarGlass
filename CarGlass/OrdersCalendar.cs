@@ -18,6 +18,7 @@ namespace CarGlass
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
 		private int dayHilight = -1, hourHilight = -1;
+		public TypeTab TypeTab;
 
 		public Label[] HeadLabels;
 		public Label[] HoursLabels;
@@ -60,7 +61,7 @@ namespace CarGlass
 		public OrdersCalendar()
 		{
 			this.Build();
-			buttonShowClientCalendar.Sensitive = QSMain.User.Permissions["manager"] || QSMain.User.Permissions["admin"];
+			buttonShowClientCalendar.Sensitive = QSMain.User.Permissions["manager"] || QSMain.User.Admin;
 
 			TimeMap = new List<CalendarItem>[7,24];
 			CalendarBoxes = new CalendarHBox[7,24];
@@ -169,6 +170,7 @@ namespace CarGlass
 		protected void OnButtonRefreshClicked(object sender, EventArgs e)
 		{
 			OnNeedRefreshOrders();
+			UpdateClietCalendar();
 		}
 
 		protected void OnButtonNewOrderClick(object sender, NewOrderEventArgs e)
@@ -405,21 +407,25 @@ namespace CarGlass
 
 		protected void UpdateClietCalendar()
 		{
-			if(frmClientCalendar.isOpen)
-			{
-				frmClientCalendar.StartDate = this.StartDate;
-				frmClientCalendar.TimeMap = this.TimeMap;
-				frmClientCalendar.RefreshButtons();
-			}
+			if(!frmClientCalendar.isOpen) return;
+			
+			frmClientCalendar.StartDate = this.StartDate;
+			frmClientCalendar.TimeMap = this.TimeMap;
+			frmClientCalendar.TypeTab = this.TypeTab;
+			frmClientCalendar.RefreshButtons();
 		}
 
 		protected void OpenClientCalendar()
 		{
-			frmClientCalendar.CreaeteClientCalendar(TimeMap);
-			frmClientCalendar.StartDate = this.StartDate;
+			try
+			{
+				frmClientCalendar.Destroy();
+			}
+			catch { }
+			frmClientCalendar.CreaeteClientCalendar();
 			frmClientCalendar.SetTimeRange(9, 21);
-			//frm.BackgroundColor = new Gdk.Color(255, 230, 230);
 			frmClientCalendar.isOpen = true;
+			OnNeedRefreshOrders();
 			UpdateClietCalendar();
 		}
 	}

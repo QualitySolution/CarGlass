@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gtk;
@@ -9,10 +10,11 @@ namespace CarGlass.Dialogs
 {
 	public partial class ClientCalendar : Gtk.Window
 	{
-		public List<CalendarItem>[,] TimeMap;
+		public List<CalendarItem>[,] TimeMap = new List<CalendarItem>[7, 24];
 		private CalendarHBox[,] CalendarBoxes = new CalendarHBox[7, 24];
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
+		public TypeTab TypeTab;
 
 		public bool isOpen = false;
 
@@ -21,12 +23,11 @@ namespace CarGlass.Dialogs
 
 		public ClientCalendar() : base(Gtk.WindowType.Toplevel) { }
 
-		public void CreaeteClientCalendar(List<CalendarItem>[,] TimeMap)
+		public void CreaeteClientCalendar()
 		{
 			this.Build();
-			//Maximize();
+			Maximize();
 
-			this.TimeMap = TimeMap;
 			for(uint i = 1; i <= 7; i++)
 			{
 				Label templabel = new Label();
@@ -88,19 +89,6 @@ namespace CarGlass.Dialogs
 			tableOrders.ShowAll();
 		}
 
-		public void ClearTimeMap()
-		{
-			TimeMap = new List<CalendarItem>[7, 24];
-		}
-
-		public Gdk.Color BackgroundColor
-		{
-			set
-			{
-				eventbox.ModifyBg(StateType.Normal, value);
-			}
-		}
-
 		protected void OnTableOrdersExposeEvent(object o, ExposeEventArgs args)
 		{
 			if(TimeMap == null) return;
@@ -123,24 +111,47 @@ namespace CarGlass.Dialogs
 
 		public void RefreshButtons()
 		{
+			DateTime currentDay = StartDate;
 			for(int x = 0; x < 7; x++)
 			{
 				for(int y = StartTime; y <= EndTime; y++)
 				{
 					if(TimeMap[x, y] != null)
-						foreach(var item in TimeMap[x, y])
-							if(item.id > 0)
-							{
-								item.Color = "red";
-								item.FullText = "";
-								item.Text = "";
-								item.Tag = "";
-								item.TagColor = "red";
-								item.TypeItemOrButton = TypeItemOrButton.OrderDemonsration;
-							}
+					{
+						TimeMap[x, y] = new List<CalendarItem> { new CalendarItem(currentDay, y) };
+						TimeMap[x, y][0].Color = TimeMap[x, y][0].TagColor = "red";
+							
+					}
+					else
+					{
+						var calItem = new CalendarItem(currentDay, y);
+						TimeMap[x, y] = new List<CalendarItem> { calItem };
+						TimeMap[x, y][0].Color = TimeMap[x, y][0].TagColor = getColor(calItem, y);
+					}
 					CalendarBoxes[x, y].ListItems = TimeMap[x, y];
 				}
+				currentDay = currentDay.AddDays(1);
 			}
 		}
+
+		private string getColor(CalendarItem calendarItem, int hour)
+		{
+			var dateNow = DateTime.Now;
+			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour > hour)) return "red";
+			if(TypeTab != TypeTab.Setting) return "green";
+
+			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour < 11 && hour < 13) ||
+				(calendarItem.Date == dateNow.Date && dateNow.Hour >= 11)
+				|| (calendarItem.Date == dateNow.AddDays(1).Date && dateNow.Hour >= 11 && hour < 13))
+				return "red";
+
+			return "green"; 
+		}
+	}
+
+	public enum TypeTab
+	{
+		Setting,
+		Toning
 	}
 }
