@@ -63,11 +63,8 @@ namespace CarGlass
 			QSMain.ProjectPermission.Add("manager", new UserPermission("manager", "Режим менеджера",
 				"Пользователь может добавлять и редактировать заказы."
 			));
-			QSMain.ProjectPermission.Add("worker", new UserPermission("worker", "Режим менеджера",
+			QSMain.ProjectPermission.Add("worker", new UserPermission("worker", "Режим рабочего",
 			"Пользователь может просматривать заказы."
-			));
-			QSMain.ProjectPermission.Add("admin", new UserPermission("admin", "Запуск клиентского интерфейса",
-			"Пользователь может использовать весь функционал программы."
 			));
 
 			//Настраиваем обновления
