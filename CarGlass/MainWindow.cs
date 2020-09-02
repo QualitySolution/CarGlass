@@ -76,6 +76,10 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		winUsers.Destroy();
 	}
 
+	protected void OnRefreshActionActivated(object sender, EventArgs e)
+	{
+	}
+
 	protected void OnReferenceUpdate(object sender, QSMain.ReferenceUpdatedEventArgs e)
 	{
 		/*	switch (e.ReferenceTable) {

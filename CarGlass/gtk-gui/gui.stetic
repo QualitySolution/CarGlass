@@ -21,8 +21,8 @@
     <action-group name="Default">
       <action id="Action">
         <property name="Type">Action</property>
-        <property name="Label" translatable="yes">База</property>
-        <property name="ShortLabel" translatable="yes">База</property>
+        <property name="Label" translatable="yes">Настройки</property>
+        <property name="ShortLabel" translatable="yes">Настройки</property>
       </action>
       <action id="Action8">
         <property name="Type">Action</property>
@@ -170,6 +170,13 @@
         <property name="ShortLabel" translatable="yes">Виды заказов</property>
         <signal name="Activated" handler="OnAction18Activated" />
       </action>
+      <action id="refreshAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Обновление календаря</property>
+        <property name="ShortLabel" translatable="yes">Обновление календаря</property>
+        <property name="StockId">gtk-refresh</property>
+        <signal name="Activated" handler="OnRefreshActionActivated" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Events">FocusChangeMask</property>
@@ -187,6 +194,8 @@
               <node type="Menu" action="Action">
                 <node type="Menuitem" action="dialogAuthenticationAction" />
                 <node type="Menuitem" action="UsersAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="refreshAction" />
                 <node type="Separator" />
                 <node type="Menuitem" action="quitAction" />
               </node>
