@@ -133,7 +133,7 @@
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <Body>
-    <Height>59.4pt</Height>
+    <Height>77.8pt</Height>
     <ReportItems>
       <List Name="List1">
         <DataSetName>Data</DataSetName>
@@ -153,7 +153,7 @@
               <BorderColor />
               <BorderWidth />
               <Format>00":00"</Format>
-              <FontSize>16pt</FontSize>
+              <FontSize>14pt</FontSize>
               <TextAlign>Center</TextAlign>
               <VerticalAlign>Middle</VerticalAlign>
             </Style>
@@ -171,7 +171,7 @@
               <BorderColor />
               <BorderWidth />
               <Format>"№"0</Format>
-              <FontSize>11pt</FontSize>
+              <FontSize>10pt</FontSize>
               <TextAlign>Center</TextAlign>
             </Style>
           </Textbox>
@@ -188,6 +188,7 @@
               <BorderColor />
               <BorderWidth />
               <TextAlign>Center</TextAlign>
+              <FontSize >9pt</FontSize>
             </Style>
           </Textbox>
           <Textbox Name="mark">
@@ -202,7 +203,7 @@
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
             <Visibility>
               <Hidden>=Fields!mark.IsMissing</Hidden>
@@ -220,7 +221,7 @@
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
           </Textbox>
           <Textbox Name="eurocode">
@@ -235,7 +236,7 @@
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
           </Textbox>
           <Textbox Name="glass">
@@ -250,7 +251,7 @@
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
           </Textbox>
           <Line Name="Line1">
@@ -264,6 +265,17 @@
             <Left>80.00pt</Left>
             <Top>3.30pt</Top>
           </Line>
+          <Line Name="Line3">
+            <Height>-0.13pt</Height>
+            <Width>-568.42pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Solid</Default>
+              </BorderStyle>
+            </Style>
+            <Left>576.2pt</Left>
+            <Top>52.3pt</Top>
+          </Line>
           <Textbox Name="Textbox2">
             <Height>14.25pt</Height>
             <Width>90.28pt</Width>
@@ -276,7 +288,7 @@
               <BorderColor />
               <BorderWidth />
               <FontWeight>Bold</FontWeight>
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
             <Visibility>
               <Hidden>=Fields!mark.IsMissing</Hidden>
@@ -293,7 +305,7 @@
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
               <FontWeight>Bold</FontWeight>
               <TextAlign>Right</TextAlign>
             </Style>
@@ -313,7 +325,7 @@
               <BorderColor />
               <BorderWidth />
               <FontWeight>Bold</FontWeight>
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
             <Visibility>
               <ToggleItem>
@@ -333,7 +345,7 @@
               <BorderColor />
               <BorderWidth />
               <FontWeight>Bold</FontWeight>
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
             <Visibility>
               <Hidden>=Fields!mark.IsMissing</Hidden>
@@ -351,7 +363,7 @@
               <BorderColor />
               <BorderWidth />
               <FontWeight>Bold</FontWeight>
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
               <TextAlign>Right</TextAlign>
             </Style>
             <Visibility>
@@ -378,13 +390,13 @@
             <Width>113.52pt</Width>
             <Value>=Fields!manufacturer.Value</Value>
             <ZIndex>1</ZIndex>
-            <Left>467.1pt</Left>
-            <Top>18.6pt</Top>
+            <Left>467.10pt</Left>
+            <Top>18.60pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
             </Style>
           </Textbox>
           <Textbox Name="Textbox8" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
@@ -398,7 +410,7 @@
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
-              <FontSize>12pt</FontSize>
+              <FontSize>11pt</FontSize>
               <FontWeight>Bold</FontWeight>
               <TextAlign>Right</TextAlign>
             </Style>
@@ -419,7 +431,9 @@
             <Bottom>Solid</Bottom>
           </BorderStyle>
           <BorderColor />
-          <BorderWidth />
+          <BorderWidth>
+            <Bottom>1pt</Bottom>
+          </BorderWidth>
           <PaddingTop>0pt</PaddingTop>
           <BackgroundColor>
           </BackgroundColor>
@@ -435,7 +449,7 @@
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageFooter>
-  <ReportParameters >
+  <ReportParameters>
     <ReportParameter Name="type">
       <DataType>String</DataType>
       <DefaultValue>
