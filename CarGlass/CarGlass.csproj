@@ -294,6 +294,8 @@
     <Compile Include="Repository\StoreItemsRepository.cs" />
     <Compile Include="Dialogs\ClientCalendar.cs" />
     <Compile Include="gtk-gui\CarGlass.Dialogs.ClientCalendar.cs" />
+    <Compile Include="Domain\Settings.cs" />
+    <Compile Include="HibernateMapping\SettingsMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
