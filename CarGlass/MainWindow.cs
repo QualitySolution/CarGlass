@@ -78,6 +78,10 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 
 	protected void OnRefreshActionActivated(object sender, EventArgs e)
 	{
+		TimerRefreshDlg frmtimerRefreshDlg = new TimerRefreshDlg();
+		frmtimerRefreshDlg.Show();
+		frmtimerRefreshDlg.Run();
+		frmtimerRefreshDlg.Destroy();
 	}
 
 	protected void OnReferenceUpdate(object sender, QSMain.ReferenceUpdatedEventArgs e)

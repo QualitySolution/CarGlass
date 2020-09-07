@@ -26,12 +26,12 @@ namespace CarGlass.Domain
 			set { SetField(ref description, value); }
 		}
 
-		private string value;
+		private string valueSettting;
 		[Display(Name = "Значение")]
-		public virtual string Value
+		public virtual string ValueSettting
 		{
-			get { return value; }
-			set { SetField(ref value, value); }
+			get { return valueSettting; }
+			set { SetField(ref valueSettting, value); }
 		}
 
 		private DateTime dateEdit;

@@ -5,6 +5,8 @@ using CarGlass.Domain;
 using Gtk;
 using NLog;
 using QSProjectsLib;
+using QS.DomainModel.UoW;
+using System.Linq;
 
 namespace CarGlass
 {
@@ -97,6 +99,7 @@ namespace CarGlass
 					labelWeek.LabelProp = String.Format("{0:dd}-{1:D}", _StartDate, _StartDate.AddDays(7));
 				RefreshOrders();
 			}
+
 		}
 
 		public void SetTimeRange(int StartHour, int EndHour)
@@ -155,6 +158,11 @@ namespace CarGlass
 			tableOrders.ShowAll();
 		}
 
+		public void startTimer()
+		{
+			StartUpdateCalendar();
+		}
+
 		public void ClearTimeMap()
 		{
 			TimeMap = new List<CalendarItem>[7,24];
@@ -169,8 +177,14 @@ namespace CarGlass
 
 		protected void OnButtonRefreshClicked(object sender, EventArgs e)
 		{
+			RefreshCalendar();
+		}
+
+		protected bool RefreshCalendar()
+		{
 			OnNeedRefreshOrders();
 			UpdateClietCalendar();
+			return true;
 		}
 
 		protected void OnButtonNewOrderClick(object sender, NewOrderEventArgs e)
@@ -408,7 +422,7 @@ namespace CarGlass
 		protected void UpdateClietCalendar()
 		{
 			if(!frmClientCalendar.isOpen) return;
-			
+
 			frmClientCalendar.StartDate = this.StartDate;
 			frmClientCalendar.TimeMap = this.TimeMap;
 			frmClientCalendar.TypeTab = this.TypeTab;
@@ -425,8 +439,16 @@ namespace CarGlass
 			frmClientCalendar.CreaeteClientCalendar();
 			frmClientCalendar.SetTimeRange(9, 21);
 			frmClientCalendar.isOpen = true;
-			OnNeedRefreshOrders();
-			UpdateClietCalendar();
+			RefreshCalendar();
+		}
+
+		protected void StartUpdateCalendar()
+		{
+			IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
+			var isUpdate = UoW.Session.QueryOver<Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "updateCalendar");
+			var timer = UoW.Session.QueryOver<Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "timerCalendar");
+			if (isUpdate != null && timer != null && isUpdate.ValueSettting == "True")
+				GLib.Timeout.Add(uint.Parse(timer.ValueSettting) * 1000, new GLib.TimeoutHandler(RefreshCalendar));
 		}
 	}
 

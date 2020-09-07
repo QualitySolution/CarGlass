@@ -37,6 +37,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar1.NewNote += OnNewNote;
 		orderscalendar1.frmClientCalendar = frmClientCalendar;
 		orderscalendar1.TypeTab = TypeTab.Setting;
+		orderscalendar1.startTimer();
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 21);

@@ -11,6 +11,7 @@ namespace CarGlass.Dialogs
 	public partial class ClientCalendar : Gtk.Window
 	{
 		public List<CalendarItem>[,] TimeMap = new List<CalendarItem>[7, 24];
+		public List<CalendarItem>[,] TimeMapClient = new List<CalendarItem>[7, 24];
 		private CalendarHBox[,] CalendarBoxes = new CalendarHBox[7, 24];
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
@@ -118,17 +119,17 @@ namespace CarGlass.Dialogs
 				{
 					if(TimeMap[x, y] != null)
 					{
-						TimeMap[x, y] = new List<CalendarItem> { new CalendarItem(currentDay, y) };
-						TimeMap[x, y][0].Color = TimeMap[x, y][0].TagColor = "red";
+						TimeMapClient[x, y] = new List<CalendarItem> { new CalendarItem(currentDay, y) };
+						TimeMapClient[x, y][0].Color = TimeMap[x, y][0].TagColor = "red";
 							
 					}
 					else
 					{
 						var calItem = new CalendarItem(currentDay, y);
-						TimeMap[x, y] = new List<CalendarItem> { calItem };
-						TimeMap[x, y][0].Color = TimeMap[x, y][0].TagColor = getColor(calItem, y);
+						TimeMapClient[x, y] = new List<CalendarItem> { calItem };
+						TimeMapClient[x, y][0].Color = TimeMapClient[x, y][0].TagColor = getColor(calItem, y);
 					}
-					CalendarBoxes[x, y].ListItems = TimeMap[x, y];
+					CalendarBoxes[x, y].ListItems = TimeMapClient[x, y];
 				}
 				currentDay = currentDay.AddDays(1);
 			}
