@@ -16,8 +16,8 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 
 ALTER TABLE `users` 
-ADD COLUMN `manager` `manager` TINYINT(1) NULL DEFAULT FALSE ,
-ADD COLUMN `worker` `worker` TINYINT(1) NULL DEFAULT FALSE ;
+ADD COLUMN `manager` TINYINT(1) NULL DEFAULT FALSE ,
+ADD COLUMN `worker` TINYINT(1) NULL DEFAULT FALSE ;
 
 
 DELETE FROM base_parameters WHERE name = 'micro_updates';
