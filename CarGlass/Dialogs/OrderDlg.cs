@@ -213,9 +213,15 @@ namespace CarGlass
 
 			buttonPrint.Sensitive = !Entity.OrderTypeClass.IsOtherType;
 			TestCanSave();
+            Entity.PropertyChanged += Entity_PropertyChanged;
 		}
 
-		private void setInTablePerformers()
+        private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+			TestCanSave();
+        }
+
+        private void setInTablePerformers()
 		{
 			listPerformers = getPerformers();
 			List<CellRendererToggle> referActive = new List<CellRendererToggle>();
@@ -446,7 +452,9 @@ namespace CarGlass
 			bool Statusok = Entity.OrderState != null;
 			bool Carok = Entity.CarModel != null;
 			bool NumberOk = Entity.Phone != null && Entity.Phone.Length == 16;
-			buttonOk.Sensitive = (Statusok && Carok && NumberOk) || Entity.OrderTypeClass.IsOtherType;
+			bool YearOk = Entity.CarYear != null && Entity.CarYear > 1979 && Entity.CarYear <= DateTime.Now.Year;
+			bool ModelOk = Entity.CarModel != null;
+			buttonOk.Sensitive = (Statusok && Carok && NumberOk && YearOk && ModelOk) || Entity.OrderTypeClass.IsOtherType;
 		}
 
 		private string GetTitleFormat(OrderTypeClass type)
@@ -506,11 +514,6 @@ namespace CarGlass
 			}
 		}
 
-		protected void OnComboStatusChanged(object sender, EventArgs e)
-		{
-			TestCanSave();
-		}
-
 		protected void OnButtonPrintClicked(object sender, EventArgs e)
 		{
 			Gtk.Menu jBox = new Gtk.Menu();
@@ -558,12 +561,8 @@ namespace CarGlass
 				comboModel.ItemsList = null;
 				return;
 			}
+			Entity.CarModel = null;
 			comboModel.ItemsList = CarModelRepository.GetCarModels(UoW, comboMark.SelectedItem as CarBrand);
-		}
-
-		protected void OnComboModelChanged(object sender, EventArgs e)
-		{
-			TestCanSave();
 		}
 
 		protected void OnEntryPhoneChanged(object sender, EventArgs e)

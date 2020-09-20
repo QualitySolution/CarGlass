@@ -1293,7 +1293,6 @@
                         <property name="DefaultFirst">False</property>
                         <property name="ShowSpecialStateAll">False</property>
                         <property name="ShowSpecialStateNot">False</property>
-                        <signal name="Changed" handler="OnComboModelChanged" />
                       </widget>
                       <packing>
                         <property name="TopAttach">3</property>
@@ -1320,7 +1319,6 @@
                         <property name="DefaultFirst">False</property>
                         <property name="ShowSpecialStateAll">False</property>
                         <property name="ShowSpecialStateNot">False</property>
-                        <signal name="Changed" handler="OnComboStatusChanged" />
                       </widget>
                       <packing>
                         <property name="LeftAttach">1</property>

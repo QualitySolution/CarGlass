@@ -1072,8 +1072,6 @@ namespace CarGlass
 			this.Show();
 			this.ytreeOtherOrders.RowActivated += new global::Gtk.RowActivatedHandler(this.OnYtreeOtherOrdersRowActivated);
 			this.entryPhone.Changed += new global::System.EventHandler(this.OnEntryPhoneChanged);
-			this.comboStatus.Changed += new global::System.EventHandler(this.OnComboStatusChanged);
-			this.comboModel.Changed += new global::System.EventHandler(this.OnComboModelChanged);
 			this.comboMark.Changed += new global::System.EventHandler(this.OnComboMarkChanged);
 			this.buttonDelete.Clicked += new global::System.EventHandler(this.OnButtonDeleteClicked);
 			this.buttonPrint.Clicked += new global::System.EventHandler(this.OnButtonPrintClicked);
