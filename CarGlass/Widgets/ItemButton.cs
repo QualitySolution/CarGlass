@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Dialogs;
@@ -125,7 +125,7 @@ namespace CarGlass
 				Gdk.Rectangle targetRectangle = this.Allocation;
 				evnt.Window.DrawRectangle(Style.BackgroundGC(State), true, targetRectangle);
 				Style.PaintLayout(Style, evnt.Window, State, true, targetRectangle, this, null, targetRectangle.X, targetRectangle.Y, PangoText);
-				if (calendarItem.TagColor != "")
+				if (calendarItem.TagColor != "" && calendarItem.id > 0)
 				{
 					Gdk.Color col = new Gdk.Color();
 					Gdk.Color.Parse(calendarItem.TagColor, ref col);
