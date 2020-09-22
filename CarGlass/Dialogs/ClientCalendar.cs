@@ -120,7 +120,7 @@ namespace CarGlass.Dialogs
 					if(TimeMap[x, y] != null)
 					{
 						TimeMapClient[x, y] = new List<CalendarItem> { new CalendarItem(currentDay, y) };
-						TimeMapClient[x, y][0].Color = TimeMap[x, y][0].TagColor = "red";
+						TimeMapClient[x, y][0].Color = TimeMap[x, y][0].TagColor = "#ff2400";
 							
 					}
 					else
@@ -139,14 +139,14 @@ namespace CarGlass.Dialogs
 		{
 			var dateNow = DateTime.Now;
 			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour > hour)) return "red";
-			if(TypeTab != TypeTab.Setting) return "green";
+			if(TypeTab != TypeTab.Setting) return "#77dd77";
 
 			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour < 11 && hour < 13) ||
 				(calendarItem.Date == dateNow.Date && dateNow.Hour >= 11)
 				|| (calendarItem.Date == dateNow.AddDays(1).Date && dateNow.Hour >= 11 && hour < 13))
-				return "red";
+				return "#ff2400";
 
-			return "green"; 
+			return "#77dd77"; 
 		}
 	}
 
