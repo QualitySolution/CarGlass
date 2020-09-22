@@ -559,10 +559,12 @@ namespace CarGlass
 			if (comboMark.SelectedItem == null)
 			{
 				comboModel.ItemsList = null;
+				Entity.CarModel = null;
 				return;
 			}
-			Entity.CarModel = null;
 			comboModel.ItemsList = CarModelRepository.GetCarModels(UoW, comboMark.SelectedItem as CarBrand);
+			if(Entity.CarModel != null)
+				comboModel.SelectedItem = Entity.CarModel;
 		}
 
 		protected void OnEntryPhoneChanged(object sender, EventArgs e)
