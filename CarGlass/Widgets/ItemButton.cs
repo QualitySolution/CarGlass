@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Dialogs;
@@ -75,7 +75,7 @@ namespace CarGlass
 					OnNewSheduleWorkClicked(ParentCalendar);
 				else if(TypeItemButton == TypeItemOrButton.Note)
 					OnNewNoteClicked(ParentCalendar);
-				else
+				else if(TypeItemButton == TypeItemOrButton.Order && !QSMain.User.Permissions["worker"])
 				{
 					Gtk.Menu jBox = GetNewOrderTypesMenu();
 					jBox.ShowAll();
@@ -189,6 +189,8 @@ namespace CarGlass
 
 		protected override bool OnButtonReleaseEvent(Gdk.EventButton evnt)
 		{
+			if(QSMain.User.Permissions["worker"]) return false;
+
 			if(evnt.Button == 3)
 			{
 				Gtk.Menu jBox = new Gtk.Menu();
@@ -240,7 +242,7 @@ namespace CarGlass
 			MenuItemId<OrderTypeClass> MenuItem2;
 			foreach(var type in ParentCalendar.OrdersTypes)
 			{
-				MenuItem2 = new MenuItemId<OrderTypeClass>(type.Name);//type.GetEnumTitle()
+				MenuItem2 = new MenuItemId<OrderTypeClass>(type.Name);
 				MenuItem2.ID = type;
 				MenuItem2.ButtonPressEvent += OnButtonPopupAddWithType;
 				jBox2.Add(MenuItem2);       
@@ -292,8 +294,8 @@ namespace CarGlass
 
 	public enum TypeItemOrButton
 	{
-		Order,
 		Shedule,
+		Order,
 		Note
 	}
 }

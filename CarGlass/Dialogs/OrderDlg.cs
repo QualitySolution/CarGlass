@@ -48,6 +48,7 @@ namespace CarGlass
 
 		public OrderDlg(int id)
 		{
+			if(QSMain.User.Permissions["worker"]) return;
 			this.Build();
 			UoWGeneric = UnitOfWorkFactory.CreateForRoot<WorkOrder>(id);
 

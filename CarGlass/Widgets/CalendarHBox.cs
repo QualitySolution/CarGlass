@@ -32,7 +32,6 @@ namespace CarGlass
 
 		public CalendarHBox(OrdersCalendar calendar) : base ()
 		{
-			if(QSMain.User.Permissions["worker"]) return;
 			ParentCalendar = calendar;
 			emptyButton = new ItemButton();
 			emptyButton.ParentCalendar = ParentCalendar;
@@ -68,14 +67,13 @@ namespace CarGlass
 
 		void HandleNewOrderClicked (object sender, NewOrderEventArgs e)
 		{
-			if (NewOrderClicked != null)
-			{
-				NewOrderClicked(this, e);
-			}
+			if(QSMain.User.Permissions["worker"]) return;
+			NewOrderClicked?.Invoke(this, e);
 		}
 
 		void HandleNewSheduleWorkClicked(object sender, NewSheduleWorkEventArgs e)
 		{
+			if(QSMain.User.Permissions["worker"]) return;
 			NewSheduleWorkClicked?.Invoke(this, e);
 		}
 
