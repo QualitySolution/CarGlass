@@ -13,10 +13,10 @@ using QSProjectsLib;
 
 public partial class MainWindow: FakeTDITabGtkWindowBase
 {
-	
+	IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 	void PrerareCalendars()
 	{
-		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
+		//IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 
 		var listOrderTypesOrderCalendar1 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label1.LabelProp.ToUpper())).ToList();
 		var listOrderTypesOrderCalendar2 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label2.LabelProp.ToUpper())).ToList();
@@ -83,7 +83,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 	protected void OnRefreshCalendarEvent(object sender, RefreshOrdersEventArgs arg)
 	{
-		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
+		//IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
 		logger.Info("Запрос заказов на {0:d}...", arg.StartDate);

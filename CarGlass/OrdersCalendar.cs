@@ -170,7 +170,8 @@ namespace CarGlass
 
 		public void AddItem(int day, int hour, CalendarItem item)
 		{
-			if (TimeMap[day, hour] == null)
+			if(day > 6 || day < 0) return;
+			if(TimeMap[day, hour] == null)
 				TimeMap[day, hour] = new List<CalendarItem>();
 			TimeMap[day, hour].Add(item);
 		}
