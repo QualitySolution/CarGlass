@@ -150,7 +150,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					}
 					else
 					{
-						order.FullText = String.Format("{7}\nСостояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:\n{5}\n{6}",
+						order.FullText = String.Format("{7}\nСостояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад: {5}\n{6}",
 							rdr["status"],
 							rdr["mark"],
 							rdr["model"],
@@ -161,7 +161,15 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							orderTypeClass.Name
 
 						);
-						order.Text = String.Format("{0} {1}\n{2}", rdr["mark"], rdr["model"], rdr["comment"]);
+
+						var firstStr = rdr["mark"] + " " + rdr["model"] + "\n";
+						var secondStr = rdr["eurocode"] + " " + rdr["manufacturer"] + " " + rdr["comment"];
+						String[] words = secondStr.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+						order.Text = firstStr;
+						foreach(var word in words)
+							order.Text += word + "\n";
+							
 						order.Color = order.TagColor = "#f0f8ff";
 					}
 					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)

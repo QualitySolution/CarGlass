@@ -120,13 +120,14 @@ namespace CarGlass.Dialogs
 				{
 					if(TimeMap[x, y] != null)
 					{
-						TimeMapClient[x, y] = new List<CalendarItem> { new CalendarItem(currentDay, y) };
+						TimeMapClient[x, y] = new List<CalendarItem> { new CalendarItem(currentDay, y) {Text = String.Format("     {0:D2}:00 ", y) } };
 						TimeMapClient[x, y][0].Color = TimeMap[x, y][0].TagColor = "#ff2400";
 							
 					}
 					else
 					{
 						var calItem = new CalendarItem(currentDay, y);
+							calItem.Text = String.Format("     {0:D2}:00 ", y);
 						TimeMapClient[x, y] = new List<CalendarItem> { calItem };
 						TimeMapClient[x, y][0].Color = TimeMapClient[x, y][0].TagColor = getColor(calItem, y);
 					}

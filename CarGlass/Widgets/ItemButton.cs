@@ -6,6 +6,7 @@ using CarGlass.Domain;
 using Gamma.Utilities;
 using Gtk;
 using NLog;
+//using Pango;
 using QSProjectsLib;
 using QSWidgetLib;
 
@@ -155,7 +156,7 @@ namespace CarGlass
 
 		private void UpdateButton()
 		{
-			if(calendarItem != null )
+			if(calendarItem != null && calendarItem.id > 0)
 			{
 				this.Image = null;
 				PangoText.SetText(calendarItem.Text);
@@ -175,6 +176,18 @@ namespace CarGlass
 				logger.Debug("b={0} - {1} - {2}", col.Red, col.Green, col.Blue);
 				//Tag
 				PangoTag.SetText(calendarItem.Tag);
+			}
+			else if (calendarItem != null && calendarItem.id == 0)
+			{
+				//this.Image = null;
+				Pango.FontDescription desc = Pango.FontDescription.FromString("Serif Bold 40");
+				PangoText.FontDescription = desc;
+				PangoText.SetText(calendarItem.Text);
+				this.Relief = ReliefStyle.Normal;
+				Gdk.Color col = new Gdk.Color();
+				Gdk.Color.Parse(calendarItem.Color, ref col);
+				this.ModifyBg(StateType.Normal, col);
+				this.ModifyBg(StateType.Prelight, col);
 			}
 			else
 			{
