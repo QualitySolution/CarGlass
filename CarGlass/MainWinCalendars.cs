@@ -37,7 +37,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar1.NewNote += OnNewNote;
 		orderscalendar1.frmClientCalendar = frmClientCalendar;
 		orderscalendar1.TypeTab = TypeTab.Setting;
-		orderscalendar1.startTimer();
+		orderscalendar1.StartTimer();
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 21);
@@ -51,6 +51,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.NewNote += OnNewNote;
 		orderscalendar2.frmClientCalendar = frmClientCalendar;
 		orderscalendar2.TypeTab = TypeTab.Toning;
+		orderscalendar2.StartTimer();
 
 		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar3.SetTimeRange(9, 21);
@@ -64,6 +65,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.NewNote += OnNewNote;
 		orderscalendar3.frmClientCalendar = frmClientCalendar;
 		orderscalendar3.TypeTab = TypeTab.Setting;
+		orderscalendar3.StartTimer();
 
 		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar4.SetTimeRange(9, 21);
@@ -77,7 +79,9 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.NewNote += OnNewNote;
 		orderscalendar4.frmClientCalendar = frmClientCalendar;
 		orderscalendar4.TypeTab = TypeTab.Toning;
+		orderscalendar4.StartTimer();
 
+		orderscalendar1.frmClientCalendar.OrdersCalendar = orderscalendar1;
 		orderscalendar1.RefreshOrders();
 	}
 

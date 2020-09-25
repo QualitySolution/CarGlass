@@ -158,7 +158,7 @@ namespace CarGlass
 			tableOrders.ShowAll();
 		}
 
-		public void startTimer()
+		public void StartTimer()
 		{
 			StartUpdateCalendar();
 		}
@@ -178,14 +178,7 @@ namespace CarGlass
 
 		protected void OnButtonRefreshClicked(object sender, EventArgs e)
 		{
-			RefreshCalendar();
-		}
-
-		protected bool RefreshCalendar()
-		{
-			OnNeedRefreshOrders();
-			UpdateClietCalendar();
-			return true;
+			RefreshOrders();
 		}
 
 		protected void OnButtonNewOrderClick(object sender, NewOrderEventArgs e)
@@ -243,13 +236,15 @@ namespace CarGlass
 			}
 		}
 
-		public void RefreshOrders()
+		public bool RefreshOrders()
 		{
 			if(_StartDate != default(DateTime) && EndTime > 0)
 			{
 				OnNeedRefreshOrders();
 				UpdateClietCalendar();
+				return true;
 			}
+			return false;
 		}
 
 		private void RefreshButtons()
@@ -423,6 +418,7 @@ namespace CarGlass
 		protected void UpdateClietCalendar()
 		{
 			if(!frmClientCalendar.isOpen) return;
+			if(frmClientCalendar.OrdersCalendar != this) return;
 
 			frmClientCalendar.StartDate = this.StartDate;
 			frmClientCalendar.TimeMap = this.TimeMap;
@@ -440,7 +436,7 @@ namespace CarGlass
 			frmClientCalendar.CreaeteClientCalendar();
 			frmClientCalendar.SetTimeRange(9, 21);
 			frmClientCalendar.isOpen = true;
-			RefreshCalendar();
+			RefreshOrders();
 		}
 
 		protected void StartUpdateCalendar()
@@ -449,7 +445,7 @@ namespace CarGlass
 			var isUpdate = UoW.Session.QueryOver<Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "updateCalendar");
 			var timer = UoW.Session.QueryOver<Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "timerCalendar");
 			if (isUpdate != null && timer != null && isUpdate.ValueSettting == "True")
-				GLib.Timeout.Add(uint.Parse(timer.ValueSettting) * 1000, new GLib.TimeoutHandler(RefreshCalendar));
+				GLib.Timeout.Add(uint.Parse(timer.ValueSettting) * 1000, new GLib.TimeoutHandler(RefreshOrders));
 		}
 	}
 

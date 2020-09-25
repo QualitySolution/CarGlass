@@ -16,6 +16,7 @@ namespace CarGlass.Dialogs
 		private DateTime _StartDate;
 		private int StartTime, EndTime;
 		public TypeTab TypeTab;
+		public OrdersCalendar OrdersCalendar;
 
 		public bool isOpen = false;
 
