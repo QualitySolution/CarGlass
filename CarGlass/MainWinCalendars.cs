@@ -15,12 +15,12 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 	IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 	void PrerareCalendars()
 	{
-		//IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
-
 		var listOrderTypesOrderCalendar1 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label1.LabelProp.ToUpper())).ToList();
 		var listOrderTypesOrderCalendar2 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label2.LabelProp.ToUpper())).ToList();
 		var listOrderTypesOrderCalendar3 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label3.LabelProp.ToUpper())).ToList();
 		var listOrderTypesOrderCalendar4 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label4.LabelProp.ToUpper())).ToList();
+
+		uint timer = GetTimer();
 
 		ClientCalendar frmClientCalendar = new ClientCalendar();
 
@@ -36,7 +36,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar1.NewNote += OnNewNote;
 		orderscalendar1.frmClientCalendar = frmClientCalendar;
 		orderscalendar1.TypeTab = TypeTab.Setting;
-		orderscalendar1.StartTimer();
+		orderscalendar1.StartTimerUpdateCalendar(timer);
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 21);
@@ -50,7 +50,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.NewNote += OnNewNote;
 		orderscalendar2.frmClientCalendar = frmClientCalendar;
 		orderscalendar2.TypeTab = TypeTab.Toning;
-		orderscalendar2.StartTimer();
+		orderscalendar2.StartTimerUpdateCalendar(timer);
 
 		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar3.SetTimeRange(9, 21);
@@ -64,7 +64,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.NewNote += OnNewNote;
 		orderscalendar3.frmClientCalendar = frmClientCalendar;
 		orderscalendar3.TypeTab = TypeTab.Setting;
-		orderscalendar3.StartTimer();
+		orderscalendar3.StartTimerUpdateCalendar(timer);
 
 		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar4.SetTimeRange(9, 21);
@@ -78,7 +78,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.NewNote += OnNewNote;
 		orderscalendar4.frmClientCalendar = frmClientCalendar;
 		orderscalendar4.TypeTab = TypeTab.Toning;
-		orderscalendar4.StartTimer();
+		orderscalendar4.StartTimerUpdateCalendar(timer);
 
 		orderscalendar1.frmClientCalendar.OrdersCalendar = orderscalendar1;
 		orderscalendar1.RefreshOrders();
@@ -102,7 +102,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			"WHERE date BETWEEN @start AND @end " +
 			"AND point_number = @point " +
 			"AND calendar_number = @calendar ";
-		
+
 		QSMain.CheckConnectionAlive();
 		try
 		{
@@ -117,7 +117,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			{
 				Calendar.ClearTimeMap();
 				while(rdr.Read())
-                {
+				{
 					CalendarItem order = new CalendarItem(rdr.GetDateTime("date"),
 						rdr.GetInt32("hour")
 					);
@@ -137,7 +137,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							rdr["phone"],
 							DBWorks.GetDecimal(rdr, "sum", 0),
 							rdr["comment"],
-							orderTypeClass.Name                           
+							orderTypeClass.Name
 						);
 						order.Text = String.Format("{0} {1}\n{2}\n{3}", rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"]);
 						order.Color = DBWorks.GetString(rdr, "color", "");
@@ -167,7 +167,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 						order.Text = firstStr;
 						foreach(var word in words)
 							order.Text += word + "\n";
-							
+
 						order.Color = order.TagColor = "#f0f8ff";
 					}
 					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
@@ -181,7 +181,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			logger.Info("Ok");
 
 		}
-		catch (Exception ex)
+		catch(Exception ex)
 		{
 			QSMain.ErrorMessageWithLog("Ошибка получения списка заказов!", logger, ex);
 		}
@@ -219,7 +219,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				}
 			}
 
-			foreach( var sh in calendarItemsShedule)
+			foreach(var sh in calendarItemsShedule)
 			{
 				sh.Text = getEmployeeInShedule(sh.id);
 				Calendar.AddItem((sh.Date - Calendar.StartDate).Days, 23, sh);
@@ -234,29 +234,44 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		}
 
 		logger.Info("Запрос заметок на {0:d}...", arg.StartDate);
+		sql = "select id, date, message " +
+			"FROM note " +
+			"WHERE date BETWEEN @start AND @end " +
+			"AND point_number = @point AND calendar_number = @calendar";
 
-		using(IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot())
+		QSMain.CheckConnectionAlive();
+		try
 		{
-			IList<Note> listNote = UoW.Session.QueryOver<Note>().List().Where(x => x.Date >= arg.StartDate && x.Date <= arg.StartDate.AddDays(6) &&
-								x.PointNumber == Calendar.PointNumber && x.CalendarNumber == Calendar.CalendarNumber).ToList();
+			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
 
-			if(listNote != null && listNote.Count > 0)
-				foreach(var note in listNote)
+			cmd.Parameters.AddWithValue("@start", arg.StartDate);
+			cmd.Parameters.AddWithValue("@end", arg.StartDate.AddDays(6));
+			cmd.Parameters.AddWithValue("@point", Calendar.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar", Calendar.CalendarNumber);
+
+			using(MySqlDataReader rdr = cmd.ExecuteReader())
+			{
+				while(rdr.Read())
 				{
-					CalendarItem calendarItemNote = new CalendarItem(note.Date, 22);
+					CalendarItem calendarItemNote = new CalendarItem(DateTime.Parse(rdr["date"].ToString()), 22);
 
-					calendarItemNote.id = note.Id;
+					calendarItemNote.id = rdr.GetInt32("id");
 					calendarItemNote.Tag = "";
 					calendarItemNote.Color = calendarItemNote.TagColor = GetBgColor(Calendar);
 					calendarItemNote.Calendar = Calendar;
 					calendarItemNote.DeleteOrder += OnDeleteNote;
 					calendarItemNote.OpenOrder += OnOpenNote;
-					if(note.Message.Length > 400)
-						calendarItemNote.Text = note.Message.Substring(0, 400);
-					else calendarItemNote.Text = note.Message;
-					int day = (note.Date - Calendar.StartDate).Days;
+					if(rdr["message"].ToString().Length > 400)
+						calendarItemNote.Text = rdr["message"].ToString().Substring(0, 400);
+					else calendarItemNote.Text = rdr["message"].ToString();
+					int day = (DateTime.Parse(rdr["date"].ToString()) - Calendar.StartDate).Days;
 					Calendar.AddItem(day, 22, calendarItemNote);
 				}
+			}
+		}
+		catch(Exception ex)
+		{
+			QSMain.ErrorMessageWithLog("Ошибка получения заметок!", logger, ex);
 		}
 	}
 
@@ -303,6 +318,18 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			return "#f0f8ff";
 		else 
 			return "#fffaf0";
+	}
+
+	private uint GetTimer()
+	{
+		var isUpdate = UoW.Session.QueryOver<CarGlass.Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "updateCalendar");
+		if(isUpdate?.ValueSettting == "True")
+		{
+			var setting = UoW.Session.QueryOver<CarGlass.Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "timerCalendar");
+			if(isUpdate?.ValueSettting == "True")
+				return uint.Parse(setting.ValueSettting);
+		}
+		return 0;
 	}
 
 	protected void OnOpenSheduleWork(object sender, EventArgs arg)

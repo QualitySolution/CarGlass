@@ -45,6 +45,7 @@ namespace CarGlass.Dialogs
 			UoW.Save(isUpdate);
 			UoW.Save(timer);
 			UoW.Commit();
+			MessageDialogWorks.RunInfoDialog("Изменения вступят в силу после перезапуска программы.");
 			Respond(ResponseType.Ok);
 		}
 

@@ -5,8 +5,6 @@ using CarGlass.Domain;
 using Gtk;
 using NLog;
 using QSProjectsLib;
-using QS.DomainModel.UoW;
-using System.Linq;
 
 namespace CarGlass
 {
@@ -156,11 +154,6 @@ namespace CarGlass
 				Position++;
 			}
 			tableOrders.ShowAll();
-		}
-
-		public void StartTimer()
-		{
-			StartUpdateCalendar();
 		}
 
 		public void ClearTimeMap()
@@ -439,13 +432,10 @@ namespace CarGlass
 			RefreshOrders();
 		}
 
-		protected void StartUpdateCalendar()
+		public void StartTimerUpdateCalendar(uint timer)
 		{
-			IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
-			var isUpdate = UoW.Session.QueryOver<Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "updateCalendar");
-			var timer = UoW.Session.QueryOver<Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "timerCalendar");
-			if (isUpdate != null && timer != null && isUpdate.ValueSettting == "True")
-				GLib.Timeout.Add(uint.Parse(timer.ValueSettting) * 1000, new GLib.TimeoutHandler(RefreshOrders));
+			if(timer > 0)
+				GLib.Timeout.Add(timer * 1000, new GLib.TimeoutHandler(RefreshOrders));
 		}
 	}
 
