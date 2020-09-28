@@ -141,7 +141,7 @@ namespace CarGlass.Dialogs
 			(o, c) => c.SetCellValue((double)o.Pays.Sum(x => x.Cost)),
 			(o, c) => c.SetCellValue(o.Comment),
 			(o, c) => c.SetCellValue(o.OrderState?.Name),
-			(o, c) => c.SetCellValue(o.OrderType.GetEnumTitle()),
+			(o, c) => c.SetCellValue(o.OrderTypeClass?.Name),
 			(o, c) => {
 					c.SetCellValue(o.Date);
 					c.CellStyle = dateCellStyle;

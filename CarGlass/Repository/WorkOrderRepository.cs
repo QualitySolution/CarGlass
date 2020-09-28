@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
@@ -37,7 +37,7 @@ namespace CarGlass.Repository
 			if (endDate.HasValue)
 				query.Where(x => x.Date < endDate.Value.Date);
 
-			query.Where(x => x.OrderTypeClass.IsOtherType == false);
+			query.JoinQueryOver(x => x.OrderTypeClass).Where(x => x.IsOtherType == false);
 
 			return query;
 		}
