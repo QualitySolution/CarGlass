@@ -4,7 +4,6 @@ using System.Linq;
 using CarGlass;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
-using Gamma.Utilities;
 using Gtk;
 using MySql.Data.MySqlClient;
 using QS.DomainModel.UoW;
@@ -87,7 +86,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 	protected void OnRefreshCalendarEvent(object sender, RefreshOrdersEventArgs arg)
 	{
-		//IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 		OrdersCalendar Calendar = (OrdersCalendar)sender;
 
 		logger.Info("Запрос заказов на {0:d}...", arg.StartDate);
@@ -235,26 +233,31 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			QSMain.ErrorMessageWithLog("Ошибка получения списка сотрудников!", logger, ex);
 		}
 
-		IList<Note> listNote = UoW.Session.QueryOver<Note>().List().Where(x => x.Date >= arg.StartDate && x.Date <= arg.StartDate.AddDays(6) &&
+		logger.Info("Запрос заметок на {0:d}...", arg.StartDate);
+
+		using(IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot())
+		{
+			IList<Note> listNote = UoW.Session.QueryOver<Note>().List().Where(x => x.Date >= arg.StartDate && x.Date <= arg.StartDate.AddDays(6) &&
 								x.PointNumber == Calendar.PointNumber && x.CalendarNumber == Calendar.CalendarNumber).ToList();
 
-		if(listNote != null && listNote.Count > 0)
-			foreach(var note in listNote)
-			{
-				CalendarItem calendarItemNote = new CalendarItem(note.Date, 22);
+			if(listNote != null && listNote.Count > 0)
+				foreach(var note in listNote)
+				{
+					CalendarItem calendarItemNote = new CalendarItem(note.Date, 22);
 
-				calendarItemNote.id = note.Id;
-				calendarItemNote.Tag = "";
-				calendarItemNote.Color = calendarItemNote.TagColor = GetBgColor(Calendar);
-				calendarItemNote.Calendar = Calendar;
-				calendarItemNote.DeleteOrder += OnDeleteNote;
-				calendarItemNote.OpenOrder += OnOpenNote;
-				if(note.Message.Length > 400)
-					calendarItemNote.Text = note.Message.Substring(0, 400);
-				else calendarItemNote.Text = note.Message;
-				int day = (note.Date - Calendar.StartDate).Days;
-				Calendar.AddItem(day, 22, calendarItemNote);
-			}
+					calendarItemNote.id = note.Id;
+					calendarItemNote.Tag = "";
+					calendarItemNote.Color = calendarItemNote.TagColor = GetBgColor(Calendar);
+					calendarItemNote.Calendar = Calendar;
+					calendarItemNote.DeleteOrder += OnDeleteNote;
+					calendarItemNote.OpenOrder += OnOpenNote;
+					if(note.Message.Length > 400)
+						calendarItemNote.Text = note.Message.Substring(0, 400);
+					else calendarItemNote.Text = note.Message;
+					int day = (note.Date - Calendar.StartDate).Days;
+					Calendar.AddItem(day, 22, calendarItemNote);
+				}
+		}
 	}
 
 	private string getEmployeeInShedule(int idShedule)
