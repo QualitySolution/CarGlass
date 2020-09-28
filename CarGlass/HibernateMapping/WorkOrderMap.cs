@@ -13,7 +13,6 @@ namespace CarGlass.HibernateMapping
 			Id(x => x.Id).Column("id").GeneratedBy.Native();
 			Map(x => x.Date).Column("date");
 			Map(x => x.Hour).Column("hour");
-			Map(x => x.OrderType).Column("type");
 			Map(x => x.PointNumber).Column("point_number");
 			Map(x => x.CalendarNumber).Column("calendar_number");
 			Map(x => x.CreatedDate).Column("created_date");

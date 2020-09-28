@@ -32,15 +32,6 @@ namespace CarGlass.Domain
 			set { SetField(ref hour, value); }
 		}
 
-		private OrderType orderType;
-
-		[Display(Name = "Тип заказа")]
-		public virtual OrderType OrderType
-		{
-			get { return orderType; }
-			set { SetField(ref orderType, value); }
-		}
-
 		private ushort pointNumber;
 
 		[Display(Name = "Точка")]

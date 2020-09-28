@@ -12,7 +12,6 @@ namespace CarGlass.HibernateMapping
 			Id(x => x.Id).Column("id").GeneratedBy.Native();
 
 			Map(x => x.Name).Column("name");
-			Map(x => x.OrderType).Column("order_type").CustomType<OrderTypeStringType>();
 			Map(x => x.Price).Column("price");
 			Map(x => x.Ordinal).Column("ordinal");
 			HasMany(x => x.ListServiceOrderType).Cascade.AllDeleteOrphan().Inverse().LazyLoad().KeyColumn("id_service");

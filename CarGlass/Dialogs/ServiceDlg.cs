@@ -65,10 +65,6 @@ namespace CarGlass
 				service.ListServiceOrderType[0].Service = service;
 			}
 			service.Price = decimal.Parse(spinPrice.Value.ToString());
-			//FIXME заглушка
-			if(NewItem)
-				service.OrderType = OrderType.install;
-
 
 			UoW.Save(service);
 			UoW.Commit();

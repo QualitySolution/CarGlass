@@ -19,15 +19,6 @@ namespace CarGlass.Domain
 			set { SetField(ref name, value); }
 		}
 
-		private OrderType orderType;
-
-		[Display(Name = "Тип заказа")]
-		public virtual OrderType OrderType
-		{
-			get { return orderType; }
-			set { SetField(ref orderType, value); }
-		}
-
 		private decimal price;
 
 		[Display(Name = "Цена")]

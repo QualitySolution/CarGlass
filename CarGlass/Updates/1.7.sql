@@ -19,6 +19,8 @@ ALTER TABLE `users`
 ADD COLUMN `manager` TINYINT(1) NULL DEFAULT FALSE ,
 ADD COLUMN `worker` TINYINT(1) NULL DEFAULT FALSE ;
 
+ALTER TABLE `services` 
+DROP COLUMN `order_type`;
 
 DELETE FROM base_parameters WHERE name = 'micro_updates';
 UPDATE base_parameters SET str_value = '1.7' WHERE name = 'version';
