@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Dialogs;
@@ -141,7 +141,7 @@ namespace CarGlass
 					};
 					evnt.Window.DrawPolygon(TagGC, true, triangle);
 
-					if (Item.Tag != "")
+					if (calendarItem.Tag != "")
 					{
 						Pango.Rectangle logicExt, inkExt;
 						PangoTag.GetPixelExtents(out inkExt, out logicExt);

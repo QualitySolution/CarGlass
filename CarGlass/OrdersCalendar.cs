@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CarGlass.Calendar;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gtk;
@@ -12,10 +13,11 @@ namespace CarGlass
 	public partial class OrdersCalendar : Gtk.Bin
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
-		public List<CalendarItem>[,] TimeMap;
+		public List<CalendarItem>[,] TimeMap => Items?.TimeMap;
+		private ItemsList items;
 		public List<OrderTypeClass> OrdersTypes;
 		private CalendarHBox[,] CalendarBoxes;
-		private DateTime _StartDate;
+		public DateTime _StartDate;
 		private int StartTime, EndTime;
 		private int dayHilight = -1, hourHilight = -1;
 		public TypeTab TypeTab;
@@ -48,7 +50,6 @@ namespace CarGlass
 				e.EndTime = EndTime;
 				handler(this, e);
 			}
-			RefreshButtons();
 		}
 
 		public Gdk.Color BackgroundColor
@@ -63,7 +64,6 @@ namespace CarGlass
 			this.Build();
 			buttonShowClientCalendar.Sensitive = QSMain.User.Permissions["manager"] || QSMain.User.Admin;
 
-			TimeMap = new List<CalendarItem>[7,24];
 			CalendarBoxes = new CalendarHBox[7,24];
 
 			HeadLabels = new Label[7];
@@ -98,6 +98,15 @@ namespace CarGlass
 				RefreshOrders();
 			}
 
+		}
+
+		public ItemsList Items
+		{
+			get => items; set
+			{
+				items = value;
+				RefreshButtons();
+			}
 		}
 
 		public void SetTimeRange(int StartHour, int EndHour)
@@ -154,19 +163,6 @@ namespace CarGlass
 				Position++;
 			}
 			tableOrders.ShowAll();
-		}
-
-		public void ClearTimeMap()
-		{
-			TimeMap = new List<CalendarItem>[7,24];
-		}
-
-		public void AddItem(int day, int hour, CalendarItem item)
-		{
-			if(day > 6 || day < 0) return;
-			if(TimeMap[day, hour] == null)
-				TimeMap[day, hour] = new List<CalendarItem>();
-			TimeMap[day, hour].Add(item);
 		}
 
 		protected void OnButtonRefreshClicked(object sender, EventArgs e)
@@ -242,6 +238,7 @@ namespace CarGlass
 
 		private void RefreshButtons()
 		{
+			if(TimeMap == null) return;
 			for(int x = 0; x < 7; x++)
 			{
 				for(int y = StartTime; y <= EndTime + RowEmployees + RowNote; y++)
@@ -304,7 +301,7 @@ namespace CarGlass
 
 		protected void OnTableOrdersExposeEvent(object o, ExposeEventArgs args)
 		{
-			logger.Debug("Table Explose");
+			logger.Debug("Table Expose");
 			int x, y, w, h;
 			h = tableOrders.Allocation.Height;
 			w = tableOrders.Allocation.Width;

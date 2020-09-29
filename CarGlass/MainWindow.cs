@@ -240,19 +240,19 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		switch (notebookMain.CurrentPage)
 		{
 			case 0:
-				orderscalendar1.frmClientCalendar.OrdersCalendar = orderscalendar1;
+				CurrentCalendar = frmClientCalendar.OrdersCalendar = orderscalendar1;
 				orderscalendar1.RefreshOrders();
 				break;
 			case 1:
-				orderscalendar2.frmClientCalendar.OrdersCalendar = orderscalendar2;
+				CurrentCalendar = frmClientCalendar.OrdersCalendar = orderscalendar2;
 				orderscalendar2.RefreshOrders();
 				break;
 			case 2:
-				orderscalendar3.frmClientCalendar.OrdersCalendar = orderscalendar3;
+				CurrentCalendar = frmClientCalendar.OrdersCalendar = orderscalendar3;
 				orderscalendar3.RefreshOrders();
 				break;
 			case 3:
-				orderscalendar4.frmClientCalendar.OrdersCalendar = orderscalendar4;
+				CurrentCalendar = frmClientCalendar.OrdersCalendar = orderscalendar4;
 				orderscalendar4.RefreshOrders();
 				break;
 		}

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Dialogs;
@@ -113,6 +113,7 @@ namespace CarGlass.Dialogs
 
 		public void RefreshButtons()
 		{
+			if(TimeMap == null) return;
 			DateTime currentDay = StartDate;
 			for(int x = 0; x < 7; x++)
 			{

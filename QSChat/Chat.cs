@@ -239,13 +239,16 @@ namespace QSChat
 
 		void SetLastRead()
 		{
-			logger.Debug("Last read changed");
-			var sql = "UPDATE users SET last_read_chat = NOW() WHERE id = @id;" +
-				"SELECT last_read_chat FROM users WHERE id = @id";
-			MySqlCommand cmd = new MySqlCommand(sql, (MySqlConnection)QSMain.ConnectionDB);
-			cmd.Parameters.AddWithValue("@id", ChatUser.Id);
-			var result = cmd.ExecuteScalar();
-			lastReadChat = (DateTime)result;
+			lock(QSMain.connectionDB)
+			{
+				logger.Debug("Last read changed");
+				var sql = "UPDATE users SET last_read_chat = NOW() WHERE id = @id;" +
+					"SELECT last_read_chat FROM users WHERE id = @id";
+				MySqlCommand cmd = new MySqlCommand(sql, (MySqlConnection)QSMain.ConnectionDB);
+				cmd.Parameters.AddWithValue("@id", ChatUser.Id);
+				var result = cmd.ExecuteScalar();
+				lastReadChat = (DateTime)result;
+			}
 			OnUpdateTimer();
 		}
 

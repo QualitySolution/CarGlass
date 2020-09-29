@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CarGlass;
+using CarGlass.Calendar;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gtk;
@@ -13,6 +15,10 @@ using QSProjectsLib;
 public partial class MainWindow: FakeTDITabGtkWindowBase
 {
 	IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
+	ClientCalendar frmClientCalendar = new ClientCalendar();
+	OrdersCalendar CurrentCalendar;
+	System.Timers.Timer Timer;
+
 	void PrerareCalendars()
 	{
 		var listOrderTypesOrderCalendar1 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label1.LabelProp.ToUpper())).ToList();
@@ -20,9 +26,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		var listOrderTypesOrderCalendar3 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label3.LabelProp.ToUpper())).ToList();
 		var listOrderTypesOrderCalendar4 = UoW.Session.QueryOver<OrderTypeClass>().List().Where(x => x.PositionInTabs.ToUpper().Contains(label4.LabelProp.ToUpper())).ToList();
 
-		uint timer = GetTimer();
-
-		ClientCalendar frmClientCalendar = new ClientCalendar();
+		uint refreshInterval = GetTimer();
 
 		orderscalendar1.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar1.SetTimeRange(9, 21);
@@ -36,7 +40,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar1.NewNote += OnNewNote;
 		orderscalendar1.frmClientCalendar = frmClientCalendar;
 		orderscalendar1.TypeTab = TypeTab.Setting;
-		orderscalendar1.StartTimerUpdateCalendar(timer);
 
 		orderscalendar2.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar2.SetTimeRange(9, 21);
@@ -50,7 +53,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar2.NewNote += OnNewNote;
 		orderscalendar2.frmClientCalendar = frmClientCalendar;
 		orderscalendar2.TypeTab = TypeTab.Toning;
-		orderscalendar2.StartTimerUpdateCalendar(timer);
 
 		orderscalendar3.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.DayOfWeek + 6) % 7));
 		orderscalendar3.SetTimeRange(9, 21);
@@ -64,7 +66,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar3.NewNote += OnNewNote;
 		orderscalendar3.frmClientCalendar = frmClientCalendar;
 		orderscalendar3.TypeTab = TypeTab.Setting;
-		orderscalendar3.StartTimerUpdateCalendar(timer);
 
 		orderscalendar4.StartDate = DateTime.Today.AddDays(-(((int)DateTime.Today.Date.DayOfWeek + 6) % 7));
 		orderscalendar4.SetTimeRange(9, 21);
@@ -78,44 +79,71 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		orderscalendar4.NewNote += OnNewNote;
 		orderscalendar4.frmClientCalendar = frmClientCalendar;
 		orderscalendar4.TypeTab = TypeTab.Toning;
-		orderscalendar4.StartTimerUpdateCalendar(timer);
 
 		orderscalendar1.frmClientCalendar.OrdersCalendar = orderscalendar1;
+		CurrentCalendar = orderscalendar1;
 		orderscalendar1.RefreshOrders();
+
+		Timer = new System.Timers.Timer(refreshInterval*1000);
+		Timer.Elapsed += Timer_Elapsed;
+		Timer.AutoReset = true;
+		Timer.Enabled = true;
+	}
+
+	void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+	{
+		RefreshCalendar(CurrentCalendar);
 	}
 
 	protected void OnRefreshCalendarEvent(object sender, RefreshOrdersEventArgs arg)
 	{
-		OrdersCalendar Calendar = (OrdersCalendar)sender;
-
-		logger.Info("Запрос заказов на {0:d}...", arg.StartDate);
-		string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
-			"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
-			"LEFT JOIN models ON models.id = orders.car_model_id " +
-			"LEFT JOIN marks ON marks.id = models.mark_id " +
-			"LEFT JOIN status ON status.id = orders.status_id " +
-			"LEFT JOIN stocks ON stocks.id = orders.stock_id " +
-			"LEFT JOIN manufacturers ON manufacturers.id = orders.manufacturer_id " +
-			"LEFT JOIN (" +
-			"SELECT order_id, SUM(cost) as sum FROM order_pays GROUP BY order_id) as tablesum " +
-			"ON tablesum.order_id = orders.id " +
-			"WHERE date BETWEEN @start AND @end " +
-			"AND point_number = @point " +
-			"AND calendar_number = @calendar ";
-
-		QSMain.CheckConnectionAlive();
-		try
+		Task.Run(() => RefreshCalendar(CurrentCalendar));
+		if(Timer != null)
 		{
-			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+			Timer.Stop();
+			Timer.Start();
+		}
+	}
 
-			cmd.Parameters.AddWithValue("@start", arg.StartDate);
-			cmd.Parameters.AddWithValue("@end", arg.StartDate.AddDays(6));
-			cmd.Parameters.AddWithValue("@point", Calendar.PointNumber);
-			cmd.Parameters.AddWithValue("@calendar", Calendar.CalendarNumber);
+	bool isRun;
+
+	private void RefreshCalendar(OrdersCalendar calendar)
+	{
+		if(isRun)
+		{
+			isRun = false;
+			return;
+		}
+		isRun = true;
+
+		var items = new ItemsList();
+		using(var connection = new MySqlConnection(QSMain.ConnectionString))
+		{
+			connection.Open();
+			logger.Info("Запрос заказов на {0:d}...", calendar._StartDate);
+			string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
+				"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
+				"LEFT JOIN models ON models.id = orders.car_model_id " +
+				"LEFT JOIN marks ON marks.id = models.mark_id " +
+				"LEFT JOIN status ON status.id = orders.status_id " +
+				"LEFT JOIN stocks ON stocks.id = orders.stock_id " +
+				"LEFT JOIN manufacturers ON manufacturers.id = orders.manufacturer_id " +
+				"LEFT JOIN (" +
+				"SELECT order_id, SUM(cost) as sum FROM order_pays GROUP BY order_id) as tablesum " +
+				"ON tablesum.order_id = orders.id " +
+				"WHERE date BETWEEN @start AND @end " +
+				"AND point_number = @point " +
+				"AND calendar_number = @calendar ";
+
+			MySqlCommand cmd = new MySqlCommand(sql, connection);
+
+			cmd.Parameters.AddWithValue("@start", calendar._StartDate);
+			cmd.Parameters.AddWithValue("@end", calendar._StartDate.AddDays(6));
+			cmd.Parameters.AddWithValue("@point", calendar.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar", calendar.CalendarNumber);
 
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
-				Calendar.ClearTimeMap();
 				while(rdr.Read())
 				{
 					CalendarItem order = new CalendarItem(rdr.GetDateTime("date"),
@@ -157,7 +185,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							rdr["stock"],
 							rdr["comment"],
 							orderTypeClass.Name
-
 						);
 
 						var firstStr = rdr["mark"] + " " + rdr["model"] + "\n";
@@ -173,35 +200,27 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
 						order.Tag = rdr["stock"].ToString().Substring(0, 1);
 					order.OrderType = orderTypeClass;
-					order.Calendar = Calendar;
-					int day = (order.Date - Calendar.StartDate).Days;
-					Calendar.AddItem(day, order.Hour, order);
+					order.Calendar = calendar;
+					int day = (order.Date - calendar._StartDate).Days;
+					items.AddItem(day, order.Hour, order);
 				}
 			}
 			logger.Info("Ok");
 
-		}
-		catch(Exception ex)
-		{
-			QSMain.ErrorMessageWithLog("Ошибка получения списка заказов!", logger, ex);
-		}
+			logger.Info("Запрос расписания работы сотрудников на {0:d}...", CurrentCalendar.StartDate);
+			sql = "select shw.id, shw.date_work " +
+				"from shedule_works shw " +
+				"WHERE shw.date_work BETWEEN @start AND @end " +
+				"AND  shw.point_number = @point AND shw.calendar_number = @calendar";
 
-		logger.Info("Запрос расписания работы сотрудников на {0:d}...", arg.StartDate);
-		sql = "select shw.id, shw.date_work " +
-			"from shedule_works shw " +
-			"WHERE shw.date_work BETWEEN @start AND @end " +
-			"AND  shw.point_number = @point AND shw.calendar_number = @calendar";
+			List<CalendarItem> calendarItemsShedule = new List<CalendarItem>();
 
-		List<CalendarItem> calendarItemsShedule = new List<CalendarItem>();
-		QSMain.CheckConnectionAlive();
-		try
-		{
-			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
+			cmd = new MySqlCommand(sql, connection);
 
-			cmd.Parameters.AddWithValue("@start", arg.StartDate);
-			cmd.Parameters.AddWithValue("@end", arg.StartDate.AddDays(6));
-			cmd.Parameters.AddWithValue("@point", Calendar.PointNumber);
-			cmd.Parameters.AddWithValue("@calendar", Calendar.CalendarNumber);
+			cmd.Parameters.AddWithValue("@start", CurrentCalendar.StartDate);
+			cmd.Parameters.AddWithValue("@end", CurrentCalendar.StartDate.AddDays(6));
+			cmd.Parameters.AddWithValue("@point", calendar.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar", calendar.CalendarNumber);
 
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
@@ -211,8 +230,8 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 					shedule.id = rdr.GetInt32("id");
 					shedule.Tag = "";
-					shedule.Color = shedule.TagColor = GetBgColor(Calendar);
-					shedule.Calendar = Calendar;
+					shedule.Color = shedule.TagColor = GetBgColor(calendar);
+					shedule.Calendar = calendar;
 					shedule.DeleteOrder += OnDeleteShedule;
 					shedule.OpenOrder += OnOpenSheduleWork;
 					calendarItemsShedule.Add(shedule);
@@ -222,32 +241,22 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			foreach(var sh in calendarItemsShedule)
 			{
 				sh.Text = getEmployeeInShedule(sh.id);
-				Calendar.AddItem((sh.Date - Calendar.StartDate).Days, 23, sh);
+				items.AddItem((sh.Date - calendar._StartDate).Days, 23, sh);
 			}
 
 
-		}
+			logger.Info("Запрос заметок на {0:d}...", CurrentCalendar.StartDate);
+			sql = "select id, date, message " +
+				"FROM note " +
+				"WHERE date BETWEEN @start AND @end " +
+				"AND point_number = @point AND calendar_number = @calendar";
 
-		catch(Exception ex)
-		{
-			QSMain.ErrorMessageWithLog("Ошибка получения списка сотрудников!", logger, ex);
-		}
+			cmd = new MySqlCommand(sql, connection);
 
-		logger.Info("Запрос заметок на {0:d}...", arg.StartDate);
-		sql = "select id, date, message " +
-			"FROM note " +
-			"WHERE date BETWEEN @start AND @end " +
-			"AND point_number = @point AND calendar_number = @calendar";
-
-		QSMain.CheckConnectionAlive();
-		try
-		{
-			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
-
-			cmd.Parameters.AddWithValue("@start", arg.StartDate);
-			cmd.Parameters.AddWithValue("@end", arg.StartDate.AddDays(6));
-			cmd.Parameters.AddWithValue("@point", Calendar.PointNumber);
-			cmd.Parameters.AddWithValue("@calendar", Calendar.CalendarNumber);
+			cmd.Parameters.AddWithValue("@start", CurrentCalendar.StartDate);
+			cmd.Parameters.AddWithValue("@end", CurrentCalendar.StartDate.AddDays(6));
+			cmd.Parameters.AddWithValue("@point", calendar.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar", calendar.CalendarNumber);
 
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
@@ -257,22 +266,27 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 					calendarItemNote.id = rdr.GetInt32("id");
 					calendarItemNote.Tag = "";
-					calendarItemNote.Color = calendarItemNote.TagColor = GetBgColor(Calendar);
-					calendarItemNote.Calendar = Calendar;
+					calendarItemNote.Color = calendarItemNote.TagColor = GetBgColor(calendar);
+					calendarItemNote.Calendar = calendar;
 					calendarItemNote.DeleteOrder += OnDeleteNote;
 					calendarItemNote.OpenOrder += OnOpenNote;
 					if(rdr["message"].ToString().Length > 400)
 						calendarItemNote.Text = rdr["message"].ToString().Substring(0, 400);
 					else calendarItemNote.Text = rdr["message"].ToString();
-					int day = (DateTime.Parse(rdr["date"].ToString()) - Calendar.StartDate).Days;
-					Calendar.AddItem(day, 22, calendarItemNote);
+					int day = (DateTime.Parse(rdr["date"].ToString()) - calendar._StartDate).Days;
+					items.AddItem(day, 22, calendarItemNote);
 				}
 			}
+			logger.Info("Ok");
 		}
-		catch(Exception ex)
+
+		isRun = false;
+		Application.Invoke(delegate
 		{
-			QSMain.ErrorMessageWithLog("Ошибка получения заметок!", logger, ex);
-		}
+			CurrentCalendar.Items = items;
+			CurrentCalendar.QueueDraw();
+			frmClientCalendar.QueueDraw();
+		});
 	}
 
 	private string getEmployeeInShedule(int idShedule)
@@ -283,8 +297,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			" WHERE shew.id_shedule_works = @id; ";
 		string text = "";
 		QSMain.CheckConnectionAlive();
-		try
-		{
 
 			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
 
@@ -304,12 +316,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 						text = text.Insert(++i, "\n");
 				return text;
 			}
-		}
-		catch(Exception ex)
-		{
-			QSMain.ErrorMessageWithLog("Ошибка получения списка сотрудников!", logger, ex);
-			return text;
-		}
 
 	}
 	private string GetBgColor(OrdersCalendar Calendar)
@@ -329,7 +335,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 			if(isUpdate?.ValueSettting == "True")
 				return uint.Parse(setting.ValueSettting);
 		}
-		return 0;
+		return 10;
 	}
 
 	protected void OnOpenSheduleWork(object sender, EventArgs arg)
