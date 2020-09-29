@@ -299,6 +299,7 @@
     <Compile Include="HibernateMapping\SettingsMap.cs" />
     <Compile Include="Dialogs\TimerRefreshDlg.cs" />
     <Compile Include="gtk-gui\CarGlass.Dialogs.TimerRefreshDlg.cs" />
+    <Compile Include="Calendar\ItemsList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -370,6 +371,7 @@
     <Folder Include="Representation\" />
     <Folder Include="Updates\" />
     <Folder Include="Repository\" />
+    <Folder Include="Calendar\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
