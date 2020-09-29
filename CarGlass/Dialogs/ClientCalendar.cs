@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Dialogs;
@@ -140,12 +140,12 @@ namespace CarGlass.Dialogs
 		private string getColor(CalendarItem calendarItem, int hour)
 		{
 			var dateNow = DateTime.Now;
-			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour > hour)) return "red";
+			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour >= hour)) return "#ff2400";
 			if(TypeTab != TypeTab.Setting) return "#77dd77";
 
-			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour < 11 && hour < 13) ||
+			if((calendarItem.Date < dateNow.Date) || (calendarItem.Date == dateNow.Date && dateNow.Hour < 11 && hour < 14) ||
 				(calendarItem.Date == dateNow.Date && dateNow.Hour >= 11)
-				|| (calendarItem.Date == dateNow.AddDays(1).Date && dateNow.Hour >= 11 && hour < 13))
+				|| (calendarItem.Date == dateNow.AddDays(1).Date && dateNow.Hour >= 11 && hour < 14))
 				return "#ff2400";
 
 			return "#77dd77"; 
