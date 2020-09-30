@@ -472,9 +472,9 @@ namespace CarGlass
 				" LEFT JOIN employees emp on  emp.id = eshw.id_employee WHERE sw.date_work = @date and " +
 				" sw.point_number = @point_number and calendar_number = @calendar_number" +
 				" UNION select emp.id, emp.first_name, emp.last_name, emp.patronymic " +
-				" FROM CarGlass.employee_service_work esw" +
+				" FROM employee_service_work esw" +
 				" LEFT JOIN employees emp on esw.id_employee = emp.id " +
-				" lEFT JOIN CarGlass.order_pays op on esw.id_order_pay = op.id" +
+				" lEFT JOIN order_pays op on esw.id_order_pay = op.id" +
 				" WHERE op.order_id = @id_order";
 			var cmd = new MySqlCommand(sql, QSMain.connectionDB);
 			cmd.Parameters.AddWithValue("@date", Entity.Date);
