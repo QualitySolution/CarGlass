@@ -250,7 +250,7 @@ namespace CarGlass.Dialogs
 				cell.CellStyle = headerStyle;
 			}
 
-			var PhoneFormatter = new PhoneFormatter();
+			var PhoneFormatter = new PhoneFormatter(PhoneFormat.RussiaOnlyHyphenated);
 
 			for(var row = 1; row <= orders.Count; row++)
 			{
