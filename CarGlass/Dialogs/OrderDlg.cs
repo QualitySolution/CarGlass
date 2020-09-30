@@ -228,7 +228,7 @@ namespace CarGlass
 			List<CellRendererToggle> referActive = new List<CellRendererToggle>();
 			if(listPerformers.Count() > 3)
 			{
-				RunWarningDialog("Указано более трех исполнителей. Проверьте график работ.");
+				RunWarningDialog("  Указано более трех исполнителей.\n Очистите график работ и проверьте,\n что в заказе не указаны лишние исполнители.");
 				listPerformers.Clear();
 			}
 
