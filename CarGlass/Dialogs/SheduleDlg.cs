@@ -16,11 +16,12 @@ namespace CarGlass.Dialogs
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
 		ListStore EmployeeWorkList = new Gtk.ListStore(
-			typeof(int),    // 0 - service id
+			typeof(int),    // 0 - Id сотрудника
 			typeof(bool),   // 1 - Активность
 			typeof(string), // 2 - Фамилия 
 			typeof(string), // 3 - Имя
-			typeof(string)    // 4 - Отчество
+			typeof(string),    // 4 - Отчество
+			typeof(bool) //5 - есть заказы на работу
 			);
 
 		public SheduleDlg(ushort pointNumber, ushort calendarNumber, DateTime date)
@@ -55,21 +56,11 @@ namespace CarGlass.Dialogs
 			CellPay.Toggled += onCellPayToggled;
 
 			CellRendererText CellText = new CellRendererText();
-			CellText.Editable = true;
-			CellText.Edited += CellText_Edited;
-
-			CellRendererText CellText2 = new CellRendererText();
-			CellText2.Editable = true;
-			CellText2.Edited += CellText_Edited2;
-
-			CellRendererText CellText3 = new CellRendererText();
-			CellText3.Editable = true;
-			CellText3.Edited += CellText_Edited3;
 
 			table.AppendColumn("", CellPay, "active", 1);
 			table.AppendColumn("Фамилия", CellText, "text", 2);
-			table.AppendColumn("Имя", CellText2, "text", 3);
-			table.AppendColumn("Отчество", CellText3, "text", 4);
+			table.AppendColumn("Имя", CellText, "text", 3);
+			table.AppendColumn("Отчество", CellText, "text", 4);
 
 			((CellRendererToggle)table.Columns[0].CellRenderers[0]).Activatable = true;
 
@@ -92,12 +83,12 @@ namespace CarGlass.Dialogs
 						false,
 						rdr.GetString("last_name"),
 						rdr.GetString("first_name"),
-						rdr.GetString("patronymic")
+						rdr.GetString("patronymic"),
+						false
 					);
 				}
 			}
 			buttonOk.Sensitive = false;
-
 		}
 
 		void onCellPayToggled(object o, ToggledArgs args)
@@ -107,32 +98,13 @@ namespace CarGlass.Dialogs
 			if(EmployeeWorkList.GetIter(out iter, new TreePath(args.Path)))
 			{
 				bool old = (bool)EmployeeWorkList.GetValue(iter, 1);
-				EmployeeWorkList.SetValue(iter, 1, !old);
+				if(!(bool)EmployeeWorkList.GetValue(iter, 5))
+					EmployeeWorkList.SetValue(iter, 1, !old);
+				else MessageDialogWorks.RunWarningDialog($"На {Entity.DateWork.ToShortDateString()} сотруднику назначены работы.");
 			}
+
 			CalculateTotal();
 		}
-
-		void CellText_Edited(object o, EditedArgs args)
-		{
-			TreeIter iter;
-			if(EmployeeWorkList.GetIter(out iter, new TreePath(args.Path)))
-				EmployeeWorkList.SetValue(iter, 2, args.NewText);
-		}
-
-		void CellText_Edited2(object o, EditedArgs args)
-		{
-			TreeIter iter;
-			if(EmployeeWorkList.GetIter(out iter, new TreePath(args.Path)))
-				EmployeeWorkList.SetValue(iter, 3, args.NewText);
-		}
-
-		void CellText_Edited3(object o, EditedArgs args)
-		{
-			TreeIter iter;
-			if(EmployeeWorkList.GetIter(out iter, new TreePath(args.Path)))
-				EmployeeWorkList.SetValue(iter, 4, args.NewText);
-		}
-
 
 		private void CalculateTotal()
 		{
@@ -161,15 +133,29 @@ namespace CarGlass.Dialogs
 			{
 				TreeIter iter;
 				while(rdr.Read())
-				{
 					if(ListStoreWorks.SearchListStore(EmployeeWorkList, rdr.GetInt32("emp_id"), 0, out iter))
+						EmployeeWorkList.SetValue(iter, 1, true);
+			}
+
+			sql = "select emp.id, emp.first_name, emp.last_name, emp.patronymic " +
+					" FROM employee_service_work esw" +
+					" LEFT JOIN employees emp on esw.id_employee = emp.id " +
+					" LEFT JOIN order_pays op on esw.id_order_pay = op.id" +
+					" LEFT JOIN orders on orders.id = op.order_id" +
+					" WHERE orders.date = @date AND orders.point_number = @point_number AND orders.calendar_number = @calendar_number";
+			cmd = new MySqlCommand(sql, QSMain.connectionDB);
+			cmd.Parameters.AddWithValue("@date", Entity.DateWork);
+			cmd.Parameters.AddWithValue("@point_number", Entity.PointNumber);
+			cmd.Parameters.AddWithValue("@calendar_number", Entity.CalendarNumber);
+			using(MySqlDataReader rdr = cmd.ExecuteReader())
+			{
+				TreeIter iter;
+				while(rdr.Read())
+					if(ListStoreWorks.SearchListStore(EmployeeWorkList, rdr.GetInt32("id"), 0, out iter))
 					{
 						EmployeeWorkList.SetValue(iter, 1, true);
-						EmployeeWorkList.SetValue(iter, 2, rdr["last_name"].ToString());
-						EmployeeWorkList.SetValue(iter, 3, rdr["first_name"].ToString());
-						EmployeeWorkList.SetValue(iter, 4, rdr["patronymic"].ToString());
+						EmployeeWorkList.SetValue(iter, 5, true);
 					}
-				}
 			}
 			CalculateTotal();
 			logger.Info("Ok");
