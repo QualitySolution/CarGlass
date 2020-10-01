@@ -240,7 +240,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 			foreach(var sh in calendarItemsShedule)
 			{
-				sh.Text = getEmployeeInShedule(sh.id);
+				sh.Text = getEmployeeInShedule(sh.id, connection);
 				items.AddItem((sh.Date - calendar._StartDate).Days, 23, sh);
 			}
 
@@ -289,17 +289,15 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 		});
 	}
 
-	private string getEmployeeInShedule(int idShedule)
+	private string getEmployeeInShedule(int idShedule, MySqlConnection connection)
 	{
 		string sql = " select shew.id_shedule_works, shew.id_employee, emp.id, emp.first_name, emp.last_name, emp.patronymic" +
 			"  FROM shedule_employee_works shew " +
 			" LEFT JOIN employees emp on emp.id = shew.id_employee" +
 			" WHERE shew.id_shedule_works = @id; ";
 		string text = "";
-		QSMain.CheckConnectionAlive();
 
-			MySqlCommand cmd = new MySqlCommand(sql, QSMain.connectionDB);
-
+			MySqlCommand cmd = new MySqlCommand(sql, connection);
 			cmd.Parameters.AddWithValue("@id", idShedule);
 			using(MySqlDataReader rdr = cmd.ExecuteReader())
 			{
