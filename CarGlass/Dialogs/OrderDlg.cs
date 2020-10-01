@@ -453,7 +453,7 @@ namespace CarGlass
 			bool Statusok = Entity.OrderState != null;
 			bool Carok = Entity.CarModel != null;
 			bool NumberOk = Entity.Phone != null && Entity.Phone.Length == 16;
-			bool YearOk = Entity.CarYear != null && Entity.CarYear > 1979 && Entity.CarYear <= DateTime.Now.Year;
+			bool YearOk = (Entity.CarYear == null) || (Entity.CarYear != null && Entity.CarYear > 1979 && Entity.CarYear <= DateTime.Now.Year);
 			bool ModelOk = Entity.CarModel != null;
 			buttonOk.Sensitive = (Statusok && Carok && NumberOk && YearOk && ModelOk) || Entity.OrderTypeClass.IsOtherType;
 		}
