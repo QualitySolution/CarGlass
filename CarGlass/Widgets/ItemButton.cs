@@ -19,7 +19,15 @@ namespace CarGlass
 		private Pango.Layout PangoText;
 		private Pango.Layout PangoTag;
 		public OrdersCalendar ParentCalendar;
-		public TypeItemOrButton TypeItemButton;
+		public TypeItemOrButton typeItemButton;
+		public TypeItemOrButton TypeItemButton
+        {
+			 get {
+				if(calendarItem != null)
+					return calendarItem.TypeItemButton;
+				return typeItemButton; }
+			 set { typeItemButton = value;}
+        }
 		public event EventHandler<NewOrderEventArgs> NewOrderClicked;
 		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWorkClicked;
 		public event EventHandler<NewNoteEventArgs> NewNoteClicked;

@@ -202,6 +202,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					order.OrderType = orderTypeClass;
 					order.Calendar = calendar;
 					int day = (order.Date - calendar._StartDate).Days;
+					order.TypeItemButton = TypeItemOrButton.Order;
 					items.AddItem(day, order.Hour, order);
 				}
 			}
@@ -234,6 +235,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 					shedule.Calendar = calendar;
 					shedule.DeleteOrder += OnDeleteShedule;
 					shedule.OpenOrder += OnOpenSheduleWork;
+					shedule.TypeItemButton = TypeItemOrButton.Shedule;
 					calendarItemsShedule.Add(shedule);
 				}
 			}
@@ -274,6 +276,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 						calendarItemNote.Text = rdr["message"].ToString().Substring(0, 400);
 					else calendarItemNote.Text = rdr["message"].ToString();
 					int day = (DateTime.Parse(rdr["date"].ToString()) - calendar._StartDate).Days;
+					calendarItemNote.TypeItemButton = TypeItemOrButton.Note;
 					items.AddItem(day, 22, calendarItemNote);
 				}
 			}

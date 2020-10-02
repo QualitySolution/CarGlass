@@ -15,6 +15,7 @@ namespace CarGlass
 		public string Tag;
 		public string TagColor;
 		public OrdersCalendar Calendar;
+		public TypeItemOrButton TypeItemButton;
 
 		public event EventHandler OpenOrder;
 		public event EventHandler DeleteOrder;
