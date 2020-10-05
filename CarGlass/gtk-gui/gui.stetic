@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
@@ -1192,7 +1192,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="794 757">
+  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="880 757">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">4</property>
@@ -1213,9 +1213,12 @@
                   <widget class="Gtk.Table" id="table1">
                     <property name="MemberName" />
                     <property name="NRows">10</property>
-                    <property name="NColumns">4</property>
+                    <property name="NColumns">6</property>
                     <property name="RowSpacing">6</property>
                     <property name="ColumnSpacing">6</property>
+                    <child>
+                      <placeholder />
+                    </child>
                     <child>
                       <placeholder />
                     </child>
@@ -1242,14 +1245,11 @@
                         <property name="ShowSpecialStateNot">False</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">2</property>
-                        <property name="BottomAttach">3</property>
-                        <property name="LeftAttach">3</property>
-                        <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
+                        <property name="LeftAttach">5</property>
+                        <property name="RightAttach">6</property>
+                        <property name="AutoSize">False</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
+                        <property name="XExpand">True</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -1271,8 +1271,8 @@
                       <packing>
                         <property name="TopAttach">2</property>
                         <property name="BottomAttach">3</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">2</property>
+                        <property name="LeftAttach">2</property>
+                        <property name="RightAttach">3</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1297,8 +1297,8 @@
                       <packing>
                         <property name="TopAttach">3</property>
                         <property name="BottomAttach">4</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">2</property>
+                        <property name="LeftAttach">2</property>
+                        <property name="RightAttach">3</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1321,12 +1321,11 @@
                         <property name="ShowSpecialStateNot">False</property>
                       </widget>
                       <packing>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
+                        <property name="LeftAttach">2</property>
+                        <property name="RightAttach">3</property>
+                        <property name="AutoSize">False</property>
                         <property name="YOptions">Fill</property>
-                        <property name="XExpand">False</property>
+                        <property name="XExpand">True</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
@@ -1345,10 +1344,10 @@
                         <property name="ShowSpecialStateNot">False</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">3</property>
-                        <property name="BottomAttach">4</property>
-                        <property name="LeftAttach">3</property>
-                        <property name="RightAttach">4</property>
+                        <property name="TopAttach">1</property>
+                        <property name="BottomAttach">2</property>
+                        <property name="LeftAttach">5</property>
+                        <property name="RightAttach">6</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1369,8 +1368,8 @@
                       <packing>
                         <property name="TopAttach">4</property>
                         <property name="BottomAttach">5</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">2</property>
+                        <property name="LeftAttach">2</property>
+                        <property name="RightAttach">3</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1388,12 +1387,13 @@
                         <property name="CanFocus">True</property>
                         <property name="IsEditable">True</property>
                         <property name="InvisibleChar">●</property>
+                        <signal name="Changed" handler="OnEntryEurocodeChanged" />
                       </widget>
                       <packing>
-                        <property name="TopAttach">4</property>
-                        <property name="BottomAttach">5</property>
-                        <property name="LeftAttach">3</property>
-                        <property name="RightAttach">4</property>
+                        <property name="TopAttach">2</property>
+                        <property name="BottomAttach">3</property>
+                        <property name="LeftAttach">5</property>
+                        <property name="RightAttach">6</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1416,8 +1416,8 @@
                       <packing>
                         <property name="TopAttach">5</property>
                         <property name="BottomAttach">6</property>
-                        <property name="LeftAttach">1</property>
-                        <property name="RightAttach">2</property>
+                        <property name="LeftAttach">2</property>
+                        <property name="RightAttach">3</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1444,12 +1444,43 @@
                       <packing>
                         <property name="TopAttach">8</property>
                         <property name="BottomAttach">9</property>
-                        <property name="RightAttach">4</property>
+                        <property name="RightAttach">6</property>
                         <property name="AutoSize">False</property>
                         <property name="XExpand">True</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">True</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow2">
+                        <property name="MemberName" />
+                        <property name="Visible">False</property>
+                        <property name="ShadowType">In</property>
+                        <child>
+                          <widget class="Gamma.GtkWidgets.yTreeView" id="ytreeEuroCode">
+                            <property name="MemberName" />
+                            <property name="Visible">False</property>
+                            <property name="CanFocus">True</property>
+                            <property name="ShowScrollbars">True</property>
+                            <signal name="RowActivated" handler="OnYtreeEuroCodeRowActivated" />
+                          </widget>
+                        </child>
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">3</property>
+                        <property name="BottomAttach">6</property>
+                        <property name="LeftAttach">4</property>
+                        <property name="RightAttach">6</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
                         <property name="YFill">True</property>
                         <property name="YShrink">False</property>
                       </packing>
@@ -1471,13 +1502,32 @@
                       <packing>
                         <property name="TopAttach">6</property>
                         <property name="BottomAttach">7</property>
-                        <property name="RightAttach">4</property>
+                        <property name="RightAttach">6</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="XExpand">False</property>
                         <property name="XFill">True</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">True</property>
+                        <property name="YFill">True</property>
+                        <property name="YShrink">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.HSeparator" id="hseparator1">
+                        <property name="MemberName" />
+                      </widget>
+                      <packing>
+                        <property name="TopAttach">1</property>
+                        <property name="BottomAttach">2</property>
+                        <property name="RightAttach">3</property>
+                        <property name="AutoSize">True</property>
+                        <property name="XOptions">Fill</property>
+                        <property name="YOptions">Fill</property>
+                        <property name="XExpand">False</property>
+                        <property name="XFill">True</property>
+                        <property name="XShrink">False</property>
+                        <property name="YExpand">False</property>
                         <property name="YFill">True</property>
                         <property name="YShrink">False</property>
                       </packing>
@@ -1491,7 +1541,7 @@
                       <packing>
                         <property name="TopAttach">7</property>
                         <property name="BottomAttach">8</property>
-                        <property name="RightAttach">4</property>
+                        <property name="RightAttach">6</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1508,16 +1558,16 @@
                         <property name="MemberName" />
                         <property name="LabelProp" translatable="yes">&lt;b&gt;Клиент&lt;/b&gt;</property>
                         <property name="UseMarkup">True</property>
+                        <property name="Angle">90</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">1</property>
-                        <property name="BottomAttach">2</property>
-                        <property name="RightAttach">2</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
+                        <property name="TopAttach">2</property>
+                        <property name="BottomAttach">6</property>
+                        <property name="AutoSize">False</property>
+                        <property name="XOptions">0</property>
                         <property name="YOptions">Fill</property>
                         <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
+                        <property name="XFill">False</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
                         <property name="YFill">True</property>
@@ -1534,6 +1584,8 @@
                       <packing>
                         <property name="TopAttach">2</property>
                         <property name="BottomAttach">3</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1554,6 +1606,8 @@
                       <packing>
                         <property name="TopAttach">4</property>
                         <property name="BottomAttach">5</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1575,6 +1629,8 @@
                       <packing>
                         <property name="TopAttach">5</property>
                         <property name="BottomAttach">6</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1594,6 +1650,8 @@
                         <property name="UseMarkup">True</property>
                       </widget>
                       <packing>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1615,6 +1673,8 @@
                       <packing>
                         <property name="TopAttach">3</property>
                         <property name="BottomAttach">4</property>
+                        <property name="LeftAttach">1</property>
+                        <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1633,8 +1693,9 @@
                         <property name="LabelProp" translatable="yes">Заказ создан:</property>
                       </widget>
                       <packing>
-                        <property name="LeftAttach">2</property>
-                        <property name="RightAttach">3</property>
+                        <property name="TopAttach">9</property>
+                        <property name="BottomAttach">10</property>
+                        <property name="RightAttach">2</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1653,8 +1714,10 @@
                         <property name="LabelProp" translatable="yes">неизвестно</property>
                       </widget>
                       <packing>
-                        <property name="LeftAttach">3</property>
-                        <property name="RightAttach">4</property>
+                        <property name="TopAttach">9</property>
+                        <property name="BottomAttach">10</property>
+                        <property name="LeftAttach">2</property>
+                        <property name="RightAttach">3</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1673,10 +1736,10 @@
                         <property name="LabelProp" translatable="yes">Еврокод:</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">4</property>
-                        <property name="BottomAttach">5</property>
-                        <property name="LeftAttach">2</property>
-                        <property name="RightAttach">3</property>
+                        <property name="TopAttach">2</property>
+                        <property name="BottomAttach">3</property>
+                        <property name="LeftAttach">4</property>
+                        <property name="RightAttach">5</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1693,17 +1756,17 @@
                         <property name="MemberName" />
                         <property name="LabelProp" translatable="yes">&lt;b&gt;Стекло&lt;/b&gt;</property>
                         <property name="UseMarkup">True</property>
+                        <property name="Angle">90</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">1</property>
-                        <property name="BottomAttach">2</property>
-                        <property name="LeftAttach">2</property>
+                        <property name="BottomAttach">3</property>
+                        <property name="LeftAttach">3</property>
                         <property name="RightAttach">4</property>
-                        <property name="AutoSize">True</property>
-                        <property name="XOptions">Fill</property>
+                        <property name="AutoSize">False</property>
+                        <property name="XOptions">0</property>
                         <property name="YOptions">Fill</property>
                         <property name="XExpand">False</property>
-                        <property name="XFill">True</property>
+                        <property name="XFill">False</property>
                         <property name="XShrink">False</property>
                         <property name="YExpand">False</property>
                         <property name="YFill">True</property>
@@ -1717,10 +1780,8 @@
                         <property name="LabelProp" translatable="yes">Производитель:</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">2</property>
-                        <property name="BottomAttach">3</property>
-                        <property name="LeftAttach">2</property>
-                        <property name="RightAttach">3</property>
+                        <property name="LeftAttach">4</property>
+                        <property name="RightAttach">5</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1739,10 +1800,10 @@
                         <property name="LabelProp" translatable="yes">Склад:</property>
                       </widget>
                       <packing>
-                        <property name="TopAttach">3</property>
-                        <property name="BottomAttach">4</property>
-                        <property name="LeftAttach">2</property>
-                        <property name="RightAttach">3</property>
+                        <property name="TopAttach">1</property>
+                        <property name="BottomAttach">2</property>
+                        <property name="LeftAttach">4</property>
+                        <property name="RightAttach">5</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>
@@ -1764,8 +1825,8 @@
                       <packing>
                         <property name="TopAttach">9</property>
                         <property name="BottomAttach">10</property>
-                        <property name="LeftAttach">3</property>
-                        <property name="RightAttach">4</property>
+                        <property name="LeftAttach">5</property>
+                        <property name="RightAttach">6</property>
                         <property name="AutoSize">True</property>
                         <property name="XOptions">Fill</property>
                         <property name="YOptions">Fill</property>

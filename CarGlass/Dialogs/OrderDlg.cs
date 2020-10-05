@@ -89,18 +89,7 @@ namespace CarGlass
 
 			for (int year = 1980; year <= DateTime.Today.Year; year++)
 				comboYear.AppendText(year.ToString());
-
-			var stock = new StoreItemsRepository();
-			var completion = new Gtk.EntryCompletion();
-			entryEurocode.Completion = completion;
-			var list = new ListStore(typeof(string));
-			foreach(var item in stock.GetEurocodes(UoW))
-			{
-				list.AppendValues(item);
-			}
-			completion.TextColumn = 0;
-			completion.Model = list;
-
+				
 			comboYear.Binding.AddBinding(Entity, e => e.CarYearText, w => w.Entry.Text).InitializeFromSource();
 			comboManufacturer.Binding.AddBinding(Entity, e => e.Manufacturer, w => w.SelectedItem).InitializeFromSource();
 			comboStock.Binding.AddBinding(Entity, e => e.Stock, w => w.SelectedItem).InitializeFromSource();
@@ -212,6 +201,13 @@ namespace CarGlass
 				.AddColumn("Номер").AddTextRenderer(x => x.Id.ToString())
 				.Finish();
 
+			ytreeEuroCode.ColumnsConfig = ColumnsConfigFactory.Create<StoreItem>()
+			.AddColumn("Еврокод").AddTextRenderer(x => x.EuroCode)
+			.AddColumn("Марка").AddTextRenderer(x => x.CarBrand.Name)
+			.AddColumn("Количество").AddNumericRenderer(x => x.Amount)
+			.AddColumn("Цена").AddNumericRenderer(x=> x.Cost)
+			.Finish();
+
 			buttonPrint.Sensitive = !Entity.OrderTypeClass.IsOtherType;
 			TestCanSave();
             Entity.PropertyChanged += Entity_PropertyChanged;
@@ -241,7 +237,6 @@ namespace CarGlass
 				column.Expand = true;
 				i++;
 			}
-
 		}
 
 		private void RenderPriceColumn(Gtk.TreeViewColumn column, Gtk.CellRenderer cell, Gtk.TreeModel model, Gtk.TreeIter iter)
@@ -586,6 +581,24 @@ namespace CarGlass
 		{
 			var order = ytreeOtherOrders.GetSelectedObject<WorkOrder>();
 			OpenTab<OrderDlg, WorkOrder>(order);
+		}
+
+		protected void OnEntryEurocodeChanged(object sender, EventArgs e)
+		{
+			var stock = new StoreItemsRepository();
+			IList<StoreItem> list = null;
+			if(entryEurocode.Text.Length > 0)
+				list = stock.GetEurocodes(UoW, entryEurocode.Text);
+
+			ytreeEuroCode.ItemsDataSource = list;
+			GtkScrolledWindow2.Visible = ytreeEuroCode.Visible = list !=null && list.Count > 0;
+		}
+
+		protected void OnYtreeEuroCodeRowActivated(object o, RowActivatedArgs args)
+		{
+			var eurocode = ytreeEuroCode.GetSelectedObject<StoreItem>();
+			entryEurocode.Text = eurocode.EuroCode;
+			GtkScrolledWindow2.Visible = ytreeEuroCode.Visible = false;
 		}
 	}
 }
