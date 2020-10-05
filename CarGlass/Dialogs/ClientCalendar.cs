@@ -65,7 +65,8 @@ namespace CarGlass.Dialogs
 		public void SetTimeRange(int StartHour, int EndHour)
 		{
 			StartTime = StartHour;
-			EndTime = EndHour;
+			EndHour = 18;
+			EndTime = 18;
 
 			tableOrders.NRows = (uint)(EndHour - StartHour);
 
@@ -122,8 +123,7 @@ namespace CarGlass.Dialogs
 					if(TimeMap[x, y] != null)
 					{
 						TimeMapClient[x, y] = new List<CalendarItem> { new CalendarItem(currentDay, y) {Text = String.Format("     {0:D2}:00 ", y) } };
-						TimeMapClient[x, y][0].Color = TimeMap[x, y][0].TagColor = "#ff2400";
-							
+						TimeMapClient[x, y][0].Color = TimeMapClient[x, y][0].TagColor = "#ff2400";
 					}
 					else
 					{

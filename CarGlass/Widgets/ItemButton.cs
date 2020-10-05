@@ -187,8 +187,7 @@ namespace CarGlass
 			}
 			else if (calendarItem != null && calendarItem.id == 0)
 			{
-				//this.Image = null;
-				Pango.FontDescription desc = Pango.FontDescription.FromString("Serif Bold 40");
+				Pango.FontDescription desc = Pango.FontDescription.FromString("Serif Bold 35");
 				PangoText.FontDescription = desc;
 				PangoText.SetText(calendarItem.Text);
 				this.Relief = ReliefStyle.Normal;
