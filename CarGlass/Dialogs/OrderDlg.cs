@@ -203,7 +203,7 @@ namespace CarGlass
 
 			ytreeEuroCode.ColumnsConfig = ColumnsConfigFactory.Create<StoreItem>()
 			.AddColumn("Еврокод").AddTextRenderer(x => x.EuroCode)
-			.AddColumn("Марка").AddTextRenderer(x => x.CarBrand.Name)
+			.AddColumn("Производитель").AddTextRenderer(x => x.Manufacturer.Name)
 			.AddColumn("Количество").AddNumericRenderer(x => x.Amount)
 			.AddColumn("Цена").AddNumericRenderer(x=> x.Cost)
 			.Finish();
