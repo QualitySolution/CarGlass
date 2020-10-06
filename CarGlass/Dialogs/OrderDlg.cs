@@ -210,7 +210,9 @@ namespace CarGlass
 
 			buttonPrint.Sensitive = !Entity.OrderTypeClass.IsOtherType;
 			TestCanSave();
-            Entity.PropertyChanged += Entity_PropertyChanged;
+			SetEuroCode();
+
+			Entity.PropertyChanged += Entity_PropertyChanged;
 		}
 
         private void Entity_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -585,20 +587,26 @@ namespace CarGlass
 
 		protected void OnEntryEurocodeChanged(object sender, EventArgs e)
 		{
-			var stock = new StoreItemsRepository();
-			IList<StoreItem> list = null;
-			if(entryEurocode.Text.Length > 0)
-				list = stock.GetEurocodes(UoW, entryEurocode.Text);
-
-			ytreeEuroCode.ItemsDataSource = list;
-			GtkScrolledWindow2.Visible = ytreeEuroCode.Visible = list !=null && list.Count > 0;
+			SetEuroCode();
 		}
 
 		protected void OnYtreeEuroCodeRowActivated(object o, RowActivatedArgs args)
 		{
 			var eurocode = ytreeEuroCode.GetSelectedObject<StoreItem>();
 			entryEurocode.Text = eurocode.EuroCode;
-			GtkScrolledWindow2.Visible = ytreeEuroCode.Visible = false;
+		}
+
+		protected void SetEuroCode()
+		{
+			var stock = new StoreItemsRepository();
+			IList<StoreItem> list = null;
+			if(entryEurocode.Text.Length > 0)
+				list =  stock.GetEurocodes(UoW, entryEurocode.Text);
+			if (entryEurocode.Text.Length > 4)
+				list = list.Where(x=> x.EuroCode.Substring(0, 5) == entryEurocode.Text.Substring(0, 5)).ToList();
+
+			ytreeEuroCode.ItemsDataSource = list;
+			GtkScrolledWindow2.Visible = ytreeEuroCode.Visible = list != null && list.Count > 0;
 		}
 	}
 }
