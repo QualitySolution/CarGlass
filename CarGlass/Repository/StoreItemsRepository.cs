@@ -16,9 +16,14 @@ namespace CarGlass.Repository
 				.List<string>();
 		}
 
-		public IList<StoreItem> GetEurocodes(IUnitOfWork uow, string euroCode)
+		public IList<StoreItem> GetSomeEurocodes(IUnitOfWork uow, string euroCode)
 		{
 			return uow.GetAll<StoreItem>().Where(x => x.EuroCode.Contains(euroCode)).ToList();
+		}
+
+		public IList<StoreItem> GetAllEurocodes(IUnitOfWork uow)
+		{
+			return uow.GetAll<StoreItem>().ToList();
 		}
 	}
 }
