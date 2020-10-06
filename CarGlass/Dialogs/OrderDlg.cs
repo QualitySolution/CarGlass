@@ -603,7 +603,7 @@ namespace CarGlass
 			if(entryEurocode.Text.Length > 0 && entryEurocode.Text.Length < 5)
 				list =  stock.GetSomeEurocodes(UoW, entryEurocode.Text);
 			if (entryEurocode.Text.Length > 4)
-				list = stock.GetAllEurocodes(UoW).Where(x=> x.EuroCode.Substring(0, 5) == entryEurocode.Text.Substring(0, 5)).ToList();
+				list = stock.GetAllEurocodes(UoW).Where(x=> x.EuroCode.Length > 5 && x.EuroCode.Substring(0, 5) == entryEurocode.Text.Substring(0, 5)).ToList();
 
 			ytreeEuroCode.ItemsDataSource = list;
 			GtkScrolledWindow2.Visible = ytreeEuroCode.Visible = list != null && list.Count > 0;
