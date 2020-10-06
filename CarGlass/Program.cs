@@ -103,6 +103,11 @@ namespace CarGlass
 				new Version(1, 7),
 				"CarGlass.Updates.1.7.sql");
 
+			QS.Updater.DB.DBUpdater.AddMicroUpdate(
+				new Version(1, 7),
+				new Version(1, 7, 3),
+				"CarGlass.Updates.1.7.3.sql");
+
 			//Параметры удаления
 			Dictionary<string, TableInfo> Tables = new Dictionary<string, TableInfo>();
 			QSMain.ProjectTables = Tables;

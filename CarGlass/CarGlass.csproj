@@ -180,6 +180,7 @@
     <EmbeddedResource Include="Updates\1.6.sql" />
     <EmbeddedResource Include="icons\display.png" />
     <EmbeddedResource Include="Updates\1.7.sql" />
+    <EmbeddedResource Include="Updates\1.7.3.sql" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
