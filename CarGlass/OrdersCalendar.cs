@@ -87,14 +87,16 @@ namespace CarGlass
 				for(int i = 1; i <= 7; i++)
 				{
 					string DayName = _StartDate.AddDays(i - 1).ToString("d, dddd");
-					HeadLabels[i-1].LabelProp = DayName;
+					HeadLabels[i - 1].LabelProp = String.Format("<span size='15000'><b>{0}</b></span>", DayName);
 					DayName = _StartDate.AddDays(i - 1).ToLongDateString();
 					HeadLabels[i-1].TooltipText = DayName;
+
 				};
-				if (_StartDate.Day > _StartDate.AddDays(7).Day)
-					labelWeek.LabelProp = String.Format("{0:dd MMMMM}-{1:D}", _StartDate, _StartDate.AddDays(7));
+				if(_StartDate.Day > _StartDate.AddDays(7).Day)
+					labelWeek.Markup = String.Format($"<span size='15000'>{_StartDate:dd MMMMM}-{_StartDate.AddDays(7):D}</span>");
 				else
-					labelWeek.LabelProp = String.Format("{0:dd}-{1:D}", _StartDate, _StartDate.AddDays(7));
+					labelWeek.Markup = String.Format($"<span size='15000'>{_StartDate:dd}-{_StartDate.AddDays(7):D}</span>");
+
 				RefreshOrders();
 			}
 
@@ -375,10 +377,10 @@ namespace CarGlass
 			if(dayHilight != newDayHilight)
 			{
 				if(dayHilight != -1)
-					HeadLabels[dayHilight].LabelProp = _StartDate.AddDays(dayHilight).ToString("d, dddd");
+				HeadLabels[dayHilight].LabelProp = String.Format($"<span size='15000'><b>{_StartDate.AddDays(dayHilight).ToString("d, dddd")}</b></span>");
 				dayHilight = newDayHilight;
 				if(dayHilight != -1)
-					HeadLabels[dayHilight].LabelProp = String.Format("<span foreground=\"red\">{0}</span>", _StartDate.AddDays(dayHilight).ToString("d, dddd"));
+					HeadLabels[dayHilight].LabelProp = String.Format("<span size='15000' foreground=\"red\"><b>{0}</b></span>", _StartDate.AddDays(dayHilight).ToString("d, dddd"));
 			}
 			if(hourHilight != newHourHilight)
 			{
@@ -386,14 +388,14 @@ namespace CarGlass
 					HoursLabels[hourHilight].LabelProp = String.Format(" {0:D2}:00 ", hourHilight);
 				hourHilight = newHourHilight;
 				if(hourHilight != -1)
-					HoursLabels[hourHilight].LabelProp = String.Format("<span foreground=\"red\"><b>{0:D2}:00</b></span>", hourHilight);
+					HoursLabels[hourHilight].LabelProp = String.Format("<span size='15000' foreground=\"red\"><b>{0:D2}:00</b></span>", hourHilight);
 			}
 		}
 
 		protected void OnEventbox1LeaveNotifyEvent(object o, LeaveNotifyEventArgs args)
 		{
 			if(dayHilight != -1)
-				HeadLabels[dayHilight].LabelProp = _StartDate.AddDays(dayHilight).ToString("d, dddd");
+				HeadLabels[dayHilight].LabelProp = String.Format($"<span size='15000'><b>{_StartDate.AddDays(dayHilight).ToString("d, dddd")}</b></span>");
 			if(hourHilight != -1)
 				HoursLabels[hourHilight].LabelProp = String.Format(" {0:D2}:00 ", hourHilight);
 			dayHilight = -1;
