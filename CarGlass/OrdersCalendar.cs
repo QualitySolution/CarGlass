@@ -388,7 +388,7 @@ namespace CarGlass
 					HoursLabels[hourHilight].LabelProp = String.Format(" {0:D2}:00 ", hourHilight);
 				hourHilight = newHourHilight;
 				if(hourHilight != -1)
-					HoursLabels[hourHilight].LabelProp = String.Format("<span size='15000' foreground=\"red\"><b>{0:D2}:00</b></span>", hourHilight);
+					HoursLabels[hourHilight].LabelProp = String.Format("<span foreground=\"red\"><b>{0:D2}:00</b></span>", hourHilight);
 			}
 		}
 
