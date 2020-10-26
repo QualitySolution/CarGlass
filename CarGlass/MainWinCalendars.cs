@@ -168,8 +168,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							orderTypeClass.Name
 						);
 						order.Text = String.Format("{0} {1}\n{2}\n{3}", rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"]);
-						order.Color = DBWorks.GetString(rdr, "color", "");
-						order.TagColor = DBWorks.GetString(rdr, "stockcolor", "");
 						order.DeleteOrder += OnDeleteOrder;
 						order.OpenOrder += OnOpenOrder;
 						order.TimeChanged += OnChangeTimeOrderEvent;
@@ -194,9 +192,11 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 						order.Text = firstStr;
 						foreach(var word in words)
 							order.Text += word + "\n";
-
-						order.Color = order.TagColor = "#f0f8ff";
 					}
+
+					order.Color = DBWorks.GetString(rdr, "color", "");
+					order.TagColor = DBWorks.GetString(rdr, "stockcolor", "");
+
 					if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
 						order.Tag = rdr["stock"].ToString().Substring(0, 1);
 					order.OrderType = orderTypeClass;
