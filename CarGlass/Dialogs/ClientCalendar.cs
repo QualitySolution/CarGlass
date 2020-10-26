@@ -56,7 +56,7 @@ namespace CarGlass.Dialogs
 					HeadLabels[i - 1].TooltipText = DayName;
 				};
 				if(_StartDate.Day > _StartDate.AddDays(7).Day)
-					this.Title = String.Format("{{0:dd MMMMM}-{1:D}", _StartDate, _StartDate.AddDays(7));
+					this.Title = String.Format("{0:dd MMMMM}-{1:D}", _StartDate, _StartDate.AddDays(7));
 				else
 					this.Title = String.Format("{0:dd}-{1:D}", _StartDate, _StartDate.AddDays(7));
 			}
