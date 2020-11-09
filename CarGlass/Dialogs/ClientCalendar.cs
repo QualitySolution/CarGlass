@@ -50,7 +50,8 @@ namespace CarGlass.Dialogs
 				//создаем колонки
 				for(int i = 1; i <= 7; i++)
 				{
-					string DayName = _StartDate.AddDays(i - 1).ToString("d, dddd");
+					string loc = _StartDate.AddDays(i - 1).ToString("d, ddd")+".";
+					string DayName = loc.Length == 6 ? "0" + loc: loc;
 					HeadLabels[i - 1].LabelProp =  String.Format("<span size='15000'><b>{0}</b></span>", DayName);
 					DayName = _StartDate.AddDays(i - 1).ToLongDateString();
 					HeadLabels[i - 1].TooltipText = DayName;
