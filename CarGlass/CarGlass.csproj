@@ -99,11 +99,11 @@
       <HintPath>..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\packages\NHibernate.5.2.7\lib\net461\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.5.3.5\lib\net461\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="FluentNHibernate">
-      <HintPath>..\packages\FluentNHibernate.2.1.2\lib\net461\FluentNHibernate.dll</HintPath>
+      <HintPath>..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.8.0.20\lib\net452\MySql.Data.dll</HintPath>
@@ -332,10 +332,6 @@
       <Project>{54F958F5-7E58-4C89-9A04-8835E63B97C3}</Project>
       <Name>System.Data.Bindings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\QSProjects\QSValidation\QSValidation.csproj">
-      <Project>{CE5179E8-3172-4C08-9FE3-9C48C58A3831}</Project>
-      <Name>QSValidation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\QSProjects\QSExtraGammaWidgets\QSExtraGammaWidgets.csproj">
       <Project>{3DCDD84A-20D0-4939-BE25-58B19F3961F2}</Project>
       <Name>QSExtraGammaWidgets</Name>
@@ -359,6 +355,10 @@
     <ProjectReference Include="..\..\QSProjects\QS.Utilities\QS.Utilities.csproj">
       <Project>{E2228A2B-4883-4DD8-8A05-23501F7B8A33}</Project>
       <Name>QS.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\QSProjects\QS.MachineConfig\QS.MachineConfig.csproj">
+      <Project>{769710D2-BF98-4120-9E07-67BD740CFA1D}</Project>
+      <Name>QS.MachineConfig</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
