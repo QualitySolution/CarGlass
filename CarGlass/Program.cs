@@ -67,47 +67,6 @@ namespace CarGlass
 			"Пользователь может просматривать заказы."
 			));
 
-			//Настраиваем обновления
-			QS.Updater.DB.DBUpdater.AddUpdate(
-				new Version(1, 3),
-				new Version(1, 4),
-				"CarGlass.Updates.1.4.sql");
-
-			QS.Updater.DB.DBUpdater.AddMicroUpdate(
-				new Version(1, 4),
-				new Version(1, 4, 2),
-				"CarGlass.Updates.1.4.2.sql");
-
-			QS.Updater.DB.DBUpdater.AddUpdate(
-				new Version(1, 4),
-				new Version(1, 5),
-				"CarGlass.Updates.1.5.sql");
-
-			QS.Updater.DB.DBUpdater.AddMicroUpdate(
-				new Version(1, 5),
-				new Version(1, 5, 1),
-				"CarGlass.Updates.1.5.1.sql");
-
-			QS.Updater.DB.DBUpdater.AddMicroUpdate(
-				new Version(1, 5, 1),
-				new Version(1, 5, 2),
-				"CarGlass.Updates.1.5.2.sql");
-
-			QS.Updater.DB.DBUpdater.AddUpdate(
-				new Version(1, 5),
-				new Version(1, 6),
-				"CarGlass.Updates.1.6.sql");
-
-			QS.Updater.DB.DBUpdater.AddUpdate(
-				new Version(1, 6),
-				new Version(1, 7),
-				"CarGlass.Updates.1.7.sql");
-
-			QS.Updater.DB.DBUpdater.AddMicroUpdate(
-				new Version(1, 7),
-				new Version(1, 7, 3),
-				"CarGlass.Updates.1.7.3.sql");
-
 			//Параметры удаления
 			Dictionary<string, TableInfo> Tables = new Dictionary<string, TableInfo>();
 			QSMain.ProjectTables = Tables;
