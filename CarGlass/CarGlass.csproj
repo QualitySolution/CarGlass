@@ -9,7 +9,6 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>CarGlass</RootNamespace>
     <AssemblyName>CarGlass</AssemblyName>
-    <ReleaseVersion>1.0</ReleaseVersion>
     <ApplicationIcon>icons\logo.ico</ApplicationIcon>
     <TargetOS>Linux</TargetOS>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
