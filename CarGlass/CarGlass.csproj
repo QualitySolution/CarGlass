@@ -316,6 +316,8 @@
     <Compile Include="gtk-gui\CarGlass.Dialogs.TimerRefreshDlg.cs" />
     <Compile Include="Calendar\ItemsList.cs" />
     <Compile Include="ConfigureUpdates.cs" />
+    <Compile Include="Domain\SMS\Message.cs" />
+    <Compile Include="HibernateMapping\SMS\MessageMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -388,6 +390,8 @@
     <Folder Include="Updates\" />
     <Folder Include="Repository\" />
     <Folder Include="Calendar\" />
+    <Folder Include="Domain\SMS\" />
+    <Folder Include="HibernateMapping\SMS\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
