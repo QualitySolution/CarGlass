@@ -1,16 +1,21 @@
 using System;
+using Autofac;
 using CarGlass;
 using CarGlass.Dialogs;
 using CarGlass.ReportDialog;
 using Gtk;
+using QS.Navigation;
+using QS.Project.Versioning;
+using QS.Project.Views;
 using QS.Updater;
 using QSOrmProject;
 using QSProjectsLib;
-using QSSupportLib;
 
 public partial class MainWindow : FakeTDITabGtkWindowBase
 {
 	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+	private ILifetimeScope AutofacScope = MainClass.AppDIContainer.BeginLifetimeScope();
+	public GtkWindowsNavigationManager NavigationManager;
 
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
@@ -19,17 +24,18 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 
 		//Передаем лебл
 		QSMain.StatusBarLabel = labelStatus;
-		this.Title = MainSupport.GetTitle();
+		this.Title = AutofacScope.Resolve<IApplicationInfo>().ProductTitle;
 		QSMain.MakeNewStatusTargetForNlog();
 		Reference.RunReferenceItemDlg += OnRunReferenceItemDialog;
-		QSMain.ReferenceUpdated += OnReferenceUpdate;
 
-		MainSupport.LoadBaseParameters();
-
-		MainUpdater.RunCheckVersion(true, true, true);
 		QSMain.CheckServer(this); // Проверяем настройки сервера
 
-		if (QSMain.User.Login == "root")
+		NavigationManager = AutofacScope.Resolve<GtkWindowsNavigationManager>();
+
+		var checker = new VersionCheckerService(MainClass.AppDIContainer);
+		checker.RunUpdate();
+
+		if(QSMain.User.Login == "root")
 		{
 			string Message = "Вы зашли в программу под администратором базы данных. У вас есть только возможность создавать других пользователей.";
 			MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent,
@@ -82,15 +88,6 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		frmtimerRefreshDlg.Show();
 		frmtimerRefreshDlg.Run();
 		frmtimerRefreshDlg.Destroy();
-	}
-
-	protected void OnReferenceUpdate(object sender, QSMain.ReferenceUpdatedEventArgs e)
-	{
-		/*	switch (e.ReferenceTable) {
-		case "doc_types":
-			ComboWorks.ComboFillReference (comboDocType, "doc_types", 0);
-		break;
-		} */
 	}
 
 	protected void OnRunReferenceItemDialog(object sender, Reference.RunReferenceItemDlgEventArgs e)
@@ -156,7 +153,12 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 
 	protected void OnAboutActionActivated(object sender, EventArgs e)
 	{
-		QSMain.RunAboutDialog();
+		using(var local = AutofacScope.BeginLifetimeScope())
+		{
+			var about = local.Resolve<AboutView>();
+			about.Run();
+			about.Destroy();
+		}
 	}
 
 	protected void OnAction3Activated(object sender, EventArgs e)
@@ -289,7 +291,11 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 
 	protected void OnActionCheckUpdatesActivated(object sender, EventArgs e)
 	{
-		MainUpdater.CheckAppVersionShowAnyway();
+		using(var scope = MainClass.AppDIContainer.BeginLifetimeScope())
+		{
+			var updater = scope.Resolve<ApplicationUpdater>();
+			updater.StartCheckUpdate(UpdaterFlags.ShowAnyway, scope);
+		}
 	}
 
 	protected void OnActionStoreReportActivated(object sender, EventArgs e)
