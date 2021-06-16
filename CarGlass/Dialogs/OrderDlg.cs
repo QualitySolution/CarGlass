@@ -1,22 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
 using CarGlass.Domain;
 using CarGlass.Repository;
 using Gamma.GtkWidgets;
 using Gtk;
 using MySql.Data.MySqlClient;
+using QS.Dialog;
 using QS.DomainModel.UoW;
 using QS.Project.Repositories;
 using QSOrmProject;
 using QSProjectsLib;
-using static QSProjectsLib.MessageDialogWorks;
 
 namespace CarGlass
 {
 	public partial class OrderDlg : FakeTDIEntityGtkDialogBase<WorkOrder>
 	{
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+		#region Внешние зависимости
+		ILifetimeScope AutofacScope;
+		IInteractiveMessage interactive;
+		#endregion
 
 		ListStore ServiceListStore = new Gtk.ListStore(
 				typeof(int),    // 0 - service id
@@ -58,6 +64,9 @@ namespace CarGlass
 
 		void ConfigureDlg()
 		{
+			AutofacScope = MainClass.AppDIContainer.BeginLifetimeScope();
+			interactive = AutofacScope.Resolve<IInteractiveMessage>();
+
 			labelCreated.LabelProp = $"{Entity.CreatedDate} - {Entity.CreatedBy?.Name}";
 
 			this.Title = String.Format(GetTitleFormat(Entity.OrderTypeClass), UoW.IsNew ? "???" : Entity.Id.ToString(), Entity.Date, Entity.Hour);
@@ -226,7 +235,7 @@ namespace CarGlass
 			List<CellRendererToggle> referActive = new List<CellRendererToggle>();
 			if(listPerformers.Count() > 3)
 			{
-				RunWarningDialog("  Указано более трех исполнителей.\n Очистите график работ и проверьте,\n что в заказе не указаны лишние исполнители.");
+				interactive.ShowMessage(ImportanceLevel.Warning, "  Указано более трех исполнителей.\n Очистите график работ и проверьте,\n что в заказе не указаны лишние исполнители.");
 				listPerformers.Clear();
 			}
 
@@ -607,6 +616,12 @@ namespace CarGlass
 
 			ytreeEuroCode.ItemsDataSource = list;
 			GtkScrolledWindow2.Visible = ytreeEuroCode.Visible = list != null && list.Count > 0;
+		}
+
+		public override void Destroy()
+		{
+			base.Destroy();
+			AutofacScope?.DisposeAsync();
 		}
 	}
 }
