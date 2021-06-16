@@ -7,6 +7,8 @@ namespace CarGlass.Calendar
 	{
 		public readonly List<CalendarItem>[,] TimeMap = new List<CalendarItem>[7, 24];
 
+		public uint Count = 0;
+
 		public ItemsList()
 		{
 		}
@@ -17,6 +19,7 @@ namespace CarGlass.Calendar
 			if(TimeMap[day, hour] == null)
 				TimeMap[day, hour] = new List<CalendarItem>();
 			TimeMap[day, hour].Add(item);
+			Count++;
 		}
 	}
 }

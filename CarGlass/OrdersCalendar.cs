@@ -34,6 +34,11 @@ namespace CarGlass
 
 		public ClientCalendar frmClientCalendar;
 
+		//Для потоко безопасного доступа через Interlocked
+		//0 - Idle
+		//1 - в процессе запроса к БД.
+		public int InUpdatingState = 0;
+
 		public event EventHandler<RefreshOrdersEventArgs> NeedRefreshOrders;
 		public event EventHandler<NewOrderEventArgs> NewOrder;
 		public event EventHandler<NewSheduleWorkEventArgs> NewSheduleWork;
