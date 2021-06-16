@@ -119,7 +119,9 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				connection.Open();
 				logger.Info("Запрос заказов на {0:d}", calendar._StartDate);
 				string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
-					"status.name as status, manufacturers.name as manufacturer, tablesum.sum FROM orders " +
+					"status.name as status, manufacturers.name as manufacturer, tablesum.sum, order_type.name as order_type_name " +
+					"FROM orders " +
+					"LEFT JOIN order_type ON order_type.id = orders.id_order_type " +
 					"LEFT JOIN models ON models.id = orders.car_model_id " +
 					"LEFT JOIN marks ON marks.id = models.mark_id " +
 					"LEFT JOIN status ON status.id = orders.status_id " +
@@ -143,13 +145,12 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				{
 					while(rdr.Read())
 					{
-						CalendarItem order = new CalendarItem(rdr.GetDateTime("date"),
+						CalendarItem order = new CalendarItem(
+							rdr.GetDateTime("date"),
 							rdr.GetInt32("hour")
 						);
 						order.id = rdr.GetInt32("id");
-						if(rdr["id_order_type"] == DBNull.Value)
-							throw new InvalidCastException($"В заказе {order.id} id_order_type = null");
-						OrderTypeClass orderTypeClass = UoW.Session.QueryOver<OrderTypeClass>().List().FirstOrDefault(x => x.Id == rdr.GetInt32("id_order_type"));
+
 						if(!QSMain.User.Permissions["worker"])
 						{
 							order.FullText = String.Format("{9}\nСостояние: {0}\nАвтомобиль: {1} {2}\nЕврокод: {3}\nПроизводитель: {4}\nСклад:{5}\nТелефон: {6}\nСтоимость: {7:C}\n{8}",
@@ -162,7 +163,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 								rdr["phone"],
 								DBWorks.GetDecimal(rdr, "sum", 0),
 								rdr["comment"],
-								orderTypeClass.Name
+								rdr["order_type_name"]
 							);
 							order.Text = String.Format("{0} {1}\n{2}\n{3}", rdr["mark"], rdr["model"], rdr["phone"], rdr["comment"]);
 							order.DeleteOrder += OnDeleteOrder;
@@ -179,7 +180,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 								rdr["manufacturer"],
 								rdr["stock"],
 								rdr["comment"],
-								orderTypeClass.Name
+								rdr["order_type_name"]
 							);
 
 							var firstStr = rdr["mark"] + " " + rdr["model"] + "\n";
@@ -196,7 +197,6 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 						if(rdr["stock"].ToString().Length > 0 && rdr["stockcolor"] != DBNull.Value)
 							order.Tag = rdr["stock"].ToString().Substring(0, 1);
-						order.OrderType = orderTypeClass;
 						order.Calendar = calendar;
 						int day = (order.Date - calendar._StartDate).Days;
 						order.TypeItemButton = TypeItemOrButton.Order;
