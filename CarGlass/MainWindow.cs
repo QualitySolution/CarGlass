@@ -54,14 +54,11 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		UsersAction.Sensitive = QSMain.User.Admin;
 		salarycalculation1.Visible = QSMain.User.Admin;
 		labelUser.LabelProp = QSMain.User.Name;
-		chatvsliderMain.Chat.ChatUser = QSMain.User;
 
 		//Настраиваем календарь
 		PrerareCalendars();
 
 		notebookMain.CurrentPage = 0;
-		chatvsliderMain.IsHided = true;
-		chatvsliderMain.Chat.Active = true;
 	}
 
 	protected void OnDeleteEvent(object sender, DeleteEventArgs a)

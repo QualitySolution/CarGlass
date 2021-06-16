@@ -351,10 +351,6 @@
       <Project>{3DCDD84A-20D0-4939-BE25-58B19F3961F2}</Project>
       <Name>QSExtraGammaWidgets</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QSChat\QSChat.csproj">
-      <Project>{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}</Project>
-      <Name>QSChat</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\QSProjects\QS.Updater.Gtk\QS.Updater.Gtk.csproj">
       <Project>{6D755374-6EAF-44B6-8C6C-6FE5E5AB3432}</Project>
       <Name>QS.Updater.Gtk</Name>

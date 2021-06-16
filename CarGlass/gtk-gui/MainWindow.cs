@@ -87,9 +87,7 @@ public partial class MainWindow
 
 	private global::CarGlass.Dialogs.SalaryCalculation salarycalculation1;
 
-	private global::Gtk.Label label5;
-
-	private global::QSChat.ChatVSlider chatvsliderMain;
+	private global::Gtk.Label label9;
 
 	private global::Gtk.Statusbar statusbar1;
 
@@ -293,27 +291,17 @@ public partial class MainWindow
 		global::Gtk.Notebook.NotebookChild w8 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.salarycalculation1]));
 		w8.Position = 5;
 		// Notebook tab
-		this.label5 = new global::Gtk.Label();
-		this.label5.Name = "label5";
-		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Расчет ЗП");
-		this.notebookMain.SetTabLabel(this.salarycalculation1, this.label5);
-		this.label5.ShowAll();
+		this.label9 = new global::Gtk.Label();
+		this.label9.Name = "label9";
+		this.label9.LabelProp = global::Mono.Unix.Catalog.GetString("Расчет ЗП");
+		this.notebookMain.SetTabLabel(this.salarycalculation1, this.label9);
+		this.label9.ShowAll();
 		this.hbox6.Add(this.notebookMain);
 		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.notebookMain]));
 		w9.Position = 0;
-		// Container child hbox6.Gtk.Box+BoxChild
-		this.chatvsliderMain = new global::QSChat.ChatVSlider();
-		this.chatvsliderMain.Events = ((global::Gdk.EventMask)(256));
-		this.chatvsliderMain.Name = "chatvsliderMain";
-		this.chatvsliderMain.IsHided = false;
-		this.hbox6.Add(this.chatvsliderMain);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.chatvsliderMain]));
-		w10.Position = 1;
-		w10.Expand = false;
-		w10.Fill = false;
 		this.vbox1.Add(this.hbox6);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox6]));
-		w11.Position = 1;
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox6]));
+		w10.Position = 1;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.statusbar1 = new global::Gtk.Statusbar();
 		this.statusbar1.Name = "statusbar1";
@@ -323,30 +311,30 @@ public partial class MainWindow
 		this.labelUser.Name = "labelUser";
 		this.labelUser.LabelProp = global::Mono.Unix.Catalog.GetString("label5");
 		this.statusbar1.Add(this.labelUser);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelUser]));
-		w12.Position = 0;
-		w12.Expand = false;
-		w12.Fill = false;
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelUser]));
+		w11.Position = 0;
+		w11.Expand = false;
+		w11.Fill = false;
 		// Container child statusbar1.Gtk.Box+BoxChild
 		this.labelStatus = new global::Gtk.Label();
 		this.labelStatus.Name = "labelStatus";
 		this.labelStatus.LabelProp = global::Mono.Unix.Catalog.GetString("label4");
 		this.statusbar1.Add(this.labelStatus);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelStatus]));
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelStatus]));
+		w12.Position = 2;
+		w12.Expand = false;
+		w12.Fill = false;
+		this.vbox1.Add(this.statusbar1);
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
 		w13.Position = 2;
 		w13.Expand = false;
 		w13.Fill = false;
-		this.vbox1.Add(this.statusbar1);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
-		w14.Position = 2;
-		w14.Expand = false;
-		w14.Fill = false;
 		this.Add(this.vbox1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 1139;
+		this.DefaultWidth = 1155;
 		this.DefaultHeight = 457;
 		this.salarycalculation1.Hide();
 		this.Show();

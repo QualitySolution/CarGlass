@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Data.Bindings", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSExtraGammaWidgets", "..\QSProjects\QSExtraGammaWidgets\QSExtraGammaWidgets.csproj", "{3DCDD84A-20D0-4939-BE25-58B19F3961F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSChat", "QSChat\QSChat.csproj", "{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.Project", "..\QSProjects\QS.Project\QS.Project.csproj", "{28A78143-42E3-40E7-86F5-DD7E1679BE86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.Project.Gtk", "..\QSProjects\QS.Project.Gtk\QS.Project.Gtk.csproj", "{3C0F3944-CBD5-4BD6-83D4-CF33AD6FC68C}"
@@ -108,12 +106,6 @@ Global
 		{3DCDD84A-20D0-4939-BE25-58B19F3961F2}.Release|x86.Build.0 = Release|Any CPU
 		{3DCDD84A-20D0-4939-BE25-58B19F3961F2}.ReleaseWin|x86.ActiveCfg = Release|Any CPU
 		{3DCDD84A-20D0-4939-BE25-58B19F3961F2}.ReleaseWin|x86.Build.0 = Release|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Debug|x86.Build.0 = Debug|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Release|x86.ActiveCfg = Release|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.Release|x86.Build.0 = Release|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.ReleaseWin|x86.ActiveCfg = Release|Any CPU
-		{6E2FDF7B-9C20-4778-AFF2-5B2677FAB555}.ReleaseWin|x86.Build.0 = Release|Any CPU
 		{28A78143-42E3-40E7-86F5-DD7E1679BE86}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{28A78143-42E3-40E7-86F5-DD7E1679BE86}.Debug|x86.Build.0 = Debug|Any CPU
 		{28A78143-42E3-40E7-86F5-DD7E1679BE86}.Release|x86.ActiveCfg = Release|Any CPU
