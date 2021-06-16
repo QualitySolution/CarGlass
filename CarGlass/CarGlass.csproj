@@ -195,6 +195,8 @@
     <EmbeddedResource Include="icons\display.png" />
     <EmbeddedResource Include="Updates\1.7.sql" />
     <EmbeddedResource Include="Updates\1.7.3.sql" />
+    <EmbeddedResource Include="icons\buttons\mail.png" />
+    <EmbeddedResource Include="icons\buttons\send.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />

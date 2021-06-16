@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
@@ -1191,10 +1191,10 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="880 757">
+  <widget class="Gtk.Dialog" id="CarGlass.OrderDlg" design-size="1000 757">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
-    <property name="Buttons">4</property>
+    <property name="Buttons">6</property>
     <property name="HelpButton">False</property>
     <child internal-child="VBox">
       <widget class="Gtk.VBox" id="dialog1_VBox">
@@ -2585,8 +2585,40 @@
         <property name="MemberName" />
         <property name="Spacing">10</property>
         <property name="BorderWidth">5</property>
-        <property name="Size">4</property>
+        <property name="Size">6</property>
         <property name="LayoutStyle">End</property>
+        <child>
+          <widget class="Gtk.Button" id="buttonSendSMS">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextAndIcon</property>
+            <property name="Icon">resource:CarGlass.icons.buttons.send.png</property>
+            <property name="Label" translatable="yes">Отправить СМС</property>
+            <property name="UseUnderline">True</property>
+            <property name="ResponseId">0</property>
+          </widget>
+          <packing>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="buttonSMSHistory">
+            <property name="MemberName" />
+            <property name="Tooltip" translatable="yes">Отправленные сообщения</property>
+            <property name="CanFocus">True</property>
+            <property name="Type">TextAndIcon</property>
+            <property name="Icon">resource:CarGlass.icons.buttons.mail.png</property>
+            <property name="Label" translatable="yes">Отправленные</property>
+            <property name="UseUnderline">True</property>
+            <property name="ResponseId">0</property>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
         <child>
           <widget class="Gtk.Button" id="buttonDelete">
             <property name="MemberName" />
@@ -2600,6 +2632,7 @@
             <property name="label">gtk-delete</property>
           </widget>
           <packing>
+            <property name="Position">2</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
@@ -2617,7 +2650,7 @@
             <property name="label">gtk-print</property>
           </widget>
           <packing>
-            <property name="Position">1</property>
+            <property name="Position">3</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
@@ -2634,7 +2667,7 @@
             <property name="label">gtk-cancel</property>
           </widget>
           <packing>
-            <property name="Position">2</property>
+            <property name="Position">4</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
@@ -2653,7 +2686,7 @@
             <property name="label">gtk-ok</property>
           </widget>
           <packing>
-            <property name="Position">3</property>
+            <property name="Position">5</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
