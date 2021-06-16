@@ -1064,7 +1064,7 @@ namespace CarGlass
 			global::Gtk.Image w77 = new global::Gtk.Image();
 			w77.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("CarGlass.icons.buttons.send.png");
 			this.buttonSendSMS.Image = w77;
-			this.AddActionWidget(this.buttonSendSMS, 0);
+			w76.Add(this.buttonSendSMS);
 			global::Gtk.ButtonBox.ButtonBoxChild w78 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w76[this.buttonSendSMS]));
 			w78.Expand = false;
 			w78.Fill = false;
@@ -1078,7 +1078,7 @@ namespace CarGlass
 			global::Gtk.Image w79 = new global::Gtk.Image();
 			w79.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("CarGlass.icons.buttons.mail.png");
 			this.buttonSMSHistory.Image = w79;
-			this.AddActionWidget(this.buttonSMSHistory, 0);
+			w76.Add(this.buttonSMSHistory);
 			global::Gtk.ButtonBox.ButtonBoxChild w80 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w76[this.buttonSMSHistory]));
 			w80.Position = 1;
 			w80.Expand = false;
@@ -1151,6 +1151,8 @@ namespace CarGlass
 			this.entryPhone.Changed += new global::System.EventHandler(this.OnEntryPhoneChanged);
 			this.entryEurocode.Changed += new global::System.EventHandler(this.OnEntryEurocodeChanged);
 			this.comboMark.Changed += new global::System.EventHandler(this.OnComboMarkChanged);
+			this.buttonSendSMS.Clicked += new global::System.EventHandler(this.OnButtonSendSMSClicked);
+			this.buttonSMSHistory.Clicked += new global::System.EventHandler(this.OnButtonSMSHistoryClicked);
 			this.buttonDelete.Clicked += new global::System.EventHandler(this.OnButtonDeleteClicked);
 			this.buttonPrint.Clicked += new global::System.EventHandler(this.OnButtonPrintClicked);
 			this.buttonOk.Clicked += new global::System.EventHandler(this.OnButtonOkClicked);

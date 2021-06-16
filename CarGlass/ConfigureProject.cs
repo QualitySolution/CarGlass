@@ -1,33 +1,35 @@
-﻿using QSOrmProject;
-using QSProjectsLib;
-using CarGlass.Domain;
-using CarGlass.Dialogs;
-using QS.Project.DB;
+﻿using System.Data.Common;
 using Autofac;
-using QS.Project.Versioning;
-using QS.Updater;
+using CarGlass.Dialogs;
+using CarGlass.Domain;
 using CarGlass.Repository;
-using QS.ViewModels.Resolve;
-using QS.ViewModels;
-using QS.Project.Search.GtkUI;
-using QS.Project.Views;
-using QS.Project.ViewModels;
-using QS.Navigation;
-using QS.Deletion.Views;
-using QS.Updater.DB.Views;
-using QS.Views.Resolve;
-using QS.Dialog.GtkUI;
-using QS.Project.Services.GtkUI;
-using QS.Validation;
-using QS.Dialog;
-using QS.Project.Dialogs.GtkUI.ServiceDlg;
-using QS.Services;
-using QS.Project.Services;
-using QS.Deletion;
-using QS.Permissions;
-using QS.DomainModel.UoW;
-using System.Data.Common;
+using CarGlass.ViewModels.SMS;
+using CarGlass.Views.SMS;
 using QS.BaseParameters;
+using QS.Deletion;
+using QS.Deletion.Views;
+using QS.Dialog;
+using QS.Dialog.GtkUI;
+using QS.DomainModel.UoW;
+using QS.Navigation;
+using QS.Permissions;
+using QS.Project.DB;
+using QS.Project.Dialogs.GtkUI.ServiceDlg;
+using QS.Project.Search.GtkUI;
+using QS.Project.Services;
+using QS.Project.Services.GtkUI;
+using QS.Project.Versioning;
+using QS.Project.ViewModels;
+using QS.Project.Views;
+using QS.Services;
+using QS.Updater;
+using QS.Updater.DB.Views;
+using QS.Validation;
+using QS.ViewModels;
+using QS.ViewModels.Resolve;
+using QS.Views.Resolve;
+using QSOrmProject;
+using QSProjectsLib;
 
 namespace CarGlass
 {
@@ -95,13 +97,13 @@ namespace CarGlass
 			#region Навигация
 			builder.Register(ctx => new ClassNamesHashGenerator(null)).As<IPageHashGenerator>();
 			//builder.Register(ctx => new ClassNamesHashGenerator(new[] { new RDLReportsHashGenerator() })).As<IPageHashGenerator>();
-			builder.Register((ctx) => new AutofacViewModelsTdiPageFactory(AppDIContainer)).As<IViewModelsPageFactory>();
+			builder.Register((ctx) => new AutofacViewModelsGtkPageFactory(AppDIContainer)).As<IViewModelsPageFactory>();
 			builder.Register((ctx) => new AutofacTdiPageFactory(AppDIContainer)).As<ITdiPageFactory>();
 			builder.Register((ctx) => new AutofacViewModelsGtkPageFactory(AppDIContainer)).AsSelf();
 			builder.RegisterType<GtkWindowsNavigationManager>().AsSelf().As<INavigationManager>().SingleInstance();
 			builder.Register(cc => new ClassNamesBaseGtkViewResolver(
 				//typeof(RdlViewerView),
-				//typeof(OrganizationView),
+				typeof(SendMessageView),
 				typeof(DeletionView),
 				typeof(UpdateProcessView)
 			)).As<IGtkViewResolver>();
@@ -137,9 +139,9 @@ namespace CarGlass
 
 			#region ViewModels
 			builder.Register(x => new AutofacViewModelResolver(AppDIContainer)).As<IViewModelResolver>();
-			//builder.RegisterAssemblyTypes(System.Reflection.Assembly.GetAssembly(typeof(OrganizationViewModel)))
-				//.Where(t => t.IsAssignableTo<ViewModelBase>() && t.Name.EndsWith("ViewModel"))
-				//.AsSelf();
+			builder.RegisterAssemblyTypes(System.Reflection.Assembly.GetAssembly(typeof(SendMessageViewModel)))
+				.Where(t => t.IsAssignableTo<ViewModelBase>() && t.Name.EndsWith("ViewModel"))
+				.AsSelf();
 			#endregion
 
 			#region Repository

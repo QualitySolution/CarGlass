@@ -4,11 +4,13 @@ using System.Linq;
 using Autofac;
 using CarGlass.Domain;
 using CarGlass.Repository;
+using CarGlass.ViewModels.SMS;
 using Gamma.GtkWidgets;
 using Gtk;
 using MySql.Data.MySqlClient;
 using QS.Dialog;
 using QS.DomainModel.UoW;
+using QS.Navigation;
 using QS.Project.Repositories;
 using QSOrmProject;
 using QSProjectsLib;
@@ -22,6 +24,7 @@ namespace CarGlass
 		#region Внешние зависимости
 		ILifetimeScope AutofacScope;
 		IInteractiveMessage interactive;
+		INavigationManager navigation;
 		#endregion
 
 		ListStore ServiceListStore = new Gtk.ListStore(
@@ -66,6 +69,7 @@ namespace CarGlass
 		{
 			AutofacScope = MainClass.AppDIContainer.BeginLifetimeScope();
 			interactive = AutofacScope.Resolve<IInteractiveMessage>();
+			navigation = AutofacScope.Resolve<INavigationManager>();
 
 			labelCreated.LabelProp = $"{Entity.CreatedDate} - {Entity.CreatedBy?.Name}";
 
@@ -622,6 +626,16 @@ namespace CarGlass
 		{
 			base.Destroy();
 			AutofacScope?.DisposeAsync();
+		}
+
+		protected void OnButtonSendSMSClicked(object sender, EventArgs e)
+		{
+			navigation.OpenViewModel<SendMessageViewModel>(null);
+		}
+
+		protected void OnButtonSMSHistoryClicked(object sender, EventArgs e)
+		{
+			navigation.OpenViewModel<MessageHistoryViewModel>(null);
 		}
 	}
 }
