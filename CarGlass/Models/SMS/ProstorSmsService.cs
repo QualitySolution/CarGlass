@@ -63,5 +63,7 @@ namespace CarGlass.Models.SMS
 				}
 			}
 		}
+
+		public bool HasError => Status != "accepted";
 	}
 }

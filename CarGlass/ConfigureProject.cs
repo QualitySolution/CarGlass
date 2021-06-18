@@ -2,6 +2,7 @@
 using Autofac;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
+using CarGlass.Models.SMS;
 using CarGlass.Repository;
 using CarGlass.ViewModels.SMS;
 using CarGlass.Views.SMS;
@@ -162,6 +163,11 @@ namespace CarGlass
 
 			#region Настройка
 			//builder.Register(c => new IniFileConfiguration(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "workwear.ini"))).As<IChangeableConfiguration>().AsSelf();
+			#endregion
+
+			#region СМС
+			builder.RegisterType<OrderMessagesModel>().AsSelf();
+			builder.RegisterType<ProstorSmsService>().AsSelf();
 			#endregion
 
 			AppDIContainer = builder.Build();

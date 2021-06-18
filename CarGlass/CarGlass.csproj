@@ -330,6 +330,7 @@
     <Compile Include="Views\SMS\MessageHistoryView.cs" />
     <Compile Include="gtk-gui\CarGlass.Views.SMS.MessageHistoryView.cs" />
     <Compile Include="Models\SMS\ProstorSmsService.cs" />
+    <Compile Include="Models\SMS\OrderMessagesModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using CarGlass.Domain;
+using CarGlass.Models.SMS;
 using CarGlass.Repository;
 using CarGlass.ViewModels.SMS;
 using Gamma.GtkWidgets;
@@ -25,6 +26,7 @@ namespace CarGlass
 		ILifetimeScope AutofacScope;
 		IInteractiveMessage interactive;
 		INavigationManager navigation;
+		OrderMessagesModel orderMessages;
 		#endregion
 
 		ListStore ServiceListStore = new Gtk.ListStore(
@@ -70,6 +72,7 @@ namespace CarGlass
 			AutofacScope = MainClass.AppDIContainer.BeginLifetimeScope();
 			interactive = AutofacScope.Resolve<IInteractiveMessage>();
 			navigation = AutofacScope.Resolve<INavigationManager>();
+			orderMessages = AutofacScope.Resolve<OrderMessagesModel>(new TypedParameter(typeof(WorkOrder), Entity));
 
 			labelCreated.LabelProp = $"{Entity.CreatedDate} - {Entity.CreatedBy?.Name}";
 
@@ -630,7 +633,7 @@ namespace CarGlass
 
 		protected void OnButtonSendSMSClicked(object sender, EventArgs e)
 		{
-			navigation.OpenViewModel<SendMessageViewModel>(null);
+			navigation.OpenViewModel<SendMessageViewModel, OrderMessagesModel>(null, orderMessages);
 		}
 
 		protected void OnButtonSMSHistoryClicked(object sender, EventArgs e)
