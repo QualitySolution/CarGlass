@@ -4,9 +4,11 @@ using CarGlass;
 using CarGlass.Dialogs;
 using CarGlass.ReportDialog;
 using Gtk;
+using MySql.Data.MySqlClient;
 using QS.Navigation;
 using QS.Project.Versioning;
 using QS.Project.Views;
+using QS.Services;
 using QS.Updater;
 using QSOrmProject;
 using QSProjectsLib;
@@ -35,7 +37,9 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		var checker = new VersionCheckerService(MainClass.AppDIContainer);
 		checker.RunUpdate();
 
-		if(QSMain.User.Login == "root")
+		//Пока такая реализация чтобы не плодить сущьностей.
+		var connectionBuilder = AutofacScope.Resolve<MySqlConnectionStringBuilder>();
+		if(connectionBuilder.UserID == "root")
 		{
 			string Message = "Вы зашли в программу под администратором базы данных. У вас есть только возможность создавать других пользователей.";
 			MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent,
@@ -51,9 +55,12 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 			return;
 		}
 
-		UsersAction.Sensitive = QSMain.User.Admin;
-		salarycalculation1.Visible = QSMain.User.Admin;
-		labelUser.LabelProp = QSMain.User.Name;
+		var userService = AutofacScope.Resolve<IUserService>();
+		var user = userService.GetCurrentUser(UoW);
+
+		UsersAction.Sensitive = user.IsAdmin;
+		salarycalculation1.Visible = user.IsAdmin;
+		labelUser.LabelProp = user.Name;
 
 		//Настраиваем календарь
 		PrerareCalendars();
