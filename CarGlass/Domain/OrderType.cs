@@ -6,27 +6,6 @@ using QS.DomainModel.Entity;
 
 namespace CarGlass.Domain
 {
-    //public enum OrderType
-    //{
-    //    [Display(Name = "Установка стекл")]
-    //    install,
-    //    [Display(Name = "Тонировка")]
-    //    tinting,
-    //    [Display(Name = "Ремонт сколов")]
-    //    repair,
-    //    [Display(Name = "Полировка")]
-    //    polishing,
-    //    [Display(Name = "Бронировка")]
-    //    armoring,
-    //    [Display(Name = "Прочее")]
-    //    other
-    //}
-
-    //public class OrderTypeStringType : NHibernate.Type.EnumStringType
-    //{
-    //    public OrderTypeStringType() : base(typeof(OrderType)) { }
-    //}
-
     public class OrderTypeClass : PropertyChangedBase, IDomainObject
 	{
 		public virtual int Id { get; set; }
@@ -40,6 +19,13 @@ namespace CarGlass.Domain
 			set { SetField(ref name, value); }
 		}
 
+		private string nameAccusative;
+		[Display(Name = "Название Винительный падеж")]
+		public virtual string NameAccusative
+		{
+			get => nameAccusative;
+			set => SetField(ref nameAccusative, value);
+		}
 
 		private bool isCalculateSalary;
 

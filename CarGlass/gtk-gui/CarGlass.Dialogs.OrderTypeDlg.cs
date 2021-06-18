@@ -12,11 +12,15 @@ namespace CarGlass.Dialogs
 
 		private global::Gtk.Entry entryNumberOrder;
 
-		private global::Gtk.HBox hbox3;
+		private global::Gtk.Table table1;
+
+		private global::Gamma.GtkWidgets.yEntry entryNameAccusative;
+
+		private global::Gtk.Entry entryNameOrder;
 
 		private global::Gtk.Label label3;
 
-		private global::Gtk.Entry entryNameOrder;
+		private global::Gamma.GtkWidgets.yLabel ylabel1;
 
 		private global::Gtk.CheckButton checkbuttonCalculationSalary;
 
@@ -127,32 +131,59 @@ namespace CarGlass.Dialogs
 			w4.Expand = false;
 			w4.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.hbox3 = new global::Gtk.HBox();
-			this.hbox3.Name = "hbox3";
-			this.hbox3.Spacing = 6;
-			// Container child hbox3.Gtk.Box+BoxChild
-			this.label3 = new global::Gtk.Label();
-			this.label3.Name = "label3";
-			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("Наименование типа заказа:");
-			this.hbox3.Add(this.label3);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.label3]));
-			w5.Position = 0;
-			w5.Expand = false;
-			w5.Fill = false;
-			// Container child hbox3.Gtk.Box+BoxChild
+			this.table1 = new global::Gtk.Table(((uint)(2)), ((uint)(2)), false);
+			this.table1.Name = "table1";
+			this.table1.RowSpacing = ((uint)(6));
+			this.table1.ColumnSpacing = ((uint)(6));
+			// Container child table1.Gtk.Table+TableChild
+			this.entryNameAccusative = new global::Gamma.GtkWidgets.yEntry();
+			this.entryNameAccusative.CanFocus = true;
+			this.entryNameAccusative.Name = "entryNameAccusative";
+			this.entryNameAccusative.IsEditable = true;
+			this.entryNameAccusative.InvisibleChar = '●';
+			this.table1.Add(this.entryNameAccusative);
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.entryNameAccusative]));
+			w5.TopAttach = ((uint)(1));
+			w5.BottomAttach = ((uint)(2));
+			w5.LeftAttach = ((uint)(1));
+			w5.RightAttach = ((uint)(2));
+			w5.XOptions = ((global::Gtk.AttachOptions)(4));
+			w5.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
 			this.entryNameOrder = new global::Gtk.Entry();
 			this.entryNameOrder.CanFocus = true;
 			this.entryNameOrder.Name = "entryNameOrder";
 			this.entryNameOrder.IsEditable = true;
 			this.entryNameOrder.InvisibleChar = '●';
-			this.hbox3.Add(this.entryNameOrder);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.entryNameOrder]));
-			w6.Position = 1;
-			this.vbox2.Add(this.hbox3);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox3]));
-			w7.Position = 1;
-			w7.Expand = false;
-			w7.Fill = false;
+			this.table1.Add(this.entryNameOrder);
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.entryNameOrder]));
+			w6.LeftAttach = ((uint)(1));
+			w6.RightAttach = ((uint)(2));
+			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.label3 = new global::Gtk.Label();
+			this.label3.Name = "label3";
+			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("Наименование типа заказа:");
+			this.table1.Add(this.label3);
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.label3]));
+			w7.XOptions = ((global::Gtk.AttachOptions)(4));
+			w7.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.ylabel1 = new global::Gamma.GtkWidgets.yLabel();
+			this.ylabel1.Name = "ylabel1";
+			this.ylabel1.Xalign = 1F;
+			this.ylabel1.LabelProp = global::Mono.Unix.Catalog.GetString("Винительный падеж (Что?):");
+			this.table1.Add(this.ylabel1);
+			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.ylabel1]));
+			w8.TopAttach = ((uint)(1));
+			w8.BottomAttach = ((uint)(2));
+			w8.XOptions = ((global::Gtk.AttachOptions)(4));
+			w8.YOptions = ((global::Gtk.AttachOptions)(4));
+			this.vbox2.Add(this.table1);
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.table1]));
+			w9.Position = 1;
+			w9.Expand = false;
+			w9.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.checkbuttonCalculationSalary = new global::Gtk.CheckButton();
 			this.checkbuttonCalculationSalary.CanFocus = true;
@@ -161,10 +192,10 @@ namespace CarGlass.Dialogs
 			this.checkbuttonCalculationSalary.DrawIndicator = true;
 			this.checkbuttonCalculationSalary.UseUnderline = true;
 			this.vbox2.Add(this.checkbuttonCalculationSalary);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.checkbuttonCalculationSalary]));
-			w8.Position = 2;
-			w8.Expand = false;
-			w8.Fill = false;
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.checkbuttonCalculationSalary]));
+			w10.Position = 2;
+			w10.Expand = false;
+			w10.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.frame1 = new global::Gtk.Frame();
 			this.frame1.Name = "frame1";
@@ -190,10 +221,10 @@ namespace CarGlass.Dialogs
 			this.checkbuttonInstallationSuburban.DrawIndicator = true;
 			this.checkbuttonInstallationSuburban.UseUnderline = true;
 			this.hbox7.Add(this.checkbuttonInstallationSuburban);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.checkbuttonInstallationSuburban]));
-			w9.Position = 0;
-			w9.Expand = false;
-			w9.Fill = false;
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.checkbuttonInstallationSuburban]));
+			w11.Position = 0;
+			w11.Expand = false;
+			w11.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.checkbuttonOrder = new global::Gtk.CheckButton();
 			this.checkbuttonOrder.CanFocus = true;
@@ -203,13 +234,13 @@ namespace CarGlass.Dialogs
 			this.checkbuttonOrder.DrawIndicator = true;
 			this.checkbuttonOrder.UseUnderline = true;
 			this.hbox7.Add(this.checkbuttonOrder);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.checkbuttonOrder]));
-			w10.Position = 1;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.checkbuttonOrder]));
+			w12.Position = 1;
 			this.vbox4.Add(this.hbox7);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.hbox7]));
-			w11.Position = 0;
-			w11.Expand = false;
-			w11.Fill = false;
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.hbox7]));
+			w13.Position = 0;
+			w13.Expand = false;
+			w13.Fill = false;
 			// Container child vbox4.Gtk.Box+BoxChild
 			this.hbox9 = new global::Gtk.HBox();
 			this.hbox9.Name = "hbox9";
@@ -223,10 +254,10 @@ namespace CarGlass.Dialogs
 			this.checkbuttonSuburbanTinting.DrawIndicator = true;
 			this.checkbuttonSuburbanTinting.UseUnderline = true;
 			this.hbox9.Add(this.checkbuttonSuburbanTinting);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox9[this.checkbuttonSuburbanTinting]));
-			w12.Position = 0;
-			w12.Expand = false;
-			w12.Fill = false;
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox9[this.checkbuttonSuburbanTinting]));
+			w14.Position = 0;
+			w14.Expand = false;
+			w14.Fill = false;
 			// Container child hbox9.Gtk.Box+BoxChild
 			this.checkbuttonTintedEntry = new global::Gtk.CheckButton();
 			this.checkbuttonTintedEntry.CanFocus = true;
@@ -236,13 +267,13 @@ namespace CarGlass.Dialogs
 			this.checkbuttonTintedEntry.DrawIndicator = true;
 			this.checkbuttonTintedEntry.UseUnderline = true;
 			this.hbox9.Add(this.checkbuttonTintedEntry);
-			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox9[this.checkbuttonTintedEntry]));
-			w13.Position = 1;
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox9[this.checkbuttonTintedEntry]));
+			w15.Position = 1;
 			this.vbox4.Add(this.hbox9);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.hbox9]));
-			w14.Position = 1;
-			w14.Expand = false;
-			w14.Fill = false;
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.hbox9]));
+			w16.Position = 1;
+			w16.Expand = false;
+			w16.Fill = false;
 			this.GtkAlignment2.Add(this.vbox4);
 			this.frame1.Add(this.GtkAlignment2);
 			this.GtkLabel5 = new global::Gtk.Label();
@@ -251,10 +282,10 @@ namespace CarGlass.Dialogs
 			this.GtkLabel5.UseMarkup = true;
 			this.frame1.LabelWidget = this.GtkLabel5;
 			this.vbox2.Add(this.frame1);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.frame1]));
-			w17.Position = 3;
-			w17.Expand = false;
-			w17.Fill = false;
+			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.frame1]));
+			w19.Position = 3;
+			w19.Expand = false;
+			w19.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.frame3 = new global::Gtk.Frame();
 			this.frame3.Name = "frame3";
@@ -280,10 +311,10 @@ namespace CarGlass.Dialogs
 			this.checkbuttonMainParameters.DrawIndicator = true;
 			this.checkbuttonMainParameters.UseUnderline = true;
 			this.vbox5.Add(this.checkbuttonMainParameters);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox5[this.checkbuttonMainParameters]));
-			w18.Position = 0;
-			w18.Expand = false;
-			w18.Fill = false;
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox5[this.checkbuttonMainParameters]));
+			w20.Position = 0;
+			w20.Expand = false;
+			w20.Fill = false;
 			// Container child vbox5.Gtk.Box+BoxChild
 			this.checkbuttonAdditionalParameters = new global::Gtk.CheckButton();
 			this.checkbuttonAdditionalParameters.CanFocus = true;
@@ -292,13 +323,13 @@ namespace CarGlass.Dialogs
 			this.checkbuttonAdditionalParameters.DrawIndicator = true;
 			this.checkbuttonAdditionalParameters.UseUnderline = true;
 			this.vbox5.Add(this.checkbuttonAdditionalParameters);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox5[this.checkbuttonAdditionalParameters]));
-			w19.Position = 1;
-			w19.Expand = false;
-			w19.Fill = false;
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox5[this.checkbuttonAdditionalParameters]));
+			w21.Position = 1;
+			w21.Expand = false;
+			w21.Fill = false;
 			this.hbox11.Add(this.vbox5);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox11[this.vbox5]));
-			w20.Position = 0;
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox11[this.vbox5]));
+			w22.Position = 0;
 			this.GtkAlignment3.Add(this.hbox11);
 			this.frame3.Add(this.GtkAlignment3);
 			this.GtkLabel8 = new global::Gtk.Label();
@@ -307,10 +338,10 @@ namespace CarGlass.Dialogs
 			this.GtkLabel8.UseMarkup = true;
 			this.frame3.LabelWidget = this.GtkLabel8;
 			this.vbox2.Add(this.frame3);
-			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.frame3]));
-			w23.Position = 4;
-			w23.Expand = false;
-			w23.Fill = false;
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.frame3]));
+			w25.Position = 4;
+			w25.Expand = false;
+			w25.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.frame4 = new global::Gtk.Frame();
 			this.frame4.Name = "frame4";
@@ -335,10 +366,10 @@ namespace CarGlass.Dialogs
 			this.checkbuttonInstall.DrawIndicator = true;
 			this.checkbuttonInstall.UseUnderline = true;
 			this.vbox6.Add(this.checkbuttonInstall);
-			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.checkbuttonInstall]));
-			w24.Position = 0;
-			w24.Expand = false;
-			w24.Fill = false;
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.checkbuttonInstall]));
+			w26.Position = 0;
+			w26.Expand = false;
+			w26.Fill = false;
 			// Container child vbox6.Gtk.Box+BoxChild
 			this.checkbuttonOther = new global::Gtk.CheckButton();
 			this.checkbuttonOther.CanFocus = true;
@@ -347,13 +378,13 @@ namespace CarGlass.Dialogs
 			this.checkbuttonOther.DrawIndicator = true;
 			this.checkbuttonOther.UseUnderline = true;
 			this.vbox6.Add(this.checkbuttonOther);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.checkbuttonOther]));
-			w25.Position = 1;
-			w25.Expand = false;
-			w25.Fill = false;
+			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.checkbuttonOther]));
+			w27.Position = 1;
+			w27.Expand = false;
+			w27.Fill = false;
 			this.hbox12.Add(this.vbox6);
-			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox12[this.vbox6]));
-			w26.Position = 0;
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.hbox12[this.vbox6]));
+			w28.Position = 0;
 			this.GtkAlignment4.Add(this.hbox12);
 			this.frame4.Add(this.GtkAlignment4);
 			this.GtkLabel15 = new global::Gtk.Label();
@@ -362,20 +393,20 @@ namespace CarGlass.Dialogs
 			this.GtkLabel15.UseMarkup = true;
 			this.frame4.LabelWidget = this.GtkLabel15;
 			this.vbox2.Add(this.frame4);
-			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.frame4]));
-			w29.Position = 5;
-			w29.Expand = false;
-			w29.Fill = false;
+			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.frame4]));
+			w31.Position = 5;
+			w31.Expand = false;
+			w31.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.label5 = new global::Gtk.Label();
 			this.label5.Name = "label5";
 			this.label5.Xalign = 0F;
 			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Услуги:");
 			this.vbox2.Add(this.label5);
-			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.label5]));
-			w30.Position = 6;
-			w30.Expand = false;
-			w30.Fill = false;
+			global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.label5]));
+			w32.Position = 6;
+			w32.Expand = false;
+			w32.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -386,8 +417,8 @@ namespace CarGlass.Dialogs
 			this.ytreeviewService.Name = "ytreeviewService";
 			this.GtkScrolledWindow.Add(this.ytreeviewService);
 			this.vbox2.Add(this.GtkScrolledWindow);
-			global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));
-			w32.Position = 7;
+			global::Gtk.Box.BoxChild w34 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));
+			w34.Position = 7;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.hbox5 = new global::Gtk.HBox();
 			this.hbox5.Name = "hbox5";
@@ -399,10 +430,10 @@ namespace CarGlass.Dialogs
 			this.button247.UseUnderline = true;
 			this.button247.Label = global::Mono.Unix.Catalog.GetString("Добавить услугу");
 			this.hbox5.Add(this.button247);
-			global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.button247]));
-			w33.Position = 0;
-			w33.Expand = false;
-			w33.Fill = false;
+			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.button247]));
+			w35.Position = 0;
+			w35.Expand = false;
+			w35.Fill = false;
 			// Container child hbox5.Gtk.Box+BoxChild
 			this.button249 = new global::Gtk.Button();
 			this.button249.CanFocus = true;
@@ -410,24 +441,24 @@ namespace CarGlass.Dialogs
 			this.button249.UseUnderline = true;
 			this.button249.Label = global::Mono.Unix.Catalog.GetString("Убрать услугу");
 			this.hbox5.Add(this.button249);
-			global::Gtk.Box.BoxChild w34 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.button249]));
-			w34.Position = 1;
-			w34.Expand = false;
-			w34.Fill = false;
+			global::Gtk.Box.BoxChild w36 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.button249]));
+			w36.Position = 1;
+			w36.Expand = false;
+			w36.Fill = false;
 			this.vbox2.Add(this.hbox5);
-			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox5]));
-			w35.Position = 8;
-			w35.Expand = false;
-			w35.Fill = false;
+			global::Gtk.Box.BoxChild w37 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox5]));
+			w37.Position = 8;
+			w37.Expand = false;
+			w37.Fill = false;
 			w1.Add(this.vbox2);
-			global::Gtk.Box.BoxChild w36 = ((global::Gtk.Box.BoxChild)(w1[this.vbox2]));
-			w36.Position = 0;
+			global::Gtk.Box.BoxChild w38 = ((global::Gtk.Box.BoxChild)(w1[this.vbox2]));
+			w38.Position = 0;
 			// Internal child CarGlass.Dialogs.OrderTypeDlg.ActionArea
-			global::Gtk.HButtonBox w37 = this.ActionArea;
-			w37.Name = "dialog1_ActionArea";
-			w37.Spacing = 10;
-			w37.BorderWidth = ((uint)(5));
-			w37.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w39 = this.ActionArea;
+			w39.Name = "dialog1_ActionArea";
+			w39.Spacing = 10;
+			w39.BorderWidth = ((uint)(5));
+			w39.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button();
 			this.buttonCancel.CanDefault = true;
@@ -437,9 +468,9 @@ namespace CarGlass.Dialogs
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget(this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w38 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w37[this.buttonCancel]));
-			w38.Expand = false;
-			w38.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w40 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w39[this.buttonCancel]));
+			w40.Expand = false;
+			w40.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button();
 			this.buttonOk.CanDefault = true;
@@ -449,16 +480,16 @@ namespace CarGlass.Dialogs
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
 			this.AddActionWidget(this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w39 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w37[this.buttonOk]));
-			w39.Position = 1;
-			w39.Expand = false;
-			w39.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w41 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w39[this.buttonOk]));
+			w41.Position = 1;
+			w41.Expand = false;
+			w41.Fill = false;
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 506;
-			this.DefaultHeight = 536;
+			this.DefaultHeight = 625;
 			this.Show();
 			this.entryNameOrder.Activated += new global::System.EventHandler(this.OnEntryNameOrderActivated);
 			this.button247.Clicked += new global::System.EventHandler(this.OnButtonAddServiceClicked);

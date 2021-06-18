@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gamma.GtkWidgets;
-using NLog;
-using QSProjectsLib;
 using CarGlass.Domain;
-using MySql.Data.MySqlClient;
-using QS.DomainModel.UoW;
+using Gamma.GtkWidgets;
 using Gtk;
+using NLog;
+using QS.DomainModel.UoW;
+using QSProjectsLib;
 namespace CarGlass.Dialogs
 {
 	public partial class OrderTypeDlg : Gtk.Dialog
@@ -19,43 +18,58 @@ namespace CarGlass.Dialogs
 		int ItemId;
 		IUnitOfWork UoW = UnitOfWorkFactory.CreateWithoutRoot();
 		List<Service> listService = new List<Service>();
-		OrderTypeClass orderTypeClass = new OrderTypeClass();
+		OrderTypeClass Entity = new OrderTypeClass();
 
 		public OrderTypeDlg()
 		{
 			this.Build();
-			    
+			Configure();
 		}
-		public void Fill(int id)
+
+		public OrderTypeDlg(int id)
+		{
+			this.Build();
+			Fill(id);
+			Configure();
+		}
+
+		private void Configure()
+		{
+			entryNameAccusative.Binding.AddBinding(Entity, e => e.NameAccusative, w => w.Text).InitializeFromSource();
+		}
+
+		private void Fill(int id)
 		{
 			ItemId = id;
 			NewItem = false;
 
 			logger.Info("Запрос типа заказов №{0}...", id);
 
-			orderTypeClass = UoW.Session.QueryOver<OrderTypeClass>().List().FirstOrDefault(x => x.Id == ItemId);
-			var l = UoW.Session.QueryOver<ServiceOrderType>().List().Where(x => x.OrderTypeClass.Id == ItemId).ToList();
+			Entity = UoW.GetById<OrderTypeClass>(ItemId);
+			var l = UoW.GetAll<ServiceOrderType>()
+				.Where(x => x.OrderTypeClass.Id == ItemId)
+				.ToList();
 			foreach(var ser in l)
 				listService.Add(UoW.Session.QueryOver<Service>().List().First(x=> x == ser.Service));
-			entryNumberOrder.Text = orderTypeClass.Id.ToString();
-			entryNameOrder.Text = orderTypeClass.Name.ToString();
+			entryNumberOrder.Text = Entity.Id.ToString();
+			entryNameOrder.Text = Entity.Name;
 
-			checkbuttonCalculationSalary.Active = orderTypeClass.IsCalculateSalary;
-			if(orderTypeClass.PositionInTabs == null)
-				orderTypeClass.PositionInTabs = "";
+			checkbuttonCalculationSalary.Active = Entity.IsCalculateSalary;
+			if(Entity.PositionInTabs == null)
+				Entity.PositionInTabs = "";
 
-			checkbuttonInstallationSuburban.Active = orderTypeClass.PositionInTabs.Contains(checkbuttonInstallationSuburban.Label);
-			checkbuttonSuburbanTinting.Active = orderTypeClass.PositionInTabs.Contains(checkbuttonSuburbanTinting.Label);
-			checkbuttonOrder.Active = orderTypeClass.PositionInTabs.Contains(checkbuttonOrder.Label);
-			checkbuttonTintedEntry.Active = orderTypeClass.PositionInTabs.Contains(checkbuttonTintedEntry.Label);
-			checkbuttonInstall.Active = orderTypeClass.IsInstallType;
-			checkbuttonOther.Active = orderTypeClass.IsOtherType;
+			checkbuttonInstallationSuburban.Active = Entity.PositionInTabs.Contains(checkbuttonInstallationSuburban.Label);
+			checkbuttonSuburbanTinting.Active = Entity.PositionInTabs.Contains(checkbuttonSuburbanTinting.Label);
+			checkbuttonOrder.Active = Entity.PositionInTabs.Contains(checkbuttonOrder.Label);
+			checkbuttonTintedEntry.Active = Entity.PositionInTabs.Contains(checkbuttonTintedEntry.Label);
+			checkbuttonInstall.Active = Entity.IsInstallType;
+			checkbuttonOther.Active = Entity.IsOtherType;
 
-			checkbuttonMainParameters.Active = orderTypeClass.IsShowMainWidgets;
-			checkbuttonAdditionalParameters.Active = orderTypeClass.IsShowAdditionalWidgets;
+			checkbuttonMainParameters.Active = Entity.IsShowMainWidgets;
+			checkbuttonAdditionalParameters.Active = Entity.IsShowAdditionalWidgets;
 
 			logger.Info("Ok");
-			this.Title = $"Редактирование типа заказа: \"{orderTypeClass.Name}\" ";
+			this.Title = $"Редактирование типа заказа: \"{Entity.Name}\" ";
 			createTable();
 			TestCanSave();
 		}
@@ -94,8 +108,8 @@ namespace CarGlass.Dialogs
 				Service ser = UoW.Session.QueryOver<Service>().List().First(x => x.Id == ServiceSelect.SelectedID);
 				if(!listService.Contains(ser))
 					listService.Add(ser);
-				if(orderTypeClass.ListServiceOrderType.FirstOrDefault(x => x.Service == ser) == null)
-					orderTypeClass.ListServiceOrderType.Add(new ServiceOrderType(ser, this.orderTypeClass));
+				if(Entity.ListServiceOrderType.FirstOrDefault(x => x.Service == ser) == null)
+					Entity.ListServiceOrderType.Add(new ServiceOrderType(ser, this.Entity));
 			}
 			createTable();
 			ServiceSelect.Destroy();
@@ -106,39 +120,43 @@ namespace CarGlass.Dialogs
 		{
 			var ser = ytreeviewService.GetSelectedObject<Service>();
 			listService.Remove(ser);
-			var serOrderType = orderTypeClass.ListServiceOrderType.FirstOrDefault(x => x.Service == ser);
+			var serOrderType = Entity.ListServiceOrderType.FirstOrDefault(x => x.Service == ser);
 			if(serOrderType != null)
-				orderTypeClass.ListServiceOrderType.Remove(serOrderType);
+				Entity.ListServiceOrderType.Remove(serOrderType);
 			ytreeviewService.ItemsDataSource = listService;
 		}
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
-			orderTypeClass.Name = entryNameOrder.Text;
-			orderTypeClass.IsCalculateSalary = checkbuttonCalculationSalary.Active;
-			orderTypeClass.PositionInTabs = "";
+			Entity.Name = entryNameOrder.Text;
+			Entity.IsCalculateSalary = checkbuttonCalculationSalary.Active;
+			Entity.PositionInTabs = "";
 
 			if(checkbuttonInstallationSuburban.Active)
-				orderTypeClass.PositionInTabs += checkbuttonInstallationSuburban.Label + " ";
+				Entity.PositionInTabs += checkbuttonInstallationSuburban.Label + " ";
 
 			if(checkbuttonSuburbanTinting.Active) 
-				orderTypeClass.PositionInTabs += checkbuttonSuburbanTinting.Label + " ";
+				Entity.PositionInTabs += checkbuttonSuburbanTinting.Label + " ";
 
 			if(checkbuttonOrder.Active)
-				orderTypeClass.PositionInTabs += checkbuttonOrder.Label + " ";
+				Entity.PositionInTabs += checkbuttonOrder.Label + " ";
 
 			if(checkbuttonTintedEntry.Active)
-				orderTypeClass.PositionInTabs += checkbuttonTintedEntry.Label + " ";
+				Entity.PositionInTabs += checkbuttonTintedEntry.Label + " ";
 
-			orderTypeClass.IsShowMainWidgets = checkbuttonMainParameters.Active;
-			orderTypeClass.IsShowAdditionalWidgets = checkbuttonAdditionalParameters.Active;
-			orderTypeClass.IsInstallType = checkbuttonInstall.Active;
-			orderTypeClass.IsOtherType = checkbuttonOther.Active;
+			Entity.IsShowMainWidgets = checkbuttonMainParameters.Active;
+			Entity.IsShowAdditionalWidgets = checkbuttonAdditionalParameters.Active;
+			Entity.IsInstallType = checkbuttonInstall.Active;
+			Entity.IsOtherType = checkbuttonOther.Active;
 
-			UoW.Save(orderTypeClass);
+			UoW.Save(Entity);
 			UoW.Commit();
 		}
 
-
-    }
+		public override void Destroy()
+		{
+			UoW.Dispose();
+			base.Destroy();
+		}
+	}
 }

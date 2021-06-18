@@ -133,10 +133,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 				StocksEdit.Destroy();
 				break;
 			case "order_type":
-				OrderTypeDlg OrderTypeEdit = new OrderTypeDlg();
-				if(e.NewItem)
-					OrderTypeEdit.NewItem = true;
-				else OrderTypeEdit.Fill(e.ItemId);
+				OrderTypeDlg OrderTypeEdit = e.NewItem ? new OrderTypeDlg() : new OrderTypeDlg(e.ItemId);
 				OrderTypeEdit.Show();
 				Result = (ResponseType)OrderTypeEdit.Run();
 				OrderTypeEdit.Destroy();
