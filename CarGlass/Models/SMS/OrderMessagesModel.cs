@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
+using CarGlass.Domain.SMS;
 using QS.DomainModel.UoW;
+using QS.Services;
 using QS.Utilities.Numeric;
 
 namespace CarGlass.Models.SMS
@@ -10,13 +12,15 @@ namespace CarGlass.Models.SMS
 	public class OrderMessagesModel
 	{
 		private readonly IUnitOfWorkFactory unitOfWorkFactory;
+		private readonly IUserService userService;
 		private readonly WorkOrder workOrder;
 
 		private readonly PhoneFormatter phoneFormatter = new PhoneFormatter(PhoneFormat.RussiaOnlyShort);
 
-		public OrderMessagesModel(IUnitOfWorkFactory unitOfWorkFactory, WorkOrder workOrder)
+		public OrderMessagesModel(IUnitOfWorkFactory unitOfWorkFactory, IUserService userService, WorkOrder workOrder)
 		{
 			this.unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
+			this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
 			this.workOrder = workOrder;
 		}
 
@@ -49,6 +53,26 @@ namespace CarGlass.Models.SMS
 		}
 		#endregion
 
+		#region Сохранение истории
 
+		public void SaveSentMesage(string text, string messageId, string status)
+		{
+			using(var uow = unitOfWorkFactory.CreateWithNewRoot<SentMessage>())
+			{
+				var entity = uow.Root;
+				entity.WorkOrder = workOrder;
+				entity.Text = text;
+				entity.MessageId = messageId;
+				entity.Phone = CustomerPhone;
+				entity.SentTime = DateTime.Now;
+				entity.User = userService.GetCurrentUser(uow);
+				entity.LastStatus = status;
+				entity.LastStatusTime = DateTime.Now;
+
+				uow.Save(entity);
+			}
+		}
+
+		#endregion
 	}
 }

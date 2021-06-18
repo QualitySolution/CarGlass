@@ -64,6 +64,7 @@ namespace CarGlass.ViewModels.SMS
 				interactive.ShowMessage(ImportanceLevel.Error, result.RusStatus);
 				return;
 			}
+			orderMessages.SaveSentMesage(MessageText, result.MessageId, result.Status);
 			Close(false, CloseSource.Save);
 		}
 

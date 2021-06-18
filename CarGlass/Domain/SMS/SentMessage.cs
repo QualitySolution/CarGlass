@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using QS.DomainModel.Entity;
+using QS.Project.Domain;
 
 namespace CarGlass.Domain.SMS
 {
-	public class Message : PropertyChangedBase, IDomainObject
+	public class SentMessage : PropertyChangedBase, IDomainObject
 	{
 		public virtual int Id { get; set; }
 
@@ -14,6 +15,14 @@ namespace CarGlass.Domain.SMS
 		{
 			get => workOrder;
 			set => SetField(ref workOrder, value);
+		}
+
+		private UserBase user;
+		[Display(Name = "Отправитель")]
+		public virtual UserBase User
+		{
+			get => user;
+			set => SetField(ref user, value);
 		}
 
 		private string phone;

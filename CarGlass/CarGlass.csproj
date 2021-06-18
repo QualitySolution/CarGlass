@@ -321,8 +321,8 @@
     <Compile Include="gtk-gui\CarGlass.Dialogs.TimerRefreshDlg.cs" />
     <Compile Include="Calendar\ItemsList.cs" />
     <Compile Include="ConfigureUpdates.cs" />
-    <Compile Include="Domain\SMS\Message.cs" />
-    <Compile Include="HibernateMapping\SMS\MessageMap.cs" />
+    <Compile Include="Domain\SMS\SentMessage.cs" />
+    <Compile Include="HibernateMapping\SMS\SentMessageMap.cs" />
     <Compile Include="Views\SMS\SendMessageView.cs" />
     <Compile Include="gtk-gui\CarGlass.Views.SMS.SendMessageView.cs" />
     <Compile Include="ViewModels\SMS\SendMessageViewModel.cs" />

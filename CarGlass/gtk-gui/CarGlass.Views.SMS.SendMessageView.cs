@@ -14,9 +14,9 @@ namespace CarGlass.Views.SMS
 
 		private global::Gamma.GtkWidgets.yHBox yhbox1;
 
-		private global::Gamma.GtkWidgets.yButton buttonCancel;
-
 		private global::Gamma.GtkWidgets.yButton buttonSend;
+
+		private global::Gamma.GtkWidgets.yButton buttonCancel;
 
 		protected virtual void Build()
 		{
@@ -59,6 +59,21 @@ namespace CarGlass.Views.SMS
 			this.yhbox1.Name = "yhbox1";
 			this.yhbox1.Spacing = 6;
 			// Container child yhbox1.Gtk.Box+BoxChild
+			this.buttonSend = new global::Gamma.GtkWidgets.yButton();
+			this.buttonSend.CanFocus = true;
+			this.buttonSend.Name = "buttonSend";
+			this.buttonSend.UseUnderline = true;
+			this.buttonSend.Label = global::Mono.Unix.Catalog.GetString("Отправить");
+			global::Gtk.Image w4 = new global::Gtk.Image();
+			w4.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("CarGlass.icons.buttons.send.png");
+			this.buttonSend.Image = w4;
+			this.yhbox1.Add(this.buttonSend);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.yhbox1[this.buttonSend]));
+			w5.PackType = ((global::Gtk.PackType)(1));
+			w5.Position = 0;
+			w5.Expand = false;
+			w5.Fill = false;
+			// Container child yhbox1.Gtk.Box+BoxChild
 			this.buttonCancel = new global::Gamma.GtkWidgets.yButton();
 			this.buttonCancel.CanFocus = true;
 			this.buttonCancel.Name = "buttonCancel";
@@ -66,22 +81,7 @@ namespace CarGlass.Views.SMS
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.yhbox1.Add(this.buttonCancel);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.yhbox1[this.buttonCancel]));
-			w4.PackType = ((global::Gtk.PackType)(1));
-			w4.Position = 0;
-			w4.Expand = false;
-			w4.Fill = false;
-			// Container child yhbox1.Gtk.Box+BoxChild
-			this.buttonSend = new global::Gamma.GtkWidgets.yButton();
-			this.buttonSend.CanFocus = true;
-			this.buttonSend.Name = "buttonSend";
-			this.buttonSend.UseUnderline = true;
-			this.buttonSend.Label = global::Mono.Unix.Catalog.GetString("Отправить");
-			global::Gtk.Image w5 = new global::Gtk.Image();
-			w5.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("CarGlass.icons.buttons.send.png");
-			this.buttonSend.Image = w5;
-			this.yhbox1.Add(this.buttonSend);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.yhbox1[this.buttonSend]));
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.yhbox1[this.buttonCancel]));
 			w6.PackType = ((global::Gtk.PackType)(1));
 			w6.Position = 1;
 			w6.Expand = false;
@@ -97,8 +97,8 @@ namespace CarGlass.Views.SMS
 				this.Child.ShowAll();
 			}
 			this.Hide();
-			this.buttonSend.Clicked += new global::System.EventHandler(this.OnButtonSendClicked);
 			this.buttonCancel.Clicked += new global::System.EventHandler(this.OnButtonCancelClicked);
+			this.buttonSend.Clicked += new global::System.EventHandler(this.OnButtonSendClicked);
 		}
 	}
 }

@@ -4,9 +4,9 @@ using FluentNHibernate.Mapping;
 
 namespace CarGlass.HibernateMapping.SMS
 {
-	public class MessageMap : ClassMap<Message>
+	public class SentMessageMap : ClassMap<SentMessage>
 	{
-		public MessageMap()
+		public SentMessageMap()
 		{
 			Table("sms_history");
 
@@ -19,6 +19,7 @@ namespace CarGlass.HibernateMapping.SMS
 			Map(x => x.Text).Column("text");
 
 			References(x => x.WorkOrder).Column("order_id");
+			References(x => x.User).Column("user_id");
 		}
 	}
 }

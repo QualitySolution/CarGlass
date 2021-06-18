@@ -6604,14 +6604,14 @@
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
-              <widget class="Gamma.GtkWidgets.yButton" id="buttonCancel">
+              <widget class="Gamma.GtkWidgets.yButton" id="buttonSend">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="UseStock">True</property>
-                <property name="Type">StockItem</property>
-                <property name="StockId">gtk-cancel</property>
-                <signal name="Clicked" handler="OnButtonCancelClicked" />
-                <property name="label">gtk-cancel</property>
+                <property name="Type">TextAndIcon</property>
+                <property name="Icon">resource:CarGlass.icons.buttons.send.png</property>
+                <property name="Label" translatable="yes">Отправить</property>
+                <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnButtonSendClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>
@@ -6622,14 +6622,14 @@
               </packing>
             </child>
             <child>
-              <widget class="Gamma.GtkWidgets.yButton" id="buttonSend">
+              <widget class="Gamma.GtkWidgets.yButton" id="buttonCancel">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Type">TextAndIcon</property>
-                <property name="Icon">resource:CarGlass.icons.buttons.send.png</property>
-                <property name="Label" translatable="yes">Отправить</property>
-                <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnButtonSendClicked" />
+                <property name="UseStock">True</property>
+                <property name="Type">StockItem</property>
+                <property name="StockId">gtk-cancel</property>
+                <signal name="Clicked" handler="OnButtonCancelClicked" />
+                <property name="label">gtk-cancel</property>
               </widget>
               <packing>
                 <property name="PackType">End</property>
