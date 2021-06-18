@@ -31,6 +31,7 @@ namespace CarGlass.ViewModels.SMS
 			IsModal = true;
 			Title = "Отправка СМС";
 			WindowPosition = QS.Dialog.WindowGravity.Center;
+			MessageText = orderMessages.DefaultMessage;
 		}
 
 		#region Свойства View
