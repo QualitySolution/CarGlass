@@ -634,6 +634,7 @@ namespace CarGlass
 		protected void OnButtonSendSMSClicked(object sender, EventArgs e)
 		{
 			logger.Info("Сохраняем заказ перед отправкой SMS...");
+			PrepareSave();
 			UoW.Save();
 			logger.Info("Ok");
 			navigation.OpenViewModel<SendMessageViewModel, OrderMessagesModel>(null, orderMessages);
