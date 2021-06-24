@@ -2,6 +2,7 @@
 using Autofac;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
+using CarGlass.Journal;
 using CarGlass.Models.SMS;
 using CarGlass.Repository;
 using CarGlass.ViewModels.SMS;
@@ -12,10 +13,12 @@ using QS.Deletion.Views;
 using QS.Dialog;
 using QS.Dialog.GtkUI;
 using QS.DomainModel.UoW;
+using QS.Journal.GtkUI;
 using QS.Navigation;
 using QS.Permissions;
 using QS.Project.DB;
 using QS.Project.Dialogs.GtkUI.ServiceDlg;
+using QS.Project.Journal;
 using QS.Project.Search.GtkUI;
 using QS.Project.Services;
 using QS.Project.Services.GtkUI;
@@ -53,6 +56,8 @@ namespace CarGlass
             OrmMain.AddObjectDescription<CarBrand>().DefaultTableView().SearchColumn("Наименование", i => i.Name).OrderAsc(i => i.Name).End();
 			OrmMain.AddObjectDescription<CarModel>().Dialog<CarModelDlg>();
 			OrmMain.AddObjectDescription<StoreItem>().Dialog<StoreItemDlg>();
+
+			JournalsColumnsConfigs.RegisterColumns();
 		}
 
 		public static Autofac.IContainer AppDIContainer;
@@ -99,15 +104,10 @@ namespace CarGlass
 			builder.Register(ctx => new ClassNamesHashGenerator(null)).As<IPageHashGenerator>();
 			//builder.Register(ctx => new ClassNamesHashGenerator(new[] { new RDLReportsHashGenerator() })).As<IPageHashGenerator>();
 			builder.Register((ctx) => new AutofacViewModelsGtkPageFactory(AppDIContainer)).As<IViewModelsPageFactory>();
-			builder.Register((ctx) => new AutofacTdiPageFactory(AppDIContainer)).As<ITdiPageFactory>();
+			//builder.Register((ctx) => new AutofacTdiPageFactory(AppDIContainer)).As<ITdiPageFactory>();
 			builder.Register((ctx) => new AutofacViewModelsGtkPageFactory(AppDIContainer)).AsSelf();
 			builder.RegisterType<GtkWindowsNavigationManager>().AsSelf().As<INavigationManager>().SingleInstance();
-			builder.Register(cc => new ClassNamesBaseGtkViewResolver(
-				//typeof(RdlViewerView),
-				typeof(SendMessageView),
-				typeof(DeletionView),
-				typeof(UpdateProcessView)
-			)).As<IGtkViewResolver>();
+			builder.Register(cc => CreateGtkResolver()).As<IGtkViewResolver>();
 			#endregion
 
 			#region Главное окно
@@ -171,6 +171,19 @@ namespace CarGlass
 			#endregion
 
 			AppDIContainer = builder.Build();
+		}
+
+		private static IGtkViewResolver CreateGtkResolver()
+		{
+			var namedResolver = new ClassNamesBaseGtkViewResolver(
+				//typeof(RdlViewerView),
+				typeof(SendMessageView),
+				typeof(DeletionView),
+				typeof(UpdateProcessView));
+
+			var resolver = new RegisteredGtkViewResolver(namedResolver);
+			resolver.RegisterView<JournalViewModelBase, JournalView>();
+			return resolver;
 		}
 	}
 }

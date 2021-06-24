@@ -15,7 +15,7 @@
     <widget-library name="../../../QSProjects/QS.Project.Gtk/bin/Debug/QS.Project.Gtk.dll" />
     <widget-library name="../bin/Debug/CarGlass.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="1155 457">
+  <widget class="Gtk.Window" id="MainWindow" design-size="1155 469">
     <action-group name="Default">
       <action id="Action">
         <property name="Type">Action</property>
@@ -175,6 +175,17 @@
         <property name="StockId">gtk-refresh</property>
         <signal name="Activated" handler="OnRefreshActionActivated" />
       </action>
+      <action id="Action19">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Журналы</property>
+        <property name="ShortLabel" translatable="yes">Журналы</property>
+      </action>
+      <action id="ActionSentMessages">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Отправленные сообщения</property>
+        <property name="ShortLabel" translatable="yes">Отправленные сообщения</property>
+        <signal name="Activated" handler="OnActionSentMessagesActivated" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Events">FocusChangeMask</property>
@@ -196,6 +207,9 @@
                 <node type="Menuitem" action="refreshAction" />
                 <node type="Separator" />
                 <node type="Menuitem" action="quitAction" />
+              </node>
+              <node type="Menu" action="Action19">
+                <node type="Menuitem" action="ActionSentMessages" />
               </node>
               <node type="Menu" action="Action8">
                 <node type="Menuitem" action="Action3" />
@@ -1901,6 +1915,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
@@ -2041,6 +2056,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
@@ -2184,6 +2200,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
@@ -2324,6 +2341,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Label" translatable="yes">Нет</property>
+                    <property name="Active">True</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>

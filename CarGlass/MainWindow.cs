@@ -2,6 +2,7 @@ using System;
 using Autofac;
 using CarGlass;
 using CarGlass.Dialogs;
+using CarGlass.Journal.ViewModels.SMS;
 using CarGlass.ReportDialog;
 using Gtk;
 using MySql.Data.MySqlClient;
@@ -97,11 +98,11 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 	protected void OnRunReferenceItemDialog(object sender, Reference.RunReferenceItemDlgEventArgs e)
 	{
 		ResponseType Result;
-		switch (e.TableName)
+		switch(e.TableName)
 		{
 			case "models":
 				CarModelDlg ItemModel = new CarModelDlg();
-				if (e.NewItem)
+				if(e.NewItem)
 					ItemModel.NewItem = true;
 				else
 					ItemModel.Fill(e.ItemId);
@@ -111,7 +112,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 				break;
 			case "status":
 				Status StatusEdit = new Status();
-				if (e.NewItem)
+				if(e.NewItem)
 					StatusEdit.NewItem = true;
 				else
 					StatusEdit.Fill(e.ItemId);
@@ -121,7 +122,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 				break;
 			case "services":
 				ServiceDlg ServiceEdit = new ServiceDlg();
-				if (e.NewItem)
+				if(e.NewItem)
 					ServiceEdit.NewItem = true;
 				else
 					ServiceEdit.Fill(e.ItemId);
@@ -131,7 +132,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 				break;
 			case "stocks":
 				OrderStock StocksEdit = new OrderStock();
-				if (e.NewItem)
+				if(e.NewItem)
 					StocksEdit.NewItem = true;
 				else
 					StocksEdit.Fill(e.ItemId);
@@ -240,7 +241,7 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 
 	protected void OnNotebookMainSwitchPage(object o, SwitchPageArgs args)
 	{
-		switch (notebookMain.CurrentPage)
+		switch(notebookMain.CurrentPage)
 		{
 			case 0:
 				CurrentCalendar = frmClientCalendar.OrdersCalendar = orderscalendar1;
@@ -333,13 +334,18 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 
 	}
 
-    protected void OnAction18Activated(object sender, EventArgs e)
-    {
+	protected void OnAction18Activated(object sender, EventArgs e)
+	{
 		Reference winref = new Reference();
 		winref.SetMode(false, false, true, true, true);
 		winref.FillList("order_type", "Заказы", "Виды заказов");
 		winref.Show();
 		winref.Run();
 		winref.Destroy();
+	}
+
+	protected void OnActionSentMessagesActivated(object sender, EventArgs e)
+	{
+		NavigationManager.OpenViewModel<MessagesJournalViewModel>(null);
 	}
 }

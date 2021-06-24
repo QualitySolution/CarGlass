@@ -331,6 +331,8 @@
     <Compile Include="gtk-gui\CarGlass.Views.SMS.MessageHistoryView.cs" />
     <Compile Include="Models\SMS\ProstorSmsService.cs" />
     <Compile Include="Models\SMS\OrderMessagesModel.cs" />
+    <Compile Include="Journal\JournalsColumnsConfigs.cs" />
+    <Compile Include="Journal\ViewModels\SMS\MessagesJournalViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -411,6 +413,11 @@
     <Folder Include="Views\SMS\" />
     <Folder Include="Models\" />
     <Folder Include="Models\SMS\" />
+    <Folder Include="Journal\" />
+    <Folder Include="Journal\Filter.ViewModels\" />
+    <Folder Include="Journal\Filter.Views\" />
+    <Folder Include="Journal\ViewModels\" />
+    <Folder Include="Journal\ViewModels\SMS\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">
