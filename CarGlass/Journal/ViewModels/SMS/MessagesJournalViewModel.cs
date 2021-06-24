@@ -38,6 +38,10 @@ namespace CarGlass.Journal.ViewModels.SMS
 			dataLoader.AddQuery(ItemsQuery);
 			DataLoader = dataLoader;
 
+			//Обход проблемы с тем что SelectionMode одновременно управляет и выбором в журнале, и самим режмиом журнала.
+			//То есть создает действие выбора. Удалить после того как появится рефакторинг действий журнала. 
+			SelectionMode = JournalSelectionMode.Multiple;
+			NodeActionsList.Clear();
 			CreateActions();
 
 			UpdateOnChanges(typeof(SentMessage));
