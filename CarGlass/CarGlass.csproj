@@ -326,14 +326,13 @@
     <Compile Include="Views\SMS\SendMessageView.cs" />
     <Compile Include="gtk-gui\CarGlass.Views.SMS.SendMessageView.cs" />
     <Compile Include="ViewModels\SMS\SendMessageViewModel.cs" />
-    <Compile Include="ViewModels\SMS\MessageHistoryViewModel.cs" />
-    <Compile Include="Views\SMS\MessageHistoryView.cs" />
-    <Compile Include="gtk-gui\CarGlass.Views.SMS.MessageHistoryView.cs" />
     <Compile Include="Models\SMS\ProstorSmsService.cs" />
     <Compile Include="Models\SMS\OrderMessagesModel.cs" />
     <Compile Include="Journal\JournalsColumnsConfigs.cs" />
     <Compile Include="Journal\ViewModels\SMS\MessagesJournalViewModel.cs" />
     <Compile Include="Repository\SMS\SmsHistoryRepository.cs" />
+    <Compile Include="Models\SMS\SendResult.cs" />
+    <Compile Include="Models\SMS\StatusResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
 using CarGlass.Domain.SMS;

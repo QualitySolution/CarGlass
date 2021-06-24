@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using CarGlass.Domain;
+using CarGlass.Journal.ViewModels.SMS;
 using CarGlass.Models.SMS;
 using CarGlass.Repository;
 using CarGlass.ViewModels.SMS;
@@ -632,6 +633,7 @@ namespace CarGlass
 			AutofacScope?.DisposeAsync();
 		}
 
+		#region СМС
 		protected void OnButtonSendSMSClicked(object sender, EventArgs e)
 		{
 			logger.Info("Сохраняем заказ перед отправкой SMS...");
@@ -648,11 +650,11 @@ namespace CarGlass
 				buttonSMSHistory.Visible = true;
 		}
 
-
 		protected void OnButtonSMSHistoryClicked(object sender, EventArgs e)
 		{
-			navigation.OpenViewModel<MessageHistoryViewModel>(null);
+			navigation.OpenViewModel<MessagesJournalViewModel, WorkOrder>(null, Entity);
 		}
+		#endregion
 	}
 }
 

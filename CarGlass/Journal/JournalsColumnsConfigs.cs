@@ -17,8 +17,8 @@ namespace CarGlass.Journal
 					.AddColumn("Пользователь").AddTextRenderer(node => node.UserName)
 					.AddColumn("Абонент").AddTextRenderer(node => node.Phone).SearchHighlight()
 					.AddColumn("Сообщение").AddTextRenderer(x => x.Text).SearchHighlight()
-					.AddColumn("Последний статус").AddTextRenderer(x => x.LastStatus)
 					.AddColumn("Статус обновлен").AddTextRenderer(x => x.StatusTimeText)
+					.AddColumn("Последний статус").AddTextRenderer(x => x.StatusRusText)
 					.Finish()
 			);
 

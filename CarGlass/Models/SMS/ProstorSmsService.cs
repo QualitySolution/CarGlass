@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using QS.BaseParameters;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -39,31 +40,46 @@ namespace CarGlass.Models.SMS
 			}
 			return new SendResult { Status = result };
 		}
-	}
 
-	public class SendResult
-	{
-		public string Status;
-		public string MessageId;
-		public string RusStatus
+		public StatusResult[] GetStatuses(string[] messageIds)
 		{
-			get
+			List<StatusResult> result = new List<StatusResult>();
+			List<string> toSubmit = new List<string>();
+			foreach(string id in messageIds)
 			{
-				switch(Status)
+				toSubmit.Add(id);
+				if(toSubmit.Count == 200)
 				{
-					case "accepted": return "Сообщение принято сервисом";
-					case "invalid mobile phone": return "Неверно задан номер тефона (формат +71234567890)";
-					case "text is empty": return "Отсутствует текст";
-					case "sender address invalid": return "Неверная (незарегистрированная) подпись отправителя";
-					case "wapurl invalid": return "Неправильный формат wap-push ссылки";
-					case "invalid schedule time format": return "Неверный формат даты отложенной отправки сообщения";
-					case "invalid status queue name": return "Неверное название очереди статусов сообщений";
-					case "not enough balance": return "Баланс пуст (проверьте баланс)";
-					default: return "Не известная ошибка: " + Status;
+					result.AddRange(RunStatusQuery(toSubmit));
+					toSubmit.Clear();
 				}
 			}
+			if(toSubmit.Count > 0)
+				result.AddRange(RunStatusQuery(toSubmit));
+			return result.ToArray();
 		}
 
-		public bool HasError => Status != "accepted";
+		/// <summary>
+		/// Отправка запроса максимум 200 id.
+		/// </summary>
+		private List<StatusResult> RunStatusQuery(List<string> messageIds)
+		{
+			var list = new List<StatusResult>();
+			var request = new RestRequest("status/", Method.GET);
+			foreach(var id in messageIds)
+				request.AddQueryParameter("id", id);
+
+			var response = client.Get(request);
+			var result = response.Content;
+			var statuses = result.Split('\n');
+
+			foreach(var statusString in statuses)
+			{
+				var parts = statusString.Split(';');
+				list.Add(new StatusResult { MessageId = parts[0], Status = parts[1] });
+			}
+
+			return list;
+		}
 	}
 }
