@@ -119,7 +119,8 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 				connection.Open();
 				logger.Info("Запрос заказов на {0:d}", calendar._StartDate);
 				string sql = "SELECT orders.*, models.name as model, marks.name as mark, status.color, stocks.name as stock, stocks.color as stockcolor, " +
-					"status.name as status, manufacturers.name as manufacturer, tablesum.sum, order_type.name as order_type_name " +
+					"status.name as status, manufacturers.name as manufacturer, tablesum.sum, order_type.name as order_type_name, " +
+					"(SELECT COUNT(*) FROM sms_history WHERE sms_history.order_id = orders.id) as sent_messages " +
 					"FROM orders " +
 					"LEFT JOIN order_type ON order_type.id = orders.id_order_type " +
 					"LEFT JOIN models ON models.id = orders.car_model_id " +
@@ -150,6 +151,7 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 							rdr.GetInt32("hour")
 						);
 						order.id = rdr.GetInt32("id");
+						order.MessageCount = rdr.GetUInt32("sent_messages");
 
 						if(!QSMain.User.Permissions["worker"])
 						{

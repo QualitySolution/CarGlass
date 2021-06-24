@@ -13,6 +13,7 @@ namespace CarGlass
 		public string Color;
 		public string Tag;
 		public string TagColor;
+		public uint MessageCount;
 		public OrdersCalendar Calendar;
 		public TypeItemOrButton TypeItemButton;
 

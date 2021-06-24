@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gamma.Utilities;
 using Gtk;
 using NLog;
-//using Pango;
 using QSProjectsLib;
 using QSWidgetLib;
 
@@ -18,6 +15,8 @@ namespace CarGlass
 		private CalendarItem calendarItem;
 		private Pango.Layout PangoText;
 		private Pango.Layout PangoTag;
+		private Pango.Layout PangoMessages;
+
 		public OrdersCalendar ParentCalendar;
 		public TypeItemOrButton typeItemButton;
 		public TypeItemOrButton TypeItemButton
@@ -50,6 +49,7 @@ namespace CarGlass
 			HeightRequest = 32;
 			PangoText = new Pango.Layout(this.PangoContext);
 			PangoTag = new Pango.Layout(this.PangoContext);
+			PangoMessages = new Pango.Layout(this.PangoContext);
 			Relief = ReliefStyle.None;
 		}
 
@@ -134,7 +134,9 @@ namespace CarGlass
 				Gdk.Rectangle targetRectangle = this.Allocation;
 				evnt.Window.DrawRectangle(Style.BackgroundGC(State), true, targetRectangle);
 				Style.PaintLayout(Style, evnt.Window, State, true, targetRectangle, this, null, targetRectangle.X, targetRectangle.Y, PangoText);
-				if (calendarItem.TagColor != "" && calendarItem.id > 0)
+
+				//Верхний правый треугольник
+				if(calendarItem.TagColor != "" && calendarItem.id > 0)
 				{
 					Gdk.Color col = new Gdk.Color();
 					Gdk.Color.Parse(calendarItem.TagColor, ref col);
@@ -156,6 +158,15 @@ namespace CarGlass
 						evnt.Window.DrawLayout(Style.WhiteGC, targetRectangle.Right - triangleSize * 5/16 - logicExt.Width/2, targetRectangle.Top + triangleSize * 5/ 16 - logicExt.Height/2, PangoTag);
 					}
 				}
+
+				if(calendarItem.MessageCount > 0)
+				{
+					Pango.Rectangle logicExt, inkExt;
+					PangoMessages.GetPixelExtents(out inkExt, out logicExt);
+					var messagebox = new Gdk.Rectangle(targetRectangle.Right - logicExt.Width, targetRectangle.Bottom - logicExt.Height, logicExt.Height, logicExt.Width);
+					evnt.Window.DrawLayoutWithColors(Style.BlackGC, targetRectangle.Right - logicExt.Width + 1, targetRectangle.Bottom - logicExt.Height + 1, PangoMessages, ColorUtil.Create("Cornsilk"), ColorUtil.Create("Gray"));
+				}
+
 				return true;
 			}
 
@@ -184,6 +195,7 @@ namespace CarGlass
 				logger.Debug("b={0} - {1} - {2}", col.Red, col.Green, col.Blue);
 				//Tag
 				PangoTag.SetText(calendarItem.Tag);
+				PangoMessages.SetText(calendarItem.MessageCount + "✉");
 			}
 			else if (calendarItem != null && calendarItem.id == 0)
 			{
