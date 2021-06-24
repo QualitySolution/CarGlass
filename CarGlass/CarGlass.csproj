@@ -333,6 +333,7 @@
     <Compile Include="Models\SMS\OrderMessagesModel.cs" />
     <Compile Include="Journal\JournalsColumnsConfigs.cs" />
     <Compile Include="Journal\ViewModels\SMS\MessagesJournalViewModel.cs" />
+    <Compile Include="Repository\SMS\SmsHistoryRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -418,6 +419,7 @@
     <Folder Include="Journal\Filter.Views\" />
     <Folder Include="Journal\ViewModels\" />
     <Folder Include="Journal\ViewModels\SMS\" />
+    <Folder Include="Repository\SMS\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">

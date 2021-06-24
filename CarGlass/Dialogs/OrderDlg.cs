@@ -225,6 +225,7 @@ namespace CarGlass
 			.Finish();
 
 			buttonPrint.Sensitive = !Entity.OrderTypeClass.IsOtherType;
+			buttonSMSHistory.Visible = orderMessages.CountSentMessages() > 0;
 			TestCanSave();
 			SetEuroCode();
 
@@ -637,8 +638,16 @@ namespace CarGlass
 			PrepareSave();
 			UoW.Save();
 			logger.Info("Ok");
-			navigation.OpenViewModel<SendMessageViewModel, OrderMessagesModel>(null, orderMessages);
+			var page = navigation.OpenViewModel<SendMessageViewModel, OrderMessagesModel>(null, orderMessages);
+			page.PageClosed += SentMessage_PageClosed;
 		}
+
+		void SentMessage_PageClosed(object sender, PageClosedEventArgs e)
+		{
+			if(buttonSMSHistory.Visible == false && e.CloseSource == CloseSource.Save)
+				buttonSMSHistory.Visible = true;
+		}
+
 
 		protected void OnButtonSMSHistoryClicked(object sender, EventArgs e)
 		{
