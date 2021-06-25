@@ -10,7 +10,6 @@ using QS.Project.Versioning;
 [assembly: AssemblyBetaBuild]
 #endif
 [assembly: AssemblyDescription("Регистрация заказов в мастерской автостекл Стеклоff.")]
-[assembly: AssemblyСompatibleModification("gpl")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Quality Solution")]
 [assembly: AssemblyProduct("QS: Мастерская автостекла")]

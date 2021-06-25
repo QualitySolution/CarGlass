@@ -29,3 +29,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 DROP TABLE IF EXISTS `chat_history` ;
+
+DELETE FROM base_parameters WHERE name = 'micro_updates';
+DELETE FROM base_parameters WHERE name = 'edition';
