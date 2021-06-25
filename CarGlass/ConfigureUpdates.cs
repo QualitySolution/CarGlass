@@ -49,7 +49,7 @@ namespace CarGlass
 				new Version(1, 7, 3),
 				"CarGlass.Updates.1.7.3.sql");
 
-			configuration.AddMicroUpdate(
+			configuration.AddUpdate(
 				new Version(1, 7, 3),
 				new Version(1, 8),
 				"CarGlass.Updates.1.8.sql");
