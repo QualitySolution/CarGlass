@@ -290,6 +290,14 @@
       <Project>{5735D438-792E-40CE-BAFD-25814C8879BC}</Project>
       <Name>Gamma.Utilities.Gtk</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\QSProjects\QS.Project.Core\QS.Project.Core.csproj">
+      <Project>{C01AE5A4-3CFF-4C7B-884D-45B07ACDE761}</Project>
+      <Name>QS.Project.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\QSProjects\QS.Updater.Core\QS.Updater.Core.csproj">
+      <Project>{BC159BA7-EF22-4800-AC34-DE4B2B386AAE}</Project>
+      <Name>QS.Updater.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="icons\" />
