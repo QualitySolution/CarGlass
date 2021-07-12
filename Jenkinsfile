@@ -7,7 +7,6 @@ node {
          extensions: scm.extensions + [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'CarGlass']],
          userRemoteConfigs: scm.userRemoteConfigs
       ])
-      sh 'nuget restore CarGlass/CarGlass.sln'
    }
    stage('QSProjects') {
       checkout([$class: 'GitSCM', branches: [[name: '*/release/1.5']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'QSProjects']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/QualitySolution/QSProjects.git']]])
@@ -25,6 +24,7 @@ node {
       //sh 'nuget restore My-FyiReporting/MajorsilenceReporting-Linux-GtkViewer.sln'
    }
    stage('Build') {
+   	    sh 'nuget restore CarGlass/CarGlass.sln'
         sh 'rm -f CarGlass/WinInstall/CarGlass-*.exe'
         sh 'CarGlass/WinInstall/makeWinInstall.sh'
         recordIssues enabledForFailure: true, tool: msBuild()
