@@ -1,3 +1,4 @@
+properties([parameters([booleanParam(defaultValue: false, description: 'Выкладывать сборку на сервер files.qsolution.ru', name: 'Publish')])])
 node {
    stage('CarGlass') {
       checkout([
@@ -30,16 +31,9 @@ node {
         recordIssues enabledForFailure: true, tool: msBuild()
         archiveArtifacts artifacts: 'CarGlass/WinInstall/CarGlass-*.exe', onlyIfSuccessful: true
    }
-  /* stage('Test'){
-       try {
-            sh '''
-                cd Workwear/WorkwearTest/bin/ReleaseWin
-                cp ../../../packages/NUnit.ConsoleRunner.3.10.0/tools/* .
-                mono nunit3-console.exe WorkwearTest.dll
-            '''
-       } catch (e) {}
-       finally{
-           nunit testResultsPattern: 'Workwear/WorkwearTest/bin/ReleaseWin/TestResult.xml'
-       }
-   }*/
+   if (params.Publish) {
+      stage('Publish'){
+         sh 'scp CarGlass/WinInstall/CarGlass-*.exe a218160_qso@a218160.ftp.mchost.ru:subdomains/files/httpdocs/CarGlass/'
+      }
+   }
 }
