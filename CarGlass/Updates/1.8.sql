@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `sms_history` (
   CONSTRAINT `fk_sms_history_1`
     FOREIGN KEY (`order_id`)
     REFERENCES `orders` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_sms_history_2`
     FOREIGN KEY (`user_id`)
