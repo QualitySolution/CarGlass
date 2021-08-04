@@ -18,6 +18,7 @@ using QS.Navigation;
 using QS.Permissions;
 using QS.Project.DB;
 using QS.Project.Dialogs.GtkUI.ServiceDlg;
+using QS.Project.Domain;
 using QS.Project.Journal;
 using QS.Project.Search.GtkUI;
 using QS.Project.Services;
@@ -51,6 +52,7 @@ namespace CarGlass
 
 			OrmConfig.ConfigureOrm(db, new System.Reflection.Assembly[] {
 				System.Reflection.Assembly.GetAssembly (typeof(MainClass)),
+				System.Reflection.Assembly.GetAssembly (typeof(UserBase)),
 			});
 
             OrmMain.AddObjectDescription<CarBrand>().DefaultTableView().SearchColumn("Наименование", i => i.Name).OrderAsc(i => i.Name).End();
