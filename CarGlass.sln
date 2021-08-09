@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.Project.Core", "..\QSPro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.Updater.Core", "..\QSProjects\QS.Updater.Core\QS.Updater.Core.csproj", "{BC159BA7-EF22-4800-AC34-DE4B2B386AAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.Project.Desktop", "..\QSProjects\QS.Project.Desktop\QS.Project.Desktop.csproj", "{5EF2A7DA-3886-4809-95DF-880BD783A211}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -158,6 +160,12 @@ Global
 		{BC159BA7-EF22-4800-AC34-DE4B2B386AAE}.Release|x86.Build.0 = Release|Any CPU
 		{BC159BA7-EF22-4800-AC34-DE4B2B386AAE}.ReleaseWin|x86.ActiveCfg = Release|Any CPU
 		{BC159BA7-EF22-4800-AC34-DE4B2B386AAE}.ReleaseWin|x86.Build.0 = Release|Any CPU
+		{5EF2A7DA-3886-4809-95DF-880BD783A211}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5EF2A7DA-3886-4809-95DF-880BD783A211}.Debug|x86.Build.0 = Debug|Any CPU
+		{5EF2A7DA-3886-4809-95DF-880BD783A211}.Release|x86.ActiveCfg = Release|Any CPU
+		{5EF2A7DA-3886-4809-95DF-880BD783A211}.Release|x86.Build.0 = Release|Any CPU
+		{5EF2A7DA-3886-4809-95DF-880BD783A211}.ReleaseWin|x86.ActiveCfg = Debug|Any CPU
+		{5EF2A7DA-3886-4809-95DF-880BD783A211}.ReleaseWin|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A6C1914F-7732-49F5-BABA-8BBBA521FAAB} = {DF509FEE-C98B-4249-8960-695E5AD9FE4A}
@@ -177,6 +185,7 @@ Global
 		{5735D438-792E-40CE-BAFD-25814C8879BC} = {C0043192-8AFF-450A-A511-CE9A31E82B80}
 		{C01AE5A4-3CFF-4C7B-884D-45B07ACDE761} = {DF509FEE-C98B-4249-8960-695E5AD9FE4A}
 		{BC159BA7-EF22-4800-AC34-DE4B2B386AAE} = {DF509FEE-C98B-4249-8960-695E5AD9FE4A}
+		{5EF2A7DA-3886-4809-95DF-880BD783A211} = {DF509FEE-C98B-4249-8960-695E5AD9FE4A}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = CarGlass\CarGlass.csproj
