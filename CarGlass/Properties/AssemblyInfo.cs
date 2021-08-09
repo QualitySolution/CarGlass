@@ -18,7 +18,7 @@ using QS.Project.Versioning;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyLogoIcon("CarGlass.icons.logo.png")]
 [assembly: AssemblySupport("Телефон тех. поддержки +7(812)309-71-77")]
-[assembly: AssemblyAppWebsite("http://develop.qsolution.ru/")]
+[assembly: AssemblyAppWebsite("http://www.qsolution.ru/")]
 
 [assembly: AssemblyAuthor("Ганьков Андрей <gav@qsolution.ru>")]
 [assembly: AssemblyAuthor("Солдаткина Алина 2020 <alina@qsolution.ru>")]
@@ -26,7 +26,7 @@ using QS.Project.Versioning;
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
-[assembly: AssemblyVersion("1.8.1")]
+[assembly: AssemblyVersion("1.8.2")]
 // The following attributes are used to specify the signing key for the assembly,
 // if desired. See the Mono documentation for more information about signing.
 //[assembly: AssemblyDelaySign(false)]
