@@ -54,6 +54,10 @@ namespace CarGlass
 				new Version(1, 8),
 				"CarGlass.Updates.1.8.sql");
 
+			configuration.AddMicroUpdate(
+				new Version(1, 8),
+				new Version(1, 8, 2),
+				"CarGlass.Updates.1.8.2.sql");
 
 			return configuration;
 		}
