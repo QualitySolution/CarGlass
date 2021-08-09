@@ -14,6 +14,7 @@ using QS.Dialog;
 using QS.DomainModel.UoW;
 using QS.Navigation;
 using QS.Project.Repositories;
+using QS.Validation;
 using QSOrmProject;
 using QSProjectsLib;
 
@@ -28,6 +29,7 @@ namespace CarGlass
 		IInteractiveMessage interactive;
 		INavigationManager navigation;
 		OrderMessagesModel orderMessages;
+		IValidator validator;
 		#endregion
 
 		ListStore ServiceListStore = new Gtk.ListStore(
@@ -74,6 +76,7 @@ namespace CarGlass
 			interactive = AutofacScope.Resolve<IInteractiveMessage>();
 			navigation = AutofacScope.Resolve<INavigationManager>();
 			orderMessages = AutofacScope.Resolve<OrderMessagesModel>(new TypedParameter(typeof(WorkOrder), Entity));
+			validator = AutofacScope.Resolve<IValidator>();
 
 			labelCreated.LabelProp = $"{Entity.CreatedDate} - {Entity.CreatedBy?.Name}";
 
@@ -408,6 +411,9 @@ namespace CarGlass
 
 		public override bool Save()
 		{
+			if(!validator.Validate(EntityObject))
+				return false;
+
 			UoW.Save();
 
 			logger.Info("Ok");
@@ -468,7 +474,7 @@ namespace CarGlass
 			bool Statusok = Entity.OrderState != null;
 			bool Carok = Entity.CarModel != null;
 			bool NumberOk = Entity.Phone != null && Entity.Phone.Length == 16;
-			bool YearOk = (Entity.CarYear == null) || (Entity.CarYear != null && Entity.CarYear > 1979 && Entity.CarYear <= DateTime.Now.Year);
+			bool YearOk = (Entity.CarYear == null) || (Entity.CarYear != null && Entity.CarYear > 1901 && Entity.CarYear <= DateTime.Now.Year);
 			bool ModelOk = Entity.CarModel != null;
 			buttonOk.Sensitive = (Statusok && Carok && NumberOk && YearOk && ModelOk) || Entity.OrderTypeClass.IsOtherType;
 		}

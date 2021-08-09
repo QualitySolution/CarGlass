@@ -80,6 +80,7 @@ namespace CarGlass.Domain
 		private ushort? carYear;
 
 		[Display(Name = "Год автомобиля")]
+		[Range(1901, 2155, ErrorMessage = "Год автомобиля должен быть в диапазоне от 1901 до 2155")]
 		public virtual ushort? CarYear
 		{
 			get { return carYear; }
