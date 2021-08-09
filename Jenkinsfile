@@ -11,7 +11,6 @@ node {
    }
    stage('QSProjects') {
       checkout([$class: 'GitSCM', branches: [[name: '*/release/1.5']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'QSProjects']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/QualitySolution/QSProjects.git']]])
-      sh 'nuget restore QSProjects/QSProjectsLib.sln'
    }
    stage('Gtk.DataBindings') {
       checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'Gtk.DataBindings']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/QualitySolution/Gtk.DataBindings.git']]]
@@ -21,11 +20,14 @@ node {
    }
    stage('My-FyiReporting') {
       checkout changelog: false, scm: [$class: 'GitSCM', branches: [[name: '*/release/1.5']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'My-FyiReporting']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/QualitySolution/My-FyiReporting.git']]]
-      sh 'nuget restore My-FyiReporting/MajorsilenceReporting.sln'
+   }
+   stage('Restore Packages') {
+         sh 'nuget restore My-FyiReporting/MajorsilenceReporting.sln'
       //sh 'nuget restore My-FyiReporting/MajorsilenceReporting-Linux-GtkViewer.sln'
+        sh 'nuget restore QSProjects/QSProjectsLib.sln'
+   	    sh 'nuget restore CarGlass/CarGlass.sln'        
    }
    stage('Build') {
-   	    sh 'nuget restore CarGlass/CarGlass.sln'
         sh 'rm -f CarGlass/WinInstall/CarGlass-*.exe'
         sh 'CarGlass/WinInstall/makeWinInstall.sh'
         recordIssues enabledForFailure: true, tool: msBuild()
