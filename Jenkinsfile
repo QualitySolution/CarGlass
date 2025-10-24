@@ -30,7 +30,6 @@ node {
    stage('Build') {
         sh 'rm -f CarGlass/WinInstall/CarGlass-*.exe'
         sh 'CarGlass/WinInstall/makeWinInstall.sh'
-        recordIssues enabledForFailure: true, tool: msBuild()
         archiveArtifacts artifacts: 'CarGlass/WinInstall/CarGlass-*.exe', onlyIfSuccessful: true
    }
    if (params.Publish) {
