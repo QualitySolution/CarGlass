@@ -1,7 +1,7 @@
 ﻿using System;
 using CarGlass.Domain;
 using Gtk;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using QSOrmProject;
 using QSProjectsLib;
 

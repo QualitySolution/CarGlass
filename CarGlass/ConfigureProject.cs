@@ -1,4 +1,4 @@
-﻿using System.Data.Common;
+using System.Data.Common;
 using Autofac;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
@@ -7,6 +7,7 @@ using CarGlass.Models.SMS;
 using CarGlass.Repository;
 using CarGlass.ViewModels.SMS;
 using CarGlass.Views.SMS;
+using NHibernate.Driver.MySqlConnector;
 using QS.BaseParameters;
 using QS.Deletion;
 using QS.Deletion.Views;
@@ -46,6 +47,8 @@ namespace CarGlass
 
 			// Настройка ORM
 			var db = FluentNHibernate.Cfg.Db.MySQLConfiguration.Standard
+				.Dialect<MySQL57ExtendedDialect>()
+				.Driver<MySqlConnectorDriver>()
 				.ConnectionString(QSMain.ConnectionString)
 				.ShowSql()
 				.FormatSql();

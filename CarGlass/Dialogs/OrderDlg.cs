@@ -9,7 +9,7 @@ using CarGlass.Repository;
 using CarGlass.ViewModels.SMS;
 using Gamma.GtkWidgets;
 using Gtk;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using QS.Dialog;
 using QS.DomainModel.UoW;
 using QS.Navigation;

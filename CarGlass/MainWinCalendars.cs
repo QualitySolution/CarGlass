@@ -8,7 +8,7 @@ using CarGlass.Calendar;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
 using Gtk;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using QS.DomainModel.UoW;
 using QSOrmProject;
 using QSProjectsLib;

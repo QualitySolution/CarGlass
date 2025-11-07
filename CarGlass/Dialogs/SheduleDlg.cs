@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Linq;
 using CarGlass.Domain;
 using Gtk;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using QS.DomainModel.UoW;
 using QS.Project.Repositories;
 using QSOrmProject;

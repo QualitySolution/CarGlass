@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 using QSProjectsLib;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace CarGlass
 {

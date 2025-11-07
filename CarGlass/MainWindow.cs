@@ -5,7 +5,7 @@ using CarGlass.Dialogs;
 using CarGlass.Journal.ViewModels.SMS;
 using CarGlass.ReportDialog;
 using Gtk;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using QS.Navigation;
 using QS.Project.Versioning;
 using QS.Project.Views;
