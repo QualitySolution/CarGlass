@@ -3,6 +3,7 @@ using System.Linq;
 using CarGlass.Domain;
 using QS.Dialog.Gtk;
 using QS.DomainModel.UoW;
+using QS.Validation;
 using QSOrmProject;
 
 namespace CarGlass.Dialogs
@@ -61,8 +62,8 @@ namespace CarGlass.Dialogs
 
 		public override bool Save()
 		{
-			var valid = new QS.Validation.QSValidator<StoreItem>(UoWGeneric.Root);
-			if (valid.RunDlgIfNotValid((Gtk.Window)this.Toplevel))
+			var valid = new ObjectValidator(new GtkValidationViewFactory());
+			if (valid.Validate(Entity))
 				return false;
 
 			logger.Info("Сохраняем складскую позицию...");

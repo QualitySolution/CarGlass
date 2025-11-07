@@ -56,17 +56,18 @@ namespace CarGlass.Models.SMS
 
 		public void SaveSentMessage(string text, string messageId, string status)
 		{
-			using(var uow = unitOfWorkFactory.CreateWithNewRoot<SentMessage>())
+			using(var uow = unitOfWorkFactory.CreateWithoutRoot())
 			{
-				var entity = uow.Root;
-				entity.WorkOrder = workOrder;
-				entity.Text = text;
-				entity.MessageId = messageId;
-				entity.Phone = CustomerPhone;
-				entity.SentTime = DateTime.Now;
-				entity.User = userService.GetCurrentUser(uow);
-				entity.LastStatus = status;
-				entity.LastStatusTime = DateTime.Now;
+				var entity = new SentMessage {
+					WorkOrder = workOrder,
+					Text = text,
+					MessageId = messageId,
+					Phone = CustomerPhone,
+					SentTime = DateTime.Now,
+					User = userService.GetCurrentUser(),
+					LastStatus = status,
+					LastStatusTime = DateTime.Now
+				};
 
 				uow.Save(entity);
 			}
