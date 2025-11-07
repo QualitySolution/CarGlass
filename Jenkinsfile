@@ -5,18 +5,9 @@ node {
          $class: 'GitSCM',
          branches: scm.branches,
          doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
-         extensions: scm.extensions + [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'CarGlass']],
+         extensions: scm.extensions + [submodule(disableSubmodules: false, recursiveSubmodules: true)],
          userRemoteConfigs: scm.userRemoteConfigs
       ])
-   }
-   stage('QSProjects') {
-      checkout([$class: 'GitSCM', branches: [[name: '*/release/1.6']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'QSProjects']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/QualitySolution/QSProjects.git']]])
-   }
-   stage('Gtk.DataBindings') {
-      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'Gtk.DataBindings']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/QualitySolution/Gtk.DataBindings.git']]]
-   }
-   stage('My-FyiReporting') {
-      checkout changelog: false, scm: [$class: 'GitSCM', branches: [[name: '*/release/1.5']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'My-FyiReporting']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/QualitySolution/My-FyiReporting.git']]]
    }
    stage('Restore Packages') {
          sh 'nuget restore My-FyiReporting/MajorsilenceReporting.sln'
@@ -25,13 +16,13 @@ node {
    	    sh 'nuget restore CarGlass/CarGlass.sln'        
    }
    stage('Build') {
-        sh 'rm -f CarGlass/WinInstall/CarGlass-*.exe'
-        sh 'CarGlass/WinInstall/makeWinInstall.sh'
-        archiveArtifacts artifacts: 'CarGlass/WinInstall/CarGlass-*.exe', onlyIfSuccessful: true
+        sh 'rm -f WinInstall/CarGlass-*.exe'
+        sh 'WinInstall/makeWinInstall.sh'
+        archiveArtifacts artifacts: 'WinInstall/CarGlass-*.exe', onlyIfSuccessful: true
    }
    if (params.Publish) {
       stage('Publish'){
-         sh 'scp CarGlass/WinInstall/CarGlass-*.exe a218160_qso@a218160.ftp.mchost.ru:subdomains/files/httpdocs/CarGlass/'
+         sh 'scp WinInstall/CarGlass-*.exe root@odysseus.srv.qsolution.ru:/var/www/files/CarGlass/'
       }
    }
 }
