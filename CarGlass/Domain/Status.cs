@@ -1,5 +1,4 @@
-﻿using System;
-using QS.DomainModel.Entity;
+﻿using QS.DomainModel.Entity;
 namespace CarGlass.Domain
 {
 	public class Status : PropertyChangedBase, IDomainObject

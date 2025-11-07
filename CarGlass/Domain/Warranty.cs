@@ -1,5 +1,4 @@
-﻿using System;
-namespace CarGlass.Domain
+﻿namespace CarGlass.Domain
 {
 	public enum Warranty
 	{

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using CarGlass.Domain;
 using Gtk;
@@ -11,7 +11,7 @@ using QSProjectsLib;
 namespace CarGlass.Dialogs
 {
 	[System.ComponentModel.ToolboxItem(true)]
-	public partial class SheduleDlg : FakeTDIEntityGtkDialogBase<SheduleWorks>
+	public partial class SheduleDlg : FakeTDIEntityGtkDialogBase<ScheduleWorks>
 	{
 		private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -27,7 +27,7 @@ namespace CarGlass.Dialogs
 		public SheduleDlg(ushort pointNumber, ushort calendarNumber, DateTime date)
 		{
 			this.Build();
-			UoWGeneric = UnitOfWorkFactory.CreateWithNewRoot<SheduleWorks>();
+			UoWGeneric = UnitOfWorkFactory.CreateWithNewRoot<ScheduleWorks>();
 			Entity.DateWork = date;
 			Entity.DateCreate = DateTime.Now;
 			Entity.PointNumber = pointNumber;
@@ -37,12 +37,12 @@ namespace CarGlass.Dialogs
 			ConfigureDlg();
 
 		}
-		public SheduleDlg(SheduleWorks shWork) : this(shWork.Id) { }
+		public SheduleDlg(ScheduleWorks shWork) : this(shWork.Id) { }
 
 		public SheduleDlg(int id)
 		{
 			this.Build();
-			UoWGeneric = UnitOfWorkFactory.CreateForRoot<SheduleWorks>(id);
+			UoWGeneric = UnitOfWorkFactory.CreateForRoot<ScheduleWorks>(id);
 			ConfigureDlg();
 			Fill();
 		}
@@ -174,7 +174,7 @@ namespace CarGlass.Dialogs
 		{
 			foreach(object[] row in EmployeeWorkList)
 			{
-				var empWork = Entity.SheduleEmployeeWorks.FirstOrDefault(x => x.Employee.Id == (int)row[0]);
+				var empWork = Entity.ScheduleEmployeeWorks.FirstOrDefault(x => x.Employee.Id == (int)row[0]);
 				var emp = UoW.GetById<Employee>((int)row[0]);
 
 				if((bool)row[1])
@@ -182,13 +182,13 @@ namespace CarGlass.Dialogs
 					if(empWork == null)
 					{
 						empWork = new SheduleEmployeeWork(Entity, emp);
-						Entity.SheduleEmployeeWorks.Add(empWork);
+						Entity.ScheduleEmployeeWorks.Add(empWork);
 					}
 
 				}
 				else if(empWork != null)
 				{
-					Entity.SheduleEmployeeWorks.Remove(empWork);
+					Entity.ScheduleEmployeeWorks.Remove(empWork);
 				}
 			}
 

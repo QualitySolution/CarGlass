@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace CarGlass.HibernateMapping
 {
-	public class SheduleWorksMap : ClassMap<SheduleWorks>
+	public class SheduleWorksMap : ClassMap<ScheduleWorks>
 	{
 		public SheduleWorksMap()
 		{
@@ -18,7 +18,7 @@ namespace CarGlass.HibernateMapping
 
 			References(x => x.CreatedBy).Column("id_creator").Not.Nullable();
 
-			HasMany(x => x.SheduleEmployeeWorks)
+			HasMany(x => x.ScheduleEmployeeWorks)
 			.Inverse()
 			.KeyColumn("id_shedule_works").Not.KeyNullable()
 			.Cascade.AllDeleteOrphan()

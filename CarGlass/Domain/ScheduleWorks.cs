@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Bindings.Collections.Generic;
 using QS.DomainModel.Entity;
+using QS.Extensions.Observable.Collections.List;
 using QS.Project.Domain;
 
 namespace CarGlass.Domain
 {
 	[Appellative(Nominative = "график работ", Prepositional = "графике работ")]
-	public class SheduleWorks : PropertyChangedBase, IDomainObject
+	public class ScheduleWorks : PropertyChangedBase, IDomainObject
 	{
 		#region Свойства
 		public virtual int Id { get; set; }
@@ -57,29 +56,15 @@ namespace CarGlass.Domain
 		#endregion
 
 		#region Коллекции
-		IList<SheduleEmployeeWork> sheduleEmployeeWorks = new List<SheduleEmployeeWork>();
+		private IObservableList<SheduleEmployeeWork> scheduleEmployeeWorks = new ObservableList<SheduleEmployeeWork>();
 		[Display(Name = "список сотрудников работающих в этот день")]
-		public virtual IList<SheduleEmployeeWork> SheduleEmployeeWorks
-		{
-			get => sheduleEmployeeWorks;
-			set => SetField(ref sheduleEmployeeWorks, value);
+		public virtual IObservableList<SheduleEmployeeWork> ScheduleEmployeeWorks {
+			get => scheduleEmployeeWorks;
+			set => SetField(ref scheduleEmployeeWorks, value);
 		}
-
-		GenericObservableList<SheduleEmployeeWork> observableSheduleEmployeeWork;
-		//FIXME Кослыль пока не разберемся как научить hibernate работать с обновляемыми списками.
-		public virtual GenericObservableList<SheduleEmployeeWork> ObservableSheduleEmployeeWork
-		{
-			get
-			{
-				if(observableSheduleEmployeeWork == null)
-					observableSheduleEmployeeWork = new GenericObservableList<SheduleEmployeeWork>(SheduleEmployeeWorks);
-				return observableSheduleEmployeeWork;
-			}
-		}
-
 		#endregion
 
-		public SheduleWorks()
+		public ScheduleWorks()
 		{
 		}
 	}

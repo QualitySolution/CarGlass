@@ -8,11 +8,11 @@ namespace CarGlass.Domain
 		#region Свойства
 		public virtual int Id { get; set; }
 
-		SheduleWorks sheduleWorks;
-		public virtual SheduleWorks SheduleWorks
+		ScheduleWorks scheduleWorks;
+		public virtual ScheduleWorks ScheduleWorks
 		{
-			get { return sheduleWorks; }
-			set { SetField(ref sheduleWorks, value, () => SheduleWorks); }
+			get { return scheduleWorks; }
+			set { SetField(ref scheduleWorks, value, () => ScheduleWorks); }
 		}
 
 		Employee employee;
@@ -28,9 +28,9 @@ namespace CarGlass.Domain
 		{ 
 		}
 
-		public SheduleEmployeeWork (SheduleWorks sheduleWorks, Employee employee)
+		public SheduleEmployeeWork (ScheduleWorks scheduleWorks, Employee employee)
 		{
-			this.sheduleWorks = sheduleWorks;
+			this.scheduleWorks = scheduleWorks;
 			this.employee = employee;
 		}
 	}

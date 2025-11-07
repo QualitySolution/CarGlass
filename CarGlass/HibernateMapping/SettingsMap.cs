@@ -1,5 +1,4 @@
-﻿using System;
-using CarGlass.Domain;
+﻿using CarGlass.Domain;
 using FluentNHibernate.Mapping;
 
 namespace CarGlass.HibernateMapping
@@ -11,8 +10,8 @@ namespace CarGlass.HibernateMapping
 			Table("settings");
 
 			Id(x => x.Id).Column("id").GeneratedBy.Native();
-			Map(x => x.Parametr).Column("parametr");
-			Map(x => x.ValueSettting).Column("value");
+			Map(x => x.Parameter).Column("parametr");
+			Map(x => x.ValueSetting).Column("value");
 			Map(x => x.Description).Column("description");
 			Map(x => x.DateEdit).Column("date_edit");
 		}

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Bindings.Collections.Generic;
 using QS.DomainModel.Entity;
 
 namespace CarGlass.Domain
@@ -10,12 +8,12 @@ namespace CarGlass.Domain
 	{
 		public virtual int Id { get; set; }
 
-		private string parametr;
+		private string parameter;
 		[Display(Name = "Название")]
-		public virtual string Parametr
+		public virtual string Parameter
 		{
-			get { return parametr; }
-			set { SetField(ref parametr, value); }
+			get { return parameter; }
+			set { SetField(ref parameter, value); }
 		}
 
 		private string description;
@@ -26,12 +24,12 @@ namespace CarGlass.Domain
 			set { SetField(ref description, value); }
 		}
 
-		private string valueSettting;
+		private string valueSetting;
 		[Display(Name = "Значение")]
-		public virtual string ValueSettting
+		public virtual string ValueSetting
 		{
-			get { return valueSettting; }
-			set { SetField(ref valueSettting, value); }
+			get { return valueSetting; }
+			set { SetField(ref valueSetting, value); }
 		}
 
 		private DateTime dateEdit;

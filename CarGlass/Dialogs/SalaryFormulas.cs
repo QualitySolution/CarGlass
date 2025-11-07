@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using CarGlass.Domain;
-using CarGlass.Representation;
 using Gamma.GtkWidgets;
 using Gtk;
 using QS.Dialog.Gtk;

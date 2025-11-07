@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
 using Gamma.GtkWidgets;
-using Gdk;
 using Gtk;
 using QS.Dialog.Gtk;
 using QS.DomainModel.UoW;
@@ -29,7 +28,7 @@ namespace CarGlass.Dialogs
 											.AddColumn("Фамилия").AddTextRenderer(x => x.Employee.LastName)
 											.AddColumn("Имя").AddTextRenderer(x => x.Employee.FirstName)
 											.AddColumn("Отчество").AddTextRenderer(x => x.Employee.Patronymic)
-											.AddColumn("Количество выполнненых услуг").AddNumericRenderer(x => x.ColService)
+											.AddColumn("Количество выполненных услуг").AddNumericRenderer(x => x.ColService)
 											.AddColumn("Итоговая сумма").AddNumericRenderer(x => x.AllSumma)
 											.Finish();
 

@@ -1,5 +1,4 @@
-﻿using System;
-using CarGlass.Domain;
+﻿using CarGlass.Domain;
 using FluentNHibernate.Mapping;
 namespace CarGlass.HibernateMapping
 {

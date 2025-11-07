@@ -54,7 +54,7 @@ namespace CarGlass.Models.SMS
 
 		#region Сохранение истории
 
-		public void SaveSentMesage(string text, string messageId, string status)
+		public void SaveSentMessage(string text, string messageId, string status)
 		{
 			using(var uow = unitOfWorkFactory.CreateWithNewRoot<SentMessage>())
 			{

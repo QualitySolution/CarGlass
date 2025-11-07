@@ -1,5 +1,4 @@
-﻿using System;
-using CarGlass.Domain.SMS;
+﻿using CarGlass.Domain.SMS;
 using FluentNHibernate.Mapping;
 
 namespace CarGlass.HibernateMapping.SMS

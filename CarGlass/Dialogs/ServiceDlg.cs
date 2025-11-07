@@ -1,12 +1,9 @@
-﻿using System;
+using System;
 using Gtk;
-using MySql.Data.MySqlClient;
-using QSProjectsLib;
 using NLog;
 using CarGlass.Domain;
 using QS.DomainModel.UoW;
 using System.Linq;
-
 
 namespace CarGlass
 {

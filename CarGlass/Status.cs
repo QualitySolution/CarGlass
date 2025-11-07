@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
-using Gamma.Utilities;
-using MySql.Data.MySqlClient;
 using NLog;
 using QS.DomainModel.UoW;
-using QSProjectsLib;
 
 namespace CarGlass
 {

@@ -166,7 +166,7 @@
     <Compile Include="gtk-gui\CarGlass.ServiceDlg.cs" />
     <Compile Include="Domain\Warranty.cs" />
     <Compile Include="Domain\Employee.cs" />
-    <Compile Include="Domain\SheduleWorks.cs" />
+    <Compile Include="Domain\ScheduleWorks.cs" />
     <Compile Include="HibernateMapping\EmployeeMap.cs" />
     <Compile Include="HibernateMapping\SheduleWorksMap.cs" />
     <Compile Include="Dialogs\SheduleDlg.cs" />

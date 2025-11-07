@@ -1,9 +1,6 @@
-﻿using System;
+using System;
 using Gtk;
-using MySql.Data.MySqlClient;
 using QSProjectsLib;
-using NLog;
-using CarGlass.Domain;
 using QS.DomainModel.UoW;
 using System.Linq;
 using Settings = CarGlass.Domain.Settings;
@@ -26,20 +23,20 @@ namespace CarGlass.Dialogs
 		{
 			this.Title = "Обновление календаря";
 			var settings = UoW.Session.QueryOver<Settings>().List();
-			isUpdate = settings.FirstOrDefault(x => x.Parametr == "updateCalendar");
+			isUpdate = settings.FirstOrDefault(x => x.Parameter == "updateCalendar");
 			if(isUpdate != null)
-				ycheckbutton.Active = bool.Parse(isUpdate.ValueSettting);
-			timer = settings.FirstOrDefault(x => x.Parametr == "timerCalendar");
+				ycheckbutton.Active = bool.Parse(isUpdate.ValueSetting);
+			timer = settings.FirstOrDefault(x => x.Parameter == "timerCalendar");
 			if(timer != null)
-				yspinbutton.Value = double.Parse(timer.ValueSettting);
+				yspinbutton.Value = double.Parse(timer.ValueSetting);
 		}
 
 		protected void OnButtonOkClicked(object sender, EventArgs e)
 		{
 			checkSettingsExist();
 
-			isUpdate.ValueSettting = ycheckbutton.Active.ToString();
-			timer.ValueSettting = ((int)yspinbutton.Value).ToString();
+			isUpdate.ValueSetting = ycheckbutton.Active.ToString();
+			timer.ValueSetting = ((int)yspinbutton.Value).ToString();
 			isUpdate.DateEdit = timer.DateEdit = DateTime.Now;
 
 			UoW.Save(isUpdate);
@@ -54,12 +51,12 @@ namespace CarGlass.Dialogs
 			if(isUpdate == null)
 			{
 				isUpdate = new Settings();
-				isUpdate.Parametr = "updateCalendar";
+				isUpdate.Parameter = "updateCalendar";
 			}
 			if(timer == null)
 			{
 				timer = new Settings();
-				timer.Parametr = "timerCalendar";
+				timer.Parameter = "timerCalendar";
 			}
 		}
 
