@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Autofac;
 using Gtk;
 using NLog;
 using QS.Dialog;
 using QS.ErrorReporting;
-using QS.Project.Versioning;
 using QSProjectsLib;
 
 namespace CarGlass
@@ -17,32 +17,31 @@ namespace CarGlass
 		[STAThread]
 		public static void Main(string[] args)
 		{
+			UnhandledExceptionHandler unhandledExceptionHandler = new UnhandledExceptionHandler();
 			try
 			{
 				WindowStartupFix.WindowsCheck();
 				Application.Init();
 				QSMain.GuiThread = System.Threading.Thread.CurrentThread;
-#if DEBUG
-				var errorSettings = new ErrorReportingSettings(false, true, false, null);
-#else
-				var errorSettings = new ErrorReportingSettings(true, false, true, 300);
-#endif
-				UnhandledExceptionHandler.SubscribeToUnhadledExceptions(errorSettings);
 				GtkGuiDispatcher.GuiThread = System.Threading.Thread.CurrentThread;
-				UnhandledExceptionHandler.ApplicationInfo = new ApplicationVersionInfo();
-				//Настройка обычных обработчиков ошибок.
-				UnhandledExceptionHandler.CustomErrorHandlers.Add(CommonErrorHandlers.MySqlException1055OnlyFullGroupBy);
-				UnhandledExceptionHandler.CustomErrorHandlers.Add(CommonErrorHandlers.MySqlException1366IncorrectStringValue);
-				UnhandledExceptionHandler.CustomErrorHandlers.Add(CommonErrorHandlers.NHibernateFlushAfterException);
-			}
-			catch(Exception falalEx)
-			{
-				if(WindowStartupFix.IsWindows)
-					WindowStartupFix.DisplayWindowsOkMessage(falalEx.ToString(), "Критическая ошибка");
-				else
-					Console.WriteLine(falalEx);
+				
+				var builder = new ContainerBuilder();
+				AutofacStartupConfig(builder);
+				StartupContainer = builder.Build();
+				unhandledExceptionHandler.UpdateDependencies(StartupContainer);
+				unhandledExceptionHandler.SubscribeToUnhandledExceptions();
 
-				logger.Fatal(falalEx);
+			} catch(MissingMethodException ex) when (ex.Message.Contains("System.String System.String.Format")) {
+				WindowStartupFix.DisplayWindowsOkMessage("Версия .Net Framework должна быть не ниже 4.6.1. Установите более новую платформу.", "Старая версия .Net");
+				return;
+			}
+			catch (Exception fallEx) {
+				if (WindowStartupFix.IsWindows)
+					WindowStartupFix.DisplayWindowsOkMessage(fallEx.ToString(), "Критическая ошибка");
+				else
+					Console.WriteLine(fallEx);
+
+				logger.Fatal(fallEx);
 				return;
 			}
 

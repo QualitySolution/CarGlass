@@ -1,4 +1,6 @@
+﻿using System;
 using System.Data.Common;
+using System.IO;
 using Autofac;
 using CarGlass.Dialogs;
 using CarGlass.Domain;
@@ -9,11 +11,16 @@ using CarGlass.ViewModels.SMS;
 using CarGlass.Views.SMS;
 using NHibernate.Driver.MySqlConnector;
 using QS.BaseParameters;
+using QS.Configuration;
 using QS.Deletion;
 using QS.Deletion.Views;
 using QS.Dialog;
 using QS.Dialog.GtkUI;
+using QS.Dialog.ViewModels;
+using QS.Dialog.Views;
 using QS.DomainModel.UoW;
+using QS.ErrorReporting;
+using QS.ErrorReporting.Handlers;
 using QS.Journal.GtkUI;
 using QS.Navigation;
 using QS.Permissions;
@@ -29,6 +36,7 @@ using QS.Project.ViewModels;
 using QS.Project.Views;
 using QS.Services;
 using QS.Updater;
+using QS.Updater.App;
 using QS.Updater.DB.Views;
 using QS.Validation;
 using QS.ViewModels;
@@ -66,6 +74,67 @@ namespace CarGlass
 		}
 
 		public static Autofac.IContainer AppDIContainer;
+		public static IContainer StartupContainer;
+		
+		static void AutofacStartupConfig(ContainerBuilder containerBuilder)
+		{
+			#region Настройка
+			containerBuilder.Register(c => new IniFileConfiguration(
+					Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CarGlass.ini")))
+				.As<IChangeableConfiguration>().AsSelf().SingleInstance();
+			#endregion
+			
+			#region GtkUI
+			containerBuilder.RegisterType<GtkMessageDialogsInteractive>().As<IInteractiveMessage>();
+			containerBuilder.RegisterType<GtkQuestionDialogsInteractive>().As<IInteractiveQuestion>();
+			containerBuilder.RegisterType<GtkInteractiveService>().As<IInteractiveService>();
+			containerBuilder.RegisterType<GtkGuiDispatcher>().As<IGuiDispatcher>();
+			containerBuilder.RegisterType<GtkRunOperationService>().As<IRunOperationService>();
+			#endregion GtkUI
+
+			#region View
+			containerBuilder.RegisterType<GtkViewFactory>().As<IGtkViewFactory>();
+			#endregion
+
+			#region Versioning
+			containerBuilder.RegisterType<ApplicationVersionInfo>().As<IApplicationInfo>();
+			#endregion
+
+			#region ErrorReporting
+			containerBuilder.RegisterType<DesktopErrorReporter>().As<IErrorReporter>();
+			containerBuilder.RegisterType<LogService>().As<ILogService>();
+			#if DEBUG
+			containerBuilder.Register(c => new ErrorReportingSettings(false, true, false, 300)).As<IErrorReportingSettings>();
+			#else
+			containerBuilder.Register(c => new  ErrorReportingSettings(true, false, true, 300)).As<IErrorReportingSettings>();
+			#endif
+
+			containerBuilder.RegisterType<MySqlExceptionErrorNumberLogger>().As<IErrorHandler>();
+			containerBuilder.RegisterType<MySqlException1055OnlyFullGroupBy>().As<IErrorHandler>();
+			containerBuilder.RegisterType<MySqlException1366IncorrectStringValue>().As<IErrorHandler>();
+			containerBuilder.RegisterType<MySqlExceptionAccessDenied>().As<IErrorHandler>();
+			containerBuilder.RegisterType<NHibernateFlushAfterException>().As<IErrorHandler>();
+			containerBuilder.RegisterType<NHibernateStaleObjectStateException>().As<IErrorHandler>();
+			containerBuilder.RegisterType<ConnectionIsLost>().As<IErrorHandler>();
+			#endregion
+			
+			#region Обновления и версии
+			containerBuilder.RegisterModule(new UpdaterDesktopAutofacModule());
+			containerBuilder.RegisterModule(new UpdaterAppAutofacModule());
+			containerBuilder.RegisterModule(new UpdaterDBAutofacModule());
+			containerBuilder.Register(c => MakeUpdateConfiguration()).AsSelf();
+			#endregion
+
+			#region Временные будут переопределены
+			containerBuilder.RegisterType<ProgressWindowViewModel>().AsSelf();
+			containerBuilder.RegisterType<GtkWindowsNavigationManager>().AsSelf().As<INavigationManager>().SingleInstance();
+			containerBuilder.Register((ctx) => new AutofacViewModelsGtkPageFactory(StartupContainer)).As<IViewModelsPageFactory>();
+			containerBuilder.Register(cc => new ClassNamesBaseGtkViewResolver(cc.Resolve<IGtkViewFactory>(),
+				typeof(UpdateProcessView),
+				typeof(ProgressWindowView)
+			)).As<IGtkViewResolver>();
+			#endregion
+		}
 
 		static void AutofacClassConfig()
 		{
@@ -96,7 +165,7 @@ namespace CarGlass
 			builder.RegisterType<DeleteEntityGUIService>().As<IDeleteEntityService>();
 			builder.Register(x => DeleteConfig.Main).AsSelf();
 			#endregion
-			//FIXME Нужно в конечнои итоге попытаться избавится от CommonServce вообще.
+			//FIXME Нужно в конечном итоге попытаться избавится от CommonService вообще.
 			builder.RegisterType<CommonServices>().As<ICommonServices>();
 			builder.RegisterType<UserService>().As<IUserService>();
 			builder.RegisterType<ObjectValidator>().As<IValidator>();

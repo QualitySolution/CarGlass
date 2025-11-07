@@ -242,6 +242,10 @@
       <Project>{5d124360-c8fb-4779-958b-0da5d6b90c29}</Project>
       <Name>QS.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QSProjects\QS.ErrorReporting\QS.ErrorReporting.csproj">
+      <Project>{7baff136-4379-4d1d-a554-7dc340caf7a2}</Project>
+      <Name>QS.ErrorReporting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QSProjects\QS.Extensions.Observable\QS.Extensions.Observable.csproj">
       <Project>{2a0710b2-b71b-4959-88da-0940100e172a}</Project>
       <Name>QS.Extensions.Observable</Name>
@@ -253,6 +257,14 @@
     <ProjectReference Include="..\QSProjects\QS.Project.Desktop\QS.Project.Desktop.csproj">
       <Project>{5ef2a7da-3886-4809-95df-880bd783a211}</Project>
       <Name>QS.Project.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QSProjects\QS.Updater.App\QS.Updater.App.csproj">
+      <Project>{45929a9f-7d94-4e85-9332-6cb7b2d5a03a}</Project>
+      <Name>QS.Updater.App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QSProjects\QS.Updater.DB.Gtk\QS.Updater.DB.Gtk.csproj">
+      <Project>{6d755374-6eaf-44b6-8c6c-6fe5e5ab3432}</Project>
+      <Name>QS.Updater.DB.Gtk</Name>
     </ProjectReference>
     <ProjectReference Include="..\QSProjects\QS.Updater.Desktop\QS.Updater.Desktop.csproj">
       <Project>{c776ee5a-1795-439b-bb7d-9ab1b20eeac4}</Project>
