@@ -17,9 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QSOrmProject", "..\QSProjec
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gamma", "Gamma", "{C0043192-8AFF-450A-A511-CE9A31E82B80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GammaUtil", "..\GammaBinding\GammaUtil\GammaUtil.csproj", "{1BF2A638-420D-456C-96A7-36873A0FB894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamma.Utilities", "..\QSProjects\Binding\Gamma.Utilities\Gamma.Utilities.csproj", "{1BF2A638-420D-456C-96A7-36873A0FB894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GammaBinding", "..\GammaBinding\GammaBinding\GammaBinding.csproj", "{190CEA0D-EA23-4C91-8030-203A5AFED7B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamma.Binding", "..\QSProjects\Binding\Gamma.Binding\Gamma.Binding.csproj", "{190CEA0D-EA23-4C91-8030-203A5AFED7B7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GtkBinding", "GtkBinding", "{4B51E833-05BA-4DF7-A12A-C2F11759CA0C}"
 EndProject
