@@ -238,9 +238,25 @@
       <Project>{a869ec36-67d2-4a36-95e9-0b1e7350928f}</Project>
       <Name>QS.BaseParameters</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QSProjects\QS.Configuration\QS.Configuration.csproj">
+      <Project>{5d124360-c8fb-4779-958b-0da5d6b90c29}</Project>
+      <Name>QS.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QSProjects\QS.Extensions.Observable\QS.Extensions.Observable.csproj">
+      <Project>{2a0710b2-b71b-4959-88da-0940100e172a}</Project>
+      <Name>QS.Extensions.Observable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QSProjects\QS.Project.Abstract\QS.Project.Abstract.csproj">
+      <Project>{e95be5dc-a197-4657-87dc-a2d677eadb76}</Project>
+      <Name>QS.Project.Abstract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QSProjects\QS.Project.Desktop\QS.Project.Desktop.csproj">
       <Project>{5ef2a7da-3886-4809-95df-880bd783a211}</Project>
       <Name>QS.Project.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QSProjects\QS.Updater.Desktop\QS.Updater.Desktop.csproj">
+      <Project>{c776ee5a-1795-439b-bb7d-9ab1b20eeac4}</Project>
+      <Name>QS.Updater.Desktop</Name>
     </ProjectReference>
     <ProjectReference Include="..\QSProjects\QSProjectsLib\QSProjectsLib.csproj">
       <Project>{A6C1914F-7732-49F5-BABA-8BBBA521FAAB}</Project>

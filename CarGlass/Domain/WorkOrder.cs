@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Bindings.Collections.Generic;
 using QS.DomainModel.Entity;
+using QS.Extensions.Observable.Collections.List;
 using QS.Project.Domain;
 
 namespace CarGlass.Domain
@@ -206,24 +205,12 @@ namespace CarGlass.Domain
 		#endregion
 
 		#region Коллекции
-
-		IList<WorkOrderPay> pays = new List<WorkOrderPay>();
-		[Display(Name = "не задано")]
-		public virtual IList<WorkOrderPay> Pays {
-		    get => pays;
+		private IObservableList<WorkOrderPay> pays = new ObservableList<WorkOrderPay>();
+		[Display(Name = "список услуг с типами заказа, которым они принадлежат")]
+		public virtual IObservableList<WorkOrderPay> Pays {
+			get => pays;
 			set => SetField(ref pays, value);
 		}
-
-		GenericObservableList<WorkOrderPay> observablepays;
-		//FIXME Кослыль пока не разберемся как научить hibernate работать с обновляемыми списками.
-		public virtual GenericObservableList<WorkOrderPay> Observablepays {
-		    get {
-		        if(observablepays == null)
-		            observablepays = new GenericObservableList<WorkOrderPay>(Pays);
-		        return observablepays;
-			}
-		}
-
 		#endregion
 
 		public WorkOrder()

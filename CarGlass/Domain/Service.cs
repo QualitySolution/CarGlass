@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Bindings.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using QS.DomainModel.Entity;
+using QS.Extensions.Observable.Collections.List;
 
 namespace CarGlass.Domain
 {
@@ -37,24 +35,11 @@ namespace CarGlass.Domain
 			set { SetField(ref ordinal, value); }
 		}
 
-		IList<ServiceOrderType> listServiceOrderType = new List<ServiceOrderType>();
+		private IObservableList<ServiceOrderType> serviceOrderTypes = new ObservableList<ServiceOrderType>();
 		[Display(Name = "список типов заказов, к которым относится услуга")]
-		public virtual IList<ServiceOrderType> ListServiceOrderType
-		{
-			get => listServiceOrderType;
-			set => SetField(ref listServiceOrderType, value);
-		}
-
-		GenericObservableList<ServiceOrderType> observableServiceOrderType;
-		//FIXME Кослыль пока не разберемся как научить hibernate работать с обновляемыми списками.
-		public virtual GenericObservableList<ServiceOrderType> ObservableServiceOrderType
-		{
-			get
-			{
-				if(observableServiceOrderType == null)
-					observableServiceOrderType = new GenericObservableList<ServiceOrderType>(ListServiceOrderType);
-				return observableServiceOrderType;
-			}
+		public virtual IObservableList<ServiceOrderType> ServiceOrderTypes {
+			get => serviceOrderTypes;
+			set => SetField(ref serviceOrderTypes, value);
 		}
 	}
 }

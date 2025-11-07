@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Bindings.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using QS.DomainModel.Entity;
+using QS.Extensions.Observable.Collections.List;
 
 namespace CarGlass.Domain
 {
@@ -37,24 +35,11 @@ namespace CarGlass.Domain
 			set { SetField(ref cost, value); }
 		}
 
-		IList<EmployeeServiceWork> employeeServiceWork = new List<EmployeeServiceWork>();
+		private IObservableList<EmployeeServiceWork> employeeServiceWork = new ObservableList<EmployeeServiceWork>();
 		[Display(Name = "исполняющие")]
-		public virtual IList<EmployeeServiceWork> EmployeeServiceWork
-		{
+		public virtual IObservableList<EmployeeServiceWork> EmployeeServiceWork {
 			get => employeeServiceWork;
 			set => SetField(ref employeeServiceWork, value);
-		}
-
-		GenericObservableList<EmployeeServiceWork> observableEmployeeServiceWork;
-		//FIXME Кослыль пока не разберемся как научить hibernate работать с обновляемыми списками.
-		public virtual GenericObservableList<EmployeeServiceWork> ObservableEmployeeServiceWork
-		{
-			get
-			{
-				if(observableEmployeeServiceWork == null)
-					observableEmployeeServiceWork = new GenericObservableList<EmployeeServiceWork>(EmployeeServiceWork);
-				return observableEmployeeServiceWork;
-			}
 		}
 
 		public WorkOrderPay()

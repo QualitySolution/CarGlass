@@ -1,6 +1,4 @@
-﻿using System;
-using CarGlass.Domain;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 
 namespace CarGlass.HibernateMapping
 {
@@ -14,7 +12,7 @@ namespace CarGlass.HibernateMapping
 			Map(x => x.Name).Column("name");
 			Map(x => x.Price).Column("price");
 			Map(x => x.Ordinal).Column("ordinal");
-			HasMany(x => x.ListServiceOrderType).Cascade.AllDeleteOrphan().Inverse().LazyLoad().KeyColumn("id_service");
+			HasMany(x => x.ServiceOrderTypes).Cascade.AllDeleteOrphan().Inverse().LazyLoad().KeyColumn("id_service");
 		}
 	}
 }

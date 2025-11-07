@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using CarGlass.Domain;
 using Gamma.GtkWidgets;
 using Gtk;
@@ -22,8 +22,8 @@ namespace CarGlass.Dialogs
 			using(IUnitOfWork uow = UnitOfWorkFactory.CreateWithoutRoot())
 			{
 				Domain.SalaryFormulas salaryFormulas = null;
-				var itemsQueryService = uow.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
-				.Where(x => x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
+				var itemsQueryService = uow.Session.QueryOver<Service>().Where(x => x.ServiceOrderTypes != null).List().Where(x => x.ServiceOrderTypes.Count > 0).ToList()
+				.Where(x => x.ServiceOrderTypes[0].OrderTypeClass.IsCalculateSalary).ToList();
 				var itemsQuerySalaryFormulas = uow.Session.QueryOver<Domain.SalaryFormulas>(() => salaryFormulas).List();
 
 				foreach(var serv in itemsQueryService)

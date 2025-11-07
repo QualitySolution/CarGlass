@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Bindings.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using QS.DomainModel.Entity;
+using QS.Extensions.Observable.Collections.List;
 
 namespace CarGlass.Domain
 {
@@ -59,7 +57,7 @@ namespace CarGlass.Domain
 		[Display(Name = "Показывать виджеты: производитель, склад, еврокод")]
 		public virtual bool IsShowAdditionalWidgets
 		{
-			get { return isShowAdditionalWidgets; }    
+			get { return isShowAdditionalWidgets; }
 			set { SetField(ref isShowAdditionalWidgets, value); } 
 		}
 
@@ -82,27 +80,12 @@ namespace CarGlass.Domain
 		}
 
 		#region Коллекции
-
-		IList<ServiceOrderType> listServiceOrderType = new List<ServiceOrderType>();
+		private IObservableList<ServiceOrderType> serviceOrderTypes = new ObservableList<ServiceOrderType>();
 		[Display(Name = "список услуг с типами заказа, которым они принадлежат")]
-		public virtual IList<ServiceOrderType> ListServiceOrderType
-		{
-			get => listServiceOrderType;
-			set => SetField(ref listServiceOrderType, value);
+		public virtual IObservableList<ServiceOrderType> ServiceOrderTypes {
+			get => serviceOrderTypes;
+			set => SetField(ref serviceOrderTypes, value);
 		}
-
-		GenericObservableList<ServiceOrderType> observableServiceOrderType;
-		//FIXME Костыль пока не разберемся как научить hibernate работать с обновляемыми списками.
-		public virtual GenericObservableList<ServiceOrderType> ObservableServiceOrderType
-		{
-			get
-			{
-				if(observableServiceOrderType == null)
-					observableServiceOrderType = new GenericObservableList<ServiceOrderType>(ListServiceOrderType);
-				return observableServiceOrderType;
-			}
-		}
-
 		#endregion
 	}
 }

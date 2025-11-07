@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using CarGlass.Domain;
@@ -76,8 +76,8 @@ namespace CarGlass.Dialogs
 				EmployeeServiceWork employeeServiceWork = null;
 				IList<EmployeeServiceWork> listEmployeeServiceWork;
 
-				var listServiceDontCalculate = uow.Session.QueryOver<Service>().Where(x => x.ListServiceOrderType != null).List().Where(x => x.ListServiceOrderType.Count > 0).ToList()
-				.Where(x => x.ListServiceOrderType[0].OrderTypeClass.IsCalculateSalary).ToList();
+				var listServiceDontCalculate = uow.Session.QueryOver<Service>().Where(x => x.ServiceOrderTypes != null).List().Where(x => x.ServiceOrderTypes.Count > 0).ToList()
+				.Where(x => x.ServiceOrderTypes[0].OrderTypeClass.IsCalculateSalary).ToList();
 				listEmployeeServiceWork = uow.Session.QueryOver<EmployeeServiceWork>(() => employeeServiceWork).Where(x => x.DateWork >= start && x.DateWork <= end).List();
 
 				if(listServiceDontCalculate != null)

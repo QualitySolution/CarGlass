@@ -108,8 +108,8 @@ namespace CarGlass.Dialogs
 				Service ser = UoW.Session.QueryOver<Service>().List().First(x => x.Id == ServiceSelect.SelectedID);
 				if(!listService.Contains(ser))
 					listService.Add(ser);
-				if(Entity.ListServiceOrderType.FirstOrDefault(x => x.Service == ser) == null)
-					Entity.ListServiceOrderType.Add(new ServiceOrderType(ser, this.Entity));
+				if(Entity.ServiceOrderTypes.FirstOrDefault(x => x.Service == ser) == null)
+					Entity.ServiceOrderTypes.Add(new ServiceOrderType(ser, this.Entity));
 			}
 			createTable();
 			ServiceSelect.Destroy();
@@ -120,9 +120,9 @@ namespace CarGlass.Dialogs
 		{
 			var ser = ytreeviewService.GetSelectedObject<Service>();
 			listService.Remove(ser);
-			var serOrderType = Entity.ListServiceOrderType.FirstOrDefault(x => x.Service == ser);
+			var serOrderType = Entity.ServiceOrderTypes.FirstOrDefault(x => x.Service == ser);
 			if(serOrderType != null)
-				Entity.ListServiceOrderType.Remove(serOrderType);
+				Entity.ServiceOrderTypes.Remove(serOrderType);
 			ytreeviewService.ItemsDataSource = listService;
 		}
 

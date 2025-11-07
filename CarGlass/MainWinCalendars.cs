@@ -332,12 +332,12 @@ public partial class MainWindow: FakeTDITabGtkWindowBase
 
 	private uint GetTimer()
 	{
-		var isUpdate = UoW.Session.QueryOver<CarGlass.Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "updateCalendar");
-		if(isUpdate?.ValueSettting == "True")
+		var isUpdate = UoW.Session.QueryOver<CarGlass.Domain.Settings>().List().FirstOrDefault(x => x.Parameter == "updateCalendar");
+		if(isUpdate?.ValueSetting == "True")
 		{
-			var setting = UoW.Session.QueryOver<CarGlass.Domain.Settings>().List().FirstOrDefault(x => x.Parametr == "timerCalendar");
-			if(isUpdate?.ValueSettting == "True")
-				return uint.Parse(setting.ValueSettting);
+			var setting = UoW.Session.QueryOver<CarGlass.Domain.Settings>().List().FirstOrDefault(x => x.Parameter == "timerCalendar");
+			if(isUpdate?.ValueSetting == "True")
+				return uint.Parse(setting.ValueSetting);
 		}
 		return 10;
 	}

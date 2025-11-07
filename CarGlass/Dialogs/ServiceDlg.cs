@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Gtk;
 using NLog;
 using CarGlass.Domain;
@@ -28,9 +28,9 @@ namespace CarGlass
 			logger.Info("Запрос услуги №{0}...", id);
             labelID.Text = service.Id.ToString();
             entryName.Text = service.Name;
-			if(service.ListServiceOrderType.Count > 0)
+			if(service.ServiceOrderTypes.Count > 0)
 			{
-				OrderTypeClass orderTypeClass = service.ListServiceOrderType.First().OrderTypeClass;
+				OrderTypeClass orderTypeClass = service.ServiceOrderTypes.First().OrderTypeClass;
 				comboboxOrderType.SelectedItem = orderTypeClass;
 			}
 			spinPrice.Value = double.Parse(service.Price.ToString()); 
@@ -50,16 +50,16 @@ namespace CarGlass
 		protected void OnButtonOkClicked (object sender, EventArgs e)
 		{
 			service.Name = entryName.Text;
-			if(service.ListServiceOrderType.Count < 1)
+			if(service.ServiceOrderTypes.Count < 1)
 			{
 				ServiceOrderType serOrderType = new ServiceOrderType(service, (OrderTypeClass)comboboxOrderType.SelectedItem);
-				service.ListServiceOrderType.Add(serOrderType);
+				service.ServiceOrderTypes.Add(serOrderType);
 
 			}
 			else
 			{
-				service.ListServiceOrderType[0].OrderTypeClass = (OrderTypeClass)comboboxOrderType.SelectedItem;
-				service.ListServiceOrderType[0].Service = service;
+				service.ServiceOrderTypes[0].OrderTypeClass = (OrderTypeClass)comboboxOrderType.SelectedItem;
+				service.ServiceOrderTypes[0].Service = service;
 			}
 			service.Price = decimal.Parse(spinPrice.Value.ToString());
 
