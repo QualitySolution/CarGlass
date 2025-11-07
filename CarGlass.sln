@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.Utilities", "..\QSProjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.MachineConfig", "..\QSProjects\QS.MachineConfig\QS.MachineConfig.csproj", "{769710D2-BF98-4120-9E07-67BD740CFA1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamma.Utilities.Gtk", "..\GammaBinding\Gamma.Utilities.Gtk\Gamma.Utilities.Gtk.csproj", "{5735D438-792E-40CE-BAFD-25814C8879BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamma.Utilities.Gtk", "..\QSProjects\Binding\Gamma.Utilities.Gtk\Gamma.Utilities.Gtk.csproj", "{5735D438-792E-40CE-BAFD-25814C8879BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QS.Project.Core", "..\QSProjects\QS.Project.Core\QS.Project.Core.csproj", "{C01AE5A4-3CFF-4C7B-884D-45B07ACDE761}"
 EndProject

@@ -107,6 +107,8 @@ namespace CarGlass.Journal.ViewModels.SMS
 		#region Жесткий хак для переходного периода при использовании старого диалога заказа, не надо для нормальной работы.
 		bool IWindowDialogSettings.IsModal => onlyOrderId > 0;
 		bool IWindowDialogSettings.EnableMinimizeMaximize => false;
+		public bool Resizable => true;
+		public bool Deletable => true;
 		WindowGravity IWindowDialogSettings.WindowPosition => WindowGravity.Center;
 		#endregion
 	}

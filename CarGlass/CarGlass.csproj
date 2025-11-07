@@ -286,7 +286,7 @@
       <Project>{0F2A9FD4-6FC1-4912-9C8A-72028305A37E}</Project>
       <Name>QS.Updater</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\GammaBinding\Gamma.Utilities.Gtk\Gamma.Utilities.Gtk.csproj">
+    <ProjectReference Include="..\..\QSProjects\Binding\Gamma.Utilities.Gtk\Gamma.Utilities.Gtk.csproj">
       <Project>{5735D438-792E-40CE-BAFD-25814C8879BC}</Project>
       <Name>Gamma.Utilities.Gtk</Name>
     </ProjectReference>
