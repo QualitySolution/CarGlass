@@ -1,0 +1,3 @@
+[submodule "QSProjects"]
+	path = QSProjects
+	url = https://github.com/QualitySolution/QSProjects
