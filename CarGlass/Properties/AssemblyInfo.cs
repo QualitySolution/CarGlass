@@ -19,7 +19,7 @@ using QS.Project.Versioning;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyLogoIcon("CarGlass.icons.logo.png")]
 [assembly: AssemblySupport("Телефон тех. поддержки +7(812)309-71-77")]
-[assembly: AssemblyAppWebsite("http://www.qsolution.ru/")]
+[assembly: AssemblyAppWebsite("https://www.qsolution.ru/")]
 
 [assembly: AssemblyAuthor("Ганьков Андрей <gav@qsolution.ru>")]
 [assembly: AssemblyAuthor("Солдаткина Алина 2020 <alina@qsolution.ru>")]
