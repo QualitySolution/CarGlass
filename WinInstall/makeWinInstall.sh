@@ -22,10 +22,10 @@ rm -v -f -R ./Files/*
 #Копируем RdlReader
 cp -v ${RdlReaderDir}/DataProviders.dll ./Files
 cp -v ${RdlReaderDir}/EncryptionProvider.dll ./Files
-cp -v ${RdlReaderDir}/itextsharp.dll ./Files
-cp -v ${RdlReaderDir}/netstandard.dll ./Files
+#cp -v ${RdlReaderDir}/itextsharp.dll ./Files
+#cp -v ${RdlReaderDir}/netstandard.dll ./Files
 cp -v ${RdlReaderDir}/Newtonsoft.Json.dll ./Files
-cp -v ${RdlReaderDir}/NPOI*.dll ./Files
+#cp -v ${RdlReaderDir}/NPOI*.dll ./Files
 cp -v ${RdlReaderDir}/RdlCri.dll ./Files
 cp -v ${RdlReaderDir}/RdlEngine.dll ./Files
 cp -v ${RdlReaderDir}/RdlEngineConfig.xml ./Files
