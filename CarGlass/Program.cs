@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using Gtk;
 using NLog;
+using QS.Configuration;
 using QS.Dialog;
 using QS.ErrorReporting;
 using QSProjectsLib;
@@ -52,15 +53,22 @@ namespace CarGlass
 			}
 			catch(MissingMethodException ex) when(ex.Message.Contains("System.String System.String.Format"))
 			{
-				WindowStartupFix.DisplayWindowsOkMessage("Версия .Net Framework должна быть не ниже 4.6.1. Установите боллее новую платформу.", "Старая версия .Net");
+				WindowStartupFix.DisplayWindowsOkMessage("Версия .Net Framework должна быть не ниже 4.6.1. Установите более новую платформу.", "Старая версия .Net");
 			}
 
+			ILifetimeScope scopeLoginTime = StartupContainer.BeginLifetimeScope();
+			var configuration = scopeLoginTime.Resolve<IChangeableConfiguration>();
 			// Создаем окно входа
-			Login LoginDialog = new QSProjectsLib.Login ();
+			Login LoginDialog = new Login (configuration);
 			LoginDialog.Logo = Gdk.Pixbuf.LoadFromResource ("CarGlass.icons.logo.png");
-			LoginDialog.SetDefaultNames ("CarGlass");
-			LoginDialog.DefaultLogin = "";
-			LoginDialog.DefaultServer = "stekloff.qsolution.ru";
+			Login.MakeDefaultConnections = () => new Connection[] {
+				new Connection(
+					ConnectionType.MySQL,
+					"Рабочая",
+					"CarGlass",
+					"stekloff.qsolution.ru"
+				),
+			};
 			LoginDialog.UpdateFromGConf ();
 
 			ResponseType LoginResult;
