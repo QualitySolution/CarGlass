@@ -1,3 +1,6 @@
 [submodule "QSProjects"]
 	path = QSProjects
 	url = https://github.com/QualitySolution/QSProjects
+[submodule "My-FyiReporting"]
+	path = My-FyiReporting
+	url = https://github.com/QualitySolution/My-FyiReporting
