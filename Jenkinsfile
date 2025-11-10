@@ -11,9 +11,8 @@ node {
    }
    stage('Restore Packages') {
          sh 'nuget restore My-FyiReporting/MajorsilenceReporting.sln'
-      //sh 'nuget restore My-FyiReporting/MajorsilenceReporting-Linux-GtkViewer.sln'
         sh 'nuget restore QSProjects/QSProjectsLib.sln'
-   	    sh 'nuget restore CarGlass/CarGlass.sln'        
+   	    sh 'nuget restore CarGlass.sln'        
    }
    stage('Build') {
         sh 'rm -f WinInstall/CarGlass-*.exe'
