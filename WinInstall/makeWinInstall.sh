@@ -5,10 +5,10 @@ cd "$(dirname "$0")"
 
 ProjectName="CarGlass"
 BinDir=../$ProjectName/bin/ReleaseWin
-RdlReaderDir=../../My-FyiReporting/RdlViewer/RdlReader/bin/x86/Release
+RdlReaderDir=../My-FyiReporting/RdlViewer/RdlReader/bin/x86/Release
 
 #Сборка MajorsilenceReporting
-msbuild /p:Configuration=Release /p:Platform=x86 ../../My-FyiReporting/MajorsilenceReporting.sln /target:RdlReader
+msbuild /p:Configuration=Release /p:Platform=x86 ../My-FyiReporting/MajorsilenceReporting.sln /target:RdlReader
 
 # Сборка релиза
 msbuild /p:Configuration=ReleaseWin /p:Platform=x86 ../CarGlass.sln
