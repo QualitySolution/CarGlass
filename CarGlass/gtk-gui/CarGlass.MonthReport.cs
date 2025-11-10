@@ -5,26 +5,28 @@ namespace CarGlass
 	public partial class MonthReport
 	{
 		private global::QSWidgetLib.SelectPeriod selectperiod1;
+
 		private global::Gtk.Button buttonCancel;
+
 		private global::Gtk.Button buttonOk;
 
-		protected virtual void Build ()
+		protected virtual void Build()
 		{
-			global::Stetic.Gui.Initialize (this);
+			global::Stetic.Gui.Initialize(this);
 			// Widget CarGlass.MonthReport
 			this.Name = "CarGlass.MonthReport";
-			this.Title = global::Mono.Unix.Catalog.GetString ("Печать отчета за месяц");
+			this.Title = global::Mono.Unix.Catalog.GetString("Печать отчета за месяц");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Internal child CarGlass.MonthReport.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.selectperiod1 = new global::QSWidgetLib.SelectPeriod ();
+			this.selectperiod1 = new global::QSWidgetLib.SelectPeriod();
 			this.selectperiod1.Events = ((global::Gdk.EventMask)(256));
 			this.selectperiod1.Name = "selectperiod1";
-			this.selectperiod1.DateBegin = new global::System.DateTime (0);
-			this.selectperiod1.DateEnd = new global::System.DateTime (0);
+			this.selectperiod1.DateBegin = new global::System.DateTime(0);
+			this.selectperiod1.DateEnd = new global::System.DateTime(0);
 			this.selectperiod1.AutoDateSeparation = true;
 			this.selectperiod1.ShowToday = true;
 			this.selectperiod1.ShowWeek = true;
@@ -37,8 +39,10 @@ namespace CarGlass
 			this.selectperiod1.ShowCurMonth = true;
 			this.selectperiod1.ShowCurQuarter = true;
 			this.selectperiod1.ShowCurYear = true;
-			w1.Add (this.selectperiod1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(w1 [this.selectperiod1]));
+			this.selectperiod1.ShowCustomPeriod = false;
+			this.selectperiod1.WithTime = false;
+			w1.Add(this.selectperiod1);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(w1[this.selectperiod1]));
 			w2.Position = 0;
 			// Internal child CarGlass.MonthReport.ActionArea
 			global::Gtk.HButtonBox w3 = this.ActionArea;
@@ -47,19 +51,19 @@ namespace CarGlass
 			w3.BorderWidth = ((uint)(5));
 			w3.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.buttonCancel = new global::Gtk.Button ();
+			this.buttonCancel = new global::Gtk.Button();
 			this.buttonCancel.CanDefault = true;
 			this.buttonCancel.CanFocus = true;
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.UseStock = true;
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
-			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.buttonCancel]));
+			this.AddActionWidget(this.buttonCancel, -6);
+			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3[this.buttonCancel]));
 			w4.Expand = false;
 			w4.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.buttonOk = new global::Gtk.Button ();
+			this.buttonOk = new global::Gtk.Button();
 			this.buttonOk.Sensitive = false;
 			this.buttonOk.CanDefault = true;
 			this.buttonOk.CanFocus = true;
@@ -67,19 +71,20 @@ namespace CarGlass
 			this.buttonOk.UseStock = true;
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
-			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.buttonOk]));
+			this.AddActionWidget(this.buttonOk, -5);
+			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3[this.buttonOk]));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;
-			if ((this.Child != null)) {
-				this.Child.ShowAll ();
+			if ((this.Child != null))
+			{
+				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 343;
 			this.DefaultHeight = 193;
-			this.Show ();
-			this.selectperiod1.DatesChanged += new global::System.EventHandler (this.OnSelectperiod1DatesChanged);
-			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
+			this.Show();
+			this.selectperiod1.DatesChanged += new global::System.EventHandler(this.OnSelectperiod1DatesChanged);
+			this.buttonOk.Clicked += new global::System.EventHandler(this.OnButtonOkClicked);
 		}
 	}
 }

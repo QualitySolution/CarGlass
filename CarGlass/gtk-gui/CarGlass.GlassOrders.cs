@@ -106,6 +106,7 @@ namespace CarGlass
 			this.selectperiod1.ShowCurMonth = true;
 			this.selectperiod1.ShowCurQuarter = false;
 			this.selectperiod1.ShowCurYear = true;
+			this.selectperiod1.ShowCustomPeriod = false;
 			this.selectperiod1.WithTime = false;
 			this.hbox1.Add(this.selectperiod1);
 			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.selectperiod1]));
