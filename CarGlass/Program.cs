@@ -47,14 +47,6 @@ namespace CarGlass
 			}
 
 			CreateProjectParam();
-			try
-			{
-				AutofacClassConfig();
-			}
-			catch(MissingMethodException ex) when(ex.Message.Contains("System.String System.String.Format"))
-			{
-				WindowStartupFix.DisplayWindowsOkMessage("Версия .Net Framework должна быть не ниже 4.6.1. Установите более новую платформу.", "Старая версия .Net");
-			}
 
 			ILifetimeScope scopeLoginTime = StartupContainer.BeginLifetimeScope();
 			var configuration = scopeLoginTime.Resolve<IChangeableConfiguration>();

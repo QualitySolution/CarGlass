@@ -21,6 +21,7 @@ using QS.Dialog.Views;
 using QS.DomainModel.UoW;
 using QS.ErrorReporting;
 using QS.ErrorReporting.Handlers;
+using QS.Extensions.Observable.Collections.List;
 using QS.Journal.GtkUI;
 using QS.Navigation;
 using QS.Permissions;
@@ -28,6 +29,7 @@ using QS.Project.DB;
 using QS.Project.Dialogs.GtkUI.ServiceDlg;
 using QS.Project.Domain;
 using QS.Project.Journal;
+using QS.Project.Search;
 using QS.Project.Search.GtkUI;
 using QS.Project.Services;
 using QS.Project.Services.GtkUI;
@@ -61,6 +63,7 @@ namespace CarGlass
 				.ShowSql()
 				.FormatSql();
 
+			OrmConfig.Conventions = new[] { new ObservableListConvention() };
 			OrmConfig.ConfigureOrm(db, new System.Reflection.Assembly[] {
 				System.Reflection.Assembly.GetAssembly (typeof(MainClass)),
 				System.Reflection.Assembly.GetAssembly (typeof(UserBase)),
@@ -73,7 +76,7 @@ namespace CarGlass
 			JournalsColumnsConfigs.RegisterColumns();
 		}
 
-		public static Autofac.IContainer AppDIContainer;
+		public static ILifetimeScope AppDIContainer;
 		public static IContainer StartupContainer;
 		
 		static void AutofacStartupConfig(ContainerBuilder containerBuilder)
@@ -136,29 +139,34 @@ namespace CarGlass
 			#endregion
 		}
 
-		static void AutofacClassConfig()
+		public static void AutofacClassConfig(ContainerBuilder builder)
 		{
-			var builder = new ContainerBuilder();
-
 			#region База
 			builder.RegisterType<DefaultUnitOfWorkFactory>().As<IUnitOfWorkFactory>();
 			builder.RegisterType<DefaultSessionProvider>().As<ISessionProvider>();
 			builder.Register(c => new MySqlConnectionFactory(QS.Project.DB.Connection.ConnectionString)).As<IConnectionFactory>();
 			builder.Register<DbConnection>(c => c.Resolve<IConnectionFactory>().OpenConnection()).AsSelf().InstancePerLifetimeScope();
-			builder.RegisterType<ParametersService>().AsSelf();
+			builder.RegisterType<ParametersService>().UsingConstructor(typeof(Func<DbConnection>)).AsSelf().SingleInstance();
 			builder.Register(c => QSProjectsLib.QSMain.ConnectionStringBuilder).AsSelf();
 			builder.RegisterType<NhDataBaseInfo>().As<IDataBaseInfo>();
 			builder.RegisterType<MySQLProvider>().As<IMySQLProvider>();
 			#endregion
+			
+			#region Пользователь
+			using (var uow = UnitOfWorkFactory.CreateWithoutRoot()) {
+				var user = uow.GetById<UserBase>(QSMain.User.Id);
+				if(user != null) {
+					builder.Register(c => user).As<IUserInfo>();
+					builder.Register(c => new UserService(user)).As<IUserService>();
+					//FIXME Временно для старых диалогов
+					ServicesConfig.UserService = new UserService(user);
+				}
+			}
+			#endregion
 
 			#region Сервисы
 			#region GtkUI
-			builder.RegisterType<GtkMessageDialogsInteractive>().As<IInteractiveMessage>();
-			builder.RegisterType<GtkQuestionDialogsInteractive>().As<IInteractiveQuestion>();
-			builder.RegisterType<GtkInteractiveService>().As<IInteractiveService>();
 			builder.RegisterType<GtkValidationViewFactory>().As<IValidationViewFactory>();
-			builder.RegisterType<GtkGuiDispatcher>().As<IGuiDispatcher>();
-			builder.RegisterType<GtkRunOperationService>().As<IRunOperationService>();
 			#endregion GtkUI
 			#region Удаление
 			builder.RegisterModule(new DeletionAutofacModule());
@@ -167,7 +175,6 @@ namespace CarGlass
 			#endregion
 			//FIXME Нужно в конечном итоге попытаться избавится от CommonService вообще.
 			builder.RegisterType<CommonServices>().As<ICommonServices>();
-			builder.RegisterType<UserService>().As<IUserService>();
 			builder.RegisterType<ObjectValidator>().As<IValidator>();
 			//FIXME Реализовать везде возможность отсутствия сервиса прав, чтобы не приходилось создавать то что не используется
 			builder.RegisterType<DefaultAllowedPermissionService>().As<IPermissionService>();
@@ -177,11 +184,17 @@ namespace CarGlass
 			#region Навигация
 			builder.Register(ctx => new ClassNamesHashGenerator(null)).As<IPageHashGenerator>();
 			//builder.Register(ctx => new ClassNamesHashGenerator(new[] { new RDLReportsHashGenerator() })).As<IPageHashGenerator>();
-			builder.Register((ctx) => new AutofacViewModelsGtkPageFactory(AppDIContainer)).As<IViewModelsPageFactory>();
 			//builder.Register((ctx) => new AutofacTdiPageFactory(AppDIContainer)).As<ITdiPageFactory>();
-			builder.Register((ctx) => new AutofacViewModelsGtkPageFactory(AppDIContainer)).AsSelf();
-			builder.RegisterType<GtkWindowsNavigationManager>().AsSelf().As<INavigationManager>().SingleInstance();
-			builder.Register(cc => CreateGtkResolver()).As<IGtkViewResolver>();
+			builder.Register(cc => new ClassNamesBaseGtkViewResolver(cc.Resolve<IGtkViewFactory>(), 
+				typeof(SendMessageView),
+				typeof(DeletionView),
+				typeof(UpdateProcessView)
+			)).As<IGtkViewResolver>();
+			builder.RegisterDecorator<IGtkViewResolver>((c, p, i) => 
+				new RegisteredGtkViewResolver(c.Resolve<IGtkViewFactory>(), i)
+					.RegisterView<JournalViewModelBase, JournalView>()
+					.RegisterView<SearchViewModel, OneEntrySearchView>());
+			builder.RegisterType<GtkApplicationQuitService>().As<IApplicationQuitService>();
 			#endregion
 
 			#region Главное окно
@@ -225,12 +238,6 @@ namespace CarGlass
 				.AsSelf();
 			#endregion
 
-			#region Обновления и версии
-			builder.RegisterType<ApplicationVersionInfo>().As<IApplicationInfo>();
-			builder.RegisterModule(new UpdaterAutofacModule());
-			builder.Register(c => MainClass.MakeUpdateConfiguration()).AsSelf();
-			#endregion
-
 			#region Облако
 			//builder.Register(c => new CloudClientService(QSSaaS.Session.SessionId)).AsSelf().SingleInstance();
 			#endregion
@@ -243,21 +250,6 @@ namespace CarGlass
 			builder.RegisterType<OrderMessagesModel>().AsSelf();
 			builder.RegisterType<ProstorSmsService>().AsSelf();
 			#endregion
-
-			AppDIContainer = builder.Build();
-		}
-
-		private static IGtkViewResolver CreateGtkResolver()
-		{
-			var namedResolver = new ClassNamesBaseGtkViewResolver(
-				//typeof(RdlViewerView),
-				typeof(SendMessageView),
-				typeof(DeletionView),
-				typeof(UpdateProcessView));
-
-			var resolver = new RegisteredGtkViewResolver(namedResolver);
-			resolver.RegisterView<JournalViewModelBase, JournalView>();
-			return resolver;
 		}
 	}
 }

@@ -93,6 +93,8 @@ public partial class MainWindow
 
 	private global::Gtk.Label label9;
 
+	private global::Gamma.GtkWidgets.yProgressBar GlobalProgress;
+
 	private global::Gtk.Statusbar statusbar1;
 
 	private global::Gtk.Label labelUser;
@@ -332,6 +334,14 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.hbox6]));
 		w10.Position = 1;
 		// Container child vbox1.Gtk.Box+BoxChild
+		this.GlobalProgress = new global::Gamma.GtkWidgets.yProgressBar();
+		this.GlobalProgress.Name = "GlobalProgress";
+		this.vbox1.Add(this.GlobalProgress);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.GlobalProgress]));
+		w11.Position = 2;
+		w11.Expand = false;
+		w11.Fill = false;
+		// Container child vbox1.Gtk.Box+BoxChild
 		this.statusbar1 = new global::Gtk.Statusbar();
 		this.statusbar1.Name = "statusbar1";
 		this.statusbar1.Spacing = 6;
@@ -340,24 +350,24 @@ public partial class MainWindow
 		this.labelUser.Name = "labelUser";
 		this.labelUser.LabelProp = global::Mono.Unix.Catalog.GetString("label5");
 		this.statusbar1.Add(this.labelUser);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelUser]));
-		w11.Position = 0;
-		w11.Expand = false;
-		w11.Fill = false;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelUser]));
+		w12.Position = 0;
+		w12.Expand = false;
+		w12.Fill = false;
 		// Container child statusbar1.Gtk.Box+BoxChild
 		this.labelStatus = new global::Gtk.Label();
 		this.labelStatus.Name = "labelStatus";
 		this.labelStatus.LabelProp = global::Mono.Unix.Catalog.GetString("label4");
 		this.statusbar1.Add(this.labelStatus);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelStatus]));
-		w12.Position = 2;
-		w12.Expand = false;
-		w12.Fill = false;
-		this.vbox1.Add(this.statusbar1);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.statusbar1[this.labelStatus]));
 		w13.Position = 2;
 		w13.Expand = false;
 		w13.Fill = false;
+		this.vbox1.Add(this.statusbar1);
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
+		w14.Position = 3;
+		w14.Expand = false;
+		w14.Fill = false;
 		this.Add(this.vbox1);
 		if ((this.Child != null))
 		{
@@ -366,6 +376,7 @@ public partial class MainWindow
 		this.DefaultWidth = 1155;
 		this.DefaultHeight = 469;
 		this.salarycalculation1.Hide();
+		this.GlobalProgress.Hide();
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.dialogAuthenticationAction.Activated += new global::System.EventHandler(this.OnDialogAuthenticationActionActivated);

@@ -6,39 +6,79 @@ using CarGlass.Journal.ViewModels.SMS;
 using CarGlass.ReportDialog;
 using Gtk;
 using MySqlConnector;
+using QS.Dialog;
 using QS.Navigation;
+using QS.Project.Services;
 using QS.Project.Versioning;
 using QS.Project.Views;
 using QS.Services;
 using QS.Updater;
+using QS.Utilities.Debug;
 using QSOrmProject;
 using QSProjectsLib;
 
 public partial class MainWindow : FakeTDITabGtkWindowBase
 {
 	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-	private ILifetimeScope AutofacScope = MainClass.AppDIContainer.BeginLifetimeScope();
+	private ILifetimeScope AutofacScope;
+	public readonly IApplicationQuitService quitService;
+	public readonly IInteractiveService interactive;
 	public GtkWindowsNavigationManager NavigationManager;
 
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
+		var progress = new PerformanceHelper( "Формирование главного окна", logger);
 		Build();
 		Maximize();
-
 		//Передаем лебл
 		QSMain.StatusBarLabel = labelStatus;
+		
+		progress.CheckPoint("Конфигурация классов приложения");
+		MainClass.AppDIContainer = MainClass.StartupContainer.BeginLifetimeScope(c => MainClass.AutofacClassConfig(c));
+		
+		progress.CheckPoint("Настройка главного окна");
+		AutofacScope = MainClass.AppDIContainer.BeginLifetimeScope();
 		this.Title = AutofacScope.Resolve<IApplicationInfo>().ProductTitle;
+		interactive = AutofacScope.Resolve<IInteractiveService>();
+		quitService = AutofacScope.Resolve<IApplicationQuitService>();
 		QSMain.MakeNewStatusTargetForNlog();
 		Reference.RunReferenceItemDlg += OnRunReferenceItemDialog;
 
+		progress.CheckPoint("Проверка кодировки SQL сервера");
 		QSMain.CheckServer(this); // Проверяем настройки сервера
 
 		NavigationManager = AutofacScope.Resolve<GtkWindowsNavigationManager>();
 
-		var checker = new VersionCheckerService(MainClass.AppDIContainer);
-		checker.RunUpdate();
+		progress.StartGroup("Проверка обновлений");
+		using(var updateScope = AutofacScope.BeginLifetimeScope()) {
+			progress.CheckPoint("Создание сервиса проверки обновлений");
+			var checker = updateScope.Resolve<VersionCheckerService>();
+			progress.CheckPoint("Запуск проверки обновлений");
+			UpdateInfo? updateInfo = checker.RunUpdate();
+			progress.EndGroup();
+			if(updateInfo?.Status == UpdateStatus.AppUpdateIsRunning) {
+				quitService.Quit();
+				return;
+			}
+			
+			if (updateInfo?.Status == UpdateStatus.ConnectionError) {
+				logger.Warn(updateInfo.Value.Message);
+			}
 
-		//Пока такая реализация чтобы не плодить сущьностей.
+			if(updateInfo?.Status == UpdateStatus.BaseError) {
+				interactive.ShowMessage(updateInfo.Value.ImportanceLevel, updateInfo.Value.Message, updateInfo.Value.Title);
+				quitService.Quit();
+				return;
+			}
+			
+			if (updateInfo?.Status == UpdateStatus.ExternalError) {
+				interactive.ShowMessage(updateInfo.Value.ImportanceLevel, updateInfo.Value.Message, updateInfo.Value.Title);
+				quitService.Quit();
+				return;
+			}
+		}
+
+		//Пока такая реализация чтобы не плодить сущностей.
 		var connectionBuilder = AutofacScope.Resolve<MySqlConnectionStringBuilder>();
 		if(connectionBuilder.UserID == "root")
 		{
@@ -56,17 +96,20 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 			return;
 		}
 
+		progress.CheckPoint("Установка настроек пользователя");
 		var userService = AutofacScope.Resolve<IUserService>();
-		var user = userService.GetCurrentUser(UoW);
+		var user = userService.GetCurrentUser();
 
 		UsersAction.Sensitive = user.IsAdmin;
 		salarycalculation1.Visible = user.IsAdmin;
 		labelUser.LabelProp = user.Name;
 
-		//Настраиваем календарь
+		progress.CheckPoint("Настройка календаря");
 		PrerareCalendars();
 
 		notebookMain.CurrentPage = 0;
+		progress.PrintAllPoints(logger);
+		logger.Info($"Запуск за {progress.TotalTime.TotalSeconds} сек.");
 	}
 
 	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -295,8 +338,8 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 	{
 		using(var scope = MainClass.AppDIContainer.BeginLifetimeScope())
 		{
-			var updater = scope.Resolve<ApplicationUpdater>();
-			updater.StartCheckUpdate(UpdaterFlags.ShowAnyway, scope);
+			var updater = scope.Resolve<IAppUpdater>();
+			updater.CheckUpdate(manualRun: true);
 		}
 	}
 
