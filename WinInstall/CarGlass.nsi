@@ -182,6 +182,12 @@ Section "${PRODUCT_NAME}" SecProgram
   CreateShortCut "$SMPROGRAMS\${MENU_DIR_NAME}\Удаление.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   CreateShortCut "$SMPROGRAMS\${MENU_DIR_NAME}\${SHORTCUT_NAME}.lnk" "$INSTDIR\${EXE_NAME}.exe" "" "$INSTDIR\${EXE_NAME}.exe" 0
   
+  ;Удаляем файлы не используемые после 1.8.3
+  Delete $INSTDIR\Nini.dll
+  Delete $INSTDIR\MySql.Data.dll
+  Delete $INSTDIR\MySql.Data.xml
+  Delete $INSTDIR\System.Data.Bindings.dll
+  
 SectionEnd
 
 Section "MS .NET Framework ${NET_VERSION}" SecFramework
