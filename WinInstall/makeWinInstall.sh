@@ -32,6 +32,8 @@ cp -v ${RdlReaderDir}/RdlEngineConfig.xml ./Files
 cp -v ${RdlReaderDir}/RdlReader.exe ./Files
 cp -v ${RdlReaderDir}/RdlViewer.dll ./Files
 cp -v ${RdlReaderDir}/System.Data.SqlClient.dll ./Files
+cp -v ${RdlReaderDir}/System.Data.Odbc.dll ./Files
+cp -v ${RdlReaderDir}/System.Data.OleDb.dll ./Files
 cp -r -v ${RdlReaderDir}/ru-RU ./Files
 
 # Очистка бин от лишний файлов
