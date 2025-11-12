@@ -692,7 +692,7 @@ Iif({warranty_pasting} = "None", "", Iif({warranty_pasting} = "NoWarranty", "Ð‘Ð
   <DataSources>
     <DataSource Name="DS1">
       <ConnectionProperties>
-        <DataProvider>MySQL.NET</DataProvider>
+        <DataProvider>MySqlConnector</DataProvider>
         <ConnectString>server=192.168.1.10;user=andrey;database=CarGlass;port=3306;password=123;</ConnectString>
         <IntegratedSecurity>false</IntegratedSecurity>
       </ConnectionProperties>

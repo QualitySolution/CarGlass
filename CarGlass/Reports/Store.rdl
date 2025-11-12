@@ -9,7 +9,7 @@
   <DataSources>
     <DataSource Name="DS1">
       <ConnectionProperties>
-        <DataProvider>MySQL.NET</DataProvider>
+        <DataProvider>MySqlConnector</DataProvider>
         <ConnectString>server=192.168.1.10;user=andrey;database=CarGlass;port=3306;password=123;</ConnectString>
       </ConnectionProperties>
     </DataSource>
