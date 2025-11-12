@@ -187,6 +187,7 @@ Section "${PRODUCT_NAME}" SecProgram
   Delete $INSTDIR\MySql.Data.dll
   Delete $INSTDIR\MySql.Data.xml
   Delete $INSTDIR\System.Data.Bindings.dll
+  Delete $INSTDIR\System.Data.Bindings.xml
   
 SectionEnd
 
