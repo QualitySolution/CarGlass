@@ -20,20 +20,27 @@ mkdir -p Files
 rm -v -f -R ./Files/*
 
 #Копируем RdlReader
+cp -v ${RdlReaderDir}/BouncyCastle.Crypto.dll ./Files
 cp -v ${RdlReaderDir}/DataProviders.dll ./Files
 cp -v ${RdlReaderDir}/EncryptionProvider.dll ./Files
-cp -v ${RdlReaderDir}/itextsharp.dll ./Files
-cp -v ${RdlReaderDir}/Newtonsoft.Json.dll ./Files
+cp -v ${RdlReaderDir}/ICSharpCode.SharpZipLib.dll ./Files
+cp -v ${RdlReaderDir}/Microsoft.CodeAnalysis.VisualBasic.dll ./Files
+cp -v ${RdlReaderDir}/Microsoft.CodeAnalysis.dll ./Files
 cp -v ${RdlReaderDir}/NPOI*.dll ./Files
+cp -v ${RdlReaderDir}/Newtonsoft.Json.dll ./Files
 cp -v ${RdlReaderDir}/RdlCri.dll ./Files
 cp -v ${RdlReaderDir}/RdlEngine.dll ./Files
 cp -v ${RdlReaderDir}/RdlEngineConfig.xml ./Files
 cp -v ${RdlReaderDir}/RdlReader.exe ./Files
 cp -v ${RdlReaderDir}/RdlReader.exe.config ./Files
 cp -v ${RdlReaderDir}/RdlViewer.dll ./Files
-cp -v ${RdlReaderDir}/System.Data.SqlClient.dll ./Files
+cp -v ${RdlReaderDir}/System.Collections.Immutable.dll ./Files
 cp -v ${RdlReaderDir}/System.Data.Odbc.dll ./Files
 cp -v ${RdlReaderDir}/System.Data.OleDb.dll ./Files
+cp -v ${RdlReaderDir}/System.Data.SqlClient.dll ./Files
+cp -v ${RdlReaderDir}/System.Drawing.Common.dll ./Files
+cp -v ${RdlReaderDir}/System.Reflection*.dll ./Files
+cp -v ${RdlReaderDir}/itextsharp.dll ./Files
 cp -r -v ${RdlReaderDir}/ru-RU ./Files
 
 # Очистка бин от лишний файлов
