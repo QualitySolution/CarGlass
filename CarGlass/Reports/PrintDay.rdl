@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
-  <Description>
-  </Description>
-  <Author>
-  </Author>
+  <Description></Description>
+  <Author></Author>
   <PageHeight>11in</PageHeight>
   <PageWidth>8.5in</PageWidth>
   <DataSources>
@@ -133,18 +131,18 @@
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <Body>
-    <Height>77.8pt</Height>
+    <Height>62.5pt</Height>
     <ReportItems>
       <List Name="List1">
         <DataSetName>Data</DataSetName>
-        <Height>54.87pt</Height>
+        <Height>51.87pt</Height>
         <NoRows>Query returned no rows!</NoRows>
         <ReportItems>
           <Textbox Name="calhour">
-            <Top>16.80pt</Top>
-            <Left>4.60pt</Left>
+            <Top>16.00pt</Top>
+            <Left>3.00pt</Left>
             <Width>73.02pt</Width>
-            <Height>21.82pt</Height>
+            <Height>18.82pt</Height>
             <Value>=Fields!calhour.Value</Value>
             <CanGrow>false</CanGrow>
             <Style>
@@ -162,7 +160,7 @@
             <Top>2.40pt</Top>
             <Left>3.20pt</Left>
             <Width>75.27pt</Width>
-            <Height>17.32pt</Height>
+            <Height>11.32pt</Height>
             <Value>=Fields!id.Value</Value>
             <CanGrow>false</CanGrow>
             <Style>
@@ -176,10 +174,10 @@
             </Style>
           </Textbox>
           <Textbox Name="status">
-            <Top>36.00pt</Top>
+            <Top>37.60pt</Top>
             <Left>0.80pt</Left>
             <Width>79.02pt</Width>
-            <Height>15.82pt</Height>
+            <Height>12.07pt</Height>
             <Value>=Fields!status.Value</Value>
             <CanGrow>true</CanGrow>
             <Style>
@@ -188,14 +186,14 @@
               <BorderColor />
               <BorderWidth />
               <TextAlign>Center</TextAlign>
-              <FontSize >9pt</FontSize>
+              <FontSize>9pt</FontSize>
             </Style>
           </Textbox>
           <Textbox Name="mark">
             <Top>4.00pt</Top>
-            <Left>166.50pt</Left>
+            <Left>158.50pt</Left>
             <Width>207.05pt</Width>
-            <Height>21.79pt</Height>
+            <Height>13.54pt</Height>
             <Value>=Fields!mark.Value + " " + Fields!model.Value+"(" + Fields!car_year.Value +")"</Value>
             <CanGrow>true</CanGrow>
             <Style>
@@ -210,14 +208,14 @@
             </Visibility>
           </Textbox>
           <Textbox Name="phone">
-            <Top>3.6pt</Top>
-            <Left>464.9pt</Left>
+            <Top>3.60pt</Top>
+            <Left>465pt</Left>
             <Width>113.63pt</Width>
-            <Height>16.57pt</Height>
+            <Height>13pt</Height>
             <Value>=Fields!phone.Value</Value>
             <CanGrow>true</CanGrow>
             <Style>
-              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingLeft>0pt</PaddingLeft>
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
@@ -226,13 +224,13 @@
           </Textbox>
           <Textbox Name="eurocode">
             <Top>33.70pt</Top>
-            <Left>465.20pt</Left>
-            <Width>115.77pt</Width>
-            <Height>17.32pt</Height>
+            <Left>465.00pt</Left>
+            <Width>118.77pt</Width>
+            <Height>13.00pt</Height>
             <Value>=Fields!eurocode.Value</Value>
             <CanGrow>true</CanGrow>
             <Style>
-              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingLeft>0pt</PaddingLeft>
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
@@ -241,8 +239,8 @@
           </Textbox>
           <Textbox Name="glass">
             <Top>19.50pt</Top>
-            <Left>131.60pt</Left>
-            <Width>273.18pt</Width>
+            <Left>130.00pt</Left>
+            <Width>240.93pt</Width>
             <Height>15.07pt</Height>
             <Value>=Fields!glass.Value</Value>
             <CanGrow>true</CanGrow>
@@ -262,27 +260,16 @@
                 <Default>Solid</Default>
               </BorderStyle>
             </Style>
-            <Left>80.00pt</Left>
-            <Top>3.30pt</Top>
-          </Line>
-          <Line Name="Line3">
-            <Height>-0.13pt</Height>
-            <Width>-568.42pt</Width>
-            <Style>
-              <BorderStyle>
-                <Default>Solid</Default>
-              </BorderStyle>
-            </Style>
-            <Left>576.2pt</Left>
-            <Top>52.3pt</Top>
+            <Left>80.0pt</Left>
+            <Top>1.7pt</Top>
           </Line>
           <Textbox Name="Textbox2">
             <Height>14.25pt</Height>
-            <Width>90.28pt</Width>
+            <Width>82.78pt</Width>
             <Value>Автомобиль:</Value>
             <ZIndex>1</ZIndex>
-            <Left>82.5pt</Left>
-            <Top>3.0pt</Top>
+            <Left>82.50pt</Left>
+            <Top>3.00pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -295,12 +282,12 @@
             </Visibility>
           </Textbox>
           <Textbox Name="Textbox3">
-            <Height>15.75pt</Height>
-            <Width>71.52pt</Width>
+            <Height>14.25pt</Height>
+            <Width>106.00pt</Width>
             <Value>Телефон:</Value>
             <ZIndex>1</ZIndex>
-            <Left>396.8pt</Left>
-            <Top>3.1pt</Top>
+            <Left>360.00pt</Left>
+            <Top>3.10pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -314,12 +301,12 @@
             </Visibility>
           </Textbox>
           <Textbox Name="Textbox4">
-            <Height>15.75pt</Height>
+            <Height>14.25pt</Height>
             <Width>85.80pt</Width>
             <Value>Стекла:</Value>
             <ZIndex>1</ZIndex>
-            <Left>83.2pt</Left>
-            <Top>19.2pt</Top>
+            <Left>83.20pt</Left>
+            <Top>18.30pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -328,18 +315,17 @@
               <FontSize>11pt</FontSize>
             </Style>
             <Visibility>
-              <ToggleItem>
-              </ToggleItem>
+              <ToggleItem></ToggleItem>
               <Hidden>=Fields!mark.IsMissing</Hidden>
             </Visibility>
           </Textbox>
           <Textbox Name="Textbox5">
-            <Height>17.25pt</Height>
-            <Width>97.80pt</Width>
+            <Height>15.75pt</Height>
+            <Width>85.80pt</Width>
             <Value>Комментарий:</Value>
-            <ZIndex>1</ZIndex>
-            <Left>83.40pt</Left>
-            <Top>34.80pt</Top>
+            <ZIndex>0</ZIndex>
+            <Left>83.4pt</Left>
+            <Top>33.9pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -353,10 +339,10 @@
           </Textbox>
           <Textbox Name="Textbox6">
             <Height>13.50pt</Height>
-            <Width>65.52pt</Width>
+            <Width>106pt</Width>
             <Value>Еврокод:</Value>
             <ZIndex>1</ZIndex>
-            <Left>402.6pt</Left>
+            <Left>360pt</Left>
             <Top>33.6pt</Top>
             <Style>
               <BorderStyle />
@@ -371,12 +357,12 @@
             </Visibility>
           </Textbox>
           <Textbox Name="Textbox7">
-            <Height>16.53pt</Height>
-            <Width>240.07pt</Width>
+            <Height>13.53pt</Height>
+            <Width>246.82pt</Width>
             <Value>=Fields!comment.Value</Value>
-            <ZIndex>1</ZIndex>
-            <Left>171.10pt</Left>
-            <Top>35.50pt</Top>
+            <ZIndex>0</ZIndex>
+            <Left>163.10pt</Left>
+            <Top>34.70pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -386,11 +372,11 @@
             <CanGrow>true</CanGrow>
           </Textbox>
           <Textbox Name="Textbox9">
-            <Height>14.25pt</Height>
+            <Height>13.00pt</Height>
             <Width>113.52pt</Width>
             <Value>=Fields!manufacturer.Value</Value>
             <ZIndex>1</ZIndex>
-            <Left>467.10pt</Left>
+            <Left>465.00pt</Left>
             <Top>18.60pt</Top>
             <Style>
               <BorderStyle />
@@ -401,10 +387,10 @@
           </Textbox>
           <Textbox Name="Textbox8" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
             <Height>13.50pt</Height>
-            <Width>106.02pt</Width>
+            <Width>106pt</Width>
             <Value>Производитель:</Value>
             <ZIndex>1</ZIndex>
-            <Left>362.3pt</Left>
+            <Left>360pt</Left>
             <Top>18.4pt</Top>
             <Style>
               <BorderStyle />
@@ -435,14 +421,13 @@
             <Bottom>1pt</Bottom>
           </BorderWidth>
           <PaddingTop>0pt</PaddingTop>
-          <BackgroundColor>
-          </BackgroundColor>
-          <BackgroundGradientEndColor>
-          </BackgroundGradientEndColor>
-          <PaddingRight>10pt</PaddingRight>
+          <BackgroundColor></BackgroundColor>
+          <BackgroundGradientEndColor></BackgroundGradientEndColor>
+          <PaddingRight>0pt</PaddingRight>
         </Style>
       </List>
     </ReportItems>
+    <Columns>1</Columns>
   </Body>
   <PageFooter>
     <Height>0.0pt</Height>
@@ -454,28 +439,25 @@
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>tinting</Value>
-          <Value>repair</Value>
+          <Value>1,2,3,4,5,6,7</Value>
         </Values>
       </DefaultValue>
       <Nullable>false</Nullable>
       <AllowBlank>false</AllowBlank>
       <MultiValue>true</MultiValue>
-      <Prompt>
-      </Prompt>
+      <Prompt></Prompt>
     </ReportParameter>
     <ReportParameter Name="date">
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>2014-03-13</Value>
+          <Value>2025-11-15</Value>
         </Values>
       </DefaultValue>
       <Nullable>false</Nullable>
       <AllowBlank>false</AllowBlank>
       <MultiValue>false</MultiValue>
-      <Prompt>
-      </Prompt>
+      <Prompt></Prompt>
     </ReportParameter>
   </ReportParameters>
 </Report>
