@@ -183,8 +183,6 @@ namespace CarGlass
 
 			#region Навигация
 			builder.Register(ctx => new ClassNamesHashGenerator(null)).As<IPageHashGenerator>();
-			//builder.Register(ctx => new ClassNamesHashGenerator(new[] { new RDLReportsHashGenerator() })).As<IPageHashGenerator>();
-			//builder.Register((ctx) => new AutofacTdiPageFactory(AppDIContainer)).As<ITdiPageFactory>();
 			builder.Register(cc => new ClassNamesBaseGtkViewResolver(cc.Resolve<IGtkViewFactory>(), 
 				typeof(SendMessageView),
 				typeof(DeletionView),

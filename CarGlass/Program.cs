@@ -61,6 +61,9 @@ namespace CarGlass
 					"stekloff.qsolution.ru"
 				),
 			};
+			Login.ConfigureConnectionStringBuilder = (builder) => {
+				builder.Keepalive = 30;
+			};
 			LoginDialog.UpdateFromGConf ();
 
 			ResponseType LoginResult;
