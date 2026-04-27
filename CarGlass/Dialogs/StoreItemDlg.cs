@@ -63,7 +63,7 @@ namespace CarGlass.Dialogs
 		public override bool Save()
 		{
 			var valid = new ObjectValidator(new GtkValidationViewFactory());
-			if (valid.Validate(Entity))
+			if (!valid.Validate(Entity))
 				return false;
 
 			logger.Info("Сохраняем складскую позицию...");
