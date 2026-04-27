@@ -112,13 +112,14 @@ namespace CarGlass
 			containerBuilder.Register(c => new  ErrorReportingSettings(true, false, true, 300)).As<IErrorReportingSettings>();
 			#endif
 
-			containerBuilder.RegisterType<MySqlExceptionErrorNumberLogger>().As<IErrorHandler>();
+			containerBuilder.RegisterType<ConnectionIsLost>().As<IErrorHandler>();
 			containerBuilder.RegisterType<MySqlException1055OnlyFullGroupBy>().As<IErrorHandler>();
 			containerBuilder.RegisterType<MySqlException1366IncorrectStringValue>().As<IErrorHandler>();
 			containerBuilder.RegisterType<MySqlExceptionAccessDenied>().As<IErrorHandler>();
+			containerBuilder.RegisterType<MySqlExceptionErrorNumberLogger>().As<IErrorHandler>();
+			containerBuilder.RegisterType<MySqlExceptionNoSpace>().As<IErrorHandler>();
 			containerBuilder.RegisterType<NHibernateFlushAfterException>().As<IErrorHandler>();
 			containerBuilder.RegisterType<NHibernateStaleObjectStateException>().As<IErrorHandler>();
-			containerBuilder.RegisterType<ConnectionIsLost>().As<IErrorHandler>();
 			#endregion
 			
 			#region Обновления и версии
