@@ -339,7 +339,8 @@ public partial class MainWindow : FakeTDITabGtkWindowBase
 		using(var scope = MainClass.AppDIContainer.BeginLifetimeScope())
 		{
 			var updater = scope.Resolve<IAppUpdater>();
-			updater.CheckUpdate(manualRun: true);
+			updater.CheckUpdate();
+			updater.RunUpdate();
 		}
 	}
 
