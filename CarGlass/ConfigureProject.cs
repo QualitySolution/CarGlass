@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.Common;
 using System.IO;
 using Autofac;
@@ -39,6 +39,7 @@ using QS.Project.Views;
 using QS.Services;
 using QS.Updater;
 using QS.Updater.App;
+using QS.Updater.App.Views;
 using QS.Updater.DB.Views;
 using QS.Validation;
 using QS.ViewModels;
@@ -93,6 +94,7 @@ namespace CarGlass
 			containerBuilder.RegisterType<GtkInteractiveService>().As<IInteractiveService>();
 			containerBuilder.RegisterType<GtkGuiDispatcher>().As<IGuiDispatcher>();
 			containerBuilder.RegisterType<GtkRunOperationService>().As<IRunOperationService>();
+			containerBuilder.RegisterType<ModalProgressCreator>().AsSelf();
 			#endregion GtkUI
 
 			#region View
@@ -187,6 +189,7 @@ namespace CarGlass
 			builder.Register(cc => new ClassNamesBaseGtkViewResolver(cc.Resolve<IGtkViewFactory>(), 
 				typeof(SendMessageView),
 				typeof(DeletionView),
+				typeof(NewVersionView),
 				typeof(UpdateProcessView)
 			)).As<IGtkViewResolver>();
 			builder.RegisterDecorator<IGtkViewResolver>((c, p, i) => 
@@ -194,6 +197,11 @@ namespace CarGlass
 					.RegisterView<JournalViewModelBase, JournalView>()
 					.RegisterView<SearchViewModel, OneEntrySearchView>());
 			builder.RegisterType<GtkApplicationQuitService>().As<IApplicationQuitService>();
+			builder.Register(c => new AutofacViewModelsGtkPageFactory(c.Resolve<ILifetimeScope>())).As<IViewModelsPageFactory>();
+			// Переопределяем NavigationManager в дочернем контейнере, чтобы singleton создавался
+			// здесь и забирал зависимости (IViewModelsPageFactory) из AppDIContainer,
+			// а не из StartupContainer где нет ParametersService.
+			builder.RegisterType<GtkWindowsNavigationManager>().AsSelf().As<INavigationManager>().SingleInstance();
 			#endregion
 
 			#region Главное окно
